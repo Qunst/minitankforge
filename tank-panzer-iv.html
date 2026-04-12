@@ -102,25 +102,27 @@
       Finish
      </label>
      <div class="option-group">
-      <span class="badge">
+      <button aria-pressed="false" class="chip" data-finish-chip="Base coat" type="button">
        Base coat
-      </span>
-      <span class="badge">
+      </button>
+      <button aria-pressed="false" class="chip" data-finish-chip="Unpainted" type="button">
        Unpainted
-      </span>
+      </button>
      </div>
      <div class="page-actions">
-      <a class="btn btn-etsy" data-etsy-base="https://www.etsy.com/shop/Quali3DPrints" href="https://www.etsy.com/shop/Quali3DPrints" rel="noopener" target="_blank">
-       Buy on Etsy
+      <a class="btn btn-etsy" href="https://www.etsy.com/shop/Quali3DPrints" rel="noopener" target="_blank">
+       Buy Panzer IV on Etsy
       </a>
       <a class="btn" href="tanks.html">
        Back to Tanks
       </a>
      </div>
-     <p class="helper">
-      Selected scale:
-      <strong data-current-scale="">
-      </strong>
+     <div class="callout" style="margin-top:16px">
+      <strong>Selected on this page</strong><br/>
+      Scale: <span data-current-scale=""></span><br/>
+      Finish: <span data-current-finish=""></span>
+     </div>
+     <p class="helper" data-selection-summary>
      </p>
     </div>
    </section>
@@ -136,6 +138,14 @@
        </strong>
        <br/>
        <span data-current-scale="">
+       </span>
+      </li>
+      <li>
+       <strong>
+        Finish
+       </strong>
+       <br/>
+       <span data-current-finish="">
        </span>
       </li>
       <li>
@@ -189,7 +199,7 @@
       No set contents are implied on this page. This is a single tank page.
      </div>
      <p class="muted">
-      Finish options are shown here, while final purchase and variation confirmation happen on Etsy.
+      This page remembers your preferred scale and finish. Etsy does not reliably preselect those variations from an external link, so choose the same options again on Etsy before checkout.
      </p>
      <div class="notice">
       Single tank listings are single tanks unless the page clearly states otherwise.
