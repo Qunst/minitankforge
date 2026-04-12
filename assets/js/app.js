@@ -1,4 +1,4 @@
-const DEFAULT_SCALE = '1:180';
+const DEFAULT_SCALE = '1:285';
 const validScales = ['1:180','1:200','1:285'];
 
 function getSelectedScale() {
