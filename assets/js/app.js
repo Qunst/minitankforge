@@ -117,7 +117,9 @@ function renderTankVisual(tank, large = false) {
 function buildTankCard(tank) {
   return `
     <article class="card product-card">
-      ${renderTankVisual(tank)}
+      <a href="tank.html?slug=${tank.slug}" data-scale-link="tank.html?slug=${tank.slug}" class="product-image-link">
+        ${renderTankVisual(tank)}
+      </a>
       <div>
         <h3>${tank.name}</h3>
         <div class="product-meta">
@@ -391,3 +393,34 @@ function setSelectedFinish(finish, updateUrl = true) {
     window.history.replaceState({}, '', url);
   }
 }
+
+function initScaleComparison() {
+  const container = document.getElementById('scale-selector');
+  const img = document.getElementById('scale-image');
+
+  if (!container || !img || !window.MTF_SCALES) return;
+
+  const selectedScale = getSelectedScale();
+
+  container.innerHTML = window.MTF_SCALES.map(scale => `
+    <button class="chip ${scale === selectedScale ? 'active' : ''}" data-scale-chip="${scale}">
+      ${scale}
+    </button>
+  `).join('');
+
+  function updateImage(scale) {
+    img.src = `assets/img/scales/${scale.replace(':','-')}.jpg`;
+  }
+
+  updateImage(selectedScale);
+
+  container.querySelectorAll('[data-scale-chip]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const scale = btn.dataset.scaleChip;
+      setSelectedScale(scale);
+      updateImage(scale);
+    });
+  });
+}
+
+initScaleComparison();

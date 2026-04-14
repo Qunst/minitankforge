@@ -868,3 +868,63 @@ textarea {
   font-size: 0.92rem;
   color: #6a6258;
 }
+
+.product-image-link {
+  display: block;
+  text-decoration: none;
+}
+
+.product-image-link:hover img {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+.product-image-link img {
+  transition: transform 0.2s ease;
+}
+
+.scale-selector {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.scale-visual {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.scale-visual img {
+  max-width: 900px;
+  width: 100%;
+  border-radius: 6px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.scale-home-card {
+  padding: 12px;
+}
+
+.scale-home-visual {
+  width: 100%;
+}
+
+.scale-home-visual img {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.scale-visual {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.scale-visual img {
+  width: 100%;
+  max-width: 700px;   /* THIS controls size */
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}

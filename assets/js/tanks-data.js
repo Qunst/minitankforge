@@ -4,7 +4,7 @@ window.MTF_FINISHES = ['Base coat', 'Unpainted'];
 
 window.MTF_SCALE_PRICES = {
   '1:160': 4.0,
-  '1:280': 4.0,
+  '1:180': 4.0,
   '1:250': 3.0,
   '1:285': 3.0
 };

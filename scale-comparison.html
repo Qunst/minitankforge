@@ -1,7 +1,80 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Scale Comparison — MiniTankForge</title><link href="assets/css/styles.css?v=3" rel="stylesheet"/>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width,initial-scale=1" name="viewport" />
+  <title>Scale Comparison — MiniTankForge</title>
+  <link href="assets/css/styles.css?v=3" rel="stylesheet" />
   <script defer src="assets/js/tanks-data.js"></script>
-  <script defer src="assets/js/app.js"></script></head><body>
-<header class="topbar"><div class="container topbar-inner"><a class="brand" href="index.html">MINITANKFORGE</a><nav class="nav"><a href="tanks.html">Browse Tanks</a><a href="sets.html">Browse Sets</a><a href="scale-comparison.html">Scale Comparison</a><a href="tank-requests.html">Tank Requests</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav><a class="btn btn-etsy" href="https://www.etsy.com/shop/Quali3DPrints" rel="noopener" target="_blank">Visit Etsy Shop</a></div></header>
-<main class="container"><section class="hero-small"><div class="eyebrow">Size clarity</div><h1 class="page-title">Scale Comparison</h1><p class="lead">Compare the scales offered across the shop: 1:180, 1:200, 1:250, and 1:285.</p></section><section><div class="scale-toolbar"><strong>Current scale:</strong><div class="scale-choices" data-render-scale-choices></div><span class="helper">Selected: <strong data-current-scale></strong></span></div></section><section><table class="table"><thead><tr><th>Scale</th><th>Use</th><th>How it feels</th></tr></thead><tbody><tr><td>1:180</td><td>Larger table presence</td><td>Best when you want the model to read clearly at a glance.</td></tr><tr><td>1:200</td><td>Balanced general use</td><td>A strong middle ground for detail and compact play.</td></tr><tr><td>1:250</td><td>Compact battlefield layouts</td><td>Useful when you want more vehicles on the table without jumping as small as 1:285.</td></tr><tr><td>1:285</td><td>Dense layouts and smaller footprints</td><td>The most compact option for tight boards and large formations.</td></tr></tbody></table></section></main>
-<footer><div class="container footer-grid"><div><div class="brand">MINITANKFORGE</div><p>Use this page to understand relative scale before clicking through to Etsy.</p></div></div></footer></body></html>
+  <script defer src="assets/js/app.js"></script>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner"><a class="brand" href="index.html">MINITANKFORGE</a>
+      <nav class="nav"><a href="tanks.html">Browse Tanks</a><a href="sets.html">Browse Sets</a><a
+          href="scale-comparison.html">Scale Comparison</a><a href="tank-requests.html">Tank Requests</a><a
+          href="faq.html">FAQ</a><a href="about.html">About</a></nav><a class="btn btn-etsy"
+        href="https://www.etsy.com/shop/Quali3DPrints" rel="noopener" target="_blank">Visit Etsy Shop</a>
+    </div>
+  </header>
+  <main>
+  <section class="container">
+  <h1>Scale Comparison</h1>
+  <p class="muted">See how each scale compares in real size.</p>
+
+  <div class="scale-selector">
+    <div class="option-group" id="scale-selector"></div>
+  </div>
+
+  <div class="scale-visual">
+    <img id="scale-image" src="assets/img/scales/1-180.jpg" alt="Scale comparison">
+  </div>
+<section>
+  <div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Scale</th>
+          <th>Use</th>
+          <th>How it feels</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1:160</td>
+          <td>Largest presence</td>
+          <td>Best for display and maximum detail visibility.</td>
+        </tr>
+        <tr>
+          <td>1:180</td>
+          <td>Large tabletop play</td>
+          <td>Clear detail while still fitting standard boards.</td>
+        </tr>
+        <tr>
+          <td>1:250</td>
+          <td>Balanced gameplay</td>
+          <td>Good compromise between detail and density.</td>
+        </tr>
+        <tr>
+          <td>1:285</td>
+          <td>Compact layouts</td>
+          <td>Best for large battles and tighter space.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+  </main>
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div class="brand">MINITANKFORGE</div>
+        <p>Use this page to understand relative scale before clicking through to Etsy.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
