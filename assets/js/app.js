@@ -211,6 +211,11 @@ function renderTankDetail() {
         <div class="option-group">
           ${validFinishes.map(f => `<button class="chip ${f === selectedFinish ? 'active' : ''}" data-finish-chip="${f}" aria-pressed="${f === selectedFinish}">${f}</button>`).join('')}
         </div>
+        <div class="tank-price-box">
+  <div class="kicker">Price</div>
+  <div class="tank-live-price" data-live-price>€0.00</div>
+  <div class="price-note">Price updates with selected scale and finish.</div>
+</div>
         <div class="page-actions">
           <a class="btn btn-etsy" data-etsy-base="${tank.etsyUrl}" href="${tank.etsyUrl}" target="_blank" rel="noopener">Buy ${tank.name} on Etsy</a>
           <a class="btn" href="tanks.html">Back to Tanks</a>

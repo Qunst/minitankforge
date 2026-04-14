@@ -1,25 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
- <head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Browse Tanks — MiniTankForge</title><link href="assets/css/styles.css?v=3" rel="stylesheet"/>
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width,initial-scale=1" name="viewport" />
+  <title>Browse Tanks — MiniTankForge</title>
+  <link href="assets/css/styles.css?v=3" rel="stylesheet" />
   <script defer src="assets/js/tanks-data.js"></script>
-  <script defer src="assets/js/app.js"></script></head>
- <body>
-  <header class="topbar"><div class="container topbar-inner"><a class="brand" href="index.html">MINITANKFORGE</a><nav class="nav"><a href="tanks.html">Browse Tanks</a><a href="sets.html">Browse Sets</a><a href="scale-comparison.html">Scale Comparison</a><a href="tank-requests.html">Tank Requests</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav><a class="btn btn-etsy" href="https://www.etsy.com/shop/Quali3DPrints" rel="noopener" target="_blank">Visit Etsy Shop</a></div></header>
+  <script defer src="assets/js/app.js"></script>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner"><a class="brand" href="index.html">MINITANKFORGE</a>
+      <nav class="nav"><a href="tanks.html">Browse Tanks</a><a href="sets.html">Browse Sets</a><a
+          href="scale-comparison.html">Scale Comparison</a><a href="tank-requests.html">Tank Requests</a><a
+          href="faq.html">FAQ</a><a href="about.html">About</a></nav><a class="btn btn-etsy"
+        href="https://www.etsy.com/shop/Quali3DPrints" rel="noopener" target="_blank">Visit Etsy Shop</a>
+    </div>
+  </header>
   <main class="container">
-   <section class="hero-small"><div class="eyebrow">Primary browsing path</div><h1 class="page-title">Browse Tanks</h1><p class="lead">Filter individual tanks by nation, type, and era. Scale is selectable here and carries into the tank page.</p></section>
-   <section>
-    <div class="scale-toolbar">
-      <strong>Browsing scale:</strong>
-      <div class="scale-choices" data-render-scale-choices></div>
-      <span class="helper">Current selection: <strong data-current-scale></strong></span>
-    </div>
-    <div class="filter-row">
-      <select data-filter-nation><option value="All">Nation: All</option></select>
-      <select data-filter-type><option value="All">Type: All</option></select>
-      <select data-filter-era><option value="All">Era: All</option></select>
-    </div>
-   </section>
-   <section class="browse-preview-section"><div class="grid-3" data-tank-grid></div></section>
+    <section class="hero-small">
+      <div class="eyebrow">Primary browsing path</div>
+      <h1 class="page-title">Browse Tanks</h1>
+      <p class="lead">Filter individual tanks by nation, type, and era. Scale is selectable here and carries into the
+        tank page.</p>
+    </section>
+    <section>
+      <div class="scale-toolbar">
+        <strong>Browsing scale:</strong>
+        <div class="scale-choices" data-render-scale-choices></div>
+        <span class="helper">Current selection: <strong data-current-scale></strong></span>
+      </div>
+      <div class="filter-row">
+        <select data-filter-nation>
+          <option value="All">Nation: All</option>
+        </select>
+        <select data-filter-type>
+          <option value="All">Type: All</option>
+        </select>
+        <select data-filter-era>
+          <option value="All">Era: All</option>
+        </select>
+      </div>
+    </section>
+    <section class="browse-preview-section">
+      <div class="grid-3" data-tank-grid></div>
+    </section>
   </main>
-  <footer><div class="container footer-grid"><div><div class="brand">MINITANKFORGE</div><p>Use one central tank data file to keep names, facts, and Etsy links in sync.</p></div><div class="nav" style="display:flex"><a href="scale-comparison.html">Scale Comparison</a><a href="tank-requests.html">Tank Requests</a><a href="faq.html">FAQ</a></div></div></footer>
- </body></html>
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div class="brand">MINITANKFORGE</div>
+        <p>Use one central tank data file to keep names, facts, and Etsy links in sync.</p>
+      </div>
+      <div class="nav" style="display:flex"><a href="scale-comparison.html">Scale Comparison</a><a
+          href="tank-requests.html">Tank Requests</a><a href="faq.html">FAQ</a></div>
+    </div>
+  </footer>
+</body>
+
+</html>

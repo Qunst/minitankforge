@@ -1,10 +1,10 @@
 
-window.MTF_SCALES = ['1:180', '1:200', '1:250', '1:285'];
+window.MTF_SCALES = ['1:160', '1:180', '1:250', '1:285'];
 window.MTF_FINISHES = ['Base coat', 'Unpainted'];
 
 window.MTF_SCALE_PRICES = {
-  '1:180': 4.0,
-  '1:200': 3.0,
+  '1:160': 4.0,
+  '1:280': 4.0,
   '1:250': 3.0,
   '1:285': 3.0
 };
@@ -28,7 +28,6 @@ window.TANKS = [
     etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints',
     fact: 'One of the longest-serving German tanks, continuously upgraded throughout the war.',
     compatibility: 'Compact hex-based tabletop play',
-    availableScales: ['1:180', '1:200', '1:250', '1:285'],
   },
   {
     slug: 'sherman-m4a3',
@@ -43,7 +42,6 @@ window.TANKS = [
     etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints',
     fact: 'Produced in huge numbers, the Sherman became the backbone of Allied armored forces.',
     compatibility: 'Compact hex-based tabletop play',
-    availableScales: ['1:180', '1:200', '1:250', '1:285'],
   },
   {
     slug: 't-34-85',
@@ -58,7 +56,6 @@ window.TANKS = [
     etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints',
     fact: 'Its sloped armor and mobility made it one of the most effective Soviet tank designs of WWII.',
     compatibility: 'Compact hex-based tabletop play',
-    availableScales: ['1:180', '1:200', '1:250', '1:285'],
   },
   {
     slug: 'tiger-i',
@@ -72,7 +69,6 @@ window.TANKS = [
     etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints',
     fact: 'Its reputation became so outsized that crews often reported Tigers even when facing other tanks.',
     compatibility: 'Compact hex-based tabletop play',
-    availableScales: ['1:180', '1:200', '1:250', '1:285'],
   },
   {
     slug: 'su-85',
@@ -86,7 +82,6 @@ window.TANKS = [
     etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints',
     fact: 'Built on the T-34 chassis, it traded a turret for a more powerful gun and lower silhouette.',
     compatibility: 'Compact hex-based tabletop play',
-    availableScales: ['1:180', '1:200', '1:250', '1:285'],
   },
   {
     slug: 'm18-hellcat',
@@ -100,6 +95,5 @@ window.TANKS = [
     etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints',
     fact: 'The Hellcat was one of the fastest tracked armored vehicles fielded during the war.',
     compatibility: 'Compact hex-based tabletop play',
-    availableScales: ['1:180', '1:200', '1:250', '1:285'],
   }
 ];
