@@ -135,6 +135,47 @@ function buildTankCard(tank) {
   `;
 }
 
+const setData = Array.isArray(window.SETS) ? window.SETS : [];
+const validSetFinishes = Array.isArray(window.MTF_SET_FINISHES) ? window.MTF_SET_FINISHES : validFinishes;
+
+function getSetBySlug(slug) {
+  return setData.find(s => s.slug === slug);
+}
+
+function getAvailableSetScales(set) {
+  return Array.isArray(set?.availableScales) && set.availableScales.length ? set.availableScales : validScales;
+}
+
+function getAvailableSetFinishes(set) {
+  const prices = set?.prices || {};
+  const firstScale = Object.keys(prices)[0];
+  if (!firstScale) return validSetFinishes;
+  return Object.keys(prices[firstScale]);
+}
+
+function getSetPrice(set, scale, finish) {
+  return Number(set?.prices?.[scale]?.[finish] ?? 0);
+}
+
+function getSetPriceRange(set) {
+  const scales = getAvailableSetScales(set);
+  const finishes = getAvailableSetFinishes(set);
+  const prices = [];
+
+  for (const scale of scales) {
+    for (const finish of finishes) {
+      const value = getSetPrice(set, scale, finish);
+      if (value > 0) prices.push(value);
+    }
+  }
+
+  if (!prices.length) return '';
+  const min = Math.min(...prices);
+  const max = Math.max(...prices);
+
+  return min === max ? formatPrice(min) : `${formatPrice(min)} – ${formatPrice(max)}`;
+}
+
 function renderFeaturedTanks() {
   const target = document.querySelector('[data-featured-tanks]');
   if (!target) return;
@@ -424,3 +465,168 @@ function initScaleComparison() {
 }
 
 initScaleComparison();
+
+function renderSetVisual(set, large = false) {
+  if (set.image) {
+    return `<div class="product-image ${large ? 'product-image-large' : ''}"><img src="${set.image}" alt="${set.name}"></div>`;
+  }
+  const size = large ? 'tank-lg' : tankSizeClass(set.placeholderStyle);
+  const extraClass = placeholderClass(set.placeholderStyle);
+  return `<div class="${extraClass} ${large ? 'product-image-large' : ''}"><div class="tank ${size}"></div></div>`;
+}
+
+function buildSetCard(set) {
+  return `
+    <article class="card product-card">
+      <a href="set.html?slug=${set.slug}" class="product-image-link">
+        ${renderSetVisual(set)}
+      </a>
+      <div>
+        <h3>${set.name}</h3>
+        <div class="product-meta">
+          <span class="badge">${set.category}</span>
+          <span class="badge">${set.nation}</span>
+          <span class="badge">${set.era}</span>
+        </div>
+        <div class="tank-card-price">${getSetPriceRange(set)}</div>
+        <p class="muted fun-fact">${set.note}</p>
+      </div>
+      <a class="btn btn-primary" href="set.html?slug=${set.slug}">View Set</a>
+    </article>
+  `;
+}
+
+function renderFeaturedSets() {
+  const container = document.querySelector('[data-featured-sets]');
+  if (!container) return;
+
+  const featured = [...setData]
+    .filter(set => set.featured)
+    .sort((a, b) => (a.featuredOrder ?? 999) - (b.featuredOrder ?? 999))
+    .slice(0, 2);
+
+  container.innerHTML = featured.map(buildSetCard).join('');
+}
+
+function renderSetDetail() {
+  const container = document.querySelector('[data-set-detail]');
+  if (!container) return;
+
+  const url = new URL(window.location.href);
+  const slug = url.searchParams.get('slug');
+  const set = getSetBySlug(slug);
+
+  if (!set) {
+    container.innerHTML = `
+      <section class="hero-small">
+        <h1 class="page-title">Set not found</h1>
+        <p class="lead">This set could not be found.</p>
+      </section>
+    `;
+    return;
+  }
+
+  const selectedScale = getSelectedScale();
+  const selectedFinish = getSelectedFinish();
+  const availableScales = getAvailableSetScales(set);
+  const availableFinishes = getAvailableSetFinishes(set);
+  const livePrice = formatPrice(getSetPrice(set, selectedScale, selectedFinish));
+
+  container.innerHTML = `
+    <section class="hero-small">
+      <div class="eyebrow">${set.category}</div>
+      <h1 class="page-title">${set.name}</h1>
+      <p class="lead">${set.note}</p>
+    </section>
+
+    <section class="split">
+      <div>
+        ${renderSetVisual(set, true)}
+      </div>
+
+      <div class="detail-panel card">
+        <div class="kicker">Options</div>
+        <h2 style="margin-top:6px">Review configuration</h2>
+
+        <label>Scale</label>
+        <div class="option-group" data-set-scale-choices></div>
+
+        <label style="margin-top:16px">Finish</label>
+        <div class="option-group" data-set-finish-choices></div>
+
+        <div class="tank-price-box">
+          <div class="kicker">Price</div>
+          <div class="tank-live-price" data-set-live-price>${livePrice}</div>
+          <div class="price-note">Price updates with selected scale and finish.</div>
+        </div>
+
+        <div class="page-actions">
+          <a class="btn btn-etsy" data-set-etsy-base="${set.etsyUrl}" href="${set.etsyUrl}" target="_blank" rel="noopener">Buy on Etsy</a>
+          <a class="btn" href="sets.html">Back to Sets</a>
+        </div>
+
+        <p class="helper">
+          Selected:
+          <strong data-current-scale>${selectedScale}</strong>,
+          <strong data-current-finish>${selectedFinish}</strong>
+        </p>
+      </div>
+    </section>
+
+    <section class="grid-2">
+      <div>
+        <h2>Key facts</h2>
+        <ul class="spec-list">
+          <li><strong>Category</strong><br>${set.category}</li>
+          <li><strong>Nation / era</strong><br>${set.nation} / ${set.era}</li>
+          <li><strong>Scale</strong><br><span data-current-scale>${selectedScale}</span></li>
+          <li><strong>Compatibility</strong><br>${set.compatibility}</li>
+        </ul>
+      </div>
+
+      <div>
+        <h2>Included in this set</h2>
+        <div class="callout">
+          ${set.contents.map(item => `${item}<br>`).join('')}
+        </div>
+        <p class="muted">This page shows exact set contents before Etsy checkout.</p>
+      </div>
+    </section>
+  `;
+
+  const scaleContainer = container.querySelector('[data-set-scale-choices]');
+  const finishContainer = container.querySelector('[data-set-finish-choices]');
+
+  scaleContainer.innerHTML = availableScales.map(scale => `
+    <button class="chip ${scale === selectedScale ? 'active' : ''}" data-set-scale-chip="${scale}">${scale}</button>
+  `).join('');
+
+  finishContainer.innerHTML = availableFinishes.map(finish => `
+    <button class="chip ${finish === selectedFinish ? 'active' : ''}" data-set-finish-chip="${finish}">${finish}</button>
+  `).join('');
+
+  scaleContainer.querySelectorAll('[data-set-scale-chip]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const scale = btn.dataset.setScaleChip;
+      setSelectedScale(scale);
+      updateSetLivePrice(set, scale, getSelectedFinish());
+      scaleContainer.querySelectorAll('.chip').forEach(chip => chip.classList.toggle('active', chip.dataset.setScaleChip === scale));
+    });
+  });
+
+  finishContainer.querySelectorAll('[data-set-finish-chip]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const finish = btn.dataset.setFinishChip;
+      setSelectedFinish(finish);
+      updateSetLivePrice(set, getSelectedScale(), finish);
+      finishContainer.querySelectorAll('.chip').forEach(chip => chip.classList.toggle('active', chip.dataset.setFinishChip === finish));
+    });
+  });
+}
+
+function updateSetLivePrice(set, scale, finish) {
+  const value = formatPrice(getSetPrice(set, scale, finish));
+  document.querySelectorAll('[data-set-live-price]').forEach(el => {
+    el.textContent = value;
+  });
+}
