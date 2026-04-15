@@ -5,6 +5,7 @@ window.SETS = [
     slug: 'german-basic',
     name: 'German Starter Set',
     category: 'Starter set',
+    filterGroup: 'Starter',
     nation: 'Germany',
     era: 'WW2',
     featured: true,
@@ -46,6 +47,7 @@ window.SETS = [
     slug: 'ussr-basic',
     name: 'USSR Starter Set',
     category: 'Starter set',
+    filterGroup: 'Starter',
     nation: 'USSR',
     era: 'WW2',
     featured: true,
@@ -56,9 +58,12 @@ window.SETS = [
     note: 'A Soviet tank destroyer-focused group for compact battlefield setups.',
     compatibility: 'Compact hex-based tabletop play',
     contents: [
-      '2× SU-85',
-      '1× SU-100',
-      '1× T-34/85'
+      '1× SU-85',
+      '1× ISU-152',
+      '1× T-34',
+      '1× IS-3',
+      '1× KV-2',
+      '1× T-28'
     ],
     availableScales: ['1:160', '1:180', '1:250', '1:285'],
     prices: {
@@ -84,6 +89,7 @@ window.SETS = [
     slug: 'hellcat-tankers',
     name: 'Hellcat Tankers Set',
     category: 'Game ready',
+    filterGroup: 'Game',
     nation: 'USA',
     era: 'WW2',
     featured: true,

@@ -312,62 +312,11 @@ function bindChoiceButtons() {
   });
 }
 
-function setSelectedScale(scale, updateUrl = true) {
-  if (!validScales.includes(scale)) return;
-  localStorage.setItem('mtf-scale', scale);
-  document.querySelectorAll('[data-current-scale]').forEach(el => {
-    el.textContent = scale;
-  });
-  document.querySelectorAll('[data-scale-chip]').forEach(el => {
-    el.classList.toggle('active', el.dataset.scaleChip === scale);
-    el.setAttribute('aria-pressed', el.dataset.scaleChip === scale ? 'true' : 'false');
-  });
-  document.querySelectorAll('[data-scale-link]').forEach(el => {
-    const base = el.dataset.scaleLink;
-    const url = new URL(base, window.location.origin);
-    url.searchParams.set('scale', scaleForUrl(scale));
-    if (!url.searchParams.get('finish')) {
-      url.searchParams.set('finish', getSelectedFinish());
-    }
-    el.href = `${url.pathname}${url.search}`;
-  });
-  updateSelectionSummary();
-  if (updateUrl) {
-    const current = new URL(window.location.href);
-    current.searchParams.set('scale', scaleForUrl(scale));
-    window.history.replaceState({}, '', `${current.pathname}${current.search}`);
-  }
-}
-
-function setSelectedFinish(finish, updateUrl = true) {
-  if (!validFinishes.includes(finish)) return;
-  localStorage.setItem('mtf-finish', finish);
-  document.querySelectorAll('[data-current-finish]').forEach(el => {
-    el.textContent = finish;
-  });
-  document.querySelectorAll('[data-finish-chip]').forEach(el => {
-    el.classList.toggle('active', el.dataset.finishChip === finish);
-    el.setAttribute('aria-pressed', el.dataset.finishChip === finish ? 'true' : 'false');
-  });
-  updateSelectionSummary();
-  if (updateUrl) {
-    const current = new URL(window.location.href);
-    current.searchParams.set('finish', finish);
-    window.history.replaceState({}, '', `${current.pathname}${current.search}`);
-  }
-}
-
-function updateSelectionSummary() {
-  const scale = getSelectedScale();
-  const finish = getSelectedFinish();
-  document.querySelectorAll('[data-selection-summary]').forEach(el => {
-    el.textContent = `Selected on this page: ${scale}, ${finish}. Choose the same options on Etsy.`;
-  });
-}
 
 function initScaleUI() {
   renderFeaturedTanks();
   renderFeaturedSets();
+  populateSetFilters();
   renderSetsGrid();
   populateFilters();
   renderBrowseGrid();
@@ -453,7 +402,7 @@ function initScaleComparison() {
   `).join('');
 
   function updateImage(scale) {
-    img.src = `assets/img/scales/${scale.replace(':','-')}.jpg`;
+    img.src = `assets/img/scales/${scale.replace(':', '-')}.jpg`;
   }
 
   updateImage(selectedScale);
@@ -515,7 +464,28 @@ function renderSetsGrid() {
   const container = document.querySelector('[data-sets-grid]');
   if (!container) return;
 
-  container.innerHTML = setData.map(buildSetCard).join('');
+  const selectedGroup = document.querySelector('[data-filter-set-group]')?.value || 'All';
+
+  const filtered = setData.filter(set => {
+    return selectedGroup === 'All' || set.filterGroup === selectedGroup;
+  });
+
+  container.innerHTML = filtered.map(buildSetCard).join('');
+}
+
+function populateSetFilters() {
+  const select = document.querySelector('[data-filter-set-group]');
+  if (!select) return;
+
+  const values = ['All', ...new Set(setData.map(set => set.filterGroup).filter(Boolean))];
+  const current = select.value || 'All';
+
+  select.innerHTML = values.map(value => `
+    <option value="${value}">Set type: ${value}</option>
+  `).join('');
+
+  select.value = values.includes(current) ? current : 'All';
+  select.addEventListener('change', renderSetsGrid);
 }
 
 function renderSetDetail() {
@@ -526,13 +496,16 @@ function renderSetDetail() {
   const slug = url.searchParams.get('slug');
   const set = getSetBySlug(slug);
 
+
+
+
   if (!set) {
     container.innerHTML = `
-      <section class="hero-small">
-        <h1 class="page-title">Set not found</h1>
-        <p class="lead">This set could not be found.</p>
-      </section>
-    `;
+    <section class="hero-small">
+      <h1 class="page-title">Set not found</h1>
+      <p class="lead">This set could not be found.</p>
+    </section>
+  `;
     return;
   }
 
@@ -543,66 +516,83 @@ function renderSetDetail() {
   const livePrice = formatPrice(getSetPrice(set, selectedScale, selectedFinish));
 
   container.innerHTML = `
-    <section class="hero-small">
-      <div class="eyebrow">${set.category}</div>
-      <h1 class="page-title">${set.name}</h1>
-      <p class="lead">${set.note}</p>
-    </section>
+  <section class="hero-small">
+    <div class="eyebrow">${set.category}</div>
+    <h1 class="page-title">${set.name}</h1>
+    <p class="lead">${set.note}</p>
+  </section>
 
-    <section class="split">
-      <div>
-        ${renderSetVisual(set, true)}
+  <section class="split set-detail-top">
+    <div>
+      ${renderSetVisual(set, true)}
+    </div>
+
+    <div class="detail-panel card">
+      <div class="kicker">Set options</div>
+      <h2 style="margin-top:6px">Review configuration</h2>
+
+      <label>Scale</label>
+      <div class="option-group" data-set-scale-choices></div>
+
+      <label style="margin-top:16px">Finish</label>
+      <div class="option-group" data-set-finish-choices></div>
+
+      <div class="tank-price-box set-price-box">
+        <div class="kicker">Price</div>
+        <div class="tank-live-price" data-set-live-price>${livePrice}</div>
+        <div class="price-note">Price updates with selected scale and finish.</div>
       </div>
 
-      <div class="detail-panel card">
-        <div class="kicker">Options</div>
-        <h2 style="margin-top:6px">Review configuration</h2>
-
-        <label>Scale</label>
-        <div class="option-group" data-set-scale-choices></div>
-
-        <label style="margin-top:16px">Finish</label>
-        <div class="option-group" data-set-finish-choices></div>
-
-        <div class="tank-price-box">
-          <div class="kicker">Price</div>
-          <div class="tank-live-price" data-set-live-price>${livePrice}</div>
-          <div class="price-note">Price updates with selected scale and finish.</div>
-        </div>
-
-        <div class="page-actions">
-          <a class="btn btn-etsy" data-set-etsy-base="${set.etsyUrl}" href="${set.etsyUrl}" target="_blank" rel="noopener">Buy on Etsy</a>
-          <a class="btn" href="sets.html">Back to Sets</a>
-        </div>
-
-        <p class="helper">
-          Selected:
-          <strong data-current-scale>${selectedScale}</strong>,
-          <strong data-current-finish>${selectedFinish}</strong>
-        </p>
-      </div>
-    </section>
-
-    <section class="grid-2">
-      <div>
-        <h2>Key facts</h2>
-        <ul class="spec-list">
-          <li><strong>Category</strong><br>${set.category}</li>
-          <li><strong>Nation / era</strong><br>${set.nation} / ${set.era}</li>
-          <li><strong>Scale</strong><br><span data-current-scale>${selectedScale}</span></li>
-          <li><strong>Compatibility</strong><br>${set.compatibility}</li>
-        </ul>
+      <div class="page-actions">
+        <a class="btn btn-etsy" data-set-etsy-base="${set.etsyUrl}" href="${set.etsyUrl}" target="_blank" rel="noopener">Buy ${set.name} on Etsy</a>
+        <a class="btn" href="sets.html">Back to Sets</a>
       </div>
 
-      <div>
-        <h2>Included in this set</h2>
-        <div class="callout">
-          ${set.contents.map(item => `${item}<br>`).join('')}
-        </div>
-        <p class="muted">This page shows exact set contents before Etsy checkout.</p>
-      </div>
-    </section>
-  `;
+      <p class="helper">
+        Selected on this page:
+        <strong data-current-scale>${selectedScale}</strong>,
+        <strong data-current-finish>${selectedFinish}</strong>.
+        Choose the same options on Etsy.
+      </p>
+    </div>
+  </section>
+
+  <section class="grid-2">
+    <div>
+      <h2>Key facts</h2>
+      <ul class="spec-list">
+        <li><strong>Category</strong><br>${set.category}</li>
+        <li><strong>Nation / era</strong><br>${set.nation} / ${set.era}</li>
+        <li><strong>Scale</strong><br><span data-current-scale>${selectedScale}</span></li>
+        <li><strong>Compatibility</strong><br>${set.compatibility}</li>
+      </ul>
+    </div>
+
+<div>
+  <h2>What you get</h2>
+  <div class="callout">
+    <strong>Included in this set:</strong><br><br>
+    ${set.contents.map(item => `${item}<br>`).join('')}
+  </div>
+  <p class="muted">This page shows exact set contents before Etsy checkout.</p>
+  <div class="notice">Set pages always list exact included quantity and composition.</div>
+</div>
+  </section>
+
+  <section class="grid-2">
+    <div class="card info-card">
+      <div class="kicker">Contents clarity</div>
+      <h3>Everything included is listed above</h3>
+      <p class="muted">Unlike single tank pages, set pages always show exact included quantity and composition.</p>
+    </div>
+    <div class="card info-card">
+      <div class="kicker">Need more size context?</div>
+      <h3>Compare scales before you buy</h3>
+      <p class="muted">Use the scale comparison page to see how these sets change across scale options.</p>
+      <a class="btn" href="scale-comparison.html">See Scale Comparison</a>
+    </div>
+  </section>
+`;
 
   const scaleContainer = container.querySelector('[data-set-scale-choices]');
   const finishContainer = container.querySelector('[data-set-finish-choices]');

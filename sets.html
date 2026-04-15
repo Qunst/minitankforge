@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width,initial-scale=1" name="viewport" />
@@ -9,6 +10,7 @@
   <script defer src="assets/js/sets-data.js"></script>
   <script defer src="assets/js/app.js"></script>
 </head>
+
 <body>
   <header class="topbar">
     <div class="container topbar-inner">
@@ -38,8 +40,14 @@
       <div class="section-head">
         <div>
           <h2>Available Sets</h2>
-          <p>Starter sets, nation sets, and game-ready groups.</p>
+          <p>Starter sets, destroyer groups, and game-ready sets.</p>
         </div>
+      </div>
+
+      <div class="filter-row">
+        <select data-filter-set-group>
+          <option value="All">Set type: All</option>
+        </select>
       </div>
 
       <div class="grid-3" data-sets-grid></div>
@@ -60,4 +68,5 @@
     </div>
   </footer>
 </body>
+
 </html>
