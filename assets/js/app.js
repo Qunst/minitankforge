@@ -367,9 +367,12 @@ function updateSelectionSummary() {
 
 function initScaleUI() {
   renderFeaturedTanks();
+  renderFeaturedSets();
+  renderSetsGrid();
   populateFilters();
   renderBrowseGrid();
   renderTankDetail();
+  renderSetDetail();
 
   document.querySelectorAll('[data-render-scale-choices]').forEach(container => {
     if (!container.children.length) {
@@ -506,6 +509,13 @@ function renderFeaturedSets() {
     .slice(0, 2);
 
   container.innerHTML = featured.map(buildSetCard).join('');
+}
+
+function renderSetsGrid() {
+  const container = document.querySelector('[data-sets-grid]');
+  if (!container) return;
+
+  container.innerHTML = setData.map(buildSetCard).join('');
 }
 
 function renderSetDetail() {

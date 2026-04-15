@@ -2,22 +2,25 @@ window.MTF_SET_FINISHES = ['Base coat', 'Unpainted'];
 
 window.SETS = [
   {
-    slug: 'german-starter',
+    slug: 'german-basic',
     name: 'German Starter Set',
     category: 'Starter set',
     nation: 'Germany',
     era: 'WW2',
     featured: true,
     featuredOrder: 1,
-    image: '',
+    image: 'assets/img/sets/german-basic-250.jpg',
     placeholderStyle: 'light-large',
     etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints',
     note: 'A compact starting force for players who want a ready-made German set.',
     compatibility: 'Compact hex-based tabletop play',
     contents: [
-      '2× Panzer IV',
       '1× Tiger I',
-      '1× Sd.Kfz. 251'
+      '1× Tiger II',
+      '1× Panther',
+      '1× Ferdinand',
+      '1× Jagdpanther',
+      '1× Stug IV'
     ],
     availableScales: ['1:160', '1:180', '1:250', '1:285'],
     prices: {
@@ -40,14 +43,14 @@ window.SETS = [
     }
   },
   {
-    slug: 'ussr-destroyers',
-    name: 'USSR Destroyers Set',
-    category: 'Nation set',
+    slug: 'ussr-basic',
+    name: 'USSR Starter Set',
+    category: 'Starter set',
     nation: 'USSR',
     era: 'WW2',
     featured: true,
     featuredOrder: 2,
-    image: '',
+    image: 'assets/img/sets/ussr-basic-250.jpg',
     placeholderStyle: 'dark-large',
     etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints',
     note: 'A Soviet tank destroyer-focused group for compact battlefield setups.',
