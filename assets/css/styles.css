@@ -97,15 +97,31 @@ img {
   color: var(--ink)
 }
 
-.btn:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow)
+.btn-main,
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 220px;
+  padding: 16px 26px;
+  background: linear-gradient(180deg, #7a756b 0%, #605b52 100%);
+  color: #fff;
+  border: 1px solid #575249;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 3px 0 #4b463e, 0 10px 18px rgba(0,0,0,.12);
 }
 
-.btn-primary {
-  background: var(--accent);
-  color: #fff;
-  border-color: var(--accent)
+.btn-main:hover,
+.btn-primary:hover {
+  background: linear-gradient(180deg, #6f6a61 0%, #575249 100%);
+}
+
+.product-card .btn-primary {
+  min-width: 0;
+  width: 100%;
 }
 
 .btn-secondary {
@@ -626,12 +642,13 @@ textarea {
   color: #5f574d
 }
 
-.browse-preview-section .product-card .btn.btn-primary {
+.product-card .btn.btn-primary {
   width: 100%;
   margin-top: auto;
   border-radius: 12px;
   background: linear-gradient(180deg, #7a756b 0%, #605b52 100%);
-  border-color: #575249
+  border-color: #575249;
+  min-width: 0;
 }
 
 .browse-preview-section .product-card {
@@ -794,25 +811,7 @@ textarea {
   box-shadow: 0 4px 10px rgba(0, 0, 0, .08), 0 1px 0 rgba(255, 255, 255, .4) inset
 }
 
-.btn-main {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 220px;
-  padding: 16px 26px;
-  background: linear-gradient(180deg, #7a756b 0%, #605b52 100%);
-  color: #fff;
-  border: 1px solid #575249;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-weight: 700;
-  text-decoration: none;
-  box-shadow: 0 3px 0 #4b463e, 0 10px 18px rgba(0, 0, 0, .12)
-}
 
-.btn-main:hover {
-  background: linear-gradient(180deg, #6f6a61 0%, #575249 100%)
-}
 
 .hero-cta {
   margin-top: 0
