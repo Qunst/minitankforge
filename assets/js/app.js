@@ -143,29 +143,74 @@ function getSetBySlug(slug) {
 }
 
 function getAvailableSetScales(set) {
+  if (Array.isArray(set?.options) && set.options.length) return [];
   return Array.isArray(set?.availableScales) && set.availableScales.length ? set.availableScales : validScales;
 }
 
+function getAvailableSetOptions(set) {
+  return Array.isArray(set?.options) && set.options.length ? set.options : [];
+}
+
+function getSetOptionBySlug(set, slug) {
+  const options = getAvailableSetOptions(set);
+  return options.find(option => option.slug === slug) || options[0] || null;
+}
+
+function getSetContents(set, optionSlug = '') {
+  const options = getAvailableSetOptions(set);
+  if (options.length) {
+    const option = getSetOptionBySlug(set, optionSlug);
+    return Array.isArray(option?.contents) ? option.contents : [];
+  }
+  return Array.isArray(set?.contents) ? set.contents : [];
+}
+
 function getAvailableSetFinishes(set) {
+  const options = getAvailableSetOptions(set);
+
+  if (options.length) {
+    const firstOption = options[0];
+    const finishes = Object.keys(firstOption?.prices || {});
+    return finishes.length ? finishes : validSetFinishes;
+  }
+
   const prices = set?.prices || {};
   const firstScale = Object.keys(prices)[0];
   if (!firstScale) return validSetFinishes;
   return Object.keys(prices[firstScale]);
 }
 
-function getSetPrice(set, scale, finish) {
+function getSetPrice(set, scale, finish, optionSlug = '') {
+  const options = getAvailableSetOptions(set);
+
+  if (options.length) {
+    const option = getSetOptionBySlug(set, optionSlug);
+    return Number(option?.prices?.[finish] ?? 0);
+  }
+
   return Number(set?.prices?.[scale]?.[finish] ?? 0);
 }
 
 function getSetPriceRange(set) {
-  const scales = getAvailableSetScales(set);
   const finishes = getAvailableSetFinishes(set);
   const prices = [];
+  const options = getAvailableSetOptions(set);
 
-  for (const scale of scales) {
-    for (const finish of finishes) {
-      const value = getSetPrice(set, scale, finish);
-      if (value > 0) prices.push(value);
+  if (options.length) {
+    for (const option of options) {
+      for (const finish of finishes) {
+        const value = Number(option?.prices?.[finish] ?? 0);
+        if (value > 0) prices.push(value);
+      }
+    }
+  } else {
+    const scales = getAvailableSetScales(set);
+
+    for (const scale of scales) {
+      for (const finish of finishes) {
+        const value = getSetPrice(set, scale, finish);
+        if (value > 0) prices.push(value);
+      }
     }
   }
 
@@ -496,9 +541,6 @@ function renderSetDetail() {
   const slug = url.searchParams.get('slug');
   const set = getSetBySlug(slug);
 
-
-
-
   if (!set) {
     container.innerHTML = `
     <section class="hero-small">
@@ -512,8 +554,17 @@ function renderSetDetail() {
   const selectedScale = getSelectedScale();
   const selectedFinish = getSelectedFinish();
   const availableScales = getAvailableSetScales(set);
+  const availableOptions = getAvailableSetOptions(set);
   const availableFinishes = getAvailableSetFinishes(set);
-  const livePrice = formatPrice(getSetPrice(set, selectedScale, selectedFinish));
+  const usesSetOptions = availableOptions.length > 0;
+
+  const selectedOption = usesSetOptions ? getSetOptionBySlug(set, url.searchParams.get('setOption')) : null;
+  const selectedOptionSlug = selectedOption?.slug || '';
+  const selectedOptionLabel = selectedOption?.label || '';
+  const currentContents = getSetContents(set, selectedOptionSlug);
+  const livePrice = formatPrice(getSetPrice(set, selectedScale, selectedFinish, selectedOptionSlug));
+
+  container.dataset.selectedSetOption = selectedOptionSlug;
 
   container.innerHTML = `
   <section class="hero-small">
@@ -531,8 +582,13 @@ function renderSetDetail() {
       <div class="kicker">Set options</div>
       <h2 style="margin-top:6px">Review configuration</h2>
 
-      <label>Scale</label>
-      <div class="option-group" data-set-scale-choices></div>
+      ${usesSetOptions ? `
+        <label>${set.optionLabel || 'Set option'}</label>
+        <div class="option-group" data-set-option-choices></div>
+      ` : `
+        <label>Scale</label>
+        <div class="option-group" data-set-scale-choices></div>
+      `}
 
       <label style="margin-top:16px">Finish</label>
       <div class="option-group" data-set-finish-choices></div>
@@ -540,7 +596,7 @@ function renderSetDetail() {
       <div class="tank-price-box set-price-box">
         <div class="kicker">Price</div>
         <div class="tank-live-price" data-set-live-price>${livePrice}</div>
-        <div class="price-note">Price updates with selected scale and finish.</div>
+        <div class="price-note">Price updates with selected ${usesSetOptions ? 'set option' : 'scale'} and finish.</div>
       </div>
 
       <div class="page-actions">
@@ -550,7 +606,10 @@ function renderSetDetail() {
 
       <p class="helper">
         Selected on this page:
-        <strong data-current-scale>${selectedScale}</strong>,
+        ${usesSetOptions
+          ? `<strong data-current-set-option>${selectedOptionLabel}</strong>,`
+          : `<strong data-current-scale>${selectedScale}</strong>,`
+        }
         <strong data-current-finish>${selectedFinish}</strong>.
         Choose the same options on Etsy.
       </p>
@@ -563,20 +622,23 @@ function renderSetDetail() {
       <ul class="spec-list">
         <li><strong>Category</strong><br>${set.category}</li>
         <li><strong>Nation / era</strong><br>${set.nation} / ${set.era}</li>
-        <li><strong>Scale</strong><br><span data-current-scale>${selectedScale}</span></li>
+        ${usesSetOptions
+          ? `<li><strong>${set.optionLabel || 'Set options'}</strong><br>${availableOptions.map(option => option.label).join(', ')}</li>`
+          : `<li><strong>Scale</strong><br><span data-current-scale>${selectedScale}</span></li>`
+        }
         <li><strong>Compatibility</strong><br>${set.compatibility}</li>
       </ul>
     </div>
 
-<div>
-  <h2>What you get</h2>
-  <div class="callout">
-    <strong>Included in this set:</strong><br><br>
-    ${set.contents.map(item => `${item}<br>`).join('')}
-  </div>
-  <p class="muted">This page shows exact set contents before Etsy checkout.</p>
-  <div class="notice">Set pages always list exact included quantity and composition.</div>
-</div>
+    <div>
+      <h2>What you get</h2>
+      <div class="callout">
+        <strong>Included in this set:</strong><br><br>
+        <span data-set-contents>${currentContents.map(item => `${item}<br>`).join('')}</span>
+      </div>
+      <p class="muted">This page shows exact set contents before Etsy checkout.</p>
+      <div class="notice">Set pages always list exact included quantity and composition.</div>
+    </div>
   </section>
 
   <section class="grid-2">
@@ -586,46 +648,85 @@ function renderSetDetail() {
       <p class="muted">Unlike single tank pages, set pages always show exact included quantity and composition.</p>
     </div>
     <div class="card info-card">
-      <div class="kicker">Need more size context?</div>
-      <h3>Compare scales before you buy</h3>
-      <p class="muted">Use the scale comparison page to see how these sets change across scale options.</p>
-      <a class="btn" href="scale-comparison.html">See Scale Comparison</a>
+      <div class="kicker">${usesSetOptions ? 'Set versions' : 'Need more size context?'}</div>
+      <h3>${usesSetOptions ? 'Choose the right set version' : 'Compare scales before you buy'}</h3>
+      <p class="muted">${usesSetOptions
+        ? 'Game-ready sets use set configuration options instead of scale selection on this page.'
+        : 'Use the scale comparison page to see how these sets change across scale options.'}</p>
+      ${usesSetOptions ? '' : `<a class="btn" href="scale-comparison.html">See Scale Comparison</a>`}
     </div>
   </section>
 `;
 
+  const optionContainer = container.querySelector('[data-set-option-choices]');
   const scaleContainer = container.querySelector('[data-set-scale-choices]');
   const finishContainer = container.querySelector('[data-set-finish-choices]');
+  const contentsContainer = container.querySelector('[data-set-contents]');
 
-  scaleContainer.innerHTML = availableScales.map(scale => `
-    <button class="chip ${scale === selectedScale ? 'active' : ''}" data-set-scale-chip="${scale}">${scale}</button>
-  `).join('');
+  if (optionContainer) {
+    optionContainer.innerHTML = availableOptions.map(option => `
+      <button class="chip ${option.slug === selectedOptionSlug ? 'active' : ''}" data-set-option-chip="${option.slug}">${option.label}</button>
+    `).join('');
+
+    optionContainer.querySelectorAll('[data-set-option-chip]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const optionSlug = btn.dataset.setOptionChip;
+        const option = getSetOptionBySlug(set, optionSlug);
+
+        container.dataset.selectedSetOption = optionSlug;
+
+        optionContainer.querySelectorAll('.chip').forEach(chip => {
+          chip.classList.toggle('active', chip.dataset.setOptionChip === optionSlug);
+        });
+
+        document.querySelectorAll('[data-current-set-option]').forEach(el => {
+          el.textContent = option?.label || '';
+        });
+
+        if (contentsContainer) {
+          contentsContainer.innerHTML = getSetContents(set, optionSlug).map(item => `${item}<br>`).join('');
+        }
+
+        updateSetLivePrice(set, getSelectedScale(), getSelectedFinish(), optionSlug);
+      });
+    });
+  }
+
+  if (scaleContainer) {
+    scaleContainer.innerHTML = availableScales.map(scale => `
+      <button class="chip ${scale === selectedScale ? 'active' : ''}" data-set-scale-chip="${scale}">${scale}</button>
+    `).join('');
+
+    scaleContainer.querySelectorAll('[data-set-scale-chip]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const scale = btn.dataset.setScaleChip;
+        setSelectedScale(scale);
+        updateSetLivePrice(set, scale, getSelectedFinish(), container.dataset.selectedSetOption || '');
+        scaleContainer.querySelectorAll('.chip').forEach(chip => {
+          chip.classList.toggle('active', chip.dataset.setScaleChip === scale);
+        });
+      });
+    });
+  }
 
   finishContainer.innerHTML = availableFinishes.map(finish => `
     <button class="chip ${finish === selectedFinish ? 'active' : ''}" data-set-finish-chip="${finish}">${finish}</button>
   `).join('');
 
-  scaleContainer.querySelectorAll('[data-set-scale-chip]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const scale = btn.dataset.setScaleChip;
-      setSelectedScale(scale);
-      updateSetLivePrice(set, scale, getSelectedFinish());
-      scaleContainer.querySelectorAll('.chip').forEach(chip => chip.classList.toggle('active', chip.dataset.setScaleChip === scale));
-    });
-  });
-
   finishContainer.querySelectorAll('[data-set-finish-chip]').forEach(btn => {
     btn.addEventListener('click', () => {
       const finish = btn.dataset.setFinishChip;
       setSelectedFinish(finish);
-      updateSetLivePrice(set, getSelectedScale(), finish);
-      finishContainer.querySelectorAll('.chip').forEach(chip => chip.classList.toggle('active', chip.dataset.setFinishChip === finish));
+      updateSetLivePrice(set, getSelectedScale(), finish, container.dataset.selectedSetOption || '');
+      finishContainer.querySelectorAll('.chip').forEach(chip => {
+        chip.classList.toggle('active', chip.dataset.setFinishChip === finish);
+      });
     });
   });
 }
 
-function updateSetLivePrice(set, scale, finish) {
-  const value = formatPrice(getSetPrice(set, scale, finish));
+function updateSetLivePrice(set, scale, finish, optionSlug = '') {
+  const value = formatPrice(getSetPrice(set, scale, finish, optionSlug));
   document.querySelectorAll('[data-set-live-price]').forEach(el => {
     el.textContent = value;
   });

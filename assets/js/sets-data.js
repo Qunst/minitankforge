@@ -85,42 +85,65 @@ window.SETS = [
       }
     }
   },
-  {
-    slug: 'hellcat-tankers',
-    name: 'Hellcat Tankers Set',
-    category: 'Game ready',
-    filterGroup: 'Game',
-    nation: 'USA',
-    era: 'WW2',
-    featured: true,
-    featuredOrder: 3,
-    image: '',
-    placeholderStyle: 'light-medium',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints',
-    note: 'Fast and focused tank destroyer group built around the Hellcat.',
-    compatibility: 'Compact hex-based tabletop play',
-    contents: [
-      '3× M18 Hellcat',
-      '1× Sherman M4A3'
-    ],
-    availableScales: ['1:160', '1:180', '1:250', '1:285'],
-    prices: {
-      '1:160': {
-        'Unpainted': 23.00,
-        'Base coat': 26.00
+{
+  slug: 'hellcat-tankers',
+  name: 'Hellcat Tankers Set',
+  category: 'Game ready',
+  filterGroup: 'Game',
+  nation: 'USA',
+  era: 'WW2',
+  featured: true,
+  featuredOrder: 3,
+  image: '',
+  placeholderStyle: 'light-medium',
+  etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints',
+  note: 'Fast and focused tank destroyer group built around the Hellcat.',
+  compatibility: 'Compact hex-based tabletop play',
+  optionLabel: 'Set version',
+  options: [
+    {
+      slug: 'full-set',
+      label: 'Full set',
+      prices: {
+        'Unpainted': 26.00,
+        'Base coat': 29.00
       },
-      '1:180': {
+      contents: [
+        '1x Hellcat',
+        '3x Tiger I',
+        '4x Panther',
+        '5x Panzer IV',
+        '5x VEHICLE',
+        '6x Infantry'
+      ]
+    },
+    {
+      slug: 'regular-set',
+      label: 'Regular set',
+      prices: {
         'Unpainted': 21.00,
         'Base coat': 24.00
       },
-      '1:250': {
-        'Unpainted': 18.00,
-        'Base coat': 21.00
+      contents: [
+        '1x Hellcat',
+        '2x Tiger I',
+        '3x Panther',
+        '3x Panzer IV',
+        '3x VEHICLE',
+        '6x Infantry'
+      ]
+    },
+    {
+      slug: 'only-infantry',
+      label: 'Only infantry',
+      prices: {
+        'Unpainted': 12.00,
+        'Base coat': 16.00
       },
-      '1:285': {
-        'Unpainted': 16.00,
-        'Base coat': 19.00
-      }
+      contents: [
+        '6x Infantry'
+      ]
     }
-  }
+  ]
+}
 ];
