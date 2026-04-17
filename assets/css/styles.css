@@ -54,7 +54,7 @@ img {
 
 .topbar-inner {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 18px;
   padding: 14px 0
@@ -63,7 +63,30 @@ img {
 .brand {
   font-weight: 800;
   letter-spacing: .08em;
-  font-size: 1.05rem
+  font-size: 1.05rem;
+  padding-top: 12px
+}
+
+.nav-stack {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center
+}
+
+.nav-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+  align-items: center;
+  justify-content: center
+}
+
+.nav.nav-row {
+  gap: 22px;
+  justify-content: center;
 }
 
 .nav {
@@ -131,7 +154,8 @@ img {
 .btn-etsy {
   background: #f1641e;
   border-color: #f1641e;
-  color: #fff
+  color: #fff;
+  align-self: flex-start
 }
 
 .hero {
@@ -618,6 +642,10 @@ textarea {
   .nav {
     display: none
   }
+
+  .nav-stack {
+    display: none
+  }
 }
 
 
@@ -985,6 +1013,65 @@ textarea {
     display: block;
     width: 100%;
     height: auto;
+}
+
+.finish-hero-media {
+  margin: 18px 0 0;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid rgba(205, 191, 174, .45);
+  background: linear-gradient(180deg, rgba(248, 244, 236, .96) 0%, rgba(236, 227, 214, .92) 100%);
+  box-shadow: 0 8px 22px rgba(38, 34, 29, .05);
+  padding: 12px;
+}
+
+.finish-hero-media img {
+  width: 100%;
+  height: auto;
+  max-height: 320px;
+  object-fit: contain;
+  object-position: center center;
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(38, 34, 29, .05);
+}
+
+.finish-hero-media + .callout {
+  margin-top: 26px;
+}
+
+.finish-option-media {
+  margin: 14px 0 16px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(205, 191, 174, .42);
+  background: linear-gradient(180deg, rgba(248, 244, 236, .96) 0%, rgba(236, 227, 214, .9) 100%);
+  box-shadow: 0 8px 22px rgba(38, 34, 29, .05);
+  padding: 12px;
+}
+
+.finish-option-media img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(38, 34, 29, .05);
+  opacity: 1;
+  transition: opacity .55s ease;
+}
+
+.finish-hero-media img.is-fading,
+.finish-option-media img.is-fading {
+  opacity: 0;
+}
+
+.finish-option-media-unpainted img {
+  object-position: center 44%;
+}
+
+.finish-option-media-basecoat img {
+  object-position: center 46%;
 }
 
 .zoom-hover {

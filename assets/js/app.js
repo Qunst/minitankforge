@@ -731,3 +731,70 @@ function updateSetLivePrice(set, scale, finish, optionSlug = '') {
     el.textContent = value;
   });
 }
+
+function initFinishGuideRotation() {
+  const overviewImage = document.querySelector('[data-finish-rotation="overview"]');
+  const unpaintedImage = document.querySelector('[data-finish-rotation="unpainted"]');
+  const basecoatImage = document.querySelector('[data-finish-rotation="basecoat"]');
+
+  if (!overviewImage || !unpaintedImage || !basecoatImage) return;
+
+  const variants = [
+    {
+      overviewSrc: 'assets/img/finishes/paint-overview.jpg',
+      overviewAlt: 'Overview showing miniature US tanks in unpainted and base coated finishes',
+      unpaintedSrc: 'assets/img/finishes/us-unpainted.jpg',
+      unpaintedAlt: 'Unpainted miniature US tank model',
+      basecoatSrc: 'assets/img/finishes/us-painted.jpg',
+      basecoatAlt: 'Base coated miniature US tank model',
+    },
+    {
+      overviewSrc: 'assets/img/finishes/paint-overview.jpg',
+      overviewAlt: 'Overview showing miniature USSR tanks in unpainted and base coated finishes',
+      unpaintedSrc: 'assets/img/finishes/ussr-unpainted.jpg',
+      unpaintedAlt: 'Unpainted miniature USSR tank model',
+      basecoatSrc: 'assets/img/finishes/ussr-painted.jpg',
+      basecoatAlt: 'Base coated miniature USSR tank model',
+    },
+    {
+      overviewSrc: 'assets/img/finishes/paint-overview.jpg',
+      overviewAlt: 'Overview showing miniature German tanks in unpainted and base coated finishes',
+      unpaintedSrc: 'assets/img/finishes/german-unpainted.jpg',
+      unpaintedAlt: 'Unpainted miniature German tank model',
+      basecoatSrc: 'assets/img/finishes/german-painted.jpg',
+      basecoatAlt: 'Base coated miniature German tank model',
+    }
+  ];
+
+  let activeIndex = 0;
+  const fadeDurationMs = 550;
+
+  function applyVariant(index) {
+    const variant = variants[index];
+    overviewImage.src = variant.overviewSrc;
+    overviewImage.alt = variant.overviewAlt;
+    unpaintedImage.src = variant.unpaintedSrc;
+    unpaintedImage.alt = variant.unpaintedAlt;
+    basecoatImage.src = variant.basecoatSrc;
+    basecoatImage.alt = variant.basecoatAlt;
+  }
+
+  function transitionToVariant(index) {
+    const images = [unpaintedImage, basecoatImage];
+    images.forEach(image => image.classList.add('is-fading'));
+
+    window.setTimeout(() => {
+      applyVariant(index);
+      images.forEach(image => image.classList.remove('is-fading'));
+    }, fadeDurationMs);
+  }
+
+  applyVariant(activeIndex);
+
+  window.setInterval(() => {
+    activeIndex = (activeIndex + 1) % variants.length;
+    transitionToVariant(activeIndex);
+  }, 4000);
+}
+
+document.addEventListener('DOMContentLoaded', initFinishGuideRotation);
