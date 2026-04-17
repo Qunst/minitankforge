@@ -1,10 +1,11 @@
 
-window.MTF_SCALES = ['1:160', '1:180', '1:250', '1:285'];
+window.MTF_SCALES = ['1:160', '1:180', '1:200', '1:250', '1:285'];
 window.MTF_FINISHES = ['Base coat', 'Unpainted'];
 
 window.MTF_SCALE_PRICES = {
   '1:160': 4.0,
   '1:180': 4.0,
+  '1:200': 3.5,
   '1:250': 3.0,
   '1:285': 3.0
 };

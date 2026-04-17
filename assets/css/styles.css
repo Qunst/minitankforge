@@ -974,3 +974,34 @@ textarea {
   height: 100%;
   object-fit: cover;
 }
+
+.gallery-media {
+    margin: 12px 0;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.gallery-media img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.zoom-hover {
+    overflow: hidden;
+    cursor: zoom-in;
+}
+
+.zoom-hover img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform 0.22s ease;
+    transform-origin: center center;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .zoom-hover:hover img {
+        transform: scale(1.6);
+    }
+}
