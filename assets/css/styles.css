@@ -951,10 +951,13 @@ textarea {
 }
 
 .scale-visual img {
+  padding: 10px;
   width: 100%;
   max-width: 700px;   /* THIS controls size */
+  background: linear-gradient(180deg, rgba(248, 244, 236, .96) 0%, rgba(236, 227, 214, .9) 100%);
+  border: 1px solid rgba(205, 191, 174, .42);
   border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 22px rgba(38, 34, 29, .05);
 }
 
 .set-detail-top {
