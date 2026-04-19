@@ -771,6 +771,7 @@ function initTankRequestForm() {
   const form = document.querySelector('[data-request-form]');
   if (!form) return;
 
+  const endpoint = form.getAttribute('action') || '';
   const mailtoLink = form.querySelector('[data-request-mailto]');
   const statusElement = form.querySelector('[data-request-status]');
   const submitButton = form.querySelector('[data-request-submit]');
@@ -790,9 +791,22 @@ function initTankRequestForm() {
     event.preventDefault();
 
     const formData = new FormData(form);
+    const jsonPayload = {
+      tankName: (formData.get('tankName') || '').toString().trim(),
+      email: (formData.get('email') || '').toString().trim(),
+      reference: (formData.get('reference') || '').toString().trim(),
+      details: (formData.get('details') || '').toString().trim(),
+      website: (formData.get('website') || '').toString().trim(),
+      _subject: (formData.get('_subject') || '').toString().trim(),
+    };
 
-    if (!(formData.get('tankName') || '').toString().trim() || !(formData.get('email') || '').toString().trim() || !(formData.get('details') || '').toString().trim()) {
+    if (!jsonPayload.tankName || !jsonPayload.email || !jsonPayload.details) {
       setRequestStatus(statusElement, 'error', 'Please fill in tank name, email, and details before sending.');
+      return;
+    }
+
+    if (!endpoint) {
+      setRequestStatus(statusElement, 'error', 'The request form is not configured yet. Please use the email option instead.');
       return;
     }
 
@@ -800,24 +814,19 @@ function initTankRequestForm() {
     setRequestStatus(statusElement, 'pending', 'Sending your request...');
 
     try {
-      const response = await fetch('/api/request', {
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          tankName: (formData.get('tankName') || '').toString().trim(),
-          email: (formData.get('email') || '').toString().trim(),
-          reference: (formData.get('reference') || '').toString().trim(),
-          details: (formData.get('details') || '').toString().trim(),
-          website: (formData.get('website') || '').toString().trim(),
-        }),
+        body: JSON.stringify(jsonPayload),
       });
 
       const payload = await response.json().catch(() => ({}));
 
       if (!response.ok) {
-        throw new Error(payload.error || 'Request could not be sent right now. Please use the email option instead.');
+        throw new Error(payload.errors?.[0]?.message || payload.error || 'Request could not be sent right now. Please use the email option instead.');
       }
 
       form.reset();
