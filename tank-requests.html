@@ -6,7 +6,7 @@
   <title>
    Tank Requests — MiniTankForge
   </title>
-  <link href="assets/css/styles.css" rel="stylesheet"/>
+  <link href="assets/css/styles.css?v=5" rel="stylesheet"/>
   <script defer src="assets/js/app.js"></script>
  </head>
  <body>
@@ -40,6 +40,9 @@
       <a href="scale-comparison.html">
        Scale Comparison
       </a>
+      <a href="reviews.html">
+       Reviews
+      </a>
       <a href="faq.html">
        FAQ
       </a>
@@ -62,44 +65,53 @@
      Tank Requests
     </h1>
     <p class="lead">
-     A simple request page for buyers looking for a specific unavailable tank.
+     If you are looking for a specific tank that is not listed yet, send a request here and I will take a look. If you prefer, you can also open a normal email instead.
     </p>
    </section>
    <section class="card request-panel">
-    <form>
+    <form data-request-form>
      <div class="form-grid">
       <div>
        <label for="tank-name">
         Tank name
        </label>
-       <input id="tank-name" placeholder="Example: Churchill VII"/>
+       <input id="tank-name" name="tankName" placeholder="Example: Churchill VII" required/>
       </div>
       <div>
        <label for="email">
         Email
        </label>
-       <input id="email" placeholder="you@example.com" type="email"/>
+       <input id="email" name="email" placeholder="you@example.com" required type="email"/>
       </div>
      </div>
      <div style="margin-top:14px">
       <label for="reference">
        Optional reference link or image note
       </label>
-      <input id="reference" placeholder="Link or short note"/>
+      <input id="reference" name="reference" placeholder="Link or short note"/>
      </div>
      <div style="margin-top:14px">
       <label for="details">
        Details
       </label>
-      <textarea id="details" placeholder="Tell us which vehicle you need and any useful notes."></textarea>
+      <textarea id="details" name="details" placeholder="Tell me which vehicle you need and any useful notes." required></textarea>
+     </div>
+     <div class="hp-field" aria-hidden="true">
+      <label for="website">
+       Website
+      </label>
+      <input autocomplete="off" id="website" name="website" tabindex="-1" type="text"/>
      </div>
      <div class="page-actions">
-      <button class="btn btn-primary" type="button">
+      <button class="btn btn-primary" data-request-submit type="submit">
        Send Request
       </button>
-      <a class="btn" href="mailto:hello@example.com?subject=Tank%20Request">
+      <a class="btn" data-request-mailto href="mailto:quali3dprint@gmail.com?subject=Tank%20Request">
        Open Email Instead
       </a>
+     </div>
+     <div class="notice request-form-status" data-request-status hidden>
+      Your request was sent.
      </div>
     </form>
    </section>

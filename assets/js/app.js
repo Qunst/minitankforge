@@ -732,6 +732,105 @@ function updateSetLivePrice(set, scale, finish, optionSlug = '') {
   });
 }
 
+function buildTankRequestMailto(formData) {
+  const tankName = (formData.get('tankName') || '').toString().trim();
+  const email = (formData.get('email') || '').toString().trim();
+  const reference = (formData.get('reference') || '').toString().trim();
+  const details = (formData.get('details') || '').toString().trim();
+  const subject = tankName ? `Tank Request - ${tankName}` : 'Tank Request';
+  const lines = [`Tank name: ${tankName || 'Not specified'}`, `Reply email: ${email || 'Not specified'}`];
+
+  if (reference) {
+    lines.push(`Reference: ${reference}`);
+  }
+
+  if (details) {
+    lines.push('', 'Details:', details);
+  }
+
+  return `mailto:quali3dprint@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
+}
+
+function setRequestStatus(statusElement, kind, message) {
+  if (!statusElement) return;
+
+  statusElement.hidden = false;
+  statusElement.textContent = message;
+  statusElement.classList.remove('is-pending', 'is-error');
+
+  if (kind === 'pending') {
+    statusElement.classList.add('is-pending');
+  }
+
+  if (kind === 'error') {
+    statusElement.classList.add('is-error');
+  }
+}
+
+function initTankRequestForm() {
+  const form = document.querySelector('[data-request-form]');
+  if (!form) return;
+
+  const mailtoLink = form.querySelector('[data-request-mailto]');
+  const statusElement = form.querySelector('[data-request-status]');
+  const submitButton = form.querySelector('[data-request-submit]');
+
+  function syncMailtoLink() {
+    if (!mailtoLink) return;
+    mailtoLink.href = buildTankRequestMailto(new FormData(form));
+  }
+
+  form.querySelectorAll('input, textarea').forEach(field => {
+    field.addEventListener('input', syncMailtoLink);
+  });
+
+  syncMailtoLink();
+
+  form.addEventListener('submit', async event => {
+    event.preventDefault();
+
+    const formData = new FormData(form);
+
+    if (!(formData.get('tankName') || '').toString().trim() || !(formData.get('email') || '').toString().trim() || !(formData.get('details') || '').toString().trim()) {
+      setRequestStatus(statusElement, 'error', 'Please fill in tank name, email, and details before sending.');
+      return;
+    }
+
+    if (submitButton) submitButton.disabled = true;
+    setRequestStatus(statusElement, 'pending', 'Sending your request...');
+
+    try {
+      const response = await fetch('/api/request', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          tankName: (formData.get('tankName') || '').toString().trim(),
+          email: (formData.get('email') || '').toString().trim(),
+          reference: (formData.get('reference') || '').toString().trim(),
+          details: (formData.get('details') || '').toString().trim(),
+          website: (formData.get('website') || '').toString().trim(),
+        }),
+      });
+
+      const payload = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(payload.error || 'Request could not be sent right now. Please use the email option instead.');
+      }
+
+      form.reset();
+      syncMailtoLink();
+      setRequestStatus(statusElement, 'success', 'Your request was sent. I will get back to you by email.');
+    } catch (error) {
+      setRequestStatus(statusElement, 'error', error.message || 'Request could not be sent right now. Please use the email option instead.');
+    } finally {
+      if (submitButton) submitButton.disabled = false;
+    }
+  });
+}
+
 function initFinishGuideRotation() {
   const overviewImage = document.querySelector('[data-finish-rotation="overview"]');
   const unpaintedImage = document.querySelector('[data-finish-rotation="unpainted"]');
@@ -768,6 +867,7 @@ function initFinishGuideRotation() {
 
   let activeIndex = 0;
   const fadeDurationMs = 550;
+  let isTransitioning = false;
 
   function applyVariant(index) {
     const variant = variants[index];
@@ -779,14 +879,38 @@ function initFinishGuideRotation() {
     basecoatImage.alt = variant.basecoatAlt;
   }
 
-  function transitionToVariant(index) {
-    const images = [unpaintedImage, basecoatImage];
-    images.forEach(image => image.classList.add('is-fading'));
+  function preloadImage(src) {
+    return new Promise((resolve, reject) => {
+      const image = new Image();
+      image.onload = () => resolve(src);
+      image.onerror = reject;
+      image.src = src;
+    });
+  }
 
-    window.setTimeout(() => {
+  function transitionToVariant(index) {
+    if (isTransitioning) return;
+
+    const variant = variants[index];
+    const images = [unpaintedImage, basecoatImage];
+
+    isTransitioning = true;
+
+    Promise.all([
+      preloadImage(variant.unpaintedSrc),
+      preloadImage(variant.basecoatSrc),
+    ]).then(() => {
+      images.forEach(image => image.classList.add('is-fading'));
+
+      window.setTimeout(() => {
+        applyVariant(index);
+        images.forEach(image => image.classList.remove('is-fading'));
+        isTransitioning = false;
+      }, fadeDurationMs);
+    }).catch(() => {
       applyVariant(index);
-      images.forEach(image => image.classList.remove('is-fading'));
-    }, fadeDurationMs);
+      isTransitioning = false;
+    });
   }
 
   applyVariant(activeIndex);
@@ -797,4 +921,5 @@ function initFinishGuideRotation() {
   }, 4000);
 }
 
+document.addEventListener('DOMContentLoaded', initTankRequestForm);
 document.addEventListener('DOMContentLoaded', initFinishGuideRotation);

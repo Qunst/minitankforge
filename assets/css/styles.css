@@ -127,19 +127,39 @@ img {
   justify-content: center;
   min-width: 220px;
   padding: 16px 26px;
-  background: linear-gradient(180deg, #7a756b 0%, #605b52 100%);
+  background:
+    radial-gradient(circle at 22% 18%, rgba(255, 255, 255, .10) 0, rgba(255, 255, 255, 0) 32%),
+    radial-gradient(circle at 78% 70%, rgba(0, 0, 0, .12) 0, rgba(0, 0, 0, 0) 38%),
+    repeating-linear-gradient(135deg,
+      rgba(255, 255, 255, .035) 0,
+      rgba(255, 255, 255, .035) 2px,
+      rgba(0, 0, 0, .025) 2px,
+      rgba(0, 0, 0, .025) 4px),
+    linear-gradient(180deg, #7c776e 0%, #676258 52%, #565146 100%);
   color: #fff;
-  border: 1px solid #575249;
+  border: 1px solid #4f4a42;
   border-radius: 6px;
   font-size: 1rem;
   font-weight: 700;
   text-decoration: none;
-  box-shadow: 0 3px 0 #4b463e, 0 10px 18px rgba(0,0,0,.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .12),
+    inset 0 -1px 0 rgba(0, 0, 0, .18),
+    0 3px 0 #46413a,
+    0 10px 18px rgba(0,0,0,.14);
 }
 
 .btn-main:hover,
 .btn-primary:hover {
-  background: linear-gradient(180deg, #6f6a61 0%, #575249 100%);
+  background:
+    radial-gradient(circle at 22% 18%, rgba(255, 255, 255, .12) 0, rgba(255, 255, 255, 0) 32%),
+    radial-gradient(circle at 78% 70%, rgba(0, 0, 0, .10) 0, rgba(0, 0, 0, 0) 38%),
+    repeating-linear-gradient(135deg,
+      rgba(255, 255, 255, .04) 0,
+      rgba(255, 255, 255, .04) 2px,
+      rgba(0, 0, 0, .02) 2px,
+      rgba(0, 0, 0, .02) 4px),
+    linear-gradient(180deg, #746f66 0%, #5f5a51 52%, #4f4a41 100%);
 }
 
 .product-card .btn-primary {
@@ -609,6 +629,30 @@ textarea {
   font-weight: 600
 }
 
+.notice.is-pending {
+  background: #f4eee4;
+  border-color: #dccdb6;
+  color: #7b5b34
+}
+
+.notice.is-error {
+  background: #f7ece8;
+  border-color: #e2c5bb;
+  color: #8a4638
+}
+
+.request-form-status {
+  margin-top: 16px
+}
+
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden
+}
+
 .small {
   font-size: .92rem
 }
@@ -674,8 +718,16 @@ textarea {
   width: 100%;
   margin-top: auto;
   border-radius: 12px;
-  background: linear-gradient(180deg, #7a756b 0%, #605b52 100%);
-  border-color: #575249;
+  background:
+    radial-gradient(circle at 22% 18%, rgba(255, 255, 255, .10) 0, rgba(255, 255, 255, 0) 32%),
+    radial-gradient(circle at 78% 70%, rgba(0, 0, 0, .12) 0, rgba(0, 0, 0, 0) 38%),
+    repeating-linear-gradient(135deg,
+      rgba(255, 255, 255, .035) 0,
+      rgba(255, 255, 255, .035) 2px,
+      rgba(0, 0, 0, .025) 2px,
+      rgba(0, 0, 0, .025) 4px),
+    linear-gradient(180deg, #7c776e 0%, #676258 52%, #565146 100%);
+  border-color: #4f4a42;
   min-width: 0;
 }
 
@@ -784,9 +836,12 @@ textarea {
   padding: 18px 0 32px;
   text-align: center;
   border-bottom: 1px solid rgba(0, 0, 0, .06);
-  background: radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px), radial-gradient(rgba(0, 0, 0, 0.025) 1px, transparent 1px), linear-gradient(180deg, #e9e5de 0%, #e3ded6 100%);
-  background-size: 6px 6px, 8px 8px, auto;
-  background-position: 0 0, 3px 3px, 0 0
+  background:
+    linear-gradient(180deg, rgba(247, 243, 235, .72) 0%, rgba(242, 236, 225, .68) 100%),
+    url('../img/textures/hero-texture.png');
+  background-size: cover, 2000px auto;
+  background-position: center center, center top;
+  background-repeat: no-repeat, no-repeat
 }
 
 .hero-clean .container {
@@ -851,14 +906,38 @@ textarea {
   justify-content: center;
   min-width: 290px;
   padding: 16px 30px;
-  background: linear-gradient(180deg, #eadfc8 0%, #d8cbb3 100%);
+  background:
+    radial-gradient(circle at 22% 18%, rgba(255, 255, 255, .16) 0, rgba(255, 255, 255, 0) 32%),
+    radial-gradient(circle at 78% 70%, rgba(0, 0, 0, .08) 0, rgba(0, 0, 0, 0) 38%),
+    repeating-linear-gradient(135deg,
+      rgba(255, 255, 255, .035) 0,
+      rgba(255, 255, 255, .035) 2px,
+      rgba(0, 0, 0, .018) 2px,
+      rgba(0, 0, 0, .018) 4px),
+    linear-gradient(180deg, #eadfc8 0%, #d8cbb3 55%, #cdbd9f 100%);
   color: #1f1a14;
-  border: 1px solid #b9ac95;
+  border: 1px solid #b7a88f;
   border-radius: 6px;
   font-size: 1rem;
   font-weight: 700;
   text-decoration: none;
-  box-shadow: 0 3px 0 #aa9d87, 0 10px 18px rgba(0, 0, 0, .1)
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .22),
+    inset 0 -1px 0 rgba(0, 0, 0, .08),
+    0 3px 0 #aa9d87,
+    0 10px 18px rgba(0, 0, 0, .1)
+}
+
+.btn-etsy-main:hover {
+  background:
+    radial-gradient(circle at 22% 18%, rgba(255, 255, 255, .18) 0, rgba(255, 255, 255, 0) 32%),
+    radial-gradient(circle at 78% 70%, rgba(0, 0, 0, .07) 0, rgba(0, 0, 0, 0) 38%),
+    repeating-linear-gradient(135deg,
+      rgba(255, 255, 255, .04) 0,
+      rgba(255, 255, 255, .04) 2px,
+      rgba(0, 0, 0, .015) 2px,
+      rgba(0, 0, 0, .015) 4px),
+    linear-gradient(180deg, #e6dac1 0%, #d2c4aa 55%, #c4b392 100%);
 }
 
 
