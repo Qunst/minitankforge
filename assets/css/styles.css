@@ -474,6 +474,13 @@ footer {
   align-items: start
 }
 
+footer .nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+}
+
 .scale-toolbar {
   display: flex;
   flex-wrap: wrap;
@@ -519,11 +526,11 @@ footer {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
-  padding: 18px;
-  background: linear-gradient(180deg, rgba(248, 244, 236, .96) 0%, rgba(236, 227, 214, .92) 100%);
-  border: 1px solid rgba(205, 191, 174, .65);
-  border-radius: 18px;
-  box-shadow: 0 10px 24px rgba(38, 34, 29, .05);
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .browse-filters-single {
@@ -650,14 +657,14 @@ textarea {
 }
 
 .hero-small {
-  padding: 44px 0 18px
+  padding: 30px 0 8px
 }
 
 .browse-top-area {
   position: relative;
   width: 100%;
-  margin: 0 0 30px;
-  padding: 18px 0 26px;
+  margin: 0 0 10px;
+  padding: 8px 0 8px;
   overflow: hidden;
 }
 
@@ -685,6 +692,15 @@ textarea {
 .browse-preview-top {
   padding-top: 0;
   padding-bottom: 0;
+}
+
+.browse-top-area .callout {
+  margin-bottom: 4px;
+}
+
+.browse-top-area .browse-filters {
+  margin-top: 0;
+  margin-bottom: 2px;
 }
 
 .page-title {
@@ -804,12 +820,20 @@ textarea {
     min-height: 340px
   }
 
-  .nav {
+  .topbar .nav {
     display: none
   }
 
   .nav-stack {
     display: none
+  }
+
+  footer .nav {
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 8px;
   }
 }
 
