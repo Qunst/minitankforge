@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta content="width=device-width,initial-scale=1" name="viewport" />
   <title>Browse Tanks — MiniTankForge</title>
-  <link href="assets/css/styles.css?v=5" rel="stylesheet" />
+  <link href="assets/css/styles.css?v=6" rel="stylesheet" />
   <script defer src="assets/js/tanks-data.js"></script>
   <script defer src="assets/js/app.js"></script>
 </head>
@@ -34,26 +34,40 @@
         Etsy Shop</a>
     </div>
   </header>
+  <div class="browse-top-area">
+    <div class="container browse-top-inner">
+      <section class="hero-small">
+        <div class="eyebrow">Primary browsing path</div>
+        <h1 class="page-title">Browse Tanks</h1>
+        <p class="lead">Filter individual tanks by nation, type, and era.</p>
+        <div class="callout">This site is for browsing, not direct checkout. When you find a tank you want, you can contact me with your request and pay by PayPal after details are confirmed, or continue to Etsy.</div>
+      </section>
+      <section>
+         <div class="filter-row browse-filters">
+          <div class="filter-field">
+            <label class="filter-label" for="tank-filter-nation">Nation</label>
+            <select data-filter-nation id="tank-filter-nation">
+              <option value="All">Nation: All</option>
+            </select>
+          </div>
+          <div class="filter-field">
+            <label class="filter-label" for="tank-filter-type">Type</label>
+            <select data-filter-type id="tank-filter-type">
+              <option value="All">Type: All</option>
+            </select>
+          </div>
+          <div class="filter-field">
+            <label class="filter-label" for="tank-filter-era">Era</label>
+            <select data-filter-era id="tank-filter-era">
+              <option value="All">Era: All</option>
+            </select>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
   <main class="container">
-    <section class="hero-small">
-      <div class="eyebrow">Primary browsing path</div>
-      <h1 class="page-title">Browse Tanks</h1>
-      <p class="lead">Filter individual tanks by nation, type, and era.</p>
-      <div class="callout">This site is for browsing, not direct checkout. When you find a tank you want, you can contact me with your request and pay by PayPal after details are confirmed, or continue to Etsy.</div>
-    </section>
-    <section>
-       <div class="filter-row">
-        <select data-filter-nation>
-          <option value="All">Nation: All</option>
-        </select>
-        <select data-filter-type>
-          <option value="All">Type: All</option>
-        </select>
-        <select data-filter-era>
-          <option value="All">Era: All</option>
-        </select>
-      </div>
-    </section>
     <section class="browse-preview-section">
       <div class="grid-3" data-tank-grid></div>
     </section>

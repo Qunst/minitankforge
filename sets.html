@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta content="width=device-width,initial-scale=1" name="viewport" />
   <title>Browse Sets — MiniTankForge</title>
-  <link href="assets/css/styles.css?v=5" rel="stylesheet" />
+  <link href="assets/css/styles.css?v=6" rel="stylesheet" />
   <script defer src="assets/js/tanks-data.js"></script>
   <script defer src="assets/js/sets-data.js"></script>
   <script defer src="assets/js/app.js"></script>
@@ -37,28 +37,37 @@
     </div>
   </header>
 
-  <main class="container">
-    <section class="hero-small">
-      <div class="eyebrow">Sets</div>
-      <h1 class="page-title">Browse Sets</h1>
-      <p class="lead">Browse starter sets, nation sets, and game-ready sets.</p>
-      <div class="callout">This site is for browsing, not direct checkout. When you find a set you want, you can contact me with your request and pay by PayPal after details are confirmed, or continue to Etsy.</div>
-    </section>
+  <div class="browse-top-area">
+    <div class="container browse-top-inner">
+      <section class="hero-small">
+        <div class="eyebrow">Sets</div>
+        <h1 class="page-title">Browse Sets</h1>
+        <p class="lead">Browse starter sets, nation sets, and game-ready sets.</p>
+        <div class="callout">This site is for browsing, not direct checkout. When you find a set you want, you can contact me with your request and pay by PayPal after details are confirmed, or continue to Etsy.</div>
+      </section>
 
-    <section class="browse-preview-section">
-      <div class="section-head">
-        <div>
-          <h2>Available Sets</h2>
-          <p>Starter sets, destroyer groups, and game-ready sets.</p>
+      <section class="browse-preview-section browse-preview-top">
+        <div class="section-head">
+          <div>
+            <h2>Available Sets</h2>
+            <p>Starter sets, destroyer groups, and game-ready sets.</p>
+          </div>
         </div>
-      </div>
 
-      <div class="filter-row">
-        <select data-filter-set-group>
-          <option value="All">Set type: All</option>
-        </select>
-      </div>
+        <div class="filter-row browse-filters browse-filters-single">
+          <div class="filter-field">
+            <label class="filter-label" for="set-filter-group">Set Type</label>
+            <select data-filter-set-group id="set-filter-group">
+              <option value="All">Set type: All</option>
+            </select>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
 
+  <main class="container">
+    <section class="browse-preview-section">
       <div class="grid-3" data-sets-grid></div>
     </section>
   </main>
