@@ -73,6 +73,76 @@ function getTankBySlug(slug) {
   return tankData.find(t => t.slug === slug);
 }
 
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+function normalizeTankLookup(value) {
+  return String(value || '')
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/&/g, ' and ')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+function buildTankLookupMap() {
+  const lookup = new Map();
+
+  tankData.forEach(tank => {
+    const shortName = tank.name.split(' (')[0].trim();
+    const aliases = new Set([tank.name, shortName]);
+
+    if (/^[a-z0-9-]+\s+.+/i.test(shortName) && /\d/.test(shortName.split(' ')[0])) {
+      aliases.add(shortName.replace(/^[a-z0-9-]+\s+/i, '').trim());
+    }
+
+    aliases.forEach(alias => {
+      const key = normalizeTankLookup(alias);
+      if (key && !lookup.has(key)) {
+        lookup.set(key, tank);
+      }
+    });
+  });
+
+  return lookup;
+}
+
+const tankLookupMap = buildTankLookupMap();
+
+function getLinkedTankFromSetItem(item) {
+  const raw = String(item || '').trim();
+  if (!raw) return null;
+
+  const withoutQuantity = raw.replace(/^\s*\d+\s*[x×]\s*/i, '').trim();
+  const normalized = normalizeTankLookup(withoutQuantity);
+  return tankLookupMap.get(normalized) || null;
+}
+
+function renderSetContents(contents, selectedScale = getSelectedScale()) {
+  return `
+    <ul class="set-contents-list compact">
+      ${contents.map(item => {
+        const safeItem = escapeHtml(item);
+        const tank = getLinkedTankFromSetItem(item);
+
+        if (!tank) {
+          return `<li>${safeItem}</li>`;
+        }
+
+        const link = `tank.html?slug=${tank.slug}&scale=${scaleForUrl(selectedScale)}`;
+        return `<li><a class="set-content-link" href="${link}">${safeItem}</a></li>`;
+      }).join('')}
+    </ul>
+  `;
+}
+
 function getAvailableScales(tank) {
   return Array.isArray(tank?.availableScales) && tank.availableScales.length ? tank.availableScales : validScales;
 }
@@ -269,6 +339,146 @@ function populateFilters() {
   });
 }
 
+function closeFilterDropdowns(exceptDropdown = null) {
+  document.querySelectorAll('.filter-dropdown.is-open').forEach(dropdown => {
+    if (dropdown !== exceptDropdown) {
+      dropdown.classList.remove('is-open');
+      const trigger = dropdown.querySelector('.filter-trigger');
+      const menu = dropdown.querySelector('.filter-menu');
+      if (trigger) trigger.setAttribute('aria-expanded', 'false');
+      if (menu) menu.hidden = true;
+    }
+  });
+}
+
+function getFilterDisplayValue(option) {
+  if (!option) return '';
+  return option.value === 'All' ? 'All' : option.value;
+}
+
+function syncEnhancedFilter(select) {
+  const field = select.closest('.filter-field');
+  if (!field || !select.id) return;
+
+  const dropdown = field.querySelector(`.filter-dropdown[data-filter-dropdown-for="${select.id}"]`);
+  if (!dropdown) return;
+
+  const triggerLabel = dropdown.querySelector('.filter-trigger-label');
+  const menuList = dropdown.querySelector('.filter-menu-list');
+  const selectedOption = select.options[select.selectedIndex];
+
+  if (triggerLabel) {
+    triggerLabel.textContent = getFilterDisplayValue(selectedOption);
+  }
+
+  if (!menuList) return;
+  menuList.innerHTML = '';
+
+  Array.from(select.options).forEach(option => {
+    const optionButton = document.createElement('button');
+    optionButton.type = 'button';
+    optionButton.className = 'filter-menu-option';
+    optionButton.dataset.value = option.value;
+    optionButton.textContent = getFilterDisplayValue(option);
+    optionButton.setAttribute('role', 'option');
+
+    if (option.selected) {
+      optionButton.classList.add('is-selected');
+      optionButton.setAttribute('aria-selected', 'true');
+    } else {
+      optionButton.setAttribute('aria-selected', 'false');
+    }
+
+    optionButton.addEventListener('click', () => {
+      if (select.value !== option.value) {
+        select.value = option.value;
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+
+      syncEnhancedFilter(select);
+      closeFilterDropdowns();
+      dropdown.querySelector('.filter-trigger')?.focus();
+    });
+
+    menuList.appendChild(optionButton);
+  });
+}
+
+function enhanceBrowseFilter(select) {
+  if (!select || !select.id) return;
+
+  const field = select.closest('.filter-field');
+  if (!field) return;
+
+  select.classList.add('filter-select-native');
+
+  let dropdown = field.querySelector(`.filter-dropdown[data-filter-dropdown-for="${select.id}"]`);
+
+  if (!dropdown) {
+    dropdown = document.createElement('div');
+    dropdown.className = 'filter-dropdown';
+    dropdown.dataset.filterDropdownFor = select.id;
+
+    const trigger = document.createElement('button');
+    trigger.type = 'button';
+    trigger.className = 'filter-trigger';
+    trigger.setAttribute('aria-haspopup', 'listbox');
+    trigger.setAttribute('aria-expanded', 'false');
+    trigger.innerHTML = `
+      <span class="filter-trigger-label"></span>
+      <span class="filter-trigger-icon" aria-hidden="true"></span>
+    `;
+
+    const menu = document.createElement('div');
+    menu.className = 'filter-menu';
+    menu.hidden = true;
+    menu.setAttribute('role', 'listbox');
+
+    const menuList = document.createElement('div');
+    menuList.className = 'filter-menu-list';
+    menu.appendChild(menuList);
+
+    trigger.addEventListener('click', () => {
+      const isOpen = dropdown.classList.contains('is-open');
+      closeFilterDropdowns(isOpen ? null : dropdown);
+      dropdown.classList.toggle('is-open', !isOpen);
+      trigger.setAttribute('aria-expanded', String(!isOpen));
+      menu.hidden = isOpen;
+    });
+
+    dropdown.appendChild(trigger);
+    dropdown.appendChild(menu);
+    select.insertAdjacentElement('afterend', dropdown);
+
+    if (!select.dataset.enhancedFilterBound) {
+      select.addEventListener('change', () => syncEnhancedFilter(select));
+      select.dataset.enhancedFilterBound = 'true';
+    }
+  }
+
+  syncEnhancedFilter(select);
+}
+
+function enhanceBrowseFilters() {
+  document.querySelectorAll('.browse-filters select').forEach(enhanceBrowseFilter);
+
+  if (document.body.dataset.filterDropdownReady === 'true') return;
+
+  document.addEventListener('click', event => {
+    if (!event.target.closest('.filter-dropdown')) {
+      closeFilterDropdowns();
+    }
+  });
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      closeFilterDropdowns();
+    }
+  });
+
+  document.body.dataset.filterDropdownReady = 'true';
+}
+
 function renderTankDetail() {
   const target = document.querySelector('[data-tank-detail]');
   if (!target) return;
@@ -362,8 +572,10 @@ function initScaleUI() {
   renderFeaturedTanks();
   renderFeaturedSets();
   populateSetFilters();
+  enhanceBrowseFilters();
   renderSetsGrid();
   populateFilters();
+  enhanceBrowseFilters();
   renderBrowseGrid();
   renderTankDetail();
   renderSetDetail();
@@ -634,7 +846,7 @@ function renderSetDetail() {
       <h2>What you get</h2>
       <div class="callout">
         <strong>Included in this set:</strong><br><br>
-        <span data-set-contents>${currentContents.map(item => `${item}<br>`).join('')}</span>
+        <div data-set-contents>${renderSetContents(currentContents, selectedScale)}</div>
       </div>
       <p class="muted">This page shows exact set contents before Etsy checkout.</p>
       <div class="notice">Set pages always list exact included quantity and composition.</div>
@@ -684,7 +896,7 @@ function renderSetDetail() {
         });
 
         if (contentsContainer) {
-          contentsContainer.innerHTML = getSetContents(set, optionSlug).map(item => `${item}<br>`).join('');
+          contentsContainer.innerHTML = renderSetContents(getSetContents(set, optionSlug), getSelectedScale());
         }
 
         updateSetLivePrice(set, getSelectedScale(), getSelectedFinish(), optionSlug);
@@ -701,6 +913,9 @@ function renderSetDetail() {
       btn.addEventListener('click', () => {
         const scale = btn.dataset.setScaleChip;
         setSelectedScale(scale);
+        if (contentsContainer) {
+          contentsContainer.innerHTML = renderSetContents(getSetContents(set, container.dataset.selectedSetOption || ''), scale);
+        }
         updateSetLivePrice(set, scale, getSelectedFinish(), container.dataset.selectedSetOption || '');
         scaleContainer.querySelectorAll('.chip').forEach(chip => {
           chip.classList.toggle('active', chip.dataset.setScaleChip === scale);
