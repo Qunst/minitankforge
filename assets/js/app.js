@@ -284,7 +284,7 @@ function renderTankDetail() {
     <section class="hero-small">
       <div class="eyebrow">Single tank page</div>
       <h1 class="page-title">${tank.name}</h1>
-      <p class="lead">This page keeps quantity, options, and selection explicit before sending the buyer to Etsy.</p>
+      <p class="lead">Review the available options before continuing to Etsy.</p>
     </section>
     <section class="split">
       <div>
