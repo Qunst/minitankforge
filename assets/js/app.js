@@ -1,6 +1,7 @@
 
 const DEFAULT_SCALE = '1:180';
 const DEFAULT_FINISH = 'Base coat';
+const DEFAULT_SET_IMAGE = 'assets/img/sets/genset.jpg';
 const validScales = Array.isArray(window.MTF_SCALES) ? window.MTF_SCALES : ['1:180', '1:200', '1:250', '1:285'];
 const validFinishes = Array.isArray(window.MTF_FINISHES) ? window.MTF_FINISHES : ['Base coat', 'Unpainted'];
 const tankData = Array.isArray(window.TANKS) ? window.TANKS : [];
@@ -676,12 +677,8 @@ function initScaleComparison() {
 initScaleComparison();
 
 function renderSetVisual(set, large = false) {
-  if (set.image) {
-    return `<div class="product-image ${large ? 'product-image-large' : ''}"><img src="${set.image}" alt="${set.name}"></div>`;
-  }
-  const size = large ? 'tank-lg' : tankSizeClass(set.placeholderStyle);
-  const extraClass = placeholderClass(set.placeholderStyle);
-  return `<div class="${extraClass} ${large ? 'product-image-large' : ''}"><div class="tank ${size}"></div></div>`;
+  const image = set.image || DEFAULT_SET_IMAGE;
+  return `<div class="product-image ${large ? 'product-image-large' : ''}"><img src="${image}" alt="${set.name}"></div>`;
 }
 
 function buildSetCard(set) {
