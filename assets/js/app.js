@@ -133,7 +133,23 @@ function getSelectedFinish() {
 }
 
 function getTankBySlug(slug) {
-  return tankData.find(t => t.slug === slug);
+  return tankData.find(t => t.slug === slug && !isDisabled(t));
+}
+
+function getDisplayName(name) {
+  return String(name || '').split(' (')[0].trim();
+}
+
+function isDisabled(item) {
+  return item?.disabled === true;
+}
+
+function getVisibleTanks() {
+  return tankData.filter(tank => !isDisabled(tank));
+}
+
+function getVisibleSets() {
+  return setData.filter(set => !isDisabled(set));
 }
 
 function escapeHtml(value) {
@@ -158,7 +174,7 @@ function normalizeTankLookup(value) {
 function buildTankLookupMap() {
   const lookup = new Map();
 
-  tankData.forEach(tank => {
+  getVisibleTanks().forEach(tank => {
     const shortName = tank.name.split(' (')[0].trim();
     const aliases = new Set([tank.name, shortName]);
 
@@ -272,7 +288,7 @@ const setData = Array.isArray(window.SETS) ? window.SETS : [];
 const validSetFinishes = Array.isArray(window.MTF_SET_FINISHES) ? window.MTF_SET_FINISHES : validFinishes;
 
 function getSetBySlug(slug) {
-  return setData.find(s => s.slug === slug);
+  return setData.find(s => s.slug === slug && !isDisabled(s));
 }
 
 function getAvailableSetScales(set) {
@@ -357,7 +373,7 @@ function getSetPriceRange(set) {
 function renderFeaturedTanks() {
   const target = document.querySelector('[data-featured-tanks]');
   if (!target) return;
-  const featured = [...tankData]
+  const featured = getVisibleTanks()
     .filter(t => t.featured)
     .sort((a, b) => (a.featuredOrder || 999) - (b.featuredOrder || 999))
     .slice(0, 3);
@@ -372,7 +388,7 @@ function renderBrowseGrid() {
   const type = document.querySelector('[data-filter-type]')?.value || 'All';
   const era = document.querySelector('[data-filter-era]')?.value || 'All';
 
-  const filtered = tankData.filter(t => {
+  const filtered = getVisibleTanks().filter(t => {
     return (nation === 'All' || t.nation === nation)
       && (type === 'All' || t.type === type)
       && (era === 'All' || t.era === era);
@@ -382,9 +398,10 @@ function renderBrowseGrid() {
 }
 
 function populateFilters() {
-  const nations = ['All', ...new Set(tankData.map(t => t.nation))];
-  const types = ['All', ...new Set(tankData.map(t => t.type))];
-  const eras = ['All', ...new Set(tankData.map(t => t.era))];
+  const visibleTanks = getVisibleTanks();
+  const nations = ['All', ...new Set(visibleTanks.map(t => t.nation))];
+  const types = ['All', ...new Set(visibleTanks.map(t => t.type))];
+  const eras = ['All', ...new Set(visibleTanks.map(t => t.era))];
 
   const sets = [
     ['[data-filter-nation]', nations],
@@ -547,7 +564,17 @@ function renderTankDetail() {
   if (!target) return;
   const url = new URL(window.location.href);
   const slug = url.searchParams.get('slug');
-  const tank = getTankBySlug(slug) || tankData[0];
+  const tank = getTankBySlug(slug);
+
+  if (!tank) {
+    target.innerHTML = `
+      <section class="hero-small">
+        <h1 class="page-title">Tank not found</h1>
+        <p class="lead">This tank is not currently available to browse.</p>
+      </section>
+    `;
+    return;
+  }
   const selectedScale = getSelectedScale();
   const selectedFinish = getSelectedFinish();
   const availableScales = getAvailableScales(tank);
@@ -586,7 +613,7 @@ function renderTankDetail() {
     <section class="hero-small">
       <div class="eyebrow">Single tank page</div>
       <h1 class="page-title">${tank.name}</h1>
-      <p class="lead">Review the available options before continuing to Etsy.</p>
+      <p class="lead">Review scale, finish, and details before sending a direct request or continuing to Etsy.</p>
     </section>
     <section class="split">
       <div>
@@ -605,9 +632,9 @@ function renderTankDetail() {
   <div class="kicker">Price</div>
   <div class="tank-live-price" data-live-price>€0.00</div>
   <div class="price-note">Price updates with selected scale and finish.</div>
-</div>
+        </div>
         <div class="page-actions">
-          <a class="btn btn-etsy" data-etsy-base="${tank.etsyUrl}" href="${tank.etsyUrl}" target="_blank" rel="noopener">Buy ${tank.name} on Etsy</a>
+          <a class="btn btn-etsy" data-etsy-base="${tank.etsyUrl}" href="${tank.etsyUrl}" target="_blank" rel="noopener">Buy ${getDisplayName(tank.name)} on Etsy</a>
           <a class="btn" href="tanks.html">Back to Tanks</a>
         </div>
         <p class="helper"><strong data-selection-summary></strong></p>
@@ -628,7 +655,7 @@ function renderTankDetail() {
       <div>
         <h2>What you get</h2>
         <div class="callout"><strong>1× ${tank.name} tank model</strong><br>No set contents are implied on this page. This is a single tank page.</div>
-        <p class="muted">Scale and finish are selected here for clarity. Final variation selection still happens on Etsy.</p>
+        <p class="muted">Use these options when contacting me directly, or choose the matching variation on Etsy.</p>
         <div class="notice">Single tank listings are single tanks unless the page clearly states otherwise.</div>
       </div>
     </section>
@@ -797,7 +824,7 @@ function renderFeaturedSets() {
   const container = document.querySelector('[data-featured-sets]');
   if (!container) return;
 
-  const featured = [...setData]
+  const featured = getVisibleSets()
     .filter(set => set.featured)
     .sort((a, b) => (a.featuredOrder ?? 999) - (b.featuredOrder ?? 999))
     .slice(0, 2);
@@ -811,7 +838,7 @@ function renderSetsGrid() {
 
   const selectedGroup = document.querySelector('[data-filter-set-group]')?.value || 'All';
 
-  const filtered = setData.filter(set => {
+  const filtered = getVisibleSets().filter(set => {
     return selectedGroup === 'All' || set.filterGroup === selectedGroup;
   });
 
@@ -822,7 +849,7 @@ function populateSetFilters() {
   const select = document.querySelector('[data-filter-set-group]');
   if (!select) return;
 
-  const values = ['All', ...new Set(setData.map(set => set.filterGroup).filter(Boolean))];
+  const values = ['All', ...new Set(getVisibleSets().map(set => set.filterGroup).filter(Boolean))];
   const current = select.value || 'All';
 
   select.innerHTML = values.map(value => `
@@ -845,7 +872,7 @@ function renderSetDetail() {
     container.innerHTML = `
     <section class="hero-small">
       <h1 class="page-title">Set not found</h1>
-      <p class="lead">This set could not be found.</p>
+      <p class="lead">This set is not currently available to browse.</p>
     </section>
   `;
     return;
@@ -930,7 +957,7 @@ function renderSetDetail() {
       </div>
 
       <div class="page-actions">
-        <a class="btn btn-etsy" data-set-etsy-base="${set.etsyUrl}" href="${set.etsyUrl}" target="_blank" rel="noopener">Buy ${set.name} on Etsy</a>
+        <a class="btn btn-etsy" data-set-etsy-base="${set.etsyUrl}" href="${set.etsyUrl}" target="_blank" rel="noopener">Buy ${getDisplayName(set.name)} on Etsy</a>
         <a class="btn" href="sets.html">Back to Sets</a>
       </div>
 
@@ -941,7 +968,7 @@ function renderSetDetail() {
           : `<strong data-current-scale>${selectedScale}</strong>,`
         }
         <strong data-current-finish>${selectedFinish}</strong>.
-        Choose the same options on Etsy.
+        Use these options in your direct request, or choose the same options on Etsy.
       </p>
     </div>
   </section>
@@ -966,7 +993,7 @@ function renderSetDetail() {
         <strong>Included in this set:</strong><br><br>
         <div data-set-contents>${renderSetContents(currentContents, selectedScale)}</div>
       </div>
-      <p class="muted">This page shows exact set contents before Etsy checkout.</p>
+      <p class="muted">This page shows exact set contents before you send a request or continue to Etsy.</p>
       <div class="notice">Set pages always list exact included quantity and composition.</div>
     </div>
   </section>
