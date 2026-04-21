@@ -8,6 +8,7 @@ const tankData = Array.isArray(window.TANKS) ? window.TANKS : [];
 
 const scalePrices = window.MTF_SCALE_PRICES || {};
 const finishSurcharges = window.MTF_FINISH_SURCHARGES || {};
+const SITE_URL = 'https://minitankforge.com';
 
 function getScalePrice(scale) {
   return Number(scalePrices[scale] ?? 0);
@@ -19,6 +20,67 @@ function getFinishSurcharge(finish) {
 
 function getTankPrice(scale, finish) {
   return getScalePrice(scale) + getFinishSurcharge(finish);
+}
+
+function absoluteUrl(path) {
+  return new URL(path, `${SITE_URL}/`).href;
+}
+
+function setMetaContent(selector, content) {
+  const element = document.querySelector(selector);
+  if (element && content) {
+    element.setAttribute('content', content);
+  }
+}
+
+function setCanonicalUrl(url) {
+  const canonical = document.querySelector('link[rel="canonical"]');
+  if (canonical && url) {
+    canonical.setAttribute('href', url);
+  }
+}
+
+function setJsonLd(id, data) {
+  if (!data) return;
+
+  let script = document.getElementById(id);
+
+  if (!script) {
+    script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.id = id;
+    document.head.append(script);
+  }
+
+  script.textContent = JSON.stringify(data);
+}
+
+function updatePageMeta({ title, description, url, image }) {
+  const imageUrl = absoluteUrl(image || 'assets/img/hero.jpg');
+
+  document.title = title;
+  setMetaContent('meta[name="description"]', description);
+  setMetaContent('meta[property="og:title"]', title);
+  setMetaContent('meta[property="og:description"]', description);
+  setMetaContent('meta[property="og:url"]', url);
+  setMetaContent('meta[property="og:image"]', imageUrl);
+  setMetaContent('meta[name="twitter:title"]', title);
+  setMetaContent('meta[name="twitter:description"]', description);
+  setMetaContent('meta[name="twitter:image"]', imageUrl);
+  setCanonicalUrl(url);
+}
+
+function buildBreadcrumbJsonLd(items) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  };
 }
 
 function formatPrice(value) {
@@ -490,6 +552,35 @@ function renderTankDetail() {
   const selectedFinish = getSelectedFinish();
   const availableScales = getAvailableScales(tank);
   const safeScale = availableScales.includes(selectedScale) ? selectedScale : availableScales[0];
+  const tankUrl = `${SITE_URL}/tank.html?slug=${encodeURIComponent(tank.slug)}`;
+  const tankDescription = `Browse the ${tank.name} 3D printed miniature tank with ${availableScales.join(', ')} scale options. Request directly and pay by PayPal after confirmation, or continue to Etsy.`;
+
+  updatePageMeta({
+    title: `${tank.name} 3D Printed Miniature Tank | MiniTankForge`,
+    description: tankDescription,
+    url: tankUrl,
+    image: tank.image,
+  });
+
+  setJsonLd('tank-product-jsonld', {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: tank.name,
+    description: tankDescription,
+    image: absoluteUrl(tank.image || 'assets/img/hero.jpg'),
+    brand: {
+      '@type': 'Brand',
+      name: 'MiniTankForge',
+    },
+    category: `${tank.nation} ${tank.era} ${tank.type}`,
+    url: tankUrl,
+  });
+
+  setJsonLd('tank-breadcrumb-jsonld', buildBreadcrumbJsonLd([
+    { name: 'Home', url: `${SITE_URL}/` },
+    { name: 'Browse Tanks', url: `${SITE_URL}/tanks` },
+    { name: tank.name, url: tankUrl },
+  ]));
 
   target.innerHTML = `
     <section class="hero-small">
@@ -774,6 +865,36 @@ function renderSetDetail() {
   const livePrice = formatPrice(getSetPrice(set, selectedScale, selectedFinish, selectedOptionSlug));
 
   container.dataset.selectedSetOption = selectedOptionSlug;
+
+  const setUrl = `${SITE_URL}/set.html?slug=${encodeURIComponent(set.slug)}`;
+  const setDescription = `Browse the ${set.name}, a ${set.category.toLowerCase()} for ${set.nation} ${set.era} miniature games. Review contents, finish choices, and direct request or Etsy options.`;
+
+  updatePageMeta({
+    title: `${set.name} 3D Printed Miniature Tank Set | MiniTankForge`,
+    description: setDescription,
+    url: setUrl,
+    image: set.image || DEFAULT_SET_IMAGE,
+  });
+
+  setJsonLd('set-product-jsonld', {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: set.name,
+    description: setDescription,
+    image: absoluteUrl(set.image || DEFAULT_SET_IMAGE),
+    brand: {
+      '@type': 'Brand',
+      name: 'MiniTankForge',
+    },
+    category: `${set.nation} ${set.era} ${set.category}`,
+    url: setUrl,
+  });
+
+  setJsonLd('set-breadcrumb-jsonld', buildBreadcrumbJsonLd([
+    { name: 'Home', url: `${SITE_URL}/` },
+    { name: 'Browse Sets', url: `${SITE_URL}/sets` },
+    { name: set.name, url: setUrl },
+  ]));
 
   container.innerHTML = `
   <section class="hero-small">
