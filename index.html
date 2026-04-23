@@ -18,7 +18,8 @@
     <meta name="twitter:title" content="MiniTankForge — 3D Printed Miniature Tanks" />
     <meta name="twitter:description" content="Browse 3D printed miniature tanks, starter sets, scale guides, and finish options before ordering through Etsy or direct request." />
     <meta name="twitter:image" content="https://minitankforge.com/assets/img/hero.jpg" />
-  <link href="assets/css/styles.css?v=8" rel="stylesheet" />
+    <link rel="preload" as="image" href="assets/img/hero.jpg" fetchpriority="high" />
+  <link href="assets/css/styles.css?v=9" rel="stylesheet" />
     <script defer src="assets/js/tanks-data.js"></script>
     <script defer src="assets/js/sets-data.js"></script>
     <script defer src="assets/js/app.js"></script>
@@ -52,11 +53,11 @@
         <section class="hero-clean">
             <div class="container">
                 <div class="hero-header">
-                    <div class="hero-tank-mark"><img src="assets/img/tank-mark.png" alt="" aria-hidden="true"></div>
+                    <div class="hero-tank-mark"><img src="assets/img/tank-mark-small.png" width="340" height="178" alt="" aria-hidden="true" decoding="async"></div>
                     <div class="logo">MINI TANK FORGE</div>
                     <div class="subtitle">3D Printed Tanks for Tabletop War Games</div>
                 </div>
-                <div class="hero-image"><img src="assets/img/hero.jpg" alt="Mini tank in hand"></div>
+                <div class="hero-image"><img src="assets/img/hero.jpg" width="1535" height="391" alt="Mini tank in hand" fetchpriority="high" decoding="async"></div>
                 <div class="hero-actions hero-clean-actions">
                     <a href="tanks.html" class="btn-main">Browse Tanks</a>
                     <a href="sets.html" class="btn-main">Browse Sets</a>
@@ -126,7 +127,7 @@
                 </div>
                 <div class="card visual-card scale-home-card">
                     <div class="scale-home-visual">
-                        <img src="assets/img/scales/scale-overview.jpg" alt="Scale comparison overview">
+                        <img src="assets/img/scales/scale-overview.jpg" width="1200" height="900" alt="Scale comparison overview" loading="lazy" decoding="async">
                     </div>
                 </div>
             </div>

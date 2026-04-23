@@ -256,7 +256,8 @@ function tankSizeClass(style) {
 
 function renderTankVisual(tank, large = false) {
   if (tank.image) {
-    return `<div class="product-image ${large ? 'product-image-large' : ''}"><img src="${tank.image}" alt="${tank.name}"></div>`;
+    const priorityAttrs = large ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
+    return `<div class="product-image ${large ? 'product-image-large' : ''}"><img src="${tank.image}" width="1200" height="900" alt="${tank.name}" ${priorityAttrs} decoding="async"></div>`;
   }
   const size = large ? 'tank-lg' : tankSizeClass(tank.placeholderStyle);
   const extraClass = placeholderClass(tank.placeholderStyle);
@@ -796,7 +797,8 @@ initScaleComparison();
 
 function renderSetVisual(set, large = false) {
   const image = set.image || DEFAULT_SET_IMAGE;
-  return `<div class="product-image ${large ? 'product-image-large' : ''}"><img src="${image}" alt="${set.name}"></div>`;
+  const priorityAttrs = large ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
+  return `<div class="product-image ${large ? 'product-image-large' : ''}"><img src="${image}" width="1200" height="900" alt="${set.name}" ${priorityAttrs} decoding="async"></div>`;
 }
 
 function buildSetCard(set) {

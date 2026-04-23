@@ -35,6 +35,7 @@ a {
 
 img {
   max-width: 100%;
+  height: auto;
   display: block
 }
 
@@ -854,7 +855,7 @@ textarea {
   inset: 0;
   background:
     linear-gradient(180deg, rgba(247, 243, 235, .82) 0%, rgba(242, 236, 225, .78) 100%),
-    url('../img/textures/hero-texture.png');
+    url('../img/textures/hero-texture.jpg');
   background-size: cover, cover;
   background-position: center center, center top;
   background-repeat: no-repeat, no-repeat;
@@ -1168,7 +1169,7 @@ textarea {
   border-bottom: 1px solid rgba(0, 0, 0, .06);
   background:
     linear-gradient(180deg, rgba(247, 243, 235, .72) 0%, rgba(242, 236, 225, .68) 100%),
-    url('../img/textures/hero-texture.png');
+    url('../img/textures/hero-texture.jpg');
   background-size: cover, 2000px auto;
   background-position: center center, center top;
   background-repeat: no-repeat, no-repeat
