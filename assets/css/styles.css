@@ -1345,6 +1345,14 @@ textarea {
 
 .scale-home-visual {
   width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.scale-home-visual .product-image-link {
+  display: block;
+  overflow: hidden;
+  border-radius: 12px;
 }
 
 .scale-home-visual img {
