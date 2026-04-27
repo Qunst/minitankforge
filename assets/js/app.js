@@ -173,10 +173,14 @@ function normalizeTankLookup(value) {
 
 function buildTankLookupMap() {
   const lookup = new Map();
+  const extraAliasesBySlug = {
+    'sherman-m4a3': ['Sherman', 'M4A3 Sherman', 'Medium Tank M4A3 Sherman'],
+  };
 
   getVisibleTanks().forEach(tank => {
     const shortName = tank.name.split(' (')[0].trim();
     const aliases = new Set([tank.name, shortName]);
+    (extraAliasesBySlug[tank.slug] || []).forEach(alias => aliases.add(alias));
 
     if (/^[a-z0-9-]+\s+.+/i.test(shortName) && /\d/.test(shortName.split(' ')[0])) {
       aliases.add(shortName.replace(/^[a-z0-9-]+\s+/i, '').trim());
@@ -275,7 +279,6 @@ const tankMiniGalleryPlaceholders = Array.from({ length: 6 }, (_, index) => ({
 const tankDetailPhotoKeys = {
   'ferdinand': 'ferdinand',
   'hetzer': 'hetzer',
-  'hummel': 'hummel',
   'is-1': 'is1',
   'is-2': 'is-2',
   'is-3': 'is3',
@@ -285,7 +288,7 @@ const tankDetailPhotoKeys = {
   'jagdpanzer-e100': 'jagdpanzer-e100',
   'jagdpz-iv': 'jgdpz-iv',
   'jagdtiger': 'jagdtiger',
-  'kv-3': 'kv3',
+  'kv-2': 'kv2',
   'luchs': 'luchs',
   'm10-wolverine': 'm10-wolverine',
   'm18-hellcat': 'm18-hellcat',
@@ -294,6 +297,7 @@ const tankDetailPhotoKeys = {
   'm5a1-stuart': 'm5a1-stuart',
   'm60a1': 'm60a1',
   'm7-priest': 'm7-priest',
+  'nashorn': 'nashorn',
   'panther': 'panther',
   'panzer-iii': 'pz-iii',
   'panzer-iv': 'pz-iv',
