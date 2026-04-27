@@ -1442,6 +1442,58 @@ textarea {
   object-fit: cover;
 }
 
+.tank-media-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tank-mini-gallery {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+}
+
+.tank-mini-gallery-thumb {
+  display: block;
+  width: 100%;
+  padding: 0;
+  cursor: pointer;
+  border: 1px solid rgba(211, 200, 184, .9);
+  border-radius: 10px;
+  background: #f6f2ea;
+  overflow: hidden;
+  box-shadow: 0 5px 12px rgba(38, 34, 29, .05);
+  transition: border-color .16s ease, box-shadow .16s ease, transform .16s ease;
+}
+
+.tank-mini-gallery-thumb:hover,
+.tank-mini-gallery-thumb:focus-visible,
+.tank-mini-gallery-thumb.is-active {
+  border-color: rgba(109, 76, 47, .72);
+  box-shadow: 0 7px 16px rgba(38, 34, 29, .09);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.tank-mini-gallery-thumb img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  background: #d8cdbd;
+}
+
+.tank-detail-gallery .product-image-large img {
+  object-fit: contain;
+  background: #d8cdbd;
+}
+
+@media (max-width: 980px) {
+  .tank-mini-gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 .gallery-media {
     margin: 12px 0;
     border-radius: 14px;

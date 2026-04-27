@@ -255,13 +255,127 @@ function tankSizeClass(style) {
 }
 
 function renderTankVisual(tank, large = false) {
-  if (tank.image) {
+  const image = large ? tank.image : getTankCardImage(tank);
+
+  if (image) {
     const priorityAttrs = large ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
-    return `<div class="product-image ${large ? 'product-image-large' : ''}"><img src="${tank.image}" width="1200" height="900" alt="${tank.name}" ${priorityAttrs} decoding="async"></div>`;
+    return `<div class="product-image ${large ? 'product-image-large' : ''}"><img src="${image}" width="1600" height="900" alt="${tank.name}" ${priorityAttrs} decoding="async"></div>`;
   }
   const size = large ? 'tank-lg' : tankSizeClass(tank.placeholderStyle);
   const extraClass = placeholderClass(tank.placeholderStyle);
   return `<div class="${extraClass} ${large ? 'product-image-large' : ''}"><div class="tank ${size}"></div></div>`;
+}
+
+const tankMiniGalleryPlaceholderImage = 'assets/img/tanks/gentank.jpg';
+const tankMiniGalleryPlaceholders = Array.from({ length: 6 }, (_, index) => ({
+  src: tankMiniGalleryPlaceholderImage,
+  label: `Placeholder photo ${index + 1}`,
+}));
+
+const tankDetailPhotoKeys = {
+  'ferdinand': 'ferdinand',
+  'hetzer': 'hetzer',
+  'hummel': 'hummel',
+  'is-1': 'is1',
+  'is-2': 'is-2',
+  'is-3': 'is3',
+  'isu-122': 'isu122',
+  'isu-152': 'isu152',
+  'jagdpanther': 'jagdpanther',
+  'jagdpanzer-e100': 'jagdpanzer-e100',
+  'jagdpz-iv': 'jgdpz-iv',
+  'jagdtiger': 'jagdtiger',
+  'kv-3': 'kv3',
+  'luchs': 'luchs',
+  'm10-wolverine': 'm10-wolverine',
+  'm18-hellcat': 'm18-hellcat',
+  'm3-half-track': 'm3-half-truck',
+  'm3-lee': 'm3-lee',
+  'm5a1-stuart': 'm5a1-stuart',
+  'm60a1': 'm60a1',
+  'm7-priest': 'm7-priest',
+  'panther': 'panther',
+  'panzer-iii': 'pz-iii',
+  'panzer-iv': 'pz-iv',
+  'panzer-35t': 'pz35t',
+  'panzer-38t': 'pz38t',
+  'pershing': 'pershing',
+  'sherman-firefly': 'sherman-firefly',
+  'sherman-m4a3': 'sherman',
+  'stug-iv': 'stug',
+  'su-76': 'su76',
+  'su-85': 'su85',
+  'su-100': 'su100',
+  'su-122': 'su122',
+  't-28': 't28',
+  't-34': 't34',
+  't-34-85': 't34-85',
+  't-34-minesweeper': 't34-minesweeper',
+  't-70': 't70',
+  'tiger-i': 'tiger',
+  'tiger-ii': 'tiger-ii',
+  'wespe': 'wespe',
+};
+
+function getTankCardImage(tank) {
+  const photoKey = tankDetailPhotoKeys[tank.slug];
+  return photoKey ? `assets/img/tanks/${photoKey}-base-coat-side-detail.jpg` : tank.image;
+}
+
+function getTankDetailGalleryImages(tank) {
+  const photoKey = tankDetailPhotoKeys[tank.slug];
+  if (!photoKey) return tankMiniGalleryPlaceholders;
+
+  return [
+    ['base-coat', 'side', 'Painted side view'],
+    ['base-coat', 'quarter', 'Painted quarter view'],
+    ['base-coat', 'front', 'Painted front view'],
+    ['unpainted', 'side', 'Unpainted side view'],
+    ['unpainted', 'quarter', 'Unpainted quarter view'],
+    ['unpainted', 'front', 'Unpainted front view'],
+  ].map(([finish, view, label]) => ({
+    src: `assets/img/tanks/${photoKey}-${finish}-${view}-detail.jpg`,
+    label,
+  }));
+}
+
+function renderTankDetailGallery(tank) {
+  const galleryImages = getTankDetailGalleryImages(tank);
+  const mainImage = galleryImages[0]?.src || tank.image || tankMiniGalleryPlaceholderImage;
+  const mainLabel = galleryImages[0]?.label || tank.name;
+
+  return `
+    <div class="tank-detail-gallery" data-tank-gallery>
+      <div class="product-image product-image-large">
+        <img src="${mainImage}" width="1600" height="900" alt="${tank.name} ${mainLabel}" loading="eager" fetchpriority="high" decoding="async" data-tank-gallery-main>
+      </div>
+      <div class="tank-mini-gallery" aria-label="${tank.name} photo thumbnails">
+        ${galleryImages.map((image, index) => `
+          <button class="tank-mini-gallery-thumb ${index === 0 ? 'is-active' : ''}" type="button" data-tank-gallery-thumb="${image.src}" data-tank-gallery-label="${image.label}" aria-label="Show ${image.label.toLowerCase()}">
+            <img src="${image.src}" width="320" height="180" alt="" loading="lazy" decoding="async">
+          </button>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function bindTankDetailGallery(root = document) {
+  root.querySelectorAll('[data-tank-gallery]').forEach(gallery => {
+    const mainImage = gallery.querySelector('[data-tank-gallery-main]');
+    if (!mainImage) return;
+
+    gallery.querySelectorAll('[data-tank-gallery-thumb]').forEach(button => {
+      button.addEventListener('click', () => {
+        const nextImage = button.dataset.tankGalleryThumb;
+        if (!nextImage) return;
+        mainImage.src = nextImage;
+        mainImage.alt = button.dataset.tankGalleryLabel || mainImage.alt;
+        gallery.querySelectorAll('[data-tank-gallery-thumb]').forEach(thumb => thumb.classList.remove('is-active'));
+        button.classList.add('is-active');
+      });
+    });
+  });
 }
 
 function buildTankCard(tank) {
@@ -617,8 +731,8 @@ function renderTankDetail() {
       <p class="lead">Review scale, finish, and details before sending a direct request or continuing to Etsy.</p>
     </section>
     <section class="split">
-      <div>
-        ${renderTankVisual(tank, true)}
+      <div class="tank-media-stack">
+        ${renderTankDetailGallery(tank)}
       </div>
       <div class="detail-panel card">
         <div class="kicker">Options</div>
@@ -676,6 +790,7 @@ function renderTankDetail() {
   `;
 
   renderScaleChoices(target.querySelector('[data-render-scale-choices]'), safeScale, availableScales);
+  bindTankDetailGallery(target);
 }
 
 function bindChoiceButtons() {
