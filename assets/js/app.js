@@ -277,8 +277,11 @@ const tankMiniGalleryPlaceholders = Array.from({ length: 6 }, (_, index) => ({
 }));
 
 const tankDetailPhotoKeys = {
+  'e-100': 'e100',
+  'e-25': 'e25',
   'ferdinand': 'ferdinand',
   'hetzer': 'hetzer',
+  'hummel': 'hummel',
   'is-1': 'is1',
   'is-2': 'is-2',
   'is-3': 'is3',
@@ -297,13 +300,16 @@ const tankDetailPhotoKeys = {
   'm5a1-stuart': 'm5a1-stuart',
   'm60a1': 'm60a1',
   'm7-priest': 'm7-priest',
+  'm8-greyhound': 'm8-greyhound',
   'nashorn': 'nashorn',
   'panther': 'panther',
   'panzer-iii': 'pz-iii',
   'panzer-iv': 'pz-iv',
+  'panzer-vii-loewe': 'loewe',
   'panzer-35t': 'pz35t',
   'panzer-38t': 'pz38t',
   'pershing': 'pershing',
+  'sd-kfz-234': 'sdkfz-234',
   'sherman-firefly': 'sherman-firefly',
   'sherman-m4a3': 'sherman',
   'stug-iv': 'stug',
