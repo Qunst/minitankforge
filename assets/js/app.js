@@ -352,7 +352,7 @@ function renderTankDetailGallery(tank) {
       <div class="tank-mini-gallery" aria-label="${tank.name} photo thumbnails">
         ${galleryImages.map((image, index) => `
           <button class="tank-mini-gallery-thumb ${index === 0 ? 'is-active' : ''}" type="button" data-tank-gallery-thumb="${image.src}" data-tank-gallery-label="${image.label}" aria-label="Show ${image.label.toLowerCase()}">
-            <img src="${image.src}" width="320" height="180" alt="" loading="lazy" decoding="async">
+            <img src="${image.src}" width="320" height="180" alt="" loading="eager" fetchpriority="high" decoding="sync">
           </button>
         `).join('')}
       </div>
@@ -360,10 +360,29 @@ function renderTankDetailGallery(tank) {
   `;
 }
 
+function preloadTankGalleryImages(gallery) {
+  const seen = new Set();
+  gallery.querySelectorAll('[data-tank-gallery-thumb]').forEach(button => {
+    const src = button.dataset.tankGalleryThumb;
+    if (!src || seen.has(src)) return;
+    seen.add(src);
+
+    const image = new Image();
+    image.fetchPriority = 'high';
+    image.decoding = 'sync';
+    image.src = src;
+    if (typeof image.decode === 'function') {
+      image.decode().catch(() => {});
+    }
+  });
+}
+
 function bindTankDetailGallery(root = document) {
   root.querySelectorAll('[data-tank-gallery]').forEach(gallery => {
     const mainImage = gallery.querySelector('[data-tank-gallery-main]');
     if (!mainImage) return;
+
+    preloadTankGalleryImages(gallery);
 
     gallery.querySelectorAll('[data-tank-gallery-thumb]').forEach(button => {
       button.addEventListener('click', () => {
