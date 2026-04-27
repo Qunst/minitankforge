@@ -964,6 +964,26 @@ textarea {
   margin-top: 18px
 }
 
+.detail-back-link {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 14px;
+  color: #6d4c2f;
+  font-weight: 800;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(109, 76, 47, .28);
+}
+
+.detail-back-link::before {
+  content: "←";
+  margin-right: 8px;
+}
+
+.detail-back-link:hover {
+  color: #2b241d;
+  border-bottom-color: rgba(43, 36, 29, .42);
+}
+
 .notice {
   padding: 12px 14px;
   background: #eef5ec;
@@ -1486,7 +1506,9 @@ textarea {
 
 .tank-mini-gallery-thumb {
   display: block;
+  position: relative;
   width: 100%;
+  aspect-ratio: 16 / 9;
   padding: 0;
   cursor: pointer;
   border: 1px solid rgba(211, 200, 184, .9);
@@ -1507,8 +1529,11 @@ textarea {
 }
 
 .tank-mini-gallery-thumb img {
+  display: block;
+  position: absolute;
+  inset: 0;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: 100%;
   object-fit: contain;
   background: #d8cdbd;
 }

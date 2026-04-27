@@ -748,6 +748,7 @@ function renderTankDetail() {
       <div class="eyebrow">Single tank page</div>
       <h1 class="page-title">${tank.name}</h1>
       <p class="lead">Review scale, finish, and details before sending a direct request or continuing to Etsy.</p>
+      <a class="detail-back-link" href="tanks.html">Back to all tanks</a>
     </section>
     <section class="split">
       <div class="tank-media-stack">
@@ -769,7 +770,6 @@ function renderTankDetail() {
         </div>
         <div class="page-actions">
           <a class="btn btn-etsy" data-etsy-base="${tank.etsyUrl}" href="${tank.etsyUrl}" target="_blank" rel="noopener">Buy ${getDisplayName(tank.name)} on Etsy</a>
-          <a class="btn" href="tanks.html">Back to Tanks</a>
         </div>
         <p class="helper"><strong data-selection-summary></strong></p>
       </div>
@@ -1064,6 +1064,7 @@ function renderSetDetail() {
     <div class="eyebrow">${set.category}</div>
     <h1 class="page-title">${set.name}</h1>
     <p class="lead">${set.note}</p>
+    <a class="detail-back-link" href="sets.html">Back to all sets</a>
   </section>
 
   <section class="split set-detail-top">
@@ -1094,7 +1095,6 @@ function renderSetDetail() {
 
       <div class="page-actions">
         <a class="btn btn-etsy" data-set-etsy-base="${set.etsyUrl}" href="${set.etsyUrl}" target="_blank" rel="noopener">Buy ${getDisplayName(set.name)} on Etsy</a>
-        <a class="btn" href="sets.html">Back to Sets</a>
       </div>
 
       <p class="helper">
