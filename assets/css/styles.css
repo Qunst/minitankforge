@@ -1210,13 +1210,16 @@ textarea {
 
 .hero-clean {
   position: relative;
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
   padding: 18px 0 32px;
   text-align: center;
   border-bottom: 1px solid rgba(0, 0, 0, .06);
   background:
     linear-gradient(180deg, rgba(247, 243, 235, .72) 0%, rgba(242, 236, 225, .68) 100%),
     url('../img/textures/hero-texture.jpg');
-  background-size: cover, 2000px auto;
+  background-size: cover, max(2000px, 100vw) auto;
   background-position: center center, center top;
   background-repeat: no-repeat, no-repeat
 }

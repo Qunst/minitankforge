@@ -262,7 +262,7 @@ window.SETS = [
         '3x Tiger I',
         '4x Panther',
         '5x Panzer IV',
-        '5x VEHICLE',
+        '5x Sd.Kfz. 234',
         '6x Infantry'
       ]
     },
@@ -278,7 +278,7 @@ window.SETS = [
         '2x Tiger I',
         '3x Panther',
         '3x Panzer IV',
-        '3x VEHICLE',
+        '3x Sd.Kfz. 234',
         '6x Infantry'
       ]
     },

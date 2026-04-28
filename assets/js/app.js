@@ -2,6 +2,8 @@
 const DEFAULT_SCALE = '1:180';
 const DEFAULT_FINISH = 'Base coat';
 const DEFAULT_SET_IMAGE = 'assets/img/sets/genset.jpg';
+// Homepage hero image: 'spring', 'summer', 'winter', or 'random'.
+const HOME_HERO_VARIANT = 'spring';
 const validScales = Array.isArray(window.MTF_SCALES) ? window.MTF_SCALES : ['1:180', '1:200', '1:250', '1:285'];
 const validFinishes = Array.isArray(window.MTF_FINISHES) ? window.MTF_FINISHES : ['Base coat', 'Unpainted'];
 const tankData = Array.isArray(window.TANKS) ? window.TANKS : [];
@@ -68,6 +70,34 @@ function updatePageMeta({ title, description, url, image }) {
   setMetaContent('meta[name="twitter:description"]', description);
   setMetaContent('meta[name="twitter:image"]', imageUrl);
   setCanonicalUrl(url);
+}
+
+function initHomeHeroImage() {
+  const image = document.querySelector('[data-home-hero-image]');
+  if (!image) return;
+
+  const variants = {
+    spring: 'assets/img/hero-spring.jpg',
+    summer: 'assets/img/hero-summer.jpg',
+    winter: 'assets/img/hero-winter.jpg',
+  };
+  const configured = String(HOME_HERO_VARIANT || 'summer').toLowerCase();
+  const keys = Object.keys(variants);
+  const selected = configured === 'random'
+    ? keys[Math.floor(Math.random() * keys.length)]
+    : configured;
+  const src = variants[selected] || variants.summer;
+  const versionedSrc = `${src}?v=1`;
+  const absoluteSrc = absoluteUrl(versionedSrc);
+
+  image.src = versionedSrc;
+  setMetaContent('meta[property="og:image"]', absoluteSrc);
+  setMetaContent('meta[name="twitter:image"]', absoluteSrc);
+
+  const preload = document.querySelector('link[rel="preload"][as="image"][data-home-hero-preload]');
+  if (preload) {
+    preload.setAttribute('href', versionedSrc);
+  }
 }
 
 function buildBreadcrumbJsonLd(items) {
@@ -856,6 +886,7 @@ function initScaleUI() {
 }
 
 document.addEventListener('DOMContentLoaded', initScaleUI);
+document.addEventListener('DOMContentLoaded', initHomeHeroImage);
 
 function updateLivePrice(scale, finish) {
   const value = formatPrice(getTankPrice(scale, finish));
