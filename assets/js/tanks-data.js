@@ -3,15 +3,15 @@ window.MTF_SCALES = ['1:160', '1:180', '1:200', '1:250', '1:285'];
 window.MTF_FINISHES = ['Base coat', 'Unpainted'];
 
 window.MTF_SCALE_PRICES = {
-  '1:160': 0.0,
-  '1:180': 0.0,
-  '1:200': 0.0,
-  '1:250': 0.0,
-  '1:285': 0.0
+  '1:160': 3.5,
+  '1:180': 3.5,
+  '1:200': 3.0,
+  '1:250': 2.5,
+  '1:285': 2.5
 };
 
 window.MTF_FINISH_SURCHARGES = {
-  'Base coat': 0.0,
+  'Base coat': 1.0,
   'Unpainted': 0.0
 };
 
@@ -477,7 +477,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-large',
     image: 'assets/img/tanks/t34-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints',
+    etsyUrl: 'https://www.etsy.com/listing/4497119611/t-34-model-1942-soviet-tank-miniature-3d',
     fact: 'The original T-34 combined sloped armor, broad tracks, and good mobility into one of the defining tank designs of the war.',
     compatibility: 'Compact hex-based tabletop play',
   },

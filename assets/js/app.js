@@ -6,6 +6,11 @@ const DEFAULT_SET_IMAGE = 'assets/img/sets/genset.jpg';
 const HOME_HERO_VARIANT = 'spring';
 const validScales = Array.isArray(window.MTF_SCALES) ? window.MTF_SCALES : ['1:180', '1:200', '1:250', '1:285'];
 const validFinishes = Array.isArray(window.MTF_FINISHES) ? window.MTF_FINISHES : ['Base coat', 'Unpainted'];
+const validTankPacks = [
+  { quantity: 1, label: '1 tank', multiplier: 1 },
+  { quantity: 5, label: '5 tanks', multiplier: 0.8 },
+  { quantity: 10, label: '10 tanks', multiplier: 0.67 },
+];
 const tankData = Array.isArray(window.TANKS) ? window.TANKS : [];
 
 const scalePrices = window.MTF_SCALE_PRICES || {};
@@ -22,6 +27,20 @@ function getFinishSurcharge(finish) {
 
 function getTankPrice(scale, finish) {
   return getScalePrice(scale) + getFinishSurcharge(finish);
+}
+
+function getTankPackByQuantity(quantity) {
+  return validTankPacks.find(pack => pack.quantity === Number(quantity)) || validTankPacks[0];
+}
+
+function roundNicePackPrice(value) {
+  return Math.round(value * 2) / 2;
+}
+
+function getTankPackPrice(scale, finish, quantity = 1) {
+  const pack = getTankPackByQuantity(quantity);
+  const total = getTankPrice(scale, finish) * pack.quantity * pack.multiplier;
+  return pack.quantity === 1 ? total : roundNicePackPrice(total);
 }
 
 function absoluteUrl(path) {
@@ -160,6 +179,14 @@ function getSelectedFinish() {
   if (q && validFinishes.includes(q)) return q;
   const stored = localStorage.getItem('mtf-finish');
   return validFinishes.includes(stored) ? stored : DEFAULT_FINISH;
+}
+
+function getSelectedTankPack() {
+  const url = new URL(window.location.href);
+  const q = Number(url.searchParams.get('pack'));
+  if (getTankPackByQuantity(q).quantity === q) return q;
+  const stored = Number(localStorage.getItem('mtf-tank-pack'));
+  return getTankPackByQuantity(stored).quantity;
 }
 
 function getTankBySlug(slug) {
@@ -751,6 +778,7 @@ function renderTankDetail() {
   }
   const selectedScale = getSelectedScale();
   const selectedFinish = getSelectedFinish();
+  const selectedPack = getTankPackByQuantity(getSelectedTankPack());
   const availableScales = getAvailableScales(tank);
   const safeScale = availableScales.includes(selectedScale) ? selectedScale : availableScales[0];
   const tankUrl = `${SITE_URL}/tank.html?slug=${encodeURIComponent(tank.slug)}`;
@@ -803,13 +831,17 @@ function renderTankDetail() {
         <div class="option-group">
           ${validFinishes.map(f => `<button class="chip ${f === selectedFinish ? 'active' : ''}" data-finish-chip="${f}" aria-pressed="${f === selectedFinish}">${f}</button>`).join('')}
         </div>
+        <label style="margin-top:16px">Pack size</label>
+        <div class="option-group">
+          ${validTankPacks.map(pack => `<button class="chip ${pack.quantity === selectedPack.quantity ? 'active' : ''}" data-pack-chip="${pack.quantity}" aria-pressed="${pack.quantity === selectedPack.quantity}">${pack.label}</button>`).join('')}
+        </div>
         <div class="tank-price-box">
   <div class="kicker">Price</div>
   <div class="tank-live-price" data-live-price>€0.00</div>
-  <div class="price-note">Price updates with selected scale and finish.</div>
+  <div class="price-note">Price updates with selected scale, finish, and pack size.</div>
         </div>
         <div class="page-actions">
-          <a class="btn btn-etsy" data-etsy-base="${tank.etsyUrl}" href="${tank.etsyUrl}" target="_blank" rel="noopener">Buy ${getDisplayName(tank.name)} on Etsy</a>
+          <a class="btn btn-etsy" href="${tank.etsyUrl}" target="_blank" rel="noopener">Open ${getDisplayName(tank.name)} on Etsy</a>
         </div>
         <p class="helper"><strong data-selection-summary></strong></p>
       </div>
@@ -828,7 +860,7 @@ function renderTankDetail() {
       </div>
       <div>
         <h2>What you get</h2>
-        <div class="callout"><strong>1× ${tank.name} tank model</strong><br>No set contents are implied on this page. This is a single tank page.</div>
+        <div class="callout"><strong><span data-current-pack-label>${selectedPack.label}</span> ${tank.name} model${selectedPack.quantity === 1 ? '' : 's'}</strong><br>No set contents are implied on this page. This is a single tank page with optional multi-pack quantities.</div>
         <p class="muted">Use these options when contacting me directly, or choose the matching variation on Etsy.</p>
         <div class="notice">Single tank listings are single tanks unless the page clearly states otherwise.</div>
       </div>
@@ -859,6 +891,9 @@ function bindChoiceButtons() {
   document.querySelectorAll('[data-finish-chip]').forEach(btn => {
     btn.addEventListener('click', () => setSelectedFinish(btn.dataset.finishChip));
   });
+  document.querySelectorAll('[data-pack-chip]').forEach(btn => {
+    btn.addEventListener('click', () => setSelectedTankPack(btn.dataset.packChip));
+  });
 }
 
 
@@ -883,15 +918,28 @@ function initScaleUI() {
   bindChoiceButtons();
   setSelectedScale(getSelectedScale(), false);
   setSelectedFinish(getSelectedFinish(), false);
+  setSelectedTankPack(getSelectedTankPack(), false);
 }
 
 document.addEventListener('DOMContentLoaded', initScaleUI);
 document.addEventListener('DOMContentLoaded', initHomeHeroImage);
 
-function updateLivePrice(scale, finish) {
-  const value = formatPrice(getTankPrice(scale, finish));
+function updateLivePrice(scale, finish, quantity = getSelectedTankPack()) {
+  const value = formatPrice(getTankPackPrice(scale, finish, quantity));
   document.querySelectorAll('[data-live-price]').forEach(el => {
     el.textContent = value;
+  });
+}
+
+function updateTankSelectionSummary(scale, finish, quantity) {
+  const pack = getTankPackByQuantity(quantity);
+
+  document.querySelectorAll('[data-current-pack-label]').forEach(el => {
+    el.textContent = pack.label;
+  });
+
+  document.querySelectorAll('[data-selection-summary]').forEach(el => {
+    el.textContent = `Selected: ${scale}, ${finish}, ${pack.label}. Choose the same options on Etsy.`;
   });
 }
 
@@ -908,7 +956,9 @@ function setSelectedScale(scale, updateUrl = true) {
   });
 
   const finish = getSelectedFinish();
-  updateLivePrice(scale, finish);
+  const pack = getSelectedTankPack();
+  updateLivePrice(scale, finish, pack);
+  updateTankSelectionSummary(scale, finish, pack);
 
   if (updateUrl) {
     const url = new URL(window.location.href);
@@ -930,11 +980,34 @@ function setSelectedFinish(finish, updateUrl = true) {
   });
 
   const scale = getSelectedScale();
-  updateLivePrice(scale, finish);
+  const pack = getSelectedTankPack();
+  updateLivePrice(scale, finish, pack);
+  updateTankSelectionSummary(scale, finish, pack);
 
   if (updateUrl) {
     const url = new URL(window.location.href);
     url.searchParams.set('finish', finish);
+    window.history.replaceState({}, '', url);
+  }
+}
+
+function setSelectedTankPack(quantity, updateUrl = true) {
+  const pack = getTankPackByQuantity(quantity);
+  localStorage.setItem('mtf-tank-pack', String(pack.quantity));
+
+  document.querySelectorAll('[data-pack-chip]').forEach(el => {
+    el.classList.toggle('active', Number(el.dataset.packChip) === pack.quantity);
+    el.setAttribute('aria-pressed', Number(el.dataset.packChip) === pack.quantity ? 'true' : 'false');
+  });
+
+  const scale = getSelectedScale();
+  const finish = getSelectedFinish();
+  updateLivePrice(scale, finish, pack.quantity);
+  updateTankSelectionSummary(scale, finish, pack.quantity);
+
+  if (updateUrl) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('pack', String(pack.quantity));
     window.history.replaceState({}, '', url);
   }
 }
