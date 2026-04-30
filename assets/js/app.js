@@ -17,16 +17,16 @@ const scalePrices = window.MTF_SCALE_PRICES || {};
 const finishSurcharges = window.MTF_FINISH_SURCHARGES || {};
 const SITE_URL = 'https://minitankforge.com';
 
-function getScalePrice(scale) {
-  return Number(scalePrices[scale] ?? 0);
+function getScalePrice(scale, tank = null) {
+  return Number((tank?.scalePrices || scalePrices)[scale] ?? 0);
 }
 
-function getFinishSurcharge(finish) {
-  return Number(finishSurcharges[finish] ?? 0);
+function getFinishSurcharge(finish, tank = null) {
+  return Number((tank?.finishSurcharges || finishSurcharges)[finish] ?? 0);
 }
 
-function getTankPrice(scale, finish) {
-  return getScalePrice(scale) + getFinishSurcharge(finish);
+function getTankPrice(scale, finish, tank = null) {
+  return getScalePrice(scale, tank) + getFinishSurcharge(finish, tank);
 }
 
 function getTankPackByQuantity(quantity) {
@@ -37,9 +37,9 @@ function roundNicePackPrice(value) {
   return Math.round(value * 2) / 2;
 }
 
-function getTankPackPrice(scale, finish, quantity = 1) {
+function getTankPackPrice(scale, finish, quantity = 1, tank = null) {
   const pack = getTankPackByQuantity(quantity);
-  const total = getTankPrice(scale, finish) * pack.quantity * pack.multiplier;
+  const total = getTankPrice(scale, finish, tank) * pack.quantity * pack.multiplier;
   return pack.quantity === 1 ? total : roundNicePackPrice(total);
 }
 
@@ -142,7 +142,7 @@ function getTankPriceRange(tank) {
 
   for (const scale of scales) {
     for (const finish of validFinishes) {
-      prices.push(getTankPrice(scale, finish));
+      prices.push(getTankPrice(scale, finish, tank));
     }
   }
 
@@ -837,7 +837,7 @@ function renderTankDetail() {
         </div>
         <div class="tank-price-box">
   <div class="kicker">Price</div>
-  <div class="tank-live-price" data-live-price>€0.00</div>
+  <div class="tank-live-price" data-live-price data-tank-slug="${tank.slug}">€0.00</div>
   <div class="price-note">Price updates with selected scale, finish, and pack size.</div>
         </div>
         <div class="page-actions">
@@ -925,9 +925,9 @@ document.addEventListener('DOMContentLoaded', initScaleUI);
 document.addEventListener('DOMContentLoaded', initHomeHeroImage);
 
 function updateLivePrice(scale, finish, quantity = getSelectedTankPack()) {
-  const value = formatPrice(getTankPackPrice(scale, finish, quantity));
   document.querySelectorAll('[data-live-price]').forEach(el => {
-    el.textContent = value;
+    const tank = getTankBySlug(el.dataset.tankSlug);
+    el.textContent = formatPrice(getTankPackPrice(scale, finish, quantity, tank));
   });
 }
 
