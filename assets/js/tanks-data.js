@@ -630,7 +630,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-medium',
     image: 'assets/img/tanks/loewe-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497705925/panzer-vii-loewe-german-super-heavy-tank',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The Loewe remained a paper project, but it became one of the best-known examples of late-war German super-heavy concepts.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -644,7 +655,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-medium',
     image: 'assets/img/tanks/pz35t-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497706751/panzer-35t-german-light-tank-miniature',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'Originally a Czechoslovak design, the Panzer 35(t) gave Germany useful early-war light armor after annexation.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -658,7 +680,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-large',
     image: 'assets/img/tanks/pz38t-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497716434/panzer-38t-german-light-tank-miniature',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'Reliable and mechanically sound, the Panzer 38(t) became the basis for several later German tank destroyer designs.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -672,7 +705,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-small',
     image: 'assets/img/tanks/pershing-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497708617/m26-pershing-american-heavy-tank',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'Arriving late in the war, the Pershing was one of the first American tanks designed to face heavier German armor on more equal terms.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -686,7 +730,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-small',
     image: 'assets/img/tanks/sherman-firefly-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497718336/sherman-firefly-british-tank-miniature',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'By mounting the 17-pounder gun, the Firefly turned the Sherman into one of the most effective Allied tank killers in Northwest Europe.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -700,7 +755,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-medium',
     image: 'assets/img/tanks/stug-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497710655/stug-iv-german-assault-gun-miniature-3d',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The StuG IV used the Panzer IV chassis to keep assault-gun production going when StuG III manufacturing was disrupted.',
     compatibility: 'Compact hex-based tabletop play',
   },
