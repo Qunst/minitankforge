@@ -80,7 +80,18 @@ window.TANKS = [
     featuredOrder: 3,
     placeholderStyle: 'light-medium',
     image: 'assets/img/tanks/t34-85-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497643294/t-3485-soviet-tank-miniature-3d-printed',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'Its sloped armor and mobility made it one of the most effective Soviet tank designs of WWII.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -219,7 +230,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-medium',
     image: 'assets/img/tanks/e50-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497646912/e-50-german-medium-tank-miniature-3d',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'Planned as a simplified standard medium tank, the E-50 was meant to replace several German armored types with one design.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -233,7 +255,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-large',
     image: 'assets/img/tanks/e75-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497639259/e-75-german-heavy-tank-miniature-3d',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The E-75 was intended as a standard heavy tank partner to the E-50 in the same late-war E-series program.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -272,7 +305,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-small',
     image: 'assets/img/tanks/hetzer-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497639705/hetzer-german-tank-destroyer-miniature',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'Compact, cheap, and low to the ground, the Hetzer became one of Germany\'s most practical late-war tank destroyers.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -286,7 +330,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-large',
     image: 'assets/img/tanks/is3-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497661106/is-3-soviet-heavy-tank-miniature-3d',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'Its distinctive pike nose and low turret gave the IS-3 one of the most recognizable silhouettes of any heavy tank.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -300,7 +355,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-medium',
     image: 'assets/img/tanks/isu152-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497661554/isu-152-soviet-assault-gun-miniature-3d',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The ISU-152 combined a heavy chassis with a huge gun, making it feared as both an assault gun and a bunker-breaker.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -314,7 +380,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-medium',
     image: 'assets/img/tanks/jagdpanther-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497654117/jagdpanther-german-tank-destroyer',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'Built on the Panther chassis, the Jagdpanther paired strong mobility and armor with one of Germany\'s best anti-tank guns.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -328,7 +405,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-large',
     image: 'assets/img/tanks/jgdpz-iv-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497654753/jagdpanzer-iv-german-tank-destroyer',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The Jagdpanzer IV brought a low silhouette and sloped armor to the Panzer IV chassis in a dedicated anti-tank role.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -342,7 +430,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-small',
     image: 'assets/img/tanks/jagdtiger-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497663304/jagdtiger-german-heavy-tank-destroyer',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'Mounting an enormous anti-tank gun on a massive chassis, the Jagdtiger was powerful but extremely demanding to use in practice.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -356,7 +455,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-large',
     image: 'assets/img/tanks/luchs-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497663748/luchs-german-light-tank-miniature-3d',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The Luchs was a fast scouting tank that tried to keep reconnaissance units mobile in increasingly dangerous conditions.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -370,7 +480,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-medium',
     image: 'assets/img/tanks/m3-lee-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497693978/m3-lee-american-medium-tank-miniature-3d',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'Its unusual multi-level gun layout gave the M3 Lee one of the most distinctive profiles of any Allied tank.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -384,7 +505,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-medium',
     image: 'assets/img/tanks/m5a1-stuart-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497694782/m5a1-stuart-american-light-tank',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'Quick, reliable, and compact, the Stuart was valued for reconnaissance, screening, and fast support roles.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -398,7 +530,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-large',
     image: 'assets/img/tanks/maus-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497686723/maus-german-super-heavy-tank-miniature',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The Maus became famous as the heaviest fully enclosed armored fighting vehicle ever completed in prototype form.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -412,7 +555,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-small',
     image: 'assets/img/tanks/nashorn-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497687807/nashorn-german-tank-destroyer-miniature',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'Lightly protected but strongly armed, the Nashorn relied on long-range firepower rather than armor to survive.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -426,7 +580,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-small',
     image: 'assets/img/tanks/panther-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497697098/panther-german-medium-tank-miniature-3d',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The Panther combined sloped armor, speed, and a powerful gun into one of Germany\'s most respected tank designs.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -440,7 +605,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-large',
     image: 'assets/img/tanks/pz-iii-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497698170/panzer-iii-german-medium-tank-miniature',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'Originally intended as Germany\'s main battle tank, the Panzer III gradually shifted into other roles as the war progressed.',
     compatibility: 'Compact hex-based tabletop play',
   },

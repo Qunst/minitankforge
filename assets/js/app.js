@@ -3,7 +3,7 @@ const DEFAULT_SCALE = '1:180';
 const DEFAULT_FINISH = 'Base coat';
 const DEFAULT_SET_IMAGE = 'assets/img/sets/genset.jpg';
 // Homepage hero image: 'spring', 'summer', 'winter', or 'random'.
-const HOME_HERO_VARIANT = 'spring';
+const HOME_HERO_VARIANT = 'summer';
 const validScales = Array.isArray(window.MTF_SCALES) ? window.MTF_SCALES : ['1:180', '1:200', '1:250', '1:285'];
 const validFinishes = Array.isArray(window.MTF_FINISHES) ? window.MTF_FINISHES : ['Base coat', 'Unpainted'];
 const validTankPacks = [
