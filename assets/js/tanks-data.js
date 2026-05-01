@@ -16,6 +16,7 @@ window.MTF_FINISH_SURCHARGES = {
 };
 
 window.TANKS = [
+ 
   {
     slug: 'panzer-iv',
     name: 'Panzer IV (Pz.Kpfw. IV)',
@@ -27,7 +28,18 @@ window.TANKS = [
     featuredOrder: 1,
     placeholderStyle: 'light-large',
     image: 'assets/img/tanks/pz-iv-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497166635/panzer-iv-german-tank-miniature-3d',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'One of the longest-serving German tanks, continuously upgraded throughout the war.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -42,7 +54,7 @@ window.TANKS = [
     featuredOrder: 2,
     placeholderStyle: 'dark-large',
     image: 'assets/img/tanks/sherman-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497153631/sherman-m4a3-american-tank-miniature-3d',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
@@ -82,7 +94,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-medium',
     image: 'assets/img/tanks/tiger-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497158626/tiger-i-german-heavy-tank-miniature-3d',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
@@ -107,7 +119,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-small',
     image: 'assets/img/tanks/su85-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497170193/su-85-soviet-tank-destroyer-miniature-3d',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'Built on the T-34 chassis, it traded a turret for a more powerful gun and lower silhouette.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -121,7 +144,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-small',
     image: 'assets/img/tanks/m18-hellcat-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497171615/m18-hellcat-american-tank-destroyer',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The Hellcat was one of the fastest tracked armored vehicles fielded during the war.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -135,7 +169,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-large',
     image: 'assets/img/tanks/e100-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497180844/e-100-german-super-heavy-tank-miniature',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'Designed as an enormous late-war super heavy tank, it remained one of the most famous unfinished paper panzers.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -149,7 +194,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-medium',
     image: 'assets/img/tanks/e25-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497174199/e-25-german-tank-destroyer-miniature-3d',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The E-25 was planned as a fast, low-profile tank destroyer in Germany\'s late-war E-series concept family.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -162,7 +218,7 @@ window.TANKS = [
     featured: false,
     disabled: false,
     placeholderStyle: 'light-medium',
-    image: 'assets/img/tanks/e-50.jpg',
+    image: 'assets/img/tanks/e50-base-coat-side-detail.jpg',
     etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
     fact: 'Planned as a simplified standard medium tank, the E-50 was meant to replace several German armored types with one design.',
     compatibility: 'Compact hex-based tabletop play',
@@ -176,7 +232,7 @@ window.TANKS = [
     featured: false,
     disabled: false,
     placeholderStyle: 'dark-large',
-    image: 'assets/img/tanks/e-75.jpg',
+    image: 'assets/img/tanks/e75-base-coat-side-detail.jpg',
     etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
     fact: 'The E-75 was intended as a standard heavy tank partner to the E-50 in the same late-war E-series program.',
     compatibility: 'Compact hex-based tabletop play',
@@ -191,7 +247,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-small',
     image: 'assets/img/tanks/ferdinand-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497174627/ferdinand-german-tank-destroyer',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'Built around an immensely powerful gun, the Ferdinand traded mobility and reliability for long-range firepower.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -330,7 +397,7 @@ window.TANKS = [
     featured: false,
     disabled: false,
     placeholderStyle: 'dark-large',
-    image: 'assets/img/tanks/maus.jpg',
+    image: 'assets/img/tanks/maus-base-coat-side-detail.jpg',
     etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
     fact: 'The Maus became famous as the heaviest fully enclosed armored fighting vehicle ever completed in prototype form.',
     compatibility: 'Compact hex-based tabletop play',
@@ -739,6 +806,20 @@ window.TANKS = [
     compatibility: 'Compact hex-based tabletop play',
   },
   {
+    slug: 'a-32',
+    name: 'A-32 (A-32 Prototype)',
+    nation: 'USSR',
+    era: 'WW2',
+    type: 'Medium tank',
+    featured: false,
+    disabled: false,
+    placeholderStyle: 'light-medium',
+    image: 'assets/img/tanks/a32-base-coat-side-detail.jpg',
+    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    fact: 'The A-32 was an important Soviet prototype that helped lead toward the famous T-34 design.',
+    compatibility: 'Compact hex-based tabletop play',
+  },
+  {
     slug: 't-70',
     name: 'T-70 (T-70 Light Tank)',
     nation: 'USSR',
@@ -775,7 +856,7 @@ window.TANKS = [
     featured: false,
     disabled: false,
     placeholderStyle: 'dark-small',
-    image: 'assets/img/tanks/gentank.jpg',
+    image: 'assets/img/tanks/type95-base-coat-side-detail.jpg',
     etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
     fact: 'Light, mobile, and widely used, the Ha-Go became one of Imperial Japan\'s best-known armored vehicles.',
     compatibility: 'Compact hex-based tabletop play',
@@ -789,7 +870,7 @@ window.TANKS = [
     featured: false,
     disabled: false,
     placeholderStyle: 'light-large',
-    image: 'assets/img/tanks/gentank.jpg',
+    image: 'assets/img/tanks/type97-base-coat-side-detail.jpg',
     etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
     fact: 'The Chi-Ha was Japan\'s most important medium tank design of the war and appeared in several improved variants.',
     compatibility: 'Compact hex-based tabletop play',
