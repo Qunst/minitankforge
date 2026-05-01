@@ -780,7 +780,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-small',
     image: 'assets/img/tanks/sdkfz-234-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497862193/sdkfz-234-german-armored-car-miniature',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The Sd.Kfz. 234 family gave German units a fast, eight-wheeled armored car for reconnaissance and mobile support.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -794,7 +805,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-medium',
     image: 'assets/img/tanks/t28-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497873174/t-28-soviet-medium-tank-miniature-3d',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The Soviet T-28 was an interwar multi-turret medium tank designed to support infantry and break fortified positions.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -833,7 +855,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-small',
     image: 'assets/img/tanks/tiger-ii-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497873992/tiger-ii-german-heavy-tank-miniature-3d',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The Tiger II combined the sloped armor concept of the Panther with the heavy-gun philosophy of the Tiger I.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -847,7 +880,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-medium',
     image: 'assets/img/tanks/hummel-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497866981/hummel-german-self-propelled-artillery',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The Hummel carried a 150 mm howitzer on a modified Panzer III/IV chassis to give German formations mobile artillery support.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -861,7 +905,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-medium',
     image: 'assets/img/tanks/is1-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497876804/is-1-soviet-heavy-tank-miniature-3d',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The IS-1 helped bridge the gap between the KV heavy tanks and the later, more famous IS-2.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -875,7 +930,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-medium',
     image: 'assets/img/tanks/is-2-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497868643/is-2-soviet-heavy-tank-miniature-3d',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The IS-2 paired heavy armor with a powerful 122 mm gun, making it useful against fortifications as well as armor.',
     compatibility: 'Compact hex-based tabletop play',
   },
