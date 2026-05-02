@@ -450,6 +450,32 @@ function preloadTankGalleryImages(gallery) {
   });
 }
 
+const tankFinishGalleryThumbIndexes = {
+  'Base coat': 1,
+  Unpainted: 4,
+};
+
+function selectTankGalleryThumb(gallery, button) {
+  const mainImage = gallery.querySelector('[data-tank-gallery-main]');
+  const nextImage = button?.dataset.tankGalleryThumb;
+  if (!mainImage || !nextImage) return;
+
+  mainImage.src = nextImage;
+  mainImage.alt = button.dataset.tankGalleryLabel || mainImage.alt;
+  gallery.querySelectorAll('[data-tank-gallery-thumb]').forEach(thumb => thumb.classList.remove('is-active'));
+  button.classList.add('is-active');
+}
+
+function showTankGalleryFinish(finish) {
+  const thumbIndex = tankFinishGalleryThumbIndexes[finish];
+  if (typeof thumbIndex !== 'number') return;
+
+  document.querySelectorAll('[data-tank-gallery]').forEach(gallery => {
+    const thumbs = gallery.querySelectorAll('[data-tank-gallery-thumb]');
+    selectTankGalleryThumb(gallery, thumbs[thumbIndex]);
+  });
+}
+
 function bindTankDetailGallery(root = document) {
   root.querySelectorAll('[data-tank-gallery]').forEach(gallery => {
     const mainImage = gallery.querySelector('[data-tank-gallery-main]');
@@ -459,12 +485,7 @@ function bindTankDetailGallery(root = document) {
 
     gallery.querySelectorAll('[data-tank-gallery-thumb]').forEach(button => {
       button.addEventListener('click', () => {
-        const nextImage = button.dataset.tankGalleryThumb;
-        if (!nextImage) return;
-        mainImage.src = nextImage;
-        mainImage.alt = button.dataset.tankGalleryLabel || mainImage.alt;
-        gallery.querySelectorAll('[data-tank-gallery-thumb]').forEach(thumb => thumb.classList.remove('is-active'));
-        button.classList.add('is-active');
+        selectTankGalleryThumb(gallery, button);
       });
     });
   });
@@ -989,6 +1010,9 @@ function setSelectedFinish(finish, updateUrl = true) {
   const pack = getSelectedTankPack();
   updateLivePrice(scale, finish, pack);
   updateTankSelectionSummary(scale, finish, pack);
+  if (updateUrl) {
+    showTankGalleryFinish(finish);
+  }
 
   if (updateUrl) {
     const url = new URL(window.location.href);
@@ -1349,12 +1373,12 @@ function updateSetLivePrice(set, scale, finish, optionSlug = '') {
 }
 
 function buildTankRequestMailto(formData) {
-  const tankName = (formData.get('tankName') || '').toString().trim();
+  const requestTopic = (formData.get('tankName') || '').toString().trim();
   const email = (formData.get('email') || '').toString().trim();
   const reference = (formData.get('reference') || '').toString().trim();
   const details = (formData.get('details') || '').toString().trim();
-  const subject = tankName ? `Tank Request - ${tankName}` : 'Tank Request';
-  const lines = [`Tank name: ${tankName || 'Not specified'}`, `Reply email: ${email || 'Not specified'}`];
+  const subject = requestTopic ? `MiniTankForge Request - ${requestTopic}` : 'MiniTankForge Request';
+  const lines = [`Request topic: ${requestTopic || 'Not specified'}`, `Reply email: ${email || 'Not specified'}`];
 
   if (reference) {
     lines.push(`Reference: ${reference}`);
@@ -1407,8 +1431,10 @@ function initTankRequestForm() {
     event.preventDefault();
 
     const formData = new FormData(form);
+    const requestTopic = (formData.get('tankName') || '').toString().trim();
     const jsonPayload = {
-      tankName: (formData.get('tankName') || '').toString().trim(),
+      requestTopic,
+      tankName: requestTopic,
       email: (formData.get('email') || '').toString().trim(),
       reference: (formData.get('reference') || '').toString().trim(),
       details: (formData.get('details') || '').toString().trim(),
@@ -1416,8 +1442,8 @@ function initTankRequestForm() {
       _subject: (formData.get('_subject') || '').toString().trim(),
     };
 
-    if (!jsonPayload.tankName || !jsonPayload.email || !jsonPayload.details) {
-      setRequestStatus(statusElement, 'error', 'Please fill in tank name, email, and details before sending.');
+    if (!jsonPayload.requestTopic || !jsonPayload.email || !jsonPayload.details) {
+      setRequestStatus(statusElement, 'error', 'Please fill in request topic, email, and details before sending.');
       return;
     }
 
