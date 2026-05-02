@@ -955,7 +955,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-medium',
     image: 'assets/img/tanks/isu122-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497954308/isu-122-soviet-tank-destroyer-miniature',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The ISU-122 used the heavy IS chassis with a 122 mm gun for long-range fire support and anti-armor work.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -969,7 +980,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-large',
     image: 'assets/img/tanks/jagdpanzer-e100-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497946405/jagdpanzer-e-100-german-tank-destroyer',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'A paper-design tank destroyer concept based on the E 100 heavy chassis, useful for late-war and what-if scenarios.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -983,7 +1005,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-medium',
     image: 'assets/img/tanks/kv2-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497947397/kv-2-soviet-heavy-tank-miniature-3d',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'Its towering turret and heavy howitzer made the KV-2 look almost unreal even among other heavy tanks.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -997,7 +1030,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-medium',
     image: 'assets/img/tanks/m10-wolverine-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4497949541/m10-wolverine-american-tank-destroyer',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The M10 was one of the most common Allied tank destroyers, using an open-topped turret and a 3-inch gun.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -1011,7 +1055,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-small',
     image: 'assets/img/tanks/m3-half-truck-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4498110398/m3-half-track-american-vehicle-miniature',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The M3 half-track moved infantry and support teams while keeping better cross-country mobility than a standard truck.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -1025,7 +1080,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-large',
     image: 'assets/img/tanks/m60a1-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4498101025/m60a1-patton-american-main-battle-tank',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The M60A1 introduced a redesigned turret and became a long-serving Cold War main battle tank.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -1039,7 +1105,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-medium',
     image: 'assets/img/tanks/m7-priest-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4498108421/m7-priest-american-self-propelled',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The M7 Priest mounted a 105 mm howitzer on a tank-derived chassis for mobile artillery support.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -1053,7 +1130,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-small',
     image: 'assets/img/tanks/m8-greyhound-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4498108893/m8-greyhound-american-armored-car',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'A fast six-wheeled reconnaissance vehicle, the M8 Greyhound is a useful scout for Allied tabletop forces.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -1067,7 +1155,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-small',
     image: 'assets/img/tanks/su76-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4498119656/su-76-soviet-self-propelled-gun',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The SU-76 was a small and widely produced Soviet self-propelled gun used for infantry support.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -1081,7 +1180,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-medium',
     image: 'assets/img/tanks/su100-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4498120468/su-100-soviet-tank-destroyer-miniature',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The SU-100 mounted a powerful 100 mm gun and became one of the Soviet Union\'s most capable late-war tank destroyers.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -1095,7 +1205,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-medium',
     image: 'assets/img/tanks/su122-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4498120964/su-122-soviet-self-propelled-gun',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The SU-122 used a 122 mm howitzer on a T-34-based chassis for close support and assault-gun work.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -1109,7 +1230,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-medium',
     image: 'assets/img/tanks/t34-minesweeper-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4498111409/t-34-minesweeper-soviet-engineering-tank',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'Mine-roller T-34 variants helped armored formations push through mined approaches and prepared defenses.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -1123,7 +1255,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-medium',
     image: 'assets/img/tanks/a32-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4498273694/a-32-soviet-prototype-tank-miniature-3d',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The A-32 was an important Soviet prototype that helped lead toward the famous T-34 design.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -1137,7 +1280,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-small',
     image: 'assets/img/tanks/t70-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4498276272/t-70-soviet-light-tank-miniature-3d',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The T-70 was a compact Soviet light tank used for reconnaissance, infantry support, and secondary armored roles.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -1151,7 +1305,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-small',
     image: 'assets/img/tanks/wespe-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4498272035/wespe-german-self-propelled-artillery',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The Wespe mounted a 105 mm howitzer on a light tank chassis, giving German units mobile artillery support.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -1165,7 +1330,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-small',
     image: 'assets/img/tanks/type95-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4498284634/type-95-ha-go-japanese-light-tank',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'Light, mobile, and widely used, the Ha-Go became one of Imperial Japan\'s best-known armored vehicles.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -1179,7 +1355,18 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-large',
     image: 'assets/img/tanks/type97-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4498273679/type-97-chi-ha-japanese-medium-tank',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
     fact: 'The Chi-Ha was Japan\'s most important medium tank design of the war and appeared in several improved variants.',
     compatibility: 'Compact hex-based tabletop play',
   }
