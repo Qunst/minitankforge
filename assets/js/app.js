@@ -1373,7 +1373,7 @@ function updateSetLivePrice(set, scale, finish, optionSlug = '') {
 }
 
 function buildTankRequestMailto(formData) {
-  const requestTopic = (formData.get('tankName') || '').toString().trim();
+  const requestTopic = (formData.get('requestTopic') || formData.get('tankName') || '').toString().trim();
   const email = (formData.get('email') || '').toString().trim();
   const reference = (formData.get('reference') || '').toString().trim();
   const details = (formData.get('details') || '').toString().trim();
@@ -1431,14 +1431,21 @@ function initTankRequestForm() {
     event.preventDefault();
 
     const formData = new FormData(form);
-    const requestTopic = (formData.get('tankName') || '').toString().trim();
+    const requestTopic = (formData.get('requestTopic') || formData.get('tankName') || '').toString().trim();
+    const website = (formData.get('website') || '').toString().trim();
+
+    if (website) {
+      form.reset();
+      syncMailtoLink();
+      setRequestStatus(statusElement, 'success', 'Your request was sent. I will get back to you by email.');
+      return;
+    }
+
     const jsonPayload = {
       requestTopic,
-      tankName: requestTopic,
       email: (formData.get('email') || '').toString().trim(),
       reference: (formData.get('reference') || '').toString().trim(),
       details: (formData.get('details') || '').toString().trim(),
-      website: (formData.get('website') || '').toString().trim(),
       _subject: (formData.get('_subject') || '').toString().trim(),
     };
 

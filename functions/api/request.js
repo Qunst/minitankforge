@@ -30,7 +30,7 @@ export async function onRequestPost(context) {
     return json({ error: 'Invalid request payload.' }, { status: 400 });
   }
 
-  const tankName = normalizeField(body.tankName, 140);
+  const requestTopic = normalizeField(body.requestTopic || body.tankName, 140);
   const email = normalizeField(body.email, 180);
   const reference = normalizeField(body.reference, 400);
   const details = normalizeField(body.details, 3000);
@@ -40,8 +40,8 @@ export async function onRequestPost(context) {
     return json({ ok: true });
   }
 
-  if (!tankName || !email || !details) {
-    return json({ error: 'Tank name, email, and details are required.' }, { status: 400 });
+  if (!requestTopic || !email || !details) {
+    return json({ error: 'Request topic, email, and details are required.' }, { status: 400 });
   }
 
   const accountId = context.env.CF_ACCOUNT_ID;
@@ -59,16 +59,16 @@ export async function onRequestPost(context) {
     );
   }
 
-  const safeTankName = escapeHtml(tankName);
+  const safeRequestTopic = escapeHtml(requestTopic);
   const safeEmail = escapeHtml(email);
   const safeReference = escapeHtml(reference || 'Not provided');
   const safeDetails = escapeHtml(details).replaceAll('\n', '<br>');
 
-  const subject = `MiniTankForge request: ${tankName}`;
+  const subject = `MiniTankForge request: ${requestTopic}`;
   const text = [
-    'New tank request from MiniTankForge',
+    'New request from MiniTankForge',
     '',
-    `Tank name: ${tankName}`,
+    `Request topic: ${requestTopic}`,
     `Reply email: ${email}`,
     `Reference: ${reference || 'Not provided'}`,
     '',
@@ -77,8 +77,8 @@ export async function onRequestPost(context) {
   ].join('\n');
 
   const html = `
-    <h2>New tank request from MiniTankForge</h2>
-    <p><strong>Tank name:</strong> ${safeTankName}</p>
+    <h2>New request from MiniTankForge</h2>
+    <p><strong>Request topic:</strong> ${safeRequestTopic}</p>
     <p><strong>Reply email:</strong> ${safeEmail}</p>
     <p><strong>Reference:</strong> ${safeReference}</p>
     <p><strong>Details:</strong><br>${safeDetails}</p>
