@@ -11,7 +11,33 @@ window.SETS = [
     featured: true,
     disabled: false,
     featuredOrder: 1,
-    image: 'assets/img/sets/german-basic.jpg',
+    image: 'assets/img/sets/german-basic-base-coat-side.jpg',
+    galleryImages: [
+      {
+        src: 'assets/img/sets/german-basic-base-coat-side.jpg',
+        label: 'Base coat side view'
+      },
+      {
+        src: 'assets/img/sets/german-basic-base-coat-quarter.jpg',
+        label: 'Base coat quarter view'
+      },
+      {
+        src: 'assets/img/sets/german-basic-base-coat-front.jpg',
+        label: 'Base coat front view'
+      },
+      {
+        src: 'assets/img/sets/german-basic-unpainted-side.jpg',
+        label: 'Unpainted side view'
+      },
+      {
+        src: 'assets/img/sets/german-basic-unpainted-quarter.jpg',
+        label: 'Unpainted quarter view'
+      },
+      {
+        src: 'assets/img/sets/german-basic-unpainted-front.jpg',
+        label: 'Unpainted front view'
+      }
+    ],
     placeholderStyle: 'light-large',
     etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
     note: 'A compact starting force for players who want a ready-made German set.',
@@ -58,7 +84,33 @@ window.SETS = [
     featured: true,
     disabled: false,
     featuredOrder: 2,
-    image: 'assets/img/sets/ussr-basic.jpg',
+    image: 'assets/img/sets/ussr-basic-base-coat-side.jpg',
+    galleryImages: [
+      {
+        src: 'assets/img/sets/ussr-basic-base-coat-side.jpg',
+        label: 'Base coat side view'
+      },
+      {
+        src: 'assets/img/sets/ussr-basic-base-coat-quarter.jpg',
+        label: 'Base coat quarter view'
+      },
+      {
+        src: 'assets/img/sets/ussr-basic-base-coat-front.jpg',
+        label: 'Base coat front view'
+      },
+      {
+        src: 'assets/img/sets/ussr-basic-unpainted-side.jpg',
+        label: 'Unpainted side view'
+      },
+      {
+        src: 'assets/img/sets/ussr-basic-unpainted-quarter.jpg',
+        label: 'Unpainted quarter view'
+      },
+      {
+        src: 'assets/img/sets/ussr-basic-unpainted-front.jpg',
+        label: 'Unpainted front view'
+      }
+    ],
     placeholderStyle: 'dark-large',
     etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
     note: 'A Soviet tank destroyer-focused group for compact battlefield setups.',
@@ -96,6 +148,150 @@ window.SETS = [
     }
   },
   {
+    slug: 'german-tanks',
+    name: 'German Tanks Set',
+    category: 'Tank set',
+    filterGroup: 'Tank Sets',
+    nation: 'Germany',
+    era: 'WW2',
+    featured: false,
+    disabled: false,
+    image: 'assets/img/sets/german-tanks-base-coat-side.jpg',
+    galleryImages: [
+      {
+        src: 'assets/img/sets/german-tanks-base-coat-side.jpg',
+        label: 'Base coat side view'
+      },
+      {
+        src: 'assets/img/sets/german-tanks-base-coat-quarter.jpg',
+        label: 'Base coat quarter view'
+      },
+      {
+        src: 'assets/img/sets/german-tanks-base-coat-front.jpg',
+        label: 'Base coat front view'
+      },
+      {
+        src: 'assets/img/sets/german-tanks-unpainted-side.jpg',
+        label: 'Unpainted side view'
+      },
+      {
+        src: 'assets/img/sets/german-tanks-unpainted-quarter.jpg',
+        label: 'Unpainted quarter view'
+      },
+      {
+        src: 'assets/img/sets/german-tanks-unpainted-front.jpg',
+        label: 'Unpainted front view'
+      }
+    ],
+    placeholderStyle: 'light-large',
+    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    note: 'A tank-only German lineup built around the most recognizable battlefield vehicles.',
+    compatibility: 'Compact hex-based tabletop play',
+    contents: [
+      '1x Tiger I',
+      '1x Tiger II',
+      '1x Panther',
+      '1x Panzer III',
+      '1x Panzer IV',
+      '1x Panzer 38(t)'
+    ],
+    availableScales: ['1:160', '1:180', '1:200', '1:250', '1:285'],
+    prices: {
+      '1:160': {
+        'Unpainted': 24.00,
+        'Base coat': 27.00
+      },
+      '1:180': {
+        'Unpainted': 22.00,
+        'Base coat': 25.00
+      },
+      '1:200': {
+        'Unpainted': 21.00,
+        'Base coat': 24.00
+      },
+      '1:250': {
+        'Unpainted': 19.00,
+        'Base coat': 22.00
+      },
+      '1:285': {
+        'Unpainted': 17.00,
+        'Base coat': 20.00
+      }
+    }
+  },
+  {
+    slug: 'ussr-tanks',
+    name: 'USSR Tanks Set',
+    category: 'Tank set',
+    filterGroup: 'Tank Sets',
+    nation: 'USSR',
+    era: 'WW2',
+    featured: false,
+    disabled: false,
+    image: 'assets/img/sets/ussr-tanks-base-coat-side.jpg',
+    galleryImages: [
+      {
+        src: 'assets/img/sets/ussr-tanks-base-coat-side.jpg',
+        label: 'Base coat side view'
+      },
+      {
+        src: 'assets/img/sets/ussr-tanks-base-coat-quarter.jpg',
+        label: 'Base coat quarter view'
+      },
+      {
+        src: 'assets/img/sets/ussr-tanks-base-coat-front.jpg',
+        label: 'Base coat front view'
+      },
+      {
+        src: 'assets/img/sets/ussr-tanks-unpainted-side.jpg',
+        label: 'Unpainted side view'
+      },
+      {
+        src: 'assets/img/sets/ussr-tanks-unpainted-quarter.jpg',
+        label: 'Unpainted quarter view'
+      },
+      {
+        src: 'assets/img/sets/ussr-tanks-unpainted-front.jpg',
+        label: 'Unpainted front view'
+      }
+    ],
+    placeholderStyle: 'dark-large',
+    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    note: 'A Soviet tank-focused lineup with medium, heavy, and early-war armor.',
+    compatibility: 'Compact hex-based tabletop play',
+    contents: [
+      '1x T-34',
+      '1x T-34/85',
+      '1x KV-2',
+      '1x IS-1',
+      '1x IS-2',
+      '1x IS-3'
+    ],
+    availableScales: ['1:160', '1:180', '1:200', '1:250', '1:285'],
+    prices: {
+      '1:160': {
+        'Unpainted': 25.00,
+        'Base coat': 28.00
+      },
+      '1:180': {
+        'Unpainted': 23.00,
+        'Base coat': 26.00
+      },
+      '1:200': {
+        'Unpainted': 22.00,
+        'Base coat': 25.00
+      },
+      '1:250': {
+        'Unpainted': 20.00,
+        'Base coat': 23.00
+      },
+      '1:285': {
+        'Unpainted': 18.00,
+        'Base coat': 21.00
+      }
+    }
+  },
+  {
     slug: 'us-basic',
     name: 'US Starter Set',
     category: 'Starter set',
@@ -104,7 +300,33 @@ window.SETS = [
     era: 'WW2',
     featured: false,
     disabled: false,
-    image: 'assets/img/sets/us-basic.jpg',
+    image: 'assets/img/sets/us-basic-base-coat-side.jpg',
+    galleryImages: [
+      {
+        src: 'assets/img/sets/us-basic-base-coat-side.jpg',
+        label: 'Base coat side view'
+      },
+      {
+        src: 'assets/img/sets/us-basic-base-coat-quarter.jpg',
+        label: 'Base coat quarter view'
+      },
+      {
+        src: 'assets/img/sets/us-basic-base-coat-front.jpg',
+        label: 'Base coat front view'
+      },
+      {
+        src: 'assets/img/sets/us-basic-unpainted-side.jpg',
+        label: 'Unpainted side view'
+      },
+      {
+        src: 'assets/img/sets/us-basic-unpainted-quarter.jpg',
+        label: 'Unpainted quarter view'
+      },
+      {
+        src: 'assets/img/sets/us-basic-unpainted-front.jpg',
+        label: 'Unpainted front view'
+      }
+    ],
     placeholderStyle: 'light-medium',
     etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
     note: 'A balanced American starter lineup with medium tanks, fast light armor, and late-war punch.',
@@ -150,7 +372,33 @@ window.SETS = [
     era: 'WW2',
     featured: false,
     disabled: false,
-    image: 'assets/img/sets/german-tank-destroyers.jpg',
+    image: 'assets/img/sets/german-tank-destroyers-base-coat-side.jpg',
+    galleryImages: [
+      {
+        src: 'assets/img/sets/german-tank-destroyers-base-coat-side.jpg',
+        label: 'Base coat side view'
+      },
+      {
+        src: 'assets/img/sets/german-tank-destroyers-base-coat-quarter.jpg',
+        label: 'Base coat quarter view'
+      },
+      {
+        src: 'assets/img/sets/german-tank-destroyers-base-coat-front.jpg',
+        label: 'Base coat front view'
+      },
+      {
+        src: 'assets/img/sets/german-tank-destroyers-unpainted-side.jpg',
+        label: 'Unpainted side view'
+      },
+      {
+        src: 'assets/img/sets/german-tank-destroyers-unpainted-quarter.jpg',
+        label: 'Unpainted quarter view'
+      },
+      {
+        src: 'assets/img/sets/german-tank-destroyers-unpainted-front.jpg',
+        label: 'Unpainted front view'
+      }
+    ],
     placeholderStyle: 'dark-large',
     etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
     note: 'A German lineup focused on dedicated tank destroyers and assault guns from early to late war.',
@@ -188,6 +436,78 @@ window.SETS = [
     }
   },
   {
+    slug: 'ussr-tank-destroyers',
+    name: 'USSR Tank Destroyers Set',
+    category: 'Tank destroyer set',
+    filterGroup: 'Tank Destroyers',
+    nation: 'USSR',
+    era: 'WW2',
+    featured: false,
+    disabled: false,
+    image: 'assets/img/sets/ussr-tank-destroyers-base-coat-side.jpg',
+    galleryImages: [
+      {
+        src: 'assets/img/sets/ussr-tank-destroyers-base-coat-side.jpg',
+        label: 'Base coat side view'
+      },
+      {
+        src: 'assets/img/sets/ussr-tank-destroyers-base-coat-quarter.jpg',
+        label: 'Base coat quarter view'
+      },
+      {
+        src: 'assets/img/sets/ussr-tank-destroyers-base-coat-front.jpg',
+        label: 'Base coat front view'
+      },
+      {
+        src: 'assets/img/sets/ussr-tank-destroyers-unpainted-side.jpg',
+        label: 'Unpainted side view'
+      },
+      {
+        src: 'assets/img/sets/ussr-tank-destroyers-unpainted-quarter.jpg',
+        label: 'Unpainted quarter view'
+      },
+      {
+        src: 'assets/img/sets/ussr-tank-destroyers-unpainted-front.jpg',
+        label: 'Unpainted front view'
+      }
+    ],
+    placeholderStyle: 'dark-large',
+    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    note: 'A Soviet support lineup built around assault guns and tank destroyers.',
+    compatibility: 'Compact hex-based tabletop play',
+    contents: [
+      '1x SU-76',
+      '1x SU-85',
+      '1x SU-100',
+      '1x SU-122',
+      '1x ISU-122',
+      '1x ISU-152'
+    ],
+    availableScales: ['1:160', '1:180', '1:200', '1:250', '1:285'],
+    prices: {
+      '1:160': {
+        'Unpainted': 27.00,
+        'Base coat': 30.00
+      },
+      '1:180': {
+        'Unpainted': 25.00,
+        'Base coat': 28.00
+      },
+      '1:200': {
+        'Unpainted': 24.00,
+        'Base coat': 27.00
+      },
+      '1:250': {
+        'Unpainted': 22.00,
+        'Base coat': 25.00
+      },
+      '1:285': {
+        'Unpainted': 20.00,
+        'Base coat': 23.00
+      }
+    }
+  },
+  {
     slug: 'german-early-years',
     name: 'German Early Years Set',
     category: 'Early war set',
@@ -196,7 +516,33 @@ window.SETS = [
     era: 'WW2',
     featured: false,
     disabled: false,
-    image: 'assets/img/sets/german-early-years.jpg',
+    image: 'assets/img/sets/german-early-years-base-coat-side.jpg',
+    galleryImages: [
+      {
+        src: 'assets/img/sets/german-early-years-base-coat-side.jpg',
+        label: 'Base coat side view'
+      },
+      {
+        src: 'assets/img/sets/german-early-years-base-coat-quarter.jpg',
+        label: 'Base coat quarter view'
+      },
+      {
+        src: 'assets/img/sets/german-early-years-base-coat-front.jpg',
+        label: 'Base coat front view'
+      },
+      {
+        src: 'assets/img/sets/german-early-years-unpainted-side.jpg',
+        label: 'Unpainted side view'
+      },
+      {
+        src: 'assets/img/sets/german-early-years-unpainted-quarter.jpg',
+        label: 'Unpainted quarter view'
+      },
+      {
+        src: 'assets/img/sets/german-early-years-unpainted-front.jpg',
+        label: 'Unpainted front view'
+      }
+    ],
     placeholderStyle: 'light-large',
     etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
     note: 'A German lineup focused on early-war armor, light reconnaissance, and core medium tanks.',
@@ -235,7 +581,7 @@ window.SETS = [
   },
 {
   slug: 'hellcat-tankers',
-  name: 'Hellcat Tankers Set',
+  name: 'Hellcat Tankers Pack',
   category: 'Game ready',
   filterGroup: 'Game',
   nation: 'USA',
@@ -398,7 +744,33 @@ window.SETS = [
   era: 'WW2',
   featured: false,
   disabled: false,
-  image: 'assets/img/sets/german-experimental.jpg',
+  image: 'assets/img/sets/german-experimental-base-coat-side.jpg',
+  galleryImages: [
+    {
+      src: 'assets/img/sets/german-experimental-base-coat-side.jpg',
+      label: 'Base coat side view'
+    },
+    {
+      src: 'assets/img/sets/german-experimental-base-coat-quarter.jpg',
+      label: 'Base coat quarter view'
+    },
+    {
+      src: 'assets/img/sets/german-experimental-base-coat-front.jpg',
+      label: 'Base coat front view'
+    },
+    {
+      src: 'assets/img/sets/german-experimental-unpainted-side.jpg',
+      label: 'Unpainted side view'
+    },
+    {
+      src: 'assets/img/sets/german-experimental-unpainted-quarter.jpg',
+      label: 'Unpainted quarter view'
+    },
+    {
+      src: 'assets/img/sets/german-experimental-unpainted-front.jpg',
+      label: 'Unpainted front view'
+    }
+  ],
   placeholderStyle: 'dark-large',
   etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
   note: 'A late-war concept lineup built around German experimental and super-heavy designs.',

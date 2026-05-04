@@ -514,9 +514,31 @@ function buildTankCard(tank) {
 
 const setData = Array.isArray(window.SETS) ? window.SETS : [];
 const validSetFinishes = Array.isArray(window.MTF_SET_FINISHES) ? window.MTF_SET_FINISHES : validFinishes;
+const setBrowseSlugOrder = new Map([
+  ['german-basic', 10],
+  ['ussr-basic', 11],
+  ['us-basic', 12],
+  ['german-tanks', 20],
+  ['ussr-tanks', 21],
+  ['german-tank-destroyers', 30],
+  ['ussr-tank-destroyers', 31],
+]);
 
 function getSetBySlug(slug) {
   return setData.find(s => s.slug === slug && !isDisabled(s));
+}
+
+function getSetBrowseRank(set) {
+  if (setBrowseSlugOrder.has(set.slug)) return setBrowseSlugOrder.get(set.slug);
+  if (set.filterGroup === 'Game') return 90;
+  return 60;
+}
+
+function getBrowseOrderedSets() {
+  return getVisibleSets()
+    .map((set, index) => ({ set, index }))
+    .sort((a, b) => getSetBrowseRank(a.set) - getSetBrowseRank(b.set) || a.index - b.index)
+    .map(item => item.set);
 }
 
 function getAvailableSetScales(set) {
@@ -1079,6 +1101,98 @@ function renderSetVisual(set, large = false) {
   return `<div class="product-image ${large ? 'product-image-large' : ''}"><img src="${image}" width="1200" height="900" alt="${set.name}" ${priorityAttrs} decoding="async"></div>`;
 }
 
+function getSetDetailGalleryImages(set) {
+  const configuredImages = Array.isArray(set.galleryImages) && set.galleryImages.length
+    ? set.galleryImages
+    : [{ src: set.image || DEFAULT_SET_IMAGE, label: 'Set overview' }];
+
+  return configuredImages
+    .map((image, index) => {
+      if (typeof image === 'string') {
+        return {
+          src: image,
+          label: `Set photo ${index + 1}`,
+        };
+      }
+
+      return {
+        src: image?.src,
+        label: image?.label || `Set photo ${index + 1}`,
+      };
+    })
+    .filter(image => image.src);
+}
+
+function renderSetDetailGallery(set) {
+  const galleryImages = getSetDetailGalleryImages(set);
+  const mainImage = galleryImages[0]?.src || set.image || DEFAULT_SET_IMAGE;
+  const mainLabel = galleryImages[0]?.label || 'Set overview';
+  const safeName = escapeHtml(set.name);
+  const safeMainLabel = escapeHtml(mainLabel);
+
+  return `
+    <div class="set-detail-gallery" data-set-gallery>
+      <div class="product-image product-image-large">
+        <img src="${mainImage}" width="1600" height="900" alt="${safeName} ${safeMainLabel}" loading="eager" fetchpriority="high" decoding="async" data-set-gallery-main>
+      </div>
+      <div class="set-mini-gallery" aria-label="${safeName} photo thumbnails">
+        ${galleryImages.map((image, index) => {
+          const safeSrc = escapeHtml(image.src);
+          const safeLabel = escapeHtml(image.label);
+          const safeButtonLabel = escapeHtml(image.label.toLowerCase());
+
+          return `
+            <button class="set-mini-gallery-thumb ${index === 0 ? 'is-active' : ''}" type="button" data-set-gallery-thumb="${safeSrc}" data-set-gallery-label="${safeName} ${safeLabel}" aria-label="Show ${safeButtonLabel}">
+              <img src="${safeSrc}" width="320" height="180" alt="" loading="${index === 0 ? 'eager' : 'lazy'}" decoding="async">
+            </button>
+          `;
+        }).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function preloadSetGalleryImages(gallery) {
+  const seen = new Set();
+  gallery.querySelectorAll('[data-set-gallery-thumb]').forEach(button => {
+    const src = button.dataset.setGalleryThumb;
+    if (!src || seen.has(src)) return;
+    seen.add(src);
+
+    const image = new Image();
+    image.src = src;
+    if (typeof image.decode === 'function') {
+      image.decode().catch(() => {});
+    }
+  });
+}
+
+function selectSetGalleryThumb(gallery, button) {
+  const mainImage = gallery.querySelector('[data-set-gallery-main]');
+  const nextImage = button?.dataset.setGalleryThumb;
+  if (!mainImage || !nextImage) return;
+
+  mainImage.src = nextImage;
+  mainImage.alt = button.dataset.setGalleryLabel || mainImage.alt;
+  gallery.querySelectorAll('[data-set-gallery-thumb]').forEach(thumb => thumb.classList.remove('is-active'));
+  button.classList.add('is-active');
+}
+
+function bindSetDetailGallery(root = document) {
+  root.querySelectorAll('[data-set-gallery]').forEach(gallery => {
+    const mainImage = gallery.querySelector('[data-set-gallery-main]');
+    if (!mainImage) return;
+
+    preloadSetGalleryImages(gallery);
+
+    gallery.querySelectorAll('[data-set-gallery-thumb]').forEach(button => {
+      button.addEventListener('click', () => {
+        selectSetGalleryThumb(gallery, button);
+      });
+    });
+  });
+}
+
 function buildSetCard(set) {
   return `
     <article class="card product-card">
@@ -1118,7 +1232,7 @@ function renderSetsGrid() {
 
   const selectedGroup = document.querySelector('[data-filter-set-group]')?.value || 'All';
 
-  const filtered = getVisibleSets().filter(set => {
+  const filtered = getBrowseOrderedSets().filter(set => {
     return selectedGroup === 'All' || set.filterGroup === selectedGroup;
   });
 
@@ -1129,7 +1243,7 @@ function populateSetFilters() {
   const select = document.querySelector('[data-filter-set-group]');
   if (!select) return;
 
-  const values = ['All', ...new Set(getVisibleSets().map(set => set.filterGroup).filter(Boolean))];
+  const values = ['All', ...new Set(getBrowseOrderedSets().map(set => set.filterGroup).filter(Boolean))];
   const current = select.value || 'All';
 
   select.innerHTML = values.map(value => `
@@ -1212,8 +1326,8 @@ function renderSetDetail() {
   </section>
 
   <section class="split set-detail-top">
-    <div>
-      ${renderSetVisual(set, true)}
+    <div class="set-media-stack">
+      ${renderSetDetailGallery(set)}
     </div>
 
     <div class="detail-panel card">
@@ -1299,6 +1413,8 @@ function renderSetDetail() {
   const scaleContainer = container.querySelector('[data-set-scale-choices]');
   const finishContainer = container.querySelector('[data-set-finish-choices]');
   const contentsContainer = container.querySelector('[data-set-contents]');
+
+  bindSetDetailGallery(container);
 
   if (optionContainer) {
     optionContainer.innerHTML = availableOptions.map(option => `
