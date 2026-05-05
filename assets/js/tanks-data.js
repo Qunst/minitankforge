@@ -1071,6 +1071,31 @@ window.TANKS = [
     compatibility: 'Compact hex-based tabletop play',
   },
   {
+    slug: 'opel-blitz',
+    name: 'Opel Blitz Truck (Opel Blitz 3-ton Truck)',
+    nation: 'Germany',
+    era: 'WW2',
+    type: 'Truck',
+    featured: false,
+    disabled: false,
+    placeholderStyle: 'dark-small',
+    image: 'assets/img/tanks/opel-blitz-base-coat-side-detail.jpg',
+    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    scalePrices: {
+      '1:160': 0.0,
+      '1:180': 0.0,
+      '1:200': 0.0,
+      '1:250': 0.0,
+      '1:285': 0.0
+    },
+    finishSurcharges: {
+      'Base coat': 0.0,
+      'Unpainted': 0.0
+    },
+    fact: 'The Opel Blitz was one of Germany\'s most important wartime trucks, used for transport, supply, and support roles.',
+    compatibility: 'Compact hex-based tabletop play',
+  },
+  {
     slug: 'm60a1',
     name: 'M60A1 (M60A1 Patton)',
     nation: 'USA',

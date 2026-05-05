@@ -363,6 +363,7 @@ const tankDetailPhotoKeys = {
   'm8-greyhound': 'm8-greyhound',
   'maus': 'maus',
   'nashorn': 'nashorn',
+  'opel-blitz': 'opel-blitz',
   'panther': 'panther',
   'panzer-iii': 'pz-iii',
   'panzer-iv': 'pz-iv',
@@ -542,7 +543,6 @@ function getBrowseOrderedSets() {
 }
 
 function getAvailableSetScales(set) {
-  if (Array.isArray(set?.options) && set.options.length) return [];
   return Array.isArray(set?.availableScales) && set.availableScales.length ? set.availableScales : validScales;
 }
 
@@ -1123,6 +1123,33 @@ function getSetDetailGalleryImages(set) {
     .filter(image => image.src);
 }
 
+function slugForSetImagePart(value) {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function getSetOptionImageSlug(set, optionSlug) {
+  if (set?.slug === 'hellcat-tankers' && optionSlug === 'full-set') {
+    return 'full-pack';
+  }
+
+  return optionSlug;
+}
+
+function getSetSelectionImageSrc(set, optionSlug, finish) {
+  if (!set || !optionSlug || !finish || !getAvailableSetOptions(set).length) return '';
+
+  const optionImageSlug = getSetOptionImageSlug(set, optionSlug);
+  const finishSlug = slugForSetImagePart(finish);
+
+  if (!optionImageSlug || !finishSlug) return '';
+  return `assets/img/sets/${set.slug}-${optionImageSlug}-${finishSlug}.jpg`;
+}
+
 function renderSetDetailGallery(set) {
   const galleryImages = getSetDetailGalleryImages(set);
   const mainImage = galleryImages[0]?.src || set.image || DEFAULT_SET_IMAGE;
@@ -1176,6 +1203,20 @@ function selectSetGalleryThumb(gallery, button) {
   mainImage.alt = button.dataset.setGalleryLabel || mainImage.alt;
   gallery.querySelectorAll('[data-set-gallery-thumb]').forEach(thumb => thumb.classList.remove('is-active'));
   button.classList.add('is-active');
+}
+
+function showSetGallerySelection(root, set, optionSlug, finish) {
+  const targetSrc = getSetSelectionImageSrc(set, optionSlug, finish);
+  if (!targetSrc) return;
+
+  root.querySelectorAll('[data-set-gallery]').forEach(gallery => {
+    const matchingThumb = Array.from(gallery.querySelectorAll('[data-set-gallery-thumb]'))
+      .find(button => button.dataset.setGalleryThumb === targetSrc);
+
+    if (matchingThumb) {
+      selectSetGalleryThumb(gallery, matchingThumb);
+    }
+  });
 }
 
 function bindSetDetailGallery(root = document) {
@@ -1272,12 +1313,16 @@ function renderSetDetail() {
     return;
   }
 
-  const selectedScale = getSelectedScale();
+  let selectedScale = getSelectedScale();
   const selectedFinish = getSelectedFinish();
   const availableScales = getAvailableSetScales(set);
   const availableOptions = getAvailableSetOptions(set);
   const availableFinishes = getAvailableSetFinishes(set);
   const usesSetOptions = availableOptions.length > 0;
+
+  if (!availableScales.includes(selectedScale)) {
+    selectedScale = availableScales[0] || DEFAULT_SCALE;
+  }
 
   const selectedOption = usesSetOptions ? getSetOptionBySlug(set, url.searchParams.get('setOption')) : null;
   const selectedOptionSlug = selectedOption?.slug || '';
@@ -1334,12 +1379,13 @@ function renderSetDetail() {
       <div class="kicker">Set options</div>
       <h2 style="margin-top:6px">Review configuration</h2>
 
+      <label>Scale</label>
+      <div class="option-group" data-set-scale-choices></div>
+
       ${usesSetOptions ? `
-        <label>${set.optionLabel || 'Set option'}</label>
+        <label style="margin-top:16px">${set.optionLabel || 'Set option'}</label>
         <div class="option-group" data-set-option-choices></div>
       ` : `
-        <label>Scale</label>
-        <div class="option-group" data-set-scale-choices></div>
       `}
 
       <label style="margin-top:16px">Finish</label>
@@ -1402,7 +1448,7 @@ function renderSetDetail() {
       <div class="kicker">${usesSetOptions ? 'Set versions' : 'Need more size context?'}</div>
       <h3>${usesSetOptions ? 'Choose the right set version' : 'Compare scales before you buy'}</h3>
       <p class="muted">${usesSetOptions
-        ? 'Game-ready sets use set configuration options instead of scale selection on this page.'
+        ? 'Game-ready packs are fixed to the scale shown on this page and use set configuration options for pack size.'
         : 'Use the scale comparison page to see how these sets change across scale options.'}</p>
       ${usesSetOptions ? '' : `<a class="btn" href="scale-comparison.html">See Scale Comparison</a>`}
     </div>
@@ -1415,6 +1461,7 @@ function renderSetDetail() {
   const contentsContainer = container.querySelector('[data-set-contents]');
 
   bindSetDetailGallery(container);
+  showSetGallerySelection(container, set, selectedOptionSlug, selectedFinish);
 
   if (optionContainer) {
     optionContainer.innerHTML = availableOptions.map(option => `
@@ -1437,10 +1484,11 @@ function renderSetDetail() {
         });
 
         if (contentsContainer) {
-          contentsContainer.innerHTML = renderSetContents(getSetContents(set, optionSlug), getSelectedScale());
+          contentsContainer.innerHTML = renderSetContents(getSetContents(set, optionSlug), selectedScale);
         }
 
-        updateSetLivePrice(set, getSelectedScale(), getSelectedFinish(), optionSlug);
+        updateSetLivePrice(set, selectedScale, getSelectedFinish(), optionSlug);
+        showSetGallerySelection(container, set, optionSlug, getSelectedFinish());
       });
     });
   }
@@ -1453,6 +1501,7 @@ function renderSetDetail() {
     scaleContainer.querySelectorAll('[data-set-scale-chip]').forEach(btn => {
       btn.addEventListener('click', () => {
         const scale = btn.dataset.setScaleChip;
+        selectedScale = scale;
         setSelectedScale(scale);
         if (contentsContainer) {
           contentsContainer.innerHTML = renderSetContents(getSetContents(set, container.dataset.selectedSetOption || ''), scale);
@@ -1473,7 +1522,8 @@ function renderSetDetail() {
     btn.addEventListener('click', () => {
       const finish = btn.dataset.setFinishChip;
       setSelectedFinish(finish);
-      updateSetLivePrice(set, getSelectedScale(), finish, container.dataset.selectedSetOption || '');
+      updateSetLivePrice(set, selectedScale, finish, container.dataset.selectedSetOption || '');
+      showSetGallerySelection(container, set, container.dataset.selectedSetOption || '', finish);
       finishContainer.querySelectorAll('.chip').forEach(chip => {
         chip.classList.toggle('active', chip.dataset.setFinishChip === finish);
       });
