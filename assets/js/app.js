@@ -171,6 +171,11 @@ function buildAggregateOfferJsonLd(prices, url) {
     highPrice: Math.max(...validPrices).toFixed(2),
     offerCount: validPrices.length,
     url,
+    seller: {
+      '@type': 'Organization',
+      name: 'MiniTankForge',
+      url: SITE_URL,
+    },
   };
 }
 
@@ -911,6 +916,7 @@ function renderTankDetail() {
       '@type': 'Brand',
       name: 'MiniTankForge',
     },
+    sku: tank.slug,
     category: `${tank.nation} ${tank.era} ${tank.type}`,
     url: tankUrl,
     ...(tankOffers ? { offers: tankOffers } : {}),
@@ -1429,6 +1435,7 @@ function renderSetDetail() {
       '@type': 'Brand',
       name: 'MiniTankForge',
     },
+    sku: set.slug,
     category: `${set.nation} ${set.era} ${set.category}`,
     url: setUrl,
     ...(setOffers ? { offers: setOffers } : {}),

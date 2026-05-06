@@ -1122,16 +1122,16 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-small',
     image: 'assets/img/tanks/opel-blitz-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4499886850/opel-blitz-3-ton-german-truck-miniature',
     scalePrices: {
-      '1:160': 0.0,
-      '1:180': 0.0,
-      '1:200': 0.0,
-      '1:250': 0.0,
-      '1:285': 0.0
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
     },
     finishSurcharges: {
-      'Base coat': 0.0,
+      'Base coat': 1.0,
       'Unpainted': 0.0
     },
     fact: 'The Opel Blitz was one of Germany\'s most important wartime trucks, used for transport, supply, and support roles.',
