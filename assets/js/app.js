@@ -157,12 +157,58 @@ function getTankPriceRange(tank) {
 }
 
 
+function buildAggregateOfferJsonLd(prices, url) {
+  const validPrices = prices
+    .map(Number)
+    .filter(value => Number.isFinite(value) && value > 0);
+
+  if (!validPrices.length) return null;
+
+  return {
+    '@type': 'AggregateOffer',
+    priceCurrency: 'EUR',
+    lowPrice: Math.min(...validPrices).toFixed(2),
+    highPrice: Math.max(...validPrices).toFixed(2),
+    offerCount: validPrices.length,
+    url,
+  };
+}
+
 function normalizeScale(value) {
   return typeof value === 'string' ? value.replace('-', ':') : value;
 }
 
 function scaleForUrl(scale) {
   return scale.replace(':', '-');
+}
+
+function withQueryParams(url, params = {}) {
+  const entries = Object.entries(params).filter(([, value]) => value !== undefined && value !== null && value !== '');
+  if (!entries.length) return url;
+
+  const query = entries
+    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+    .join('&');
+
+  return `${url}${url.includes('?') ? '&' : '?'}${query}`;
+}
+
+function getTankDetailUrl(tankOrSlug, params = {}) {
+  const slug = typeof tankOrSlug === 'string' ? tankOrSlug : tankOrSlug?.slug;
+  if (!slug) return 'tanks.html';
+
+  const baseUrl = `tanks/${encodeURIComponent(slug)}/`;
+
+  return withQueryParams(baseUrl, params);
+}
+
+function getSetDetailUrl(setOrSlug, params = {}) {
+  const slug = typeof setOrSlug === 'string' ? setOrSlug : setOrSlug?.slug;
+  if (!slug) return 'sets.html';
+
+  const baseUrl = `sets/${encodeURIComponent(slug)}/`;
+
+  return withQueryParams(baseUrl, params);
 }
 
 function getSelectedScale() {
@@ -195,6 +241,14 @@ function getTankBySlug(slug) {
 
 function getDisplayName(name) {
   return String(name || '').split(' (')[0].trim();
+}
+
+function getTankMetaDescription(tank, availableScales = getAvailableScales(tank)) {
+  return `Browse the ${tank.name} 3D printed miniature tank with ${availableScales.join(', ')} scale options. Request directly and pay by PayPal after confirmation, or continue to Etsy.`;
+}
+
+function getTankProductDescription(tank, availableScales = getAvailableScales(tank)) {
+  return tank.description || getTankMetaDescription(tank, availableScales);
 }
 
 function isDisabled(item) {
@@ -276,7 +330,7 @@ function renderSetContents(contents, selectedScale = getSelectedScale()) {
           return `<li>${safeItem}</li>`;
         }
 
-        const link = `tank.html?slug=${tank.slug}&scale=${scaleForUrl(selectedScale)}`;
+        const link = getTankDetailUrl(tank, { scale: scaleForUrl(selectedScale) });
         return `<li><a class="set-content-link" href="${link}">${safeItem}</a></li>`;
       }).join('')}
     </ul>
@@ -493,9 +547,11 @@ function bindTankDetailGallery(root = document) {
 }
 
 function buildTankCard(tank) {
+  const detailUrl = getTankDetailUrl(tank);
+
   return `
     <article class="card product-card">
-      <a href="tank.html?slug=${tank.slug}" data-scale-link="tank.html?slug=${tank.slug}" class="product-image-link">
+      <a href="${detailUrl}" data-scale-link="${detailUrl}" class="product-image-link">
         ${renderTankVisual(tank)}
       </a>
       <div>
@@ -508,7 +564,7 @@ function buildTankCard(tank) {
         <div class="tank-card-price">${getTankPriceRange(tank)}</div>
         <p class="muted fun-fact">${tank.fact}</p>
       </div>
-      <a class="btn btn-primary" data-scale-link="tank.html?slug=${tank.slug}" href="tank.html?slug=${tank.slug}">View Tank</a>
+      <a class="btn btn-primary" data-scale-link="${detailUrl}" href="${detailUrl}">View Tank</a>
     </article>
   `;
 }
@@ -813,7 +869,7 @@ function renderTankDetail() {
   const target = document.querySelector('[data-tank-detail]');
   if (!target) return;
   const url = new URL(window.location.href);
-  const slug = url.searchParams.get('slug');
+  const slug = target.dataset.slug || url.searchParams.get('slug');
   const tank = getTankBySlug(slug);
 
   if (!tank) {
@@ -830,12 +886,17 @@ function renderTankDetail() {
   const selectedPack = getTankPackByQuantity(getSelectedTankPack());
   const availableScales = getAvailableScales(tank);
   const safeScale = availableScales.includes(selectedScale) ? selectedScale : availableScales[0];
-  const tankUrl = `${SITE_URL}/tank.html?slug=${encodeURIComponent(tank.slug)}`;
-  const tankDescription = `Browse the ${tank.name} 3D printed miniature tank with ${availableScales.join(', ')} scale options. Request directly and pay by PayPal after confirmation, or continue to Etsy.`;
+  const tankUrl = target.dataset.detailUrl || absoluteUrl(getTankDetailUrl(tank));
+  const tankMetaDescription = getTankMetaDescription(tank, availableScales);
+  const tankProductDescription = getTankProductDescription(tank, availableScales);
+  const tankOfferPrices = availableScales.flatMap(scale =>
+    validFinishes.map(finish => getTankPrice(scale, finish, tank))
+  );
+  const tankOffers = buildAggregateOfferJsonLd(tankOfferPrices, tank.etsyUrl || tankUrl);
 
   updatePageMeta({
     title: `${tank.name} 3D Printed Miniature Tank | MiniTankForge`,
-    description: tankDescription,
+    description: tankMetaDescription,
     url: tankUrl,
     image: tank.image,
   });
@@ -844,7 +905,7 @@ function renderTankDetail() {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: tank.name,
-    description: tankDescription,
+    description: tankProductDescription,
     image: absoluteUrl(tank.image || 'assets/img/hero.jpg'),
     brand: {
       '@type': 'Brand',
@@ -852,6 +913,7 @@ function renderTankDetail() {
     },
     category: `${tank.nation} ${tank.era} ${tank.type}`,
     url: tankUrl,
+    ...(tankOffers ? { offers: tankOffers } : {}),
   });
 
   setJsonLd('tank-breadcrumb-jsonld', buildBreadcrumbJsonLd([
@@ -897,6 +959,10 @@ function renderTankDetail() {
     </section>
     <section class="grid-2">
       <div>
+        <h2>Model notes</h2>
+        <p class="muted">${tankProductDescription}</p>
+      </div>
+      <div>
         <h2>Key facts</h2>
         <ul class="spec-list">
           <li><strong>Scale</strong><br><span data-current-scale></span></li>
@@ -907,16 +973,10 @@ function renderTankDetail() {
           <li><strong>Compatibility</strong><br>${tank.compatibility || 'Compact hex-based tabletop play'}</li>
         </ul>
       </div>
-      <div>
-        <h2>What you get</h2>
-        <div class="callout"><strong><span data-current-pack-label>${selectedPack.label}</span> ${tank.name} model${selectedPack.quantity === 1 ? '' : 's'}</strong><br>No set contents are implied on this page. This is a single tank page with optional multi-pack quantities.</div>
-        <p class="muted">Use these options when contacting me directly, or choose the matching variation on Etsy.</p>
-        <div class="notice">Single tank listings are single tanks unless the page clearly states otherwise.</div>
-      </div>
     </section>
     <section class="grid-2">
       <div class="card info-card">
-        <div class="kicker">Fun fact</div>
+        <div class="kicker">Historical note</div>
         <h3>${tank.name}</h3>
         <p class="muted fun-fact">${tank.fact}</p>
       </div>
@@ -1235,9 +1295,11 @@ function bindSetDetailGallery(root = document) {
 }
 
 function buildSetCard(set) {
+  const detailUrl = getSetDetailUrl(set);
+
   return `
     <article class="card product-card">
-      <a href="set.html?slug=${set.slug}" class="product-image-link">
+      <a href="${detailUrl}" class="product-image-link">
         ${renderSetVisual(set)}
       </a>
       <div>
@@ -1250,7 +1312,7 @@ function buildSetCard(set) {
         <div class="tank-card-price">${getSetPriceRange(set)}</div>
         <p class="muted fun-fact">${set.note}</p>
       </div>
-      <a class="btn btn-primary" href="set.html?slug=${set.slug}">View Set</a>
+      <a class="btn btn-primary" href="${detailUrl}">View Set</a>
     </article>
   `;
 }
@@ -1300,7 +1362,7 @@ function renderSetDetail() {
   if (!container) return;
 
   const url = new URL(window.location.href);
-  const slug = url.searchParams.get('slug');
+  const slug = container.dataset.slug || url.searchParams.get('slug');
   const set = getSetBySlug(slug);
 
   if (!set) {
@@ -1332,8 +1394,23 @@ function renderSetDetail() {
 
   container.dataset.selectedSetOption = selectedOptionSlug;
 
-  const setUrl = `${SITE_URL}/set.html?slug=${encodeURIComponent(set.slug)}`;
+  const setUrl = container.dataset.detailUrl || absoluteUrl(getSetDetailUrl(set));
   const setDescription = `Browse the ${set.name}, a ${set.category.toLowerCase()} for ${set.nation} ${set.era} miniature games. Review contents, finish choices, and direct request or Etsy options.`;
+  const setOfferPrices = [];
+
+  for (const scale of availableScales) {
+    for (const finish of availableFinishes) {
+      if (usesSetOptions) {
+        availableOptions.forEach(option => {
+          setOfferPrices.push(getSetPrice(set, scale, finish, option.slug));
+        });
+      } else {
+        setOfferPrices.push(getSetPrice(set, scale, finish));
+      }
+    }
+  }
+
+  const setOffers = buildAggregateOfferJsonLd(setOfferPrices, set.etsyUrl || setUrl);
 
   updatePageMeta({
     title: `${set.name} 3D Printed Miniature Tank Set | MiniTankForge`,
@@ -1354,6 +1431,7 @@ function renderSetDetail() {
     },
     category: `${set.nation} ${set.era} ${set.category}`,
     url: setUrl,
+    ...(setOffers ? { offers: setOffers } : {}),
   });
 
   setJsonLd('set-breadcrumb-jsonld', buildBreadcrumbJsonLd([
