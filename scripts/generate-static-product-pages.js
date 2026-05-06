@@ -41,6 +41,36 @@ function absoluteUrl(value) {
   return new URL(value || 'assets/img/hero.jpg', `${siteUrl}/`).href;
 }
 
+function imageObject(src, caption) {
+  return {
+    '@type': 'ImageObject',
+    url: absoluteUrl(src),
+    caption,
+  };
+}
+
+function tankImageAlt(tank, detail = 'base coat side detail') {
+  return [
+    tank.name,
+    tank.nation,
+    tank.era,
+    tank.type,
+    detail,
+    '3D printed miniature model',
+  ].filter(Boolean).join(' ');
+}
+
+function setImageAlt(set, detail = 'base coat set overview') {
+  return [
+    set.name,
+    set.nation,
+    set.era,
+    set.category,
+    detail,
+    '3D printed miniature set',
+  ].filter(Boolean).join(' ');
+}
+
 function formatPrice(value) {
   return `EUR ${Number(value).toFixed(2)}`;
 }
@@ -235,7 +265,7 @@ function writeTankPage(tank, data) {
     '@type': 'Product',
     name: tank.name,
     description: productDescription,
-    image: absoluteUrl(tank.image),
+    image: imageObject(tank.image, tankImageAlt(tank)),
     brand: { '@type': 'Brand', name: 'MiniTankForge' },
     sku: tank.slug,
     category: `${tank.nation} ${tank.era} ${tank.type}`,
@@ -254,7 +284,7 @@ function writeTankPage(tank, data) {
     <section class="split">
       <div class="tank-media-stack">
         <div class="product-image product-image-large">
-          <img src="${escapeHtml(tank.image)}" width="1600" height="900" alt="${escapeHtml(tank.name)} base coat side detail 3D printed miniature tank" loading="eager" fetchpriority="high" decoding="async">
+          <img src="${escapeHtml(tank.image)}" width="1600" height="900" alt="${escapeHtml(tankImageAlt(tank))}" loading="eager" fetchpriority="high" decoding="async">
         </div>
       </div>
       <div class="detail-panel card">
@@ -289,7 +319,7 @@ function writeTankPage(tank, data) {
     description: metaDescription,
     canonical: publicUrl,
     image: tank.image,
-    imageAlt: `${tank.name} miniature tank from MiniTankForge`,
+    imageAlt: tankImageAlt(tank),
     body,
     scripts: [
       '<script defer src="assets/js/tanks-data.js?v=17"></script>',
@@ -322,7 +352,7 @@ function writeSetPage(set, data) {
     '@type': 'Product',
     name: set.name,
     description,
-    image: absoluteUrl(set.image),
+    image: imageObject(set.image, setImageAlt(set)),
     brand: { '@type': 'Brand', name: 'MiniTankForge' },
     sku: set.slug,
     category: `${set.nation} ${set.era} ${set.category}`,
@@ -341,7 +371,7 @@ function writeSetPage(set, data) {
     <section class="split set-detail-top">
       <div class="set-media-stack">
         <div class="product-image product-image-large">
-          <img src="${escapeHtml(set.image)}" width="1200" height="900" alt="${escapeHtml(set.name)} base coat 3D printed miniature tank set" loading="eager" fetchpriority="high" decoding="async">
+          <img src="${escapeHtml(set.image)}" width="1200" height="900" alt="${escapeHtml(setImageAlt(set))}" loading="eager" fetchpriority="high" decoding="async">
         </div>
       </div>
       <div class="detail-panel card">
@@ -375,7 +405,7 @@ ${contentsHtml}
     description,
     canonical: publicUrl,
     image: set.image,
-    imageAlt: `${set.name} miniature tank set from MiniTankForge`,
+    imageAlt: setImageAlt(set),
     body,
     scripts: [
       '<script defer src="assets/js/tanks-data.js?v=17"></script>',

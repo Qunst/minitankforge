@@ -47,6 +47,16 @@ function absoluteUrl(path) {
   return new URL(path, `${SITE_URL}/`).href;
 }
 
+function buildImageObject(src, caption) {
+  if (!src) return null;
+
+  return {
+    '@type': 'ImageObject',
+    url: absoluteUrl(src),
+    caption,
+  };
+}
+
 function setMetaContent(selector, content) {
   const element = document.querySelector(selector);
   if (element && content) {
@@ -256,6 +266,32 @@ function getTankProductDescription(tank, availableScales = getAvailableScales(ta
   return tank.description || getTankMetaDescription(tank, availableScales);
 }
 
+function getTankImageAlt(tank, detail = 'base coat side detail') {
+  const parts = [
+    tank.name,
+    tank.nation,
+    tank.era,
+    tank.type,
+    detail,
+    '3D printed miniature model',
+  ].filter(Boolean);
+
+  return parts.join(' ');
+}
+
+function getSetImageAlt(set, detail = 'base coat set overview') {
+  const parts = [
+    set.name,
+    set.nation,
+    set.era,
+    set.category,
+    detail,
+    '3D printed miniature set',
+  ].filter(Boolean);
+
+  return parts.join(' ');
+}
+
 function isDisabled(item) {
   return item?.disabled === true;
 }
@@ -379,7 +415,7 @@ function renderTankVisual(tank, large = false) {
 
   if (image) {
     const priorityAttrs = large ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
-    return `<div class="product-image ${large ? 'product-image-large' : ''}"><img src="${image}" width="1600" height="900" alt="${tank.name}" ${priorityAttrs} decoding="async"></div>`;
+    return `<div class="product-image ${large ? 'product-image-large' : ''}"><img src="${image}" width="1600" height="900" alt="${getTankImageAlt(tank, large ? 'base coat side detail' : 'product card photo')}" ${priorityAttrs} decoding="async"></div>`;
   }
   const size = large ? 'tank-lg' : tankSizeClass(tank.placeholderStyle);
   const extraClass = placeholderClass(tank.placeholderStyle);
@@ -480,7 +516,7 @@ function renderTankDetailGallery(tank) {
   return `
     <div class="tank-detail-gallery" data-tank-gallery>
       <div class="product-image product-image-large">
-        <img src="${mainImage}" width="1600" height="900" alt="${tank.name} ${mainLabel}" loading="eager" fetchpriority="high" decoding="async" data-tank-gallery-main>
+        <img src="${mainImage}" width="1600" height="900" alt="${getTankImageAlt(tank, mainLabel)}" loading="eager" fetchpriority="high" decoding="async" data-tank-gallery-main>
       </div>
       <div class="tank-mini-gallery" aria-label="${tank.name} photo thumbnails">
         ${galleryImages.map((image, index) => `
@@ -708,6 +744,31 @@ function renderBrowseGrid() {
   target.innerHTML = filtered.map(buildTankCard).join('');
 }
 
+function parseSlugList(value) {
+  return String(value || '')
+    .split(',')
+    .map(slug => slug.trim())
+    .filter(Boolean);
+}
+
+function renderGuideProductCards() {
+  document.querySelectorAll('[data-guide-tanks]').forEach(container => {
+    const tanks = parseSlugList(container.dataset.guideTanks)
+      .map(getTankBySlug)
+      .filter(Boolean);
+
+    container.innerHTML = tanks.map(buildTankCard).join('');
+  });
+
+  document.querySelectorAll('[data-guide-sets]').forEach(container => {
+    const sets = parseSlugList(container.dataset.guideSets)
+      .map(getSetBySlug)
+      .filter(Boolean);
+
+    container.innerHTML = sets.map(buildSetCard).join('');
+  });
+}
+
 function populateFilters() {
   const visibleTanks = getVisibleTanks();
   const nations = ['All', ...new Set(visibleTanks.map(t => t.nation))];
@@ -911,7 +972,7 @@ function renderTankDetail() {
     '@type': 'Product',
     name: tank.name,
     description: tankProductDescription,
-    image: absoluteUrl(tank.image || 'assets/img/hero.jpg'),
+    image: buildImageObject(tank.image || 'assets/img/hero.jpg', getTankImageAlt(tank)),
     brand: {
       '@type': 'Brand',
       name: 'MiniTankForge',
@@ -1023,6 +1084,7 @@ function initScaleUI() {
   renderBrowseGrid();
   renderTankDetail();
   renderSetDetail();
+  renderGuideProductCards();
 
   document.querySelectorAll('[data-render-scale-choices]').forEach(container => {
     if (!container.children.length) {
@@ -1164,7 +1226,7 @@ initScaleComparison();
 function renderSetVisual(set, large = false) {
   const image = set.image || DEFAULT_SET_IMAGE;
   const priorityAttrs = large ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
-  return `<div class="product-image ${large ? 'product-image-large' : ''}"><img src="${image}" width="1200" height="900" alt="${set.name}" ${priorityAttrs} decoding="async"></div>`;
+  return `<div class="product-image ${large ? 'product-image-large' : ''}"><img src="${image}" width="1200" height="900" alt="${getSetImageAlt(set, large ? 'base coat set overview' : 'product card photo')}" ${priorityAttrs} decoding="async"></div>`;
 }
 
 function getSetDetailGalleryImages(set) {
@@ -1222,11 +1284,12 @@ function renderSetDetailGallery(set) {
   const mainLabel = galleryImages[0]?.label || 'Set overview';
   const safeName = escapeHtml(set.name);
   const safeMainLabel = escapeHtml(mainLabel);
+  const safeMainAlt = escapeHtml(getSetImageAlt(set, mainLabel));
 
   return `
     <div class="set-detail-gallery" data-set-gallery>
       <div class="product-image product-image-large">
-        <img src="${mainImage}" width="1600" height="900" alt="${safeName} ${safeMainLabel}" loading="eager" fetchpriority="high" decoding="async" data-set-gallery-main>
+        <img src="${mainImage}" width="1600" height="900" alt="${safeMainAlt}" loading="eager" fetchpriority="high" decoding="async" data-set-gallery-main>
       </div>
       <div class="set-mini-gallery" aria-label="${safeName} photo thumbnails">
         ${galleryImages.map((image, index) => {
@@ -1430,7 +1493,7 @@ function renderSetDetail() {
     '@type': 'Product',
     name: set.name,
     description: setDescription,
-    image: absoluteUrl(set.image || DEFAULT_SET_IMAGE),
+    image: buildImageObject(set.image || DEFAULT_SET_IMAGE, getSetImageAlt(set)),
     brand: {
       '@type': 'Brand',
       name: 'MiniTankForge',

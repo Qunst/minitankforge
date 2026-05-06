@@ -1366,6 +1366,30 @@ textarea {
   margin-bottom: 6px;
 }
 
+.guide-link-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.guide-link {
+  display: block;
+  padding: 14px 16px;
+  border: 1px solid rgba(82, 62, 43, .18);
+  border-radius: 8px;
+  background: rgba(255, 251, 240, .72);
+  color: #2f281f;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.guide-link:hover,
+.guide-link:focus-visible {
+  border-color: rgba(138, 103, 71, .48);
+  color: #7a4420;
+}
+
 .set-price-box {
   margin-top: 18px;
 }
