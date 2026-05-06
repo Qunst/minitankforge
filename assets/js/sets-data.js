@@ -39,7 +39,7 @@ window.SETS = [
       }
     ],
     placeholderStyle: 'light-large',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4500173554/german-starter-armor-set-miniatures-3d',
     note: 'A compact starting force for players who want a ready-made German set.',
     compatibility: 'Compact hex-based tabletop play',
     contents: ['1× Tiger I', '1× Tiger II', '1× Panther', '1× Ferdinand', '1× Jagdpanther', '1× Stug IV'],
@@ -105,7 +105,7 @@ window.SETS = [
       }
     ],
     placeholderStyle: 'dark-large',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4500181548/ussr-starter-armor-set-miniatures-3d',
     note: 'A Soviet tank destroyer-focused group for compact battlefield setups.',
     compatibility: 'Compact hex-based tabletop play',
     contents: ['1× SU-85', '1× ISU-152', '1× T-34', '1× IS-3', '1× KV-2', '1× T-28'],
@@ -170,7 +170,7 @@ window.SETS = [
       }
     ],
     placeholderStyle: 'light-large',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4500204732/german-tanks-set-miniatures-3d-printed',
     note: 'A tank-only German lineup built around the most recognizable battlefield vehicles.',
     compatibility: 'Compact hex-based tabletop play',
     contents: ['1x Tiger I', '1x Tiger II', '1x Panther', '1x Panzer III', '1x Panzer IV', '1x Panzer 38(t)'],
@@ -235,7 +235,7 @@ window.SETS = [
       }
     ],
     placeholderStyle: 'dark-large',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4500206290/ussr-tanks-set-miniatures-3d-printed-ww2',
     note: 'A Soviet tank-focused lineup with medium, heavy, and early-war armor.',
     compatibility: 'Compact hex-based tabletop play',
     contents: ['1x T-34', '1x T-34/85', '1x KV-2', '1x IS-1', '1x IS-2', '1x IS-3'],
@@ -300,7 +300,7 @@ window.SETS = [
       }
     ],
     placeholderStyle: 'light-medium',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4500182868/us-allied-starter-armor-set-miniatures',
     note: 'A balanced American starter lineup with medium tanks, fast light armor, and late-war punch.',
     compatibility: 'Compact hex-based tabletop play',
     contents: ['1x M18 Hellcat', '1x M3 Lee', '1x M5A1 Stuart', '1x Pershing', '1x Sherman', '1x Sherman Firefly'],
@@ -365,7 +365,7 @@ window.SETS = [
       }
     ],
     placeholderStyle: 'dark-large',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4500197357/german-tank-destroyers-set-miniatures-3d',
     note: 'A German lineup focused on dedicated tank destroyers and assault guns from early to late war.',
     compatibility: 'Compact hex-based tabletop play',
     contents: ['1x Ferdinand', '1x Hetzer', '1x Jagdpanther', '1x Jagdpz IV', '1x Jagdtiger', '1x Nashorn'],
@@ -430,7 +430,7 @@ window.SETS = [
       }
     ],
     placeholderStyle: 'dark-large',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4500285714/ussr-tank-destroyers-set-miniatures-3d',
     note: 'A Soviet support lineup built around assault guns and tank destroyers.',
     compatibility: 'Compact hex-based tabletop play',
     contents: ['1x SU-76', '1x SU-85', '1x SU-100', '1x SU-122', '1x ISU-122', '1x ISU-152'],
@@ -495,7 +495,7 @@ window.SETS = [
       }
     ],
     placeholderStyle: 'light-large',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4500356502/german-early-war-armor-set-miniatures-3d',
     note: 'A German lineup focused on early-war armor, light reconnaissance, and core medium tanks.',
     compatibility: 'Compact hex-based tabletop play',
     contents: ['1x Hetzer', '1x Luchs', '1x Panzer III', '1x Panzer 35(t)', '1x Panzer 38(t)', '1x Panzer IV'],
@@ -811,7 +811,7 @@ window.SETS = [
       }
     ],
     placeholderStyle: 'dark-large',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4500357216/german-experimental-tank-set-miniatures',
     note: 'A late-war concept lineup built around German experimental and super-heavy designs.',
     compatibility: 'Compact hex-based tabletop play',
     contents: ['1x E-100', '1x E-25', '1x E-50', '1x E-75', '1x Maus', '1x Panzer VII Loewe'],
