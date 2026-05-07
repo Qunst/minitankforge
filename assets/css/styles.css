@@ -1384,6 +1384,40 @@ textarea {
   text-decoration: none;
 }
 
+.guide-link span {
+  display: block;
+}
+
+.guide-link small {
+  display: block;
+  margin-top: 6px;
+  color: #645d53;
+  font-size: .86rem;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.guide-links-bottom {
+  border-top: 1px solid rgba(82, 62, 43, .12);
+  margin-top: 10px;
+  padding-top: 28px;
+}
+
+.guide-links-bottom .section-head {
+  margin-bottom: 10px;
+}
+
+.guide-link-grid-compact {
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+
+.guide-link-subtle {
+  padding: 12px 14px;
+  background: transparent;
+  border-color: rgba(82, 62, 43, .14);
+  box-shadow: none;
+}
+
 .guide-link:hover,
 .guide-link:focus-visible {
   border-color: rgba(138, 103, 71, .48);
