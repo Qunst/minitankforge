@@ -723,7 +723,34 @@ window.SETS = [
     placeholderStyle: 'light-medium',
     etsyUrl: 'https://www.etsy.com/listing/4374813460/1285-hellcat-tankers-mini-set-3d-printed',
     note: 'Game-ready 1:285 pack built around the M18 Hellcat scenario mix.',
-    compatibility: '1:285 scale for Hellcat Tankers game play',
+    description: 'This pack is an unofficial 3D printed accessory set for players who want physical pieces for Mike Lambo\'s Hellcat Tankers rather than relying only on printed counters. The pack centers on the M18 Hellcat and the German vehicles used around the scenario mix, with Basic, Full, and Extra Hellcat options depending on how much table presence you want.',
+    gameTitle: 'Hellcat Tankers',
+    gameUrl: 'https://www.lulu.com/shop/mike-lambo/hellcat-tankers/paperback/product-nv9ygvw.html',
+    overviewKicker: 'Game upgrade',
+    overviewHeading: 'Physical pieces for Hellcat Tankers',
+    bestFor: 'Upgrading Hellcat Tankers with fixed-scale 1:285 physical pieces.',
+    scaleNote: 'Fixed at 1:285 so the vehicles stay compact for the smaller hexes and dense vehicle mix used by Hellcat Tankers. This is not a variable-scale armor set.',
+    scaleHeading: 'Fixed 1:285 game scale',
+    guideLinksHeading: 'Related Game Guides',
+    guideLinksIntro: 'Useful pages for Mike Lambo game pieces, 1:285 scale, and nearby tank destroyer options.',
+    guideLinks: [
+      {
+        label: 'Miniatures for Mike Lambo solo wargames',
+        href: 'mike-lambo-game-miniatures.html',
+        note: 'Compare the Hellcat and Lone Sherman accessory packs together.'
+      },
+      {
+        label: '1:285 WW2 tank miniatures',
+        href: '1-285-ww2-tank-miniatures.html',
+        note: 'See the compact fixed scale used by this pack.'
+      },
+      {
+        label: 'WW2 tank destroyer miniatures',
+        href: 'ww2-tank-destroyer-miniatures.html',
+        note: 'Browse the M18 Hellcat and related anti-armor vehicles.'
+      }
+    ],
+    compatibility: 'Unofficial 1:285 accessory pack compatible with Mike Lambo\'s Hellcat Tankers game play',
     optionLabel: 'Set version',
     availableScales: ['1:285'],
     options: [
@@ -803,7 +830,34 @@ window.SETS = [
     placeholderStyle: 'dark-medium',
     etsyUrl: 'https://www.etsy.com/listing/1703513728/detailed-mini-ww2-tanks-1250-scale-lone',
     note: 'Game-ready 1:250 pack built around a lone Sherman scenario.',
-    compatibility: '1:250 scale for Lone Sherman game play',
+    description: 'This pack is an unofficial 3D printed accessory set for players who want physical pieces for Mike Lambo\'s Lone Sherman rather than relying only on printed counters. The pack is built around the Sherman, German armor, infantry, and truck pieces used for the European game setting, with versions for the full pack, tanks only, support pieces, or an extra Sherman.',
+    gameTitle: 'Lone Sherman',
+    gameUrl: 'https://www.lulu.com/shop/mike-lambo/lone-sherman/paperback/product-e7rj6d9.html',
+    overviewKicker: 'Game upgrade',
+    overviewHeading: 'Physical pieces for Lone Sherman',
+    bestFor: 'Upgrading Lone Sherman with fixed-scale 1:250 tabletop pieces.',
+    scaleNote: 'Fixed at 1:250 so the vehicles have a little more table presence while staying practical for Lone Sherman play. This pack is not meant to be mixed with the variable-scale starter sets.',
+    scaleHeading: 'Fixed 1:250 game scale',
+    guideLinksHeading: 'Related Game Guides',
+    guideLinksIntro: 'Useful pages for Lone Sherman pieces, Sherman-focused browsing, and 1:250 scale choices.',
+    guideLinks: [
+      {
+        label: 'Miniatures for Mike Lambo solo wargames',
+        href: 'mike-lambo-game-miniatures.html',
+        note: 'Compare the Lone Sherman, Pacific, and Hellcat accessory packs.'
+      },
+      {
+        label: 'Sherman tank miniatures',
+        href: 'sherman-tank-miniatures.html',
+        note: 'Browse Sherman-focused tanks and game packs.'
+      },
+      {
+        label: '1:250 WW2 tank miniatures',
+        href: '1-250-ww2-tank-miniatures.html',
+        note: 'See the fixed scale used by the Lone Sherman packs.'
+      }
+    ],
+    compatibility: 'Unofficial 1:250 accessory pack compatible with Mike Lambo\'s Lone Sherman game play',
     optionLabel: 'Pack contents',
     availableScales: ['1:250'],
     options: [
@@ -892,7 +946,34 @@ window.SETS = [
     placeholderStyle: 'dark-medium',
     etsyUrl: 'https://www.etsy.com/listing/1355718683/detailed-mini-ww2-tanks-1250-scale-lone',
     note: 'Game-ready 1:250 Pacific pack built around a lone Sherman facing Japanese armor and support units.',
-    compatibility: '1:250 scale for Lone Sherman Pacific game play',
+    description: 'This pack is an unofficial 3D printed accessory set for players who want physical pieces for Mike Lambo\'s Lone Sherman: The Pacific. It keeps the Sherman at the center and adds Japanese Type 95 Ha-Go, Type 97 Chi-Ha, infantry, artillery, and anti-tank gun options for the Pacific setting. The pack versions let you choose the full mix, tanks only, support pieces, or an extra Sherman.',
+    gameTitle: 'Lone Sherman: The Pacific',
+    gameUrl: 'https://www.lulu.com/shop/mike-lambo/lone-sherman-the-pacific/paperback/product-kvjkyyk.html',
+    overviewKicker: 'Game upgrade',
+    overviewHeading: 'Physical pieces for Lone Sherman: The Pacific',
+    bestFor: 'Upgrading Lone Sherman: The Pacific with fixed-scale 1:250 physical pieces.',
+    scaleNote: 'Fixed at 1:250 to match the Lone Sherman Pacific pack format and keep the Sherman, Japanese tanks, guns, and infantry readable on the table.',
+    scaleHeading: 'Fixed 1:250 game scale',
+    guideLinksHeading: 'Related Game Guides',
+    guideLinksIntro: 'Useful pages for Pacific Sherman play, 1:250 scale, and Mike Lambo game accessories.',
+    guideLinks: [
+      {
+        label: 'Miniatures for Mike Lambo solo wargames',
+        href: 'mike-lambo-game-miniatures.html',
+        note: 'Compare the Pacific pack with other Mike Lambo accessory packs.'
+      },
+      {
+        label: 'Sherman tank miniatures',
+        href: 'sherman-tank-miniatures.html',
+        note: 'Browse Sherman-focused tanks and game packs.'
+      },
+      {
+        label: '1:250 WW2 tank miniatures',
+        href: '1-250-ww2-tank-miniatures.html',
+        note: 'See the fixed scale used by the Lone Sherman packs.'
+      }
+    ],
+    compatibility: 'Unofficial 1:250 accessory pack compatible with Mike Lambo\'s Lone Sherman: The Pacific game play',
     optionLabel: 'Pack contents',
     availableScales: ['1:250'],
     options: [

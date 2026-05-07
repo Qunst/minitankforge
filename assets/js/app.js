@@ -751,6 +751,217 @@ function parseSlugList(value) {
     .filter(Boolean);
 }
 
+function stripTags(value) {
+  return String(value ?? '').replace(/<[^>]*>/g, '').trim();
+}
+
+function normalizeSetContentName(value) {
+  return stripTags(value)
+    .toLowerCase()
+    .replace(/^\s*\d+\s*(x|×|ã—)?\s*/i, '')
+    .replace(/\([^)]*\)/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+const setContentTankAliases = {
+  'a 32': 'a-32',
+  'e 100': 'e-100',
+  'e 25': 'e-25',
+  'e 50': 'e-50',
+  'e 75': 'e-75',
+  'ferdinand': 'ferdinand',
+  'hetzer': 'hetzer',
+  'hummel': 'hummel',
+  'is 1': 'is-1',
+  'is 2': 'is-2',
+  'is 3': 'is-3',
+  'isu 122': 'isu-122',
+  'isu 152': 'isu-152',
+  'jagdpanther': 'jagdpanther',
+  'jagdpanzer e100': 'jagdpanzer-e100',
+  'jagdpz iv': 'jagdpz-iv',
+  'jagdpanzer iv': 'jagdpz-iv',
+  'jagdtiger': 'jagdtiger',
+  'kv 2': 'kv-2',
+  'luchs': 'luchs',
+  'm10 wolverine': 'm10-wolverine',
+  'm18 hellcat': 'm18-hellcat',
+  'hellcat': 'm18-hellcat',
+  'm3 half track': 'm3-half-track',
+  'm3 lee': 'm3-lee',
+  'm5a1 stuart': 'm5a1-stuart',
+  'm60a1': 'm60a1',
+  'm7 priest': 'm7-priest',
+  'm8 greyhound': 'm8-greyhound',
+  'maus': 'maus',
+  'nashorn': 'nashorn',
+  'opel blitz': 'opel-blitz',
+  'opel blitz truck': 'opel-blitz',
+  'panther': 'panther',
+  'panzer iii': 'panzer-iii',
+  'panzer iv': 'panzer-iv',
+  'panzer vii loewe': 'panzer-vii-loewe',
+  'panzer vii lowe': 'panzer-vii-loewe',
+  'panzer 35 t': 'panzer-35t',
+  'panzer 35t': 'panzer-35t',
+  'panzer 38 t': 'panzer-38t',
+  'panzer 38t': 'panzer-38t',
+  'pershing': 'pershing',
+  'sd kfz 234': 'sd-kfz-234',
+  'sherman firefly': 'sherman-firefly',
+  'sherman': 'sherman-m4a3',
+  'stug iv': 'stug-iv',
+  'su 76': 'su-76',
+  'su 85': 'su-85',
+  'su 100': 'su-100',
+  'su 122': 'su-122',
+  't 28': 't-28',
+  't 34': 't-34',
+  't 34 85': 't-34-85',
+  't 34 minesweeper': 't-34-minesweeper',
+  't 70': 't-70',
+  'tiger i': 'tiger-i',
+  'tiger ii': 'tiger-ii',
+  'type 95 ha go': 'type-95-ha-go',
+  'type 97 chi ha': 'type-97-chi-ha',
+  'wespe': 'wespe',
+};
+
+function tankSlugFromSetContent(item) {
+  return setContentTankAliases[normalizeSetContentName(item)] || '';
+}
+
+function getSetLinkedTanks(set) {
+  const contents = getAvailableSetOptions(set).length
+    ? getAvailableSetOptions(set).flatMap(option => option.contents || [])
+    : getSetContents(set);
+  const seen = new Set();
+
+  return contents
+    .map(tankSlugFromSetContent)
+    .filter(Boolean)
+    .filter(slug => {
+      if (seen.has(slug)) return false;
+      seen.add(slug);
+      return true;
+    })
+    .map(getTankBySlug)
+    .filter(Boolean);
+}
+
+function setLinksToTank(set, tankSlug) {
+  return getSetLinkedTanks(set).some(tank => tank.slug === tankSlug);
+}
+
+function scoreRelatedTank(tank, candidate) {
+  if (!tank || !candidate || tank.slug === candidate.slug) return 0;
+
+  let score = 0;
+  if (candidate.nation === tank.nation) score += 6;
+  if (candidate.type === tank.type) score += 6;
+  if (candidate.era === tank.era) score += 2;
+
+  const tankName = getDisplayName(tank.name).toLowerCase();
+  const candidateName = getDisplayName(candidate.name).toLowerCase();
+  ['sherman', 't-34', 'panzer', 'tiger', 'is-', 'su-', 'e-'].forEach(token => {
+    if (tankName.includes(token) && candidateName.includes(token)) score += 4;
+  });
+
+  if (/heavy tank|super heavy tank/i.test(tank.type) && /heavy tank|super heavy tank/i.test(candidate.type)) {
+    score += 3;
+  }
+
+  return score;
+}
+
+function getRelatedTanks(tank, limit = 3) {
+  return getVisibleTanks()
+    .map(candidate => ({ tank: candidate, score: scoreRelatedTank(tank, candidate) }))
+    .filter(item => item.score > 0)
+    .sort((a, b) => b.score - a.score || getDisplayName(a.tank.name).localeCompare(getDisplayName(b.tank.name)))
+    .slice(0, limit)
+    .map(item => item.tank);
+}
+
+function getGuideLinksForTank(tank) {
+  const links = [];
+  const add = (label, href, note) => {
+    if (!links.some(link => link.href === href)) links.push({ label, href, note });
+  };
+
+  if (tank.nation === 'Germany') add('German WW2 tank miniatures', 'german-ww2-tank-miniatures.html', 'Browse nearby German armor and set paths.');
+  if (tank.nation === 'USSR') add('Soviet WW2 tank miniatures', 'soviet-ww2-tank-miniatures.html', 'Browse nearby Soviet armor and set paths.');
+  if (tank.nation === 'USA') add('American WW2 tank miniatures', 'american-ww2-tank-miniatures.html', 'Browse US armor, Shermans, Hellcats, and game packs.');
+  if (/sherman/i.test(tank.name)) add('Sherman tank miniatures', 'sherman-tank-miniatures.html', 'Compare Sherman-focused tanks and game packs.');
+  if (/tank destroyer|assault gun/i.test(tank.type)) add('WW2 tank destroyer miniatures', 'ww2-tank-destroyer-miniatures.html', 'Compare anti-armor and assault-gun vehicles.');
+  if (/heavy tank|super heavy tank/i.test(tank.type)) add('WW2 heavy tank miniatures', 'ww2-heavy-tank-miniatures.html', 'Compare heavy and super-heavy vehicle choices.');
+  add('Tabletop tank miniatures', 'tabletop-tank-miniatures.html', 'Browse scale, set, and vehicle paths for tabletop play.');
+
+  return links.slice(0, 4);
+}
+
+function renderCompactInternalLinks({ heading, intro, links }) {
+  if (!Array.isArray(links) || !links.length) return '';
+
+  return `
+  <section class="browse-preview-section guide-links-bottom">
+    <div class="section-head">
+      <div>
+        <h2>${escapeHtml(heading)}</h2>
+        <p>${escapeHtml(intro)}</p>
+      </div>
+    </div>
+    <div class="guide-link-grid guide-link-grid-compact">
+      ${links.map(link => `
+        <a class="guide-link guide-link-subtle" href="${escapeHtml(link.href)}">
+          <span>${escapeHtml(link.label)}</span>
+          ${link.note ? `<small>${escapeHtml(link.note)}</small>` : ''}
+        </a>
+      `).join('')}
+    </div>
+  </section>
+`;
+}
+
+function renderTankInternalLinks(tank) {
+  const relatedTankLinks = getRelatedTanks(tank, 3).map(relatedTank => ({
+    label: getDisplayName(relatedTank.name),
+    href: getTankDetailUrl(relatedTank),
+    note: `${relatedTank.nation} ${relatedTank.type.toLowerCase()}`,
+  }));
+  const setLinks = getVisibleSets()
+    .filter(set => setLinksToTank(set, tank.slug))
+    .slice(0, 2)
+    .map(set => ({
+      label: set.name,
+      href: getSetDetailUrl(set),
+      note: 'Set or game pack that includes this vehicle.',
+    }));
+  const guideLinks = getGuideLinksForTank(tank);
+
+  return renderCompactInternalLinks({
+    heading: 'Explore Related Pages',
+    intro: 'Useful next pages for nearby vehicles, sets, and buying guides.',
+    links: [...relatedTankLinks, ...setLinks, ...guideLinks],
+  });
+}
+
+function renderSetIncludedVehicleLinks(set) {
+  const links = getSetLinkedTanks(set).slice(0, 8).map(tank => ({
+    label: getDisplayName(tank.name),
+    href: getTankDetailUrl(tank),
+    note: `${tank.nation} ${tank.type.toLowerCase()} page.`,
+  }));
+
+  return renderCompactInternalLinks({
+    heading: 'More About These Vehicles',
+    intro: 'Individual model pages for vehicles that appear in this set or pack.',
+    links,
+  });
+}
+
 function renderGuideProductCards() {
   document.querySelectorAll('[data-guide-tanks]').forEach(container => {
     const tanks = parseSlugList(container.dataset.guideTanks)
@@ -1054,6 +1265,8 @@ function renderTankDetail() {
         <a class="btn" href="scale-comparison.html">See Scale Comparison</a>
       </div>
     </section>
+
+    ${renderTankInternalLinks(tank)}
   `;
 
   renderScaleChoices(target.querySelector('[data-render-scale-choices]'), safeScale, availableScales);
@@ -1320,8 +1533,8 @@ function renderSetGuideLinks(set) {
   <section class="browse-preview-section guide-links-bottom">
     <div class="section-head">
       <div>
-        <h2>Related Guides</h2>
-        <p>Useful pages for comparing this set with nearby vehicle and force-building paths.</p>
+        <h2>${escapeHtml(set.guideLinksHeading || 'Related Guides')}</h2>
+        <p>${escapeHtml(set.guideLinksIntro || 'Useful pages for comparing this set with nearby vehicle and force-building paths.')}</p>
       </div>
     </div>
     <div class="guide-link-grid guide-link-grid-compact">
@@ -1619,15 +1832,16 @@ function renderSetDetail() {
   <section class="grid-2">
     ${set.description ? `
     <div class="card info-card">
-      <div class="kicker">Set overview</div>
-      <h3>What this set is for</h3>
+      <div class="kicker">${escapeHtml(set.overviewKicker || 'Set overview')}</div>
+      <h3>${escapeHtml(set.overviewHeading || 'What this set is for')}</h3>
       <p class="muted">${escapeHtml(set.description)}</p>
+      ${set.gameUrl ? `<a class="btn" href="${escapeHtml(set.gameUrl)}" target="_blank" rel="noopener">Get ${escapeHtml(set.gameTitle || 'the game')} separately</a>` : ''}
     </div>
     ` : ''}
     ${set.scaleNote ? `
     <div class="card info-card">
       <div class="kicker">Scale note</div>
-      <h3>Choosing a size</h3>
+      <h3>${escapeHtml(set.scaleHeading || 'Choosing a size')}</h3>
       <p class="muted">${escapeHtml(set.scaleNote)}</p>
     </div>
     ` : ''}
@@ -1649,6 +1863,8 @@ function renderSetDetail() {
       ${usesSetOptions ? '' : `<a class="btn" href="scale-comparison.html">See Scale Comparison</a>`}
     </div>
   </section>
+
+  ${renderSetIncludedVehicleLinks(set)}
 
   ${renderSetGuideLinks(set)}
 `;
