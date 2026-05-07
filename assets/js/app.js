@@ -1308,6 +1308,34 @@ function renderSetDetailGallery(set) {
   `;
 }
 
+function getSetProductDescription(set) {
+  return set.description || `Browse the ${set.name}, a ${set.category.toLowerCase()} for ${set.nation} ${set.era} miniature games. Review contents, finish choices, and direct request or Etsy options.`;
+}
+
+function renderSetGuideLinks(set) {
+  const links = Array.isArray(set.guideLinks) ? set.guideLinks : [];
+  if (!links.length) return '';
+
+  return `
+  <section class="browse-preview-section guide-links-bottom">
+    <div class="section-head">
+      <div>
+        <h2>Related Guides</h2>
+        <p>Useful pages for comparing this set with nearby vehicle and force-building paths.</p>
+      </div>
+    </div>
+    <div class="guide-link-grid guide-link-grid-compact">
+      ${links.map(link => `
+        <a class="guide-link guide-link-subtle" href="${escapeHtml(link.href)}">
+          <span>${escapeHtml(link.label)}</span>
+          ${link.note ? `<small>${escapeHtml(link.note)}</small>` : ''}
+        </a>
+      `).join('')}
+    </div>
+  </section>
+`;
+}
+
 function preloadSetGalleryImages(gallery) {
   const seen = new Set();
   gallery.querySelectorAll('[data-set-gallery-thumb]').forEach(button => {
@@ -1464,7 +1492,7 @@ function renderSetDetail() {
   container.dataset.selectedSetOption = selectedOptionSlug;
 
   const setUrl = container.dataset.detailUrl || absoluteUrl(getSetDetailUrl(set));
-  const setDescription = `Browse the ${set.name}, a ${set.category.toLowerCase()} for ${set.nation} ${set.era} miniature games. Review contents, finish choices, and direct request or Etsy options.`;
+  const setDescription = getSetProductDescription(set);
   const setOfferPrices = [];
 
   for (const scale of availableScales) {
@@ -1572,6 +1600,7 @@ function renderSetDetail() {
           : `<li><strong>Scale</strong><br><span data-current-scale>${selectedScale}</span></li>`
         }
         <li><strong>Compatibility</strong><br>${set.compatibility}</li>
+        ${set.bestFor ? `<li><strong>Best for</strong><br>${escapeHtml(set.bestFor)}</li>` : ''}
       </ul>
     </div>
 
@@ -1585,6 +1614,25 @@ function renderSetDetail() {
       <div class="notice">Set pages always list exact included quantity and composition.</div>
     </div>
   </section>
+
+  ${set.description || set.scaleNote ? `
+  <section class="grid-2">
+    ${set.description ? `
+    <div class="card info-card">
+      <div class="kicker">Set overview</div>
+      <h3>What this set is for</h3>
+      <p class="muted">${escapeHtml(set.description)}</p>
+    </div>
+    ` : ''}
+    ${set.scaleNote ? `
+    <div class="card info-card">
+      <div class="kicker">Scale note</div>
+      <h3>Choosing a size</h3>
+      <p class="muted">${escapeHtml(set.scaleNote)}</p>
+    </div>
+    ` : ''}
+  </section>
+  ` : ''}
 
   <section class="grid-2">
     <div class="card info-card">
@@ -1601,6 +1649,8 @@ function renderSetDetail() {
       ${usesSetOptions ? '' : `<a class="btn" href="scale-comparison.html">See Scale Comparison</a>`}
     </div>
   </section>
+
+  ${renderSetGuideLinks(set)}
 `;
 
   const optionContainer = container.querySelector('[data-set-option-choices]');

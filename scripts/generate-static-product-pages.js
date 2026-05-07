@@ -224,7 +224,7 @@ function buildBreadcrumbJsonLd(items) {
 
 function writeFile(file, content) {
   fs.mkdirSync(path.dirname(file), { recursive: true });
-  fs.writeFileSync(file, content, 'utf8');
+  fs.writeFileSync(file, content.replace(/[ \t]+$/gm, ''), 'utf8');
 }
 
 function isVisible(item) {
@@ -249,6 +249,33 @@ function renderSetStaticContents(set) {
           <ul class="set-contents-list compact">
             ${contents.map(item => `<li>${escapeHtml(stripTags(item))}</li>`).join('\n            ')}
           </ul>`;
+}
+
+function setProductDescription(set) {
+  return set.description || `Browse the ${set.name}, a ${set.category.toLowerCase()} for ${set.nation} ${set.era} miniature games. Review contents, finish choices, and direct request or Etsy options.`;
+}
+
+function renderSetStaticGuideLinks(set) {
+  const links = Array.isArray(set.guideLinks) ? set.guideLinks : [];
+  if (!links.length) return '';
+
+  return `
+    <section class="browse-preview-section guide-links-bottom">
+      <div class="section-head">
+        <div>
+          <h2>Related Guides</h2>
+          <p>Useful pages for comparing this set with nearby vehicle and force-building paths.</p>
+        </div>
+      </div>
+      <div class="guide-link-grid guide-link-grid-compact">
+        ${links.map(link => `
+          <a class="guide-link guide-link-subtle" href="${escapeHtml(link.href)}">
+            <span>${escapeHtml(link.label)}</span>
+            ${link.note ? `<small>${escapeHtml(link.note)}</small>` : ''}
+          </a>
+        `).join('')}
+      </div>
+    </section>`;
 }
 
 function writeTankPage(tank, data) {
@@ -343,9 +370,30 @@ function writeSetPage(set, data) {
   const availableScales = set.availableScales || Object.keys(set.prices || {});
   const prices = setPrices(set, data.setFinishes);
   const contentsHtml = renderSetStaticContents(set);
-  const description = `Browse the ${set.name}, a ${set.category.toLowerCase()} for ${set.nation} ${set.era} miniature games. Review contents, finish choices, and direct request or Etsy options.`;
+  const description = setProductDescription(set);
   const title = `${set.name} 3D Printed Miniature Tank Set | MiniTankForge`;
   const offer = aggregateOffer(prices, set.etsyUrl || publicUrl);
+  const bestForHtml = set.bestFor
+    ? `          <li><strong>Best for</strong><br>${escapeHtml(set.bestFor)}</li>\n`
+    : '';
+  const setNotesHtml = set.description || set.scaleNote ? `    <section class="grid-2">
+${set.description ? `      <div class="card info-card">
+        <div class="kicker">Set overview</div>
+        <h3>What this set is for</h3>
+        <p class="muted">${escapeHtml(set.description)}</p>
+      </div>
+` : ''}${set.scaleNote ? `      <div class="card info-card">
+        <div class="kicker">Scale note</div>
+        <h3>Choosing a size</h3>
+        <p class="muted">${escapeHtml(set.scaleNote)}</p>
+      </div>
+` : ''}    </section>
+` : '';
+  const guideLinksHtml = renderSetStaticGuideLinks(set);
+  const extraSetSections = [setNotesHtml, guideLinksHtml]
+    .filter(Boolean)
+    .map(section => section.trimEnd())
+    .join('\n');
 
   const product = {
     '@context': 'https://schema.org',
@@ -382,7 +430,7 @@ function writeSetPage(set, data) {
           <li><strong>Finish options</strong><br>${escapeHtml(data.setFinishes.join(', '))}</li>
           <li><strong>Price range</strong><br>${escapeHtml(priceSummary(prices))}</li>
           <li><strong>Nation / era</strong><br>${escapeHtml(set.nation)} / ${escapeHtml(set.era)}</li>
-        </ul>
+${bestForHtml}        </ul>
         <div class="page-actions">
           <a class="btn btn-etsy" href="${escapeHtml(set.etsyUrl)}" target="_blank" rel="noopener">Open on Etsy</a>
         </div>
@@ -397,7 +445,7 @@ ${contentsHtml}
         <h2>Buying note</h2>
         <p class="muted">This site is for browsing. You can contact MiniTankForge with your request or continue to Etsy for marketplace checkout.</p>
       </div>
-    </section>
+    </section>${extraSetSections ? `\n${extraSetSections}` : ''}
   </main>`;
 
   const html = pageShell({

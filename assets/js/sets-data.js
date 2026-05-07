@@ -41,6 +41,26 @@ window.SETS = [
     placeholderStyle: 'light-large',
     etsyUrl: 'https://www.etsy.com/listing/4500173554/german-starter-armor-set-miniatures-3d',
     note: 'A compact starting force for players who want a ready-made German set.',
+    description: 'This set gives you six well-known German WW2 vehicles in one group: Tiger I, Tiger II, Panther, Ferdinand, Jagdpanther, and StuG IV. It is a good pick if you want a ready-made German armor selection instead of choosing each model separately. The mix leans toward heavier vehicles and tank destroyers, so it has a strong late-war feel on the table.',
+    bestFor: 'Starting a German WW2 force with recognizable vehicles and a clear heavy-armor focus.',
+    scaleNote: 'Available across the standard MiniTankForge set scale range, from larger display-friendly sizes down to compact 1:285 tabletop play.',
+    guideLinks: [
+      {
+        label: 'German WW2 tank miniatures',
+        href: 'german-ww2-tank-miniatures.html',
+        note: 'Compare the German vehicles and related German sets.'
+      },
+      {
+        label: 'WW2 heavy tank miniatures',
+        href: 'ww2-heavy-tank-miniatures.html',
+        note: 'See Tiger, Tiger II, and other heavy armor choices.'
+      },
+      {
+        label: 'WW2 tank destroyer miniatures',
+        href: 'ww2-tank-destroyer-miniatures.html',
+        note: 'Compare Ferdinand, Jagdpanther, and other anti-armor vehicles.'
+      }
+    ],
     compatibility: 'Compact hex-based tabletop play',
     contents: ['1× Tiger I', '1× Tiger II', '1× Panther', '1× Ferdinand', '1× Jagdpanther', '1× Stug IV'],
     availableScales: ['1:160', '1:180', '1:200', '1:250', '1:285'],
@@ -107,6 +127,26 @@ window.SETS = [
     placeholderStyle: 'dark-large',
     etsyUrl: 'https://www.etsy.com/listing/4500181548/ussr-starter-armor-set-miniatures-3d',
     note: 'A Soviet tank destroyer-focused group for compact battlefield setups.',
+    description: 'This set gives you six Soviet WW2 vehicles in one group: SU-85, ISU-152, T-34, IS-3, KV-2, and T-28. It is a good pick if you want a Soviet force that mixes a familiar medium tank with heavier armor and assault-gun support. The selection feels useful for players who want more variety than a pure tank platoon.',
+    bestFor: 'Starting a Soviet WW2 force with a mix of medium armor, heavy armor, and assault-gun support.',
+    scaleNote: 'Available across the standard MiniTankForge set scale range, from larger display-friendly sizes down to compact 1:285 tabletop play.',
+    guideLinks: [
+      {
+        label: 'Soviet WW2 tank miniatures',
+        href: 'soviet-ww2-tank-miniatures.html',
+        note: 'Compare Soviet tanks and related Soviet set choices.'
+      },
+      {
+        label: 'WW2 starter tank sets',
+        href: 'ww2-starter-tank-sets.html',
+        note: 'See other ready-made starting points.'
+      },
+      {
+        label: 'WW2 tank destroyer miniatures',
+        href: 'ww2-tank-destroyer-miniatures.html',
+        note: 'Compare SU and ISU support vehicles.'
+      }
+    ],
     compatibility: 'Compact hex-based tabletop play',
     contents: ['1× SU-85', '1× ISU-152', '1× T-34', '1× IS-3', '1× KV-2', '1× T-28'],
     availableScales: ['1:160', '1:180', '1:200', '1:250', '1:285'],
@@ -172,6 +212,26 @@ window.SETS = [
     placeholderStyle: 'light-large',
     etsyUrl: 'https://www.etsy.com/listing/4500204732/german-tanks-set-miniatures-3d-printed',
     note: 'A tank-only German lineup built around the most recognizable battlefield vehicles.',
+    description: 'This set gives you six German WW2 tanks in one group: Tiger I, Tiger II, Panther, Panzer III, Panzer IV, and Panzer 38(t). It is a straightforward tank-only option if you want the main German armor line without assault guns or dedicated tank destroyers mixed in. The range runs from early-war light and medium tanks up to the best-known late-war heavy tanks.',
+    bestFor: 'Building a German tank-only lineup with early, mid, and late-war vehicles in one set.',
+    scaleNote: 'Available across the standard MiniTankForge set scale range, from larger display-friendly sizes down to compact 1:285 tabletop play.',
+    guideLinks: [
+      {
+        label: 'German WW2 tank miniatures',
+        href: 'german-ww2-tank-miniatures.html',
+        note: 'Compare the individual German vehicles in this set.'
+      },
+      {
+        label: 'WW2 heavy tank miniatures',
+        href: 'ww2-heavy-tank-miniatures.html',
+        note: 'See Tiger, Tiger II, and other heavy armor choices.'
+      },
+      {
+        label: 'Tabletop tank miniatures',
+        href: 'tabletop-tank-miniatures.html',
+        note: 'Browse compact tank choices for play and collection.'
+      }
+    ],
     compatibility: 'Compact hex-based tabletop play',
     contents: ['1x Tiger I', '1x Tiger II', '1x Panther', '1x Panzer III', '1x Panzer IV', '1x Panzer 38(t)'],
     availableScales: ['1:160', '1:180', '1:200', '1:250', '1:285'],
@@ -237,6 +297,26 @@ window.SETS = [
     placeholderStyle: 'dark-large',
     etsyUrl: 'https://www.etsy.com/listing/4500206290/ussr-tanks-set-miniatures-3d-printed-ww2',
     note: 'A Soviet tank-focused lineup with medium, heavy, and early-war armor.',
+    description: 'This set gives you six Soviet WW2 tanks in one group: T-34, T-34/85, KV-2, IS-1, IS-2, and IS-3. It is the cleanest Soviet choice if you want tanks only, with no assault guns or support vehicles included. The lineup moves from the classic T-34 family into heavier breakthrough tanks, so it works well as a compact Soviet armor shelf or tabletop group.',
+    bestFor: 'Building a Soviet tank-only lineup around T-34 variants and heavy IS-series armor.',
+    scaleNote: 'Available across the standard MiniTankForge set scale range, from larger display-friendly sizes down to compact 1:285 tabletop play.',
+    guideLinks: [
+      {
+        label: 'Soviet WW2 tank miniatures',
+        href: 'soviet-ww2-tank-miniatures.html',
+        note: 'Compare the Soviet tanks and nearby Soviet sets.'
+      },
+      {
+        label: 'WW2 heavy tank miniatures',
+        href: 'ww2-heavy-tank-miniatures.html',
+        note: 'See KV and IS-series heavy armor choices.'
+      },
+      {
+        label: 'Tabletop tank miniatures',
+        href: 'tabletop-tank-miniatures.html',
+        note: 'Browse tank choices for compact play and collecting.'
+      }
+    ],
     compatibility: 'Compact hex-based tabletop play',
     contents: ['1x T-34', '1x T-34/85', '1x KV-2', '1x IS-1', '1x IS-2', '1x IS-3'],
     availableScales: ['1:160', '1:180', '1:200', '1:250', '1:285'],
@@ -302,6 +382,26 @@ window.SETS = [
     placeholderStyle: 'light-medium',
     etsyUrl: 'https://www.etsy.com/listing/4500182868/us-allied-starter-armor-set-miniatures',
     note: 'A balanced American starter lineup with medium tanks, fast light armor, and late-war punch.',
+    description: 'This set gives you six Allied WW2 vehicles in one group: M18 Hellcat, M3 Lee, M5A1 Stuart, Pershing, Sherman, and Sherman Firefly. It is a balanced American starter choice if you want light armor, medium tanks, a tank destroyer, and a heavier late-war vehicle together. The Sherman and Firefly make it easy to anchor the set in familiar Allied armor.',
+    bestFor: 'Starting an American or Allied WW2 force with a broad mix of vehicle roles.',
+    scaleNote: 'Available across the standard MiniTankForge set scale range, from larger display-friendly sizes down to compact 1:285 tabletop play.',
+    guideLinks: [
+      {
+        label: 'American WW2 tank miniatures',
+        href: 'american-ww2-tank-miniatures.html',
+        note: 'Compare the American vehicles and Allied armor options.'
+      },
+      {
+        label: 'Sherman tank miniatures',
+        href: 'sherman-tank-miniatures.html',
+        note: 'See Sherman-focused choices and scale options.'
+      },
+      {
+        label: 'WW2 starter tank sets',
+        href: 'ww2-starter-tank-sets.html',
+        note: 'Compare this starter with German and Soviet options.'
+      }
+    ],
     compatibility: 'Compact hex-based tabletop play',
     contents: ['1x M18 Hellcat', '1x M3 Lee', '1x M5A1 Stuart', '1x Pershing', '1x Sherman', '1x Sherman Firefly'],
     availableScales: ['1:160', '1:180', '1:200', '1:250', '1:285'],
@@ -367,6 +467,26 @@ window.SETS = [
     placeholderStyle: 'dark-large',
     etsyUrl: 'https://www.etsy.com/listing/4500197357/german-tank-destroyers-set-miniatures-3d',
     note: 'A German lineup focused on dedicated tank destroyers and assault guns from early to late war.',
+    description: 'This set gives you six German WW2 tank destroyers and assault guns in one group: Ferdinand, Hetzer, Jagdpanther, Jagdpanzer IV, Jagdtiger, and Nashorn. It is a focused choice if you want German anti-armor vehicles instead of a general tank mix. The set covers compact ambush vehicles, open-topped guns, and very heavy late-war destroyers.',
+    bestFor: 'Adding a German anti-armor group with several different tank destroyer styles.',
+    scaleNote: 'Available across the standard MiniTankForge set scale range, from larger display-friendly sizes down to compact 1:285 tabletop play.',
+    guideLinks: [
+      {
+        label: 'WW2 tank destroyer miniatures',
+        href: 'ww2-tank-destroyer-miniatures.html',
+        note: 'Compare tank destroyer options across nations.'
+      },
+      {
+        label: 'German WW2 tank miniatures',
+        href: 'german-ww2-tank-miniatures.html',
+        note: 'Browse nearby German armor choices.'
+      },
+      {
+        label: 'WW2 heavy tank miniatures',
+        href: 'ww2-heavy-tank-miniatures.html',
+        note: 'See the heavier end of the German vehicle range.'
+      }
+    ],
     compatibility: 'Compact hex-based tabletop play',
     contents: ['1x Ferdinand', '1x Hetzer', '1x Jagdpanther', '1x Jagdpz IV', '1x Jagdtiger', '1x Nashorn'],
     availableScales: ['1:160', '1:180', '1:200', '1:250', '1:285'],
@@ -432,6 +552,26 @@ window.SETS = [
     placeholderStyle: 'dark-large',
     etsyUrl: 'https://www.etsy.com/listing/4500285714/ussr-tank-destroyers-set-miniatures-3d',
     note: 'A Soviet support lineup built around assault guns and tank destroyers.',
+    description: 'This set gives you six Soviet WW2 tank destroyers and assault guns in one group: SU-76, SU-85, SU-100, SU-122, ISU-122, and ISU-152. It is a good pick if you want Soviet support vehicles rather than a tank-only lineup. The mix moves from smaller SU vehicles into the heavier ISU assault guns, so it has a clear support and breakthrough feel.',
+    bestFor: 'Adding Soviet assault guns and tank destroyers to support a tank force.',
+    scaleNote: 'Available across the standard MiniTankForge set scale range, from larger display-friendly sizes down to compact 1:285 tabletop play.',
+    guideLinks: [
+      {
+        label: 'WW2 tank destroyer miniatures',
+        href: 'ww2-tank-destroyer-miniatures.html',
+        note: 'Compare Soviet support vehicles with other tank destroyers.'
+      },
+      {
+        label: 'Soviet WW2 tank miniatures',
+        href: 'soviet-ww2-tank-miniatures.html',
+        note: 'Browse Soviet tanks and related Soviet sets.'
+      },
+      {
+        label: 'Tabletop tank miniatures',
+        href: 'tabletop-tank-miniatures.html',
+        note: 'Browse compact armor choices for play and collecting.'
+      }
+    ],
     compatibility: 'Compact hex-based tabletop play',
     contents: ['1x SU-76', '1x SU-85', '1x SU-100', '1x SU-122', '1x ISU-122', '1x ISU-152'],
     availableScales: ['1:160', '1:180', '1:200', '1:250', '1:285'],
@@ -497,6 +637,26 @@ window.SETS = [
     placeholderStyle: 'light-large',
     etsyUrl: 'https://www.etsy.com/listing/4500356502/german-early-war-armor-set-miniatures-3d',
     note: 'A German lineup focused on early-war armor, light reconnaissance, and core medium tanks.',
+    description: 'This set gives you six German WW2 vehicles with an early-war focus: Hetzer, Luchs, Panzer III, Panzer 35(t), Panzer 38(t), and Panzer IV. It is useful when you want lighter German armor and early medium tanks instead of a late-war heavy lineup. The set still includes the Panzer IV, which keeps it connected to the core German tank range.',
+    bestFor: 'Building an early-war German armor group with lighter vehicles and familiar medium tanks.',
+    scaleNote: 'Available across the standard MiniTankForge set scale range, from larger display-friendly sizes down to compact 1:285 tabletop play.',
+    guideLinks: [
+      {
+        label: 'German WW2 tank miniatures',
+        href: 'german-ww2-tank-miniatures.html',
+        note: 'Compare German tanks from early-war to late-war choices.'
+      },
+      {
+        label: 'Tabletop tank miniatures',
+        href: 'tabletop-tank-miniatures.html',
+        note: 'Browse compact vehicle choices for play and collecting.'
+      },
+      {
+        label: 'WW2 starter tank sets',
+        href: 'ww2-starter-tank-sets.html',
+        note: 'Compare this themed group with broader starter sets.'
+      }
+    ],
     compatibility: 'Compact hex-based tabletop play',
     contents: ['1x Hetzer', '1x Luchs', '1x Panzer III', '1x Panzer 35(t)', '1x Panzer 38(t)', '1x Panzer IV'],
     availableScales: ['1:160', '1:180', '1:200', '1:250', '1:285'],
@@ -813,6 +973,26 @@ window.SETS = [
     placeholderStyle: 'dark-large',
     etsyUrl: 'https://www.etsy.com/listing/4500357216/german-experimental-tank-set-miniatures',
     note: 'A late-war concept lineup built around German experimental and super-heavy designs.',
+    description: 'This set gives you six German experimental or late-war concept vehicles in one group: E-100, E-25, E-50, E-75, Maus, and Panzer VII Loewe. It is the set to choose when you want unusual German armor rather than the standard battlefield lineup. The vehicles lean heavily into super-heavy and paper-project designs, so it has more of a what-if collection feel.',
+    bestFor: 'Collecting German experimental, super-heavy, and what-if armor designs together.',
+    scaleNote: 'Available across the standard MiniTankForge set scale range, from larger display-friendly sizes down to compact 1:285 tabletop play.',
+    guideLinks: [
+      {
+        label: 'German WW2 tank miniatures',
+        href: 'german-ww2-tank-miniatures.html',
+        note: 'Compare experimental vehicles with standard German armor.'
+      },
+      {
+        label: 'WW2 heavy tank miniatures',
+        href: 'ww2-heavy-tank-miniatures.html',
+        note: 'See heavy and super-heavy tank choices.'
+      },
+      {
+        label: 'Tabletop tank miniatures',
+        href: 'tabletop-tank-miniatures.html',
+        note: 'Browse armor choices by size and use.'
+      }
+    ],
     compatibility: 'Compact hex-based tabletop play',
     contents: ['1x E-100', '1x E-25', '1x E-50', '1x E-75', '1x Maus', '1x Panzer VII Loewe'],
     availableScales: ['1:160', '1:180', '1:200', '1:250', '1:285'],
