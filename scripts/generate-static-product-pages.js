@@ -41,6 +41,27 @@ function absoluteUrl(value) {
   return new URL(value || 'assets/img/hero.jpg', `${siteUrl}/`).href;
 }
 
+function rootRelativeUrl(value) {
+  const raw = String(value || '');
+  if (!raw) return '/';
+  if (/^[a-z][a-z0-9+.-]*:/i.test(raw) || raw.startsWith('#')) return raw;
+  if (raw.startsWith('/')) return raw;
+  return `/${raw.replace(/^\.?\//, '')}`;
+}
+
+function pageHref(value) {
+  const raw = String(value || '');
+  if (!raw) return '/';
+  if (/^[a-z][a-z0-9+.-]*:/i.test(raw) || raw.startsWith('#')) return raw;
+  if (raw === 'index.html') return '/index.html';
+
+  const match = raw.match(/^([^?#]*)(.*)$/);
+  const pathPart = (match?.[1] || raw).replace(/^\.?\//, '');
+  const suffix = match?.[2] || '';
+
+  return `/${pathPart}${suffix}`;
+}
+
 function imageObject(src, caption) {
   return {
     '@type': 'ImageObject',
@@ -142,13 +163,13 @@ function headerHtml() {
   return `
   <header class="topbar">
     <div class="container topbar-inner">
-      <a class="brand" href="index.html">MINITANKFORGE</a>
+      <a class="brand" href="/index.html">MINITANKFORGE</a>
       <div class="nav-stack">
         <nav class="nav nav-row">
-          <a href="tanks.html">Browse Tanks</a><a href="sets.html">Browse Sets</a><a href="gallery.html">Gallery</a><a href="finish-guide.html">Finish Guide</a><a href="tank-requests.html">Requests</a>
+          <a href="/tanks.html">Browse Tanks</a><a href="/sets.html">Browse Sets</a><a href="/gallery.html">Gallery</a><a href="/finish-guide.html">Finish Guide</a><a href="/tank-requests.html">Requests</a>
         </nav>
         <nav class="nav nav-row">
-          <a href="how-this-works.html">How Buying Works</a><a href="scale-comparison.html">Scale Comparison</a><a href="reviews.html">Reviews</a><a href="faq.html">FAQ</a><a href="about.html">About</a>
+          <a href="/how-this-works.html">How Buying Works</a><a href="/scale-comparison.html">Scale Comparison</a><a href="/reviews.html">Reviews</a><a href="/faq.html">FAQ</a><a href="/about.html">About</a>
         </nav>
       </div>
       <a class="btn btn-etsy" href="https://www.etsy.com/shop/Quali3DPrints?section_id=58368275" rel="noopener" target="_blank">Visit Etsy Shop</a>
@@ -165,7 +186,7 @@ function footerHtml(copy) {
         <p>${escapeHtml(copy)}</p>
       </div>
       <div class="nav" style="display:flex">
-        <a href="tanks.html">Browse Tanks</a><a href="sets.html">Browse Sets</a><a href="how-this-works.html">How Buying Works</a><a href="gallery.html">Gallery</a><a href="finish-guide.html">Finish Guide</a><a href="scale-comparison.html">Scale Comparison</a><a href="tank-requests.html">Requests</a><a href="faq.html">FAQ</a><a href="about.html">About</a>
+        <a href="/tanks.html">Browse Tanks</a><a href="/sets.html">Browse Sets</a><a href="/how-this-works.html">How Buying Works</a><a href="/gallery.html">Gallery</a><a href="/finish-guide.html">Finish Guide</a><a href="/scale-comparison.html">Scale Comparison</a><a href="/tank-requests.html">Requests</a><a href="/faq.html">FAQ</a><a href="/about.html">About</a>
       </div>
     </div>
   </footer>`;
@@ -181,7 +202,6 @@ function pageShell({ title, description, canonical, image, imageAlt, body, scrip
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width,initial-scale=1" name="viewport" />
-  <base href="../../" />
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(description)}" />
   <link rel="canonical" href="${canonical}" />
@@ -196,7 +216,7 @@ function pageShell({ title, description, canonical, image, imageAlt, body, scrip
   <meta name="twitter:title" content="${escapeHtml(title)}" />
   <meta name="twitter:description" content="${escapeHtml(description)}" />
   <meta name="twitter:image" content="${absoluteUrl(image)}" />
-  <link href="assets/css/styles.css?v=18" rel="stylesheet" />
+  <link href="/assets/css/styles.css?v=18" rel="stylesheet" />
   ${jsonLd.join('\n  ')}
   ${scripts.join('\n  ')}
 </head>
@@ -233,6 +253,53 @@ function isVisible(item) {
 
 function getDisplayName(name) {
   return String(name || '').split(' (')[0].trim();
+}
+
+function getTankSnippetType(tank) {
+  const type = String(tank?.type || '').toLowerCase();
+  if (type.includes('tank destroyer')) return 'Tank Destroyer Miniature';
+  if (type.includes('assault gun')) return 'Assault Gun Miniature';
+  if (type.includes('artillery')) return 'Artillery Miniature';
+  if (type.includes('transport')) return 'Vehicle Miniature';
+  if (type.includes('tank')) return 'Tank Miniature';
+  return 'Miniature';
+}
+
+const tankSeoOverrides = {
+  'tiger-i': {
+    title: 'Tiger I Ausf. E Heavy Tank Miniature | MiniTankForge',
+    description: 'Browse the Tiger I Ausf. E 3D printed German heavy tank miniature for mid-war and elite armor scenarios. Choose scale, finish, direct request, or Etsy.',
+  },
+  'tiger-ii': {
+    title: 'Tiger II King Tiger Miniature | MiniTankForge',
+    description: 'Browse the Tiger II King Tiger 3D printed late-war German heavy tank miniature with angular armor detail. Choose scale, finish, direct request, or Etsy.',
+  },
+  'panzer-iii': {
+    title: 'Panzer III Early-War Tank Miniature | MiniTankForge',
+    description: 'Browse the Panzer III 3D printed German early and mid-war medium tank miniature for campaign forces, platoons, and mixed armor groups.',
+  },
+  'panzer-iv': {
+    title: 'Panzer IV Workhorse Tank Miniature | MiniTankForge',
+    description: 'Browse the Panzer IV 3D printed German workhorse medium tank miniature for early, mid, and late-war tabletop forces in multiple scales.',
+  },
+  'panzer-35t': {
+    title: 'Panzer 35(t) vz.35 Light Tank Miniature | MiniTankForge',
+    description: 'Browse the Panzer 35(t) 3D printed Czech-built early-war German light tank miniature for invasion-era forces and compact tabletop scenarios.',
+  },
+  'panzer-38t': {
+    title: 'Panzer 38(t) Hetzer-Family Light Tank Miniature | MiniTankForge',
+    description: 'Browse the Panzer 38(t) 3D printed Czech-built German light tank miniature, useful for early-war forces and Hetzer chassis-family collections.',
+  },
+};
+
+function getTankMetaTitle(tank) {
+  if (tankSeoOverrides[tank.slug]?.title) return tankSeoOverrides[tank.slug].title;
+  return `${getDisplayName(tank.name)} 3D Printed ${getTankSnippetType(tank)} | MiniTankForge`;
+}
+
+function getTankMetaDescription(tank, availableScales) {
+  if (tankSeoOverrides[tank.slug]?.description) return tankSeoOverrides[tank.slug].description;
+  return `Browse the ${getDisplayName(tank.name)} 3D printed ${tank.era} ${getTankSnippetType(tank).toLowerCase()} in ${availableScales.join(', ')}. Choose finish, request direct, or use Etsy.`;
 }
 
 function renderSetStaticContents(set) {
@@ -419,7 +486,7 @@ function renderStaticInternalLinks({ heading, intro, links }) {
       </div>
       <div class="guide-link-grid guide-link-grid-compact">
         ${links.map(link => `
-          <a class="guide-link guide-link-subtle" href="${escapeHtml(link.href)}">
+          <a class="guide-link guide-link-subtle" href="${escapeHtml(pageHref(link.href))}">
             <span>${escapeHtml(link.label)}</span>
             ${link.note ? `<small>${escapeHtml(link.note)}</small>` : ''}
           </a>
@@ -431,7 +498,7 @@ function renderStaticInternalLinks({ heading, intro, links }) {
 function renderTankStaticInternalLinks(tank, data) {
   const relatedTankLinks = getRelatedTanks(tank, data.tanks, 3).map(relatedTank => ({
     label: getDisplayName(relatedTank.name),
-    href: `tanks/${relatedTank.slug}/`,
+    href: `/tanks/${relatedTank.slug}/`,
     note: `${relatedTank.nation} ${relatedTank.type.toLowerCase()}`,
   }));
   const setLinks = data.sets
@@ -439,7 +506,7 @@ function renderTankStaticInternalLinks(tank, data) {
     .slice(0, 2)
     .map(set => ({
       label: set.name,
-      href: `sets/${set.slug}/`,
+      href: `/sets/${set.slug}/`,
       note: 'Set or game pack that includes this vehicle.',
     }));
 
@@ -453,7 +520,7 @@ function renderTankStaticInternalLinks(tank, data) {
 function renderSetStaticIncludedVehicleLinks(set, tanks) {
   const links = getSetLinkedTanks(set, tanks).slice(0, 8).map(tank => ({
     label: getDisplayName(tank.name),
-    href: `tanks/${tank.slug}/`,
+    href: `/tanks/${tank.slug}/`,
     note: `${tank.nation} ${tank.type.toLowerCase()} page.`,
   }));
 
@@ -466,6 +533,23 @@ function renderSetStaticIncludedVehicleLinks(set, tanks) {
 
 function setProductDescription(set) {
   return set.description || `Browse the ${set.name}, a ${set.category.toLowerCase()} for ${set.nation} ${set.era} miniature games. Review contents, finish choices, and direct request or Etsy options.`;
+}
+
+function setMetaTitle(set) {
+  if (set.filterGroup === 'Game') {
+    return `${set.name.replace(/\s+Pack$/i, '')} Miniature Accessory Pack | MiniTankForge`;
+  }
+
+  return `${set.name} 3D Printed Tank Miniatures | MiniTankForge`;
+}
+
+function setMetaDescription(set) {
+  if (set.filterGroup === 'Game') {
+    const scale = (Array.isArray(set.availableScales) && set.availableScales[0]) || 'fixed scale';
+    return `Browse the ${set.name} unofficial ${scale} accessory pack for Mike Lambo game play. Review contents, finishes, Etsy, and direct request options.`;
+  }
+
+  return `Browse the ${set.name} 3D printed ${set.era} tank miniature set with listed contents, scale choices, finishes, Etsy, and direct request options.`;
 }
 
 function renderSetStaticGuideLinks(set) {
@@ -482,7 +566,7 @@ function renderSetStaticGuideLinks(set) {
       </div>
       <div class="guide-link-grid guide-link-grid-compact">
         ${links.map(link => `
-          <a class="guide-link guide-link-subtle" href="${escapeHtml(link.href)}">
+          <a class="guide-link guide-link-subtle" href="${escapeHtml(pageHref(link.href))}">
             <span>${escapeHtml(link.label)}</span>
             ${link.note ? `<small>${escapeHtml(link.note)}</small>` : ''}
           </a>
@@ -495,9 +579,9 @@ function writeTankPage(tank, data) {
   const publicUrl = `${siteUrl}/tanks/${tank.slug}/`;
   const availableScales = tank.availableScales || data.scales;
   const prices = tankPrices(tank, data.scales, data.finishes);
-  const metaDescription = `Browse the ${tank.name} 3D printed miniature tank with ${availableScales.join(', ')} scale options. Request directly and pay by PayPal after confirmation, or continue to Etsy.`;
+  const metaDescription = getTankMetaDescription(tank, availableScales);
   const productDescription = tank.description || metaDescription;
-  const title = `${tank.name} 3D Printed Miniature Tank | MiniTankForge`;
+  const title = getTankMetaTitle(tank);
   const offer = aggregateOffer(prices, tank.etsyUrl || publicUrl);
   const internalLinksHtml = renderTankStaticInternalLinks(tank, data);
 
@@ -520,12 +604,12 @@ function writeTankPage(tank, data) {
       <div class="eyebrow">Single tank page</div>
       <h1 class="page-title">${escapeHtml(tank.name)}</h1>
       <p class="lead">Review scale, finish, and details before sending a direct request or continuing to Etsy.</p>
-      <a class="detail-back-link" href="tanks.html">Back to all tanks</a>
+      <a class="detail-back-link" href="/tanks.html">Back to all tanks</a>
     </section>
     <section class="split">
       <div class="tank-media-stack">
         <div class="product-image product-image-large">
-          <img src="${escapeHtml(tank.image)}" width="1600" height="900" alt="${escapeHtml(tankImageAlt(tank))}" loading="eager" fetchpriority="high" decoding="async">
+          <img src="${escapeHtml(rootRelativeUrl(tank.image))}" width="1600" height="900" alt="${escapeHtml(tankImageAlt(tank))}" loading="eager" fetchpriority="high" decoding="async">
         </div>
       </div>
       <div class="detail-panel card">
@@ -564,8 +648,8 @@ ${internalLinksHtml}
     imageAlt: tankImageAlt(tank),
     body,
     scripts: [
-      '<script defer src="assets/js/tanks-data.js?v=17"></script>',
-      '<script defer src="assets/js/app.js?v=34"></script>',
+      '<script defer src="/assets/js/tanks-data.js?v=17"></script>',
+      '<script defer src="/assets/js/app.js?v=34"></script>',
     ],
     jsonLd: [
       jsonLdScript('tank-product-jsonld', product),
@@ -586,7 +670,8 @@ function writeSetPage(set, data) {
   const prices = setPrices(set, data.setFinishes);
   const contentsHtml = renderSetStaticContents(set);
   const description = setProductDescription(set);
-  const title = `${set.name} 3D Printed Miniature Tank Set | MiniTankForge`;
+  const title = setMetaTitle(set);
+  const metaDescription = setMetaDescription(set);
   const offer = aggregateOffer(prices, set.etsyUrl || publicUrl);
   const bestForHtml = set.bestFor
     ? `          <li><strong>Best for</strong><br>${escapeHtml(set.bestFor)}</li>\n`
@@ -631,12 +716,12 @@ ${set.description ? `      <div class="card info-card">
       <div class="eyebrow">${escapeHtml(set.category)}</div>
       <h1 class="page-title">${escapeHtml(set.name)}</h1>
       <p class="lead">${escapeHtml(set.note)}</p>
-      <a class="detail-back-link" href="sets.html">Back to all sets</a>
+      <a class="detail-back-link" href="/sets.html">Back to all sets</a>
     </section>
     <section class="split set-detail-top">
       <div class="set-media-stack">
         <div class="product-image product-image-large">
-          <img src="${escapeHtml(set.image)}" width="1200" height="900" alt="${escapeHtml(setImageAlt(set))}" loading="eager" fetchpriority="high" decoding="async">
+          <img src="${escapeHtml(rootRelativeUrl(set.image))}" width="1200" height="900" alt="${escapeHtml(setImageAlt(set))}" loading="eager" fetchpriority="high" decoding="async">
         </div>
       </div>
       <div class="detail-panel card">
@@ -667,15 +752,15 @@ ${contentsHtml}
 
   const html = pageShell({
     title,
-    description,
+    description: metaDescription,
     canonical: publicUrl,
     image: set.image,
     imageAlt: setImageAlt(set),
     body,
     scripts: [
-      '<script defer src="assets/js/tanks-data.js?v=17"></script>',
-      '<script defer src="assets/js/sets-data.js?v=18"></script>',
-      '<script defer src="assets/js/app.js?v=34"></script>',
+      '<script defer src="/assets/js/tanks-data.js?v=17"></script>',
+      '<script defer src="/assets/js/sets-data.js?v=18"></script>',
+      '<script defer src="/assets/js/app.js?v=34"></script>',
     ],
     jsonLd: [
       jsonLdScript('set-product-jsonld', product),

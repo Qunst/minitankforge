@@ -17,6 +17,27 @@ const scalePrices = window.MTF_SCALE_PRICES || {};
 const finishSurcharges = window.MTF_FINISH_SURCHARGES || {};
 const SITE_URL = 'https://minitankforge.com';
 
+function rootRelativeUrl(value) {
+  const raw = String(value || '');
+  if (!raw) return '/';
+  if (/^[a-z][a-z0-9+.-]*:/i.test(raw) || raw.startsWith('#')) return raw;
+  if (raw.startsWith('/')) return raw;
+  return `/${raw.replace(/^\.?\//, '')}`;
+}
+
+function pageHref(value) {
+  const raw = String(value || '');
+  if (!raw) return '/';
+  if (/^[a-z][a-z0-9+.-]*:/i.test(raw) || raw.startsWith('#')) return raw;
+  if (raw === 'index.html') return '/index.html';
+
+  const match = raw.match(/^([^?#]*)(.*)$/);
+  const pathPart = (match?.[1] || raw).replace(/^\.?\//, '');
+  const suffix = match?.[2] || '';
+
+  return `/${pathPart}${suffix}`;
+}
+
 function getScalePrice(scale, tank = null) {
   return Number((tank?.scalePrices || scalePrices)[scale] ?? 0);
 }
@@ -119,13 +140,13 @@ function initHomeHeroImage() {
   const versionedSrc = `${src}?v=1`;
   const absoluteSrc = absoluteUrl(versionedSrc);
 
-  image.src = versionedSrc;
+  image.src = rootRelativeUrl(versionedSrc);
   setMetaContent('meta[property="og:image"]', absoluteSrc);
   setMetaContent('meta[name="twitter:image"]', absoluteSrc);
 
   const preload = document.querySelector('link[rel="preload"][as="image"][data-home-hero-preload]');
   if (preload) {
-    preload.setAttribute('href', versionedSrc);
+    preload.setAttribute('href', rootRelativeUrl(versionedSrc));
   }
 }
 
@@ -210,18 +231,18 @@ function withQueryParams(url, params = {}) {
 
 function getTankDetailUrl(tankOrSlug, params = {}) {
   const slug = typeof tankOrSlug === 'string' ? tankOrSlug : tankOrSlug?.slug;
-  if (!slug) return 'tanks.html';
+  if (!slug) return '/tanks.html';
 
-  const baseUrl = `tanks/${encodeURIComponent(slug)}/`;
+  const baseUrl = `/tanks/${encodeURIComponent(slug)}/`;
 
   return withQueryParams(baseUrl, params);
 }
 
 function getSetDetailUrl(setOrSlug, params = {}) {
   const slug = typeof setOrSlug === 'string' ? setOrSlug : setOrSlug?.slug;
-  if (!slug) return 'sets.html';
+  if (!slug) return '/sets.html';
 
-  const baseUrl = `sets/${encodeURIComponent(slug)}/`;
+  const baseUrl = `/sets/${encodeURIComponent(slug)}/`;
 
   return withQueryParams(baseUrl, params);
 }
@@ -258,8 +279,51 @@ function getDisplayName(name) {
   return String(name || '').split(' (')[0].trim();
 }
 
+function getTankSnippetType(tank) {
+  const type = String(tank?.type || '').toLowerCase();
+  if (type.includes('tank destroyer')) return 'Tank Destroyer Miniature';
+  if (type.includes('assault gun')) return 'Assault Gun Miniature';
+  if (type.includes('artillery')) return 'Artillery Miniature';
+  if (type.includes('transport')) return 'Vehicle Miniature';
+  if (type.includes('tank')) return 'Tank Miniature';
+  return 'Miniature';
+}
+
+const tankSeoOverrides = {
+  'tiger-i': {
+    title: 'Tiger I Ausf. E Heavy Tank Miniature | MiniTankForge',
+    description: 'Browse the Tiger I Ausf. E 3D printed German heavy tank miniature for mid-war and elite armor scenarios. Choose scale, finish, direct request, or Etsy.',
+  },
+  'tiger-ii': {
+    title: 'Tiger II King Tiger Miniature | MiniTankForge',
+    description: 'Browse the Tiger II King Tiger 3D printed late-war German heavy tank miniature with angular armor detail. Choose scale, finish, direct request, or Etsy.',
+  },
+  'panzer-iii': {
+    title: 'Panzer III Early-War Tank Miniature | MiniTankForge',
+    description: 'Browse the Panzer III 3D printed German early and mid-war medium tank miniature for campaign forces, platoons, and mixed armor groups.',
+  },
+  'panzer-iv': {
+    title: 'Panzer IV Workhorse Tank Miniature | MiniTankForge',
+    description: 'Browse the Panzer IV 3D printed German workhorse medium tank miniature for early, mid, and late-war tabletop forces in multiple scales.',
+  },
+  'panzer-35t': {
+    title: 'Panzer 35(t) vz.35 Light Tank Miniature | MiniTankForge',
+    description: 'Browse the Panzer 35(t) 3D printed Czech-built early-war German light tank miniature for invasion-era forces and compact tabletop scenarios.',
+  },
+  'panzer-38t': {
+    title: 'Panzer 38(t) Hetzer-Family Light Tank Miniature | MiniTankForge',
+    description: 'Browse the Panzer 38(t) 3D printed Czech-built German light tank miniature, useful for early-war forces and Hetzer chassis-family collections.',
+  },
+};
+
+function getTankMetaTitle(tank) {
+  if (tankSeoOverrides[tank.slug]?.title) return tankSeoOverrides[tank.slug].title;
+  return `${getDisplayName(tank.name)} 3D Printed ${getTankSnippetType(tank)} | MiniTankForge`;
+}
+
 function getTankMetaDescription(tank, availableScales = getAvailableScales(tank)) {
-  return `Browse the ${tank.name} 3D printed miniature tank with ${availableScales.join(', ')} scale options. Request directly and pay by PayPal after confirmation, or continue to Etsy.`;
+  if (tankSeoOverrides[tank.slug]?.description) return tankSeoOverrides[tank.slug].description;
+  return `Browse the ${getDisplayName(tank.name)} 3D printed ${tank.era} ${getTankSnippetType(tank).toLowerCase()} in ${availableScales.join(', ')}. Choose finish, request direct, or use Etsy.`;
 }
 
 function getTankProductDescription(tank, availableScales = getAvailableScales(tank)) {
@@ -415,7 +479,7 @@ function renderTankVisual(tank, large = false) {
 
   if (image) {
     const priorityAttrs = large ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
-    return `<div class="product-image ${large ? 'product-image-large' : ''}"><img src="${image}" width="1600" height="900" alt="${getTankImageAlt(tank, large ? 'base coat side detail' : 'product card photo')}" ${priorityAttrs} decoding="async"></div>`;
+    return `<div class="product-image ${large ? 'product-image-large' : ''}"><img src="${rootRelativeUrl(image)}" width="1600" height="900" alt="${getTankImageAlt(tank, large ? 'base coat side detail' : 'product card photo')}" ${priorityAttrs} decoding="async"></div>`;
   }
   const size = large ? 'tank-lg' : tankSizeClass(tank.placeholderStyle);
   const extraClass = placeholderClass(tank.placeholderStyle);
@@ -516,12 +580,12 @@ function renderTankDetailGallery(tank) {
   return `
     <div class="tank-detail-gallery" data-tank-gallery>
       <div class="product-image product-image-large">
-        <img src="${mainImage}" width="1600" height="900" alt="${getTankImageAlt(tank, mainLabel)}" loading="eager" fetchpriority="high" decoding="async" data-tank-gallery-main>
+        <img src="${rootRelativeUrl(mainImage)}" width="1600" height="900" alt="${getTankImageAlt(tank, mainLabel)}" loading="eager" fetchpriority="high" decoding="async" data-tank-gallery-main>
       </div>
       <div class="tank-mini-gallery" aria-label="${tank.name} photo thumbnails">
         ${galleryImages.map((image, index) => `
-          <button class="tank-mini-gallery-thumb ${index === 0 ? 'is-active' : ''}" type="button" data-tank-gallery-thumb="${image.src}" data-tank-gallery-label="${image.label}" aria-label="Show ${image.label.toLowerCase()}">
-            <img src="${image.src}" width="320" height="180" alt="" loading="eager" fetchpriority="high" decoding="sync">
+          <button class="tank-mini-gallery-thumb ${index === 0 ? 'is-active' : ''}" type="button" data-tank-gallery-thumb="${rootRelativeUrl(image.src)}" data-tank-gallery-label="${image.label}" aria-label="Show ${image.label.toLowerCase()}">
+            <img src="${rootRelativeUrl(image.src)}" width="320" height="180" alt="" loading="eager" fetchpriority="high" decoding="sync">
           </button>
         `).join('')}
       </div>
@@ -915,7 +979,7 @@ function renderCompactInternalLinks({ heading, intro, links }) {
     </div>
     <div class="guide-link-grid guide-link-grid-compact">
       ${links.map(link => `
-        <a class="guide-link guide-link-subtle" href="${escapeHtml(link.href)}">
+        <a class="guide-link guide-link-subtle" href="${escapeHtml(pageHref(link.href))}">
           <span>${escapeHtml(link.label)}</span>
           ${link.note ? `<small>${escapeHtml(link.note)}</small>` : ''}
         </a>
@@ -1172,7 +1236,7 @@ function renderTankDetail() {
   const tankOffers = buildAggregateOfferJsonLd(tankOfferPrices, tank.etsyUrl || tankUrl);
 
   updatePageMeta({
-    title: `${tank.name} 3D Printed Miniature Tank | MiniTankForge`,
+    title: getTankMetaTitle(tank),
     description: tankMetaDescription,
     url: tankUrl,
     image: tank.image,
@@ -1205,7 +1269,7 @@ function renderTankDetail() {
       <div class="eyebrow">Single tank page</div>
       <h1 class="page-title">${tank.name}</h1>
       <p class="lead">Review scale, finish, and details before sending a direct request or continuing to Etsy.</p>
-      <a class="detail-back-link" href="tanks.html">Back to all tanks</a>
+      <a class="detail-back-link" href="/tanks.html">Back to all tanks</a>
     </section>
     <section class="split">
       <div class="tank-media-stack">
@@ -1262,7 +1326,7 @@ function renderTankDetail() {
         <div class="kicker">Scale guidance</div>
         <h3>Need more size context?</h3>
         <p class="muted">Use the dedicated scale comparison page for hand, board, and side-by-side views.</p>
-        <a class="btn" href="scale-comparison.html">See Scale Comparison</a>
+        <a class="btn" href="/scale-comparison.html">See Scale Comparison</a>
       </div>
     </section>
 
@@ -1420,7 +1484,7 @@ function initScaleComparison() {
   `).join('');
 
   function updateImage(scale) {
-    img.src = `assets/img/scales/${scale.replace(':', '-')}.jpg`;
+    img.src = rootRelativeUrl(`assets/img/scales/${scale.replace(':', '-')}.jpg`);
   }
 
   updateImage(selectedScale);
@@ -1439,7 +1503,7 @@ initScaleComparison();
 function renderSetVisual(set, large = false) {
   const image = set.image || DEFAULT_SET_IMAGE;
   const priorityAttrs = large ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
-  return `<div class="product-image ${large ? 'product-image-large' : ''}"><img src="${image}" width="1200" height="900" alt="${getSetImageAlt(set, large ? 'base coat set overview' : 'product card photo')}" ${priorityAttrs} decoding="async"></div>`;
+  return `<div class="product-image ${large ? 'product-image-large' : ''}"><img src="${rootRelativeUrl(image)}" width="1200" height="900" alt="${getSetImageAlt(set, large ? 'base coat set overview' : 'product card photo')}" ${priorityAttrs} decoding="async"></div>`;
 }
 
 function getSetDetailGalleryImages(set) {
@@ -1502,11 +1566,11 @@ function renderSetDetailGallery(set) {
   return `
     <div class="set-detail-gallery" data-set-gallery>
       <div class="product-image product-image-large">
-        <img src="${mainImage}" width="1600" height="900" alt="${safeMainAlt}" loading="eager" fetchpriority="high" decoding="async" data-set-gallery-main>
+        <img src="${rootRelativeUrl(mainImage)}" width="1600" height="900" alt="${safeMainAlt}" loading="eager" fetchpriority="high" decoding="async" data-set-gallery-main>
       </div>
       <div class="set-mini-gallery" aria-label="${safeName} photo thumbnails">
         ${galleryImages.map((image, index) => {
-          const safeSrc = escapeHtml(image.src);
+          const safeSrc = escapeHtml(rootRelativeUrl(image.src));
           const safeLabel = escapeHtml(image.label);
           const safeButtonLabel = escapeHtml(image.label.toLowerCase());
 
@@ -1525,6 +1589,23 @@ function getSetProductDescription(set) {
   return set.description || `Browse the ${set.name}, a ${set.category.toLowerCase()} for ${set.nation} ${set.era} miniature games. Review contents, finish choices, and direct request or Etsy options.`;
 }
 
+function getSetMetaTitle(set) {
+  if (set.filterGroup === 'Game') {
+    return `${set.name.replace(/\s+Pack$/i, '')} Miniature Accessory Pack | MiniTankForge`;
+  }
+
+  return `${set.name} 3D Printed Tank Miniatures | MiniTankForge`;
+}
+
+function getSetMetaDescription(set) {
+  if (set.filterGroup === 'Game') {
+    const scale = getAvailableSetScales(set)[0] || 'fixed scale';
+    return `Browse the ${set.name} unofficial ${scale} accessory pack for Mike Lambo game play. Review contents, finishes, Etsy, and direct request options.`;
+  }
+
+  return `Browse the ${set.name} 3D printed ${set.era} tank miniature set with listed contents, scale choices, finishes, Etsy, and direct request options.`;
+}
+
 function renderSetGuideLinks(set) {
   const links = Array.isArray(set.guideLinks) ? set.guideLinks : [];
   if (!links.length) return '';
@@ -1539,7 +1620,7 @@ function renderSetGuideLinks(set) {
     </div>
     <div class="guide-link-grid guide-link-grid-compact">
       ${links.map(link => `
-        <a class="guide-link guide-link-subtle" href="${escapeHtml(link.href)}">
+        <a class="guide-link guide-link-subtle" href="${escapeHtml(pageHref(link.href))}">
           <span>${escapeHtml(link.label)}</span>
           ${link.note ? `<small>${escapeHtml(link.note)}</small>` : ''}
         </a>
@@ -1706,6 +1787,7 @@ function renderSetDetail() {
 
   const setUrl = container.dataset.detailUrl || absoluteUrl(getSetDetailUrl(set));
   const setDescription = getSetProductDescription(set);
+  const setMetaDescription = getSetMetaDescription(set);
   const setOfferPrices = [];
 
   for (const scale of availableScales) {
@@ -1723,8 +1805,8 @@ function renderSetDetail() {
   const setOffers = buildAggregateOfferJsonLd(setOfferPrices, set.etsyUrl || setUrl);
 
   updatePageMeta({
-    title: `${set.name} 3D Printed Miniature Tank Set | MiniTankForge`,
-    description: setDescription,
+    title: getSetMetaTitle(set),
+    description: setMetaDescription,
     url: setUrl,
     image: set.image || DEFAULT_SET_IMAGE,
   });
@@ -1756,7 +1838,7 @@ function renderSetDetail() {
     <div class="eyebrow">${set.category}</div>
     <h1 class="page-title">${set.name}</h1>
     <p class="lead">${set.note}</p>
-    <a class="detail-back-link" href="sets.html">Back to all sets</a>
+    <a class="detail-back-link" href="/sets.html">Back to all sets</a>
   </section>
 
   <section class="split set-detail-top">
@@ -1860,7 +1942,7 @@ function renderSetDetail() {
       <p class="muted">${usesSetOptions
         ? 'Game-ready packs are fixed to the scale shown on this page and use set configuration options for pack size.'
         : 'Use the scale comparison page to see how these sets change across scale options.'}</p>
-      ${usesSetOptions ? '' : `<a class="btn" href="scale-comparison.html">See Scale Comparison</a>`}
+      ${usesSetOptions ? '' : `<a class="btn" href="/scale-comparison.html">See Scale Comparison</a>`}
     </div>
   </section>
 
