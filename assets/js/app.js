@@ -1590,6 +1590,8 @@ function getSetProductDescription(set) {
 }
 
 function getSetMetaTitle(set) {
+  if (set.metaTitle) return set.metaTitle;
+
   if (set.filterGroup === 'Game') {
     return `${set.name.replace(/\s+Pack$/i, '')} Miniature Accessory Pack | MiniTankForge`;
   }
@@ -1598,6 +1600,8 @@ function getSetMetaTitle(set) {
 }
 
 function getSetMetaDescription(set) {
+  if (set.metaDescription) return set.metaDescription;
+
   if (set.filterGroup === 'Game') {
     const scale = getAvailableSetScales(set)[0] || 'fixed scale';
     return `Browse the ${set.name} unofficial ${scale} accessory pack for Mike Lambo game play. Review contents, finishes, Etsy, and direct request options.`;

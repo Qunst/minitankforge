@@ -684,6 +684,63 @@ window.SETS = [
     }
   },
   {
+    slug: 'undaunted-reinforcements-normandy-tank-pack',
+    name: 'Undaunted Reinforcements Normandy Tank Pack',
+    category: 'Game ready',
+    filterGroup: 'Game',
+    nation: 'USA / Germany',
+    era: 'WW2',
+    featured: false,
+    disabled: false,
+    image: 'assets/img/sets/genset.jpg',
+    galleryImages: [
+      {
+        src: 'assets/img/sets/genset.jpg',
+        label: 'Set in construction placeholder'
+      }
+    ],
+    placeholderStyle: 'light-medium',
+    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    note: 'In construction: fixed 1:250 tank-only accessory pack for Undaunted: Reinforcements Normandy scenarios.',
+    metaDescription: 'Browse the in-construction unofficial 1:250 tank-only accessory pack for Undaunted: Reinforcements Normandy scenarios, with confirmed Sherman, Stuart, Panzer IV, and Panther contents.',
+    description: 'This set is currently in construction. It is planned as an unofficial 1:250 tank-only accessory pack for Undaunted: Reinforcements players who want physical vehicles in place of the Normandy vehicle counters. The confirmed mix is two Shermans, one Stuart, two Panzer IVs, and one Panther.',
+    gameTitle: 'Undaunted: Reinforcements',
+    gameUrl: 'https://www.ospreypublishing.com/uk/undaunted-reinforcements-revised-edition-9781472863058/',
+    overviewKicker: 'Game upgrade',
+    overviewHeading: 'Tank pieces for Undaunted: Reinforcements',
+    bestFor: 'Replacing the six Normandy vehicle counters from Undaunted: Reinforcements with compact physical tanks.',
+    scaleNote: 'Fixed at 1:250 so the tanks stay readable on Undaunted map tiles without taking over the tile space. This pack is not a variable-scale starter set.',
+    scaleHeading: 'Fixed 1:250 game scale',
+    guideLinksHeading: 'Related Game Guides',
+    guideLinksIntro: 'Useful pages for comparing 1:250 game-ready pieces and nearby American or German tank choices.',
+    guideLinks: [
+      {
+        label: '1:250 WW2 tank miniatures',
+        href: '1-250-ww2-tank-miniatures.html',
+        note: 'See the compact fixed scale used by this pack.'
+      },
+      {
+        label: 'Sherman tank miniatures',
+        href: 'sherman-tank-miniatures.html',
+        note: 'Compare Sherman-focused tanks and game packs.'
+      },
+      {
+        label: 'German WW2 tank miniatures',
+        href: 'german-ww2-tank-miniatures.html',
+        note: 'Browse Panther, Panzer IV, and related German vehicles.'
+      }
+    ],
+    compatibility: 'Unofficial 1:250 accessory pack suitable for Undaunted: Reinforcements Normandy tank scenarios',
+    contents: ['2x Sherman', '1x M5A1 Stuart', '2x Panzer IV', '1x Panther'],
+    availableScales: ['1:250'],
+    prices: {
+      '1:250': {
+        Unpainted: 14.00,
+        'Base coat': 19.00
+      }
+    }
+  },
+  {
     slug: 'hellcat-tankers',
     name: 'Hellcat Tankers Pack',
     category: 'Game ready',
