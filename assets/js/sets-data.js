@@ -701,9 +701,13 @@ window.SETS = [
     ],
     placeholderStyle: 'light-medium',
     etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
-    note: 'In construction: fixed 1:250 tank-only accessory pack for Undaunted: Reinforcements Normandy scenarios.',
-    metaDescription: 'Browse the in-construction unofficial 1:250 tank-only accessory pack for Undaunted: Reinforcements Normandy scenarios, with confirmed Sherman, Stuart, Panzer IV, and Panther contents.',
-    description: 'This set is currently in construction. It is planned as an unofficial 1:250 tank-only accessory pack for Undaunted: Reinforcements players who want physical vehicles in place of the Normandy vehicle counters. The confirmed mix is two Shermans, one Stuart, two Panzer IVs, and one Panther.',
+    inDevelopment: true,
+    statusLabel: 'In development',
+    availabilityNote: 'This pack is still being built and tested. Contents are planned, but photos, final finish options, and ordering details may still change.',
+    priceLabel: 'Price will be confirmed when ready',
+    note: 'In development: fixed 1:250 tank-only accessory pack for Undaunted: Reinforcements Normandy scenarios.',
+    metaDescription: 'Preview the in-development unofficial 1:250 tank-only accessory pack for Undaunted: Reinforcements Normandy scenarios, with planned Sherman, Stuart, Panzer IV, and Panther contents.',
+    description: 'This set is currently in development. It is planned as an unofficial 1:250 tank-only accessory pack for Undaunted: Reinforcements players who want physical vehicles in place of the Normandy vehicle counters. The planned mix is two Shermans, one Stuart, two Panzer IVs, and one Panther, but final details may still change before release.',
     gameTitle: 'Undaunted: Reinforcements',
     gameUrl: 'https://www.ospreypublishing.com/uk/undaunted-reinforcements-revised-edition-9781472863058/',
     overviewKicker: 'Game upgrade',
@@ -733,12 +737,7 @@ window.SETS = [
     compatibility: 'Unofficial 1:250 accessory pack suitable for Undaunted: Reinforcements Normandy tank scenarios',
     contents: ['2x Sherman', '1x M5A1 Stuart', '2x Panzer IV', '1x Panther'],
     availableScales: ['1:250'],
-    prices: {
-      '1:250': {
-        Unpainted: 14.00,
-        'Base coat': 19.00
-      }
-    }
+    prices: {}
   },
   {
     slug: 'hellcat-tankers',

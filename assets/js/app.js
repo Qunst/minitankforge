@@ -752,6 +752,10 @@ function getSetPrice(set, scale, finish, optionSlug = '') {
 }
 
 function getSetPriceRange(set) {
+  if (isSetInDevelopment(set)) {
+    return set.priceLabel || 'Price will be confirmed when ready';
+  }
+
   const finishes = getAvailableSetFinishes(set);
   const prices = [];
   const options = getAvailableSetOptions(set);
@@ -1589,6 +1593,14 @@ function getSetProductDescription(set) {
   return set.description || `Browse the ${set.name}, a ${set.category.toLowerCase()} for ${set.nation} ${set.era} miniature games. Review contents, finish choices, and direct request or Etsy options.`;
 }
 
+function isSetInDevelopment(set) {
+  return set?.inDevelopment === true;
+}
+
+function getSetAvailabilityNote(set) {
+  return set.availabilityNote || 'This set is still being built and tested. Final ordering details may change before release.';
+}
+
 function getSetMetaTitle(set) {
   if (set.metaTitle) return set.metaTitle;
 
@@ -1776,6 +1788,7 @@ function renderSetDetail() {
   const availableOptions = getAvailableSetOptions(set);
   const availableFinishes = getAvailableSetFinishes(set);
   const usesSetOptions = availableOptions.length > 0;
+  const inDevelopment = isSetInDevelopment(set);
 
   if (!availableScales.includes(selectedScale)) {
     selectedScale = availableScales[0] || DEFAULT_SCALE;
@@ -1785,7 +1798,9 @@ function renderSetDetail() {
   const selectedOptionSlug = selectedOption?.slug || '';
   const selectedOptionLabel = selectedOption?.label || '';
   const currentContents = getSetContents(set, selectedOptionSlug);
-  const livePrice = formatPrice(getSetPrice(set, selectedScale, selectedFinish, selectedOptionSlug));
+  const livePrice = inDevelopment
+    ? getSetPriceRange(set)
+    : formatPrice(getSetPrice(set, selectedScale, selectedFinish, selectedOptionSlug));
 
   container.dataset.selectedSetOption = selectedOptionSlug;
 
@@ -1806,7 +1821,7 @@ function renderSetDetail() {
     }
   }
 
-  const setOffers = buildAggregateOfferJsonLd(setOfferPrices, set.etsyUrl || setUrl);
+  const setOffers = inDevelopment ? null : buildAggregateOfferJsonLd(setOfferPrices, set.etsyUrl || setUrl);
 
   updatePageMeta({
     title: getSetMetaTitle(set),
@@ -1842,6 +1857,7 @@ function renderSetDetail() {
     <div class="eyebrow">${set.category}</div>
     <h1 class="page-title">${set.name}</h1>
     <p class="lead">${set.note}</p>
+    ${inDevelopment ? `<div class="notice is-pending">${escapeHtml(getSetAvailabilityNote(set))}</div>` : ''}
     <a class="detail-back-link" href="/sets.html">Back to all sets</a>
   </section>
 
@@ -1867,16 +1883,23 @@ function renderSetDetail() {
       <div class="option-group" data-set-finish-choices></div>
 
       <div class="tank-price-box set-price-box">
-        <div class="kicker">Price</div>
+        <div class="kicker">${inDevelopment ? 'Status' : 'Price'}</div>
         <div class="tank-live-price" data-set-live-price>${livePrice}</div>
-        <div class="price-note">Price updates with selected ${usesSetOptions ? 'set option' : 'scale'} and finish.</div>
+        <div class="price-note">${inDevelopment ? 'This set is not listed for normal checkout yet.' : `Price updates with selected ${usesSetOptions ? 'set option' : 'scale'} and finish.`}</div>
       </div>
 
       <div class="page-actions">
-        <a class="btn btn-etsy" data-set-etsy-base="${set.etsyUrl}" href="${set.etsyUrl}" target="_blank" rel="noopener">Buy ${getDisplayName(set.name)} on Etsy</a>
+        ${inDevelopment
+          ? '<a class="btn btn-primary" href="/tank-requests.html">Ask about this set</a>'
+          : `<a class="btn btn-etsy" data-set-etsy-base="${set.etsyUrl}" href="${set.etsyUrl}" target="_blank" rel="noopener">Buy ${getDisplayName(set.name)} on Etsy</a>`
+        }
       </div>
 
+      ${inDevelopment ? `
       <p class="helper">
+        This preview is here so players can see the planned contents while the pack is still being worked on.
+      </p>
+      ` : `<p class="helper">
         Selected on this page:
         ${usesSetOptions
           ? `<strong data-current-set-option>${selectedOptionLabel}</strong>,`
@@ -1884,7 +1907,7 @@ function renderSetDetail() {
         }
         <strong data-current-finish>${selectedFinish}</strong>.
         Use these options in your direct request, or choose the same options on Etsy.
-      </p>
+      </p>`}
     </div>
   </section>
 
@@ -2032,7 +2055,9 @@ function renderSetDetail() {
 }
 
 function updateSetLivePrice(set, scale, finish, optionSlug = '') {
-  const value = formatPrice(getSetPrice(set, scale, finish, optionSlug));
+  const value = isSetInDevelopment(set)
+    ? getSetPriceRange(set)
+    : formatPrice(getSetPrice(set, scale, finish, optionSlug));
   document.querySelectorAll('[data-set-live-price]').forEach(el => {
     el.textContent = value;
   });

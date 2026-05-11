@@ -535,6 +535,19 @@ function setProductDescription(set) {
   return set.description || `Browse the ${set.name}, a ${set.category.toLowerCase()} for ${set.nation} ${set.era} miniature games. Review contents, finish choices, and direct request or Etsy options.`;
 }
 
+function isSetInDevelopment(set) {
+  return set?.inDevelopment === true;
+}
+
+function getSetAvailabilityNote(set) {
+  return set.availabilityNote || 'This set is still being built and tested. Final ordering details may change before release.';
+}
+
+function getSetStaticPriceLabel(set, prices) {
+  if (isSetInDevelopment(set)) return set.priceLabel || 'Price will be confirmed when ready';
+  return priceSummary(prices);
+}
+
 function setMetaTitle(set) {
   if (set.metaTitle) return set.metaTitle;
 
@@ -676,7 +689,9 @@ function writeSetPage(set, data) {
   const description = setProductDescription(set);
   const title = setMetaTitle(set);
   const metaDescription = setMetaDescription(set);
-  const offer = aggregateOffer(prices, set.etsyUrl || publicUrl);
+  const inDevelopment = isSetInDevelopment(set);
+  const offer = inDevelopment ? null : aggregateOffer(prices, set.etsyUrl || publicUrl);
+  const priceLabel = getSetStaticPriceLabel(set, prices);
   const bestForHtml = set.bestFor
     ? `          <li><strong>Best for</strong><br>${escapeHtml(set.bestFor)}</li>\n`
     : '';
@@ -720,6 +735,7 @@ ${set.description ? `      <div class="card info-card">
       <div class="eyebrow">${escapeHtml(set.category)}</div>
       <h1 class="page-title">${escapeHtml(set.name)}</h1>
       <p class="lead">${escapeHtml(set.note)}</p>
+      ${inDevelopment ? `<div class="notice is-pending">${escapeHtml(getSetAvailabilityNote(set))}</div>` : ''}
       <a class="detail-back-link" href="/sets.html">Back to all sets</a>
     </section>
     <section class="split set-detail-top">
@@ -734,12 +750,16 @@ ${set.description ? `      <div class="card info-card">
         <ul class="spec-list">
           <li><strong>Available scales</strong><br>${escapeHtml(availableScales.join(', '))}</li>
           <li><strong>Finish options</strong><br>${escapeHtml(data.setFinishes.join(', '))}</li>
-          <li><strong>Price range</strong><br>${escapeHtml(priceSummary(prices))}</li>
+          <li><strong>${inDevelopment ? 'Status' : 'Price range'}</strong><br>${escapeHtml(priceLabel)}</li>
           <li><strong>Nation / era</strong><br>${escapeHtml(set.nation)} / ${escapeHtml(set.era)}</li>
 ${bestForHtml}        </ul>
         <div class="page-actions">
-          <a class="btn btn-etsy" href="${escapeHtml(set.etsyUrl)}" target="_blank" rel="noopener">Open on Etsy</a>
+          ${inDevelopment
+            ? '<a class="btn btn-primary" href="/tank-requests.html">Ask about this set</a>'
+            : `<a class="btn btn-etsy" href="${escapeHtml(set.etsyUrl)}" target="_blank" rel="noopener">Open on Etsy</a>`
+          }
         </div>
+        ${inDevelopment ? '<p class="helper">This preview is here so players can see the planned contents while the pack is still being worked on.</p>' : ''}
       </div>
     </section>
     <section class="grid-2">
@@ -749,7 +769,7 @@ ${contentsHtml}
       </div>
       <div>
         <h2>Buying note</h2>
-        <p class="muted">This site is for browsing. You can contact MiniTankForge with your request or continue to Etsy for marketplace checkout.</p>
+        <p class="muted">${inDevelopment ? 'This set is still in construction and is not listed for normal checkout yet. You can contact MiniTankForge if you want to ask about progress or suggest adjustments.' : 'This site is for browsing. You can contact MiniTankForge with your request or continue to Etsy for marketplace checkout.'}</p>
       </div>
     </section>${extraSetSections ? `\n${extraSetSections}` : ''}
   </main>`;
