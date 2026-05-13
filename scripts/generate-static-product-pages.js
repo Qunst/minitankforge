@@ -666,7 +666,7 @@ ${internalLinksHtml}
     body,
     scripts: [
       '<script defer src="/assets/js/tanks-data.js?v=17"></script>',
-      '<script defer src="/assets/js/app.js?v=34"></script>',
+      '<script defer src="/assets/js/app.js?v=35"></script>',
     ],
     jsonLd: [
       jsonLdScript('tank-product-jsonld', product),
@@ -784,7 +784,7 @@ ${contentsHtml}
     scripts: [
       '<script defer src="/assets/js/tanks-data.js?v=17"></script>',
       '<script defer src="/assets/js/sets-data.js?v=18"></script>',
-      '<script defer src="/assets/js/app.js?v=34"></script>',
+      '<script defer src="/assets/js/app.js?v=35"></script>',
     ],
     jsonLd: [
       jsonLdScript('set-product-jsonld', product),

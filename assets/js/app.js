@@ -1550,13 +1550,18 @@ function getSetOptionImageSlug(set, optionSlug) {
 }
 
 function getSetSelectionImageSrc(set, optionSlug, finish) {
-  if (!set || !optionSlug || !finish || !getAvailableSetOptions(set).length) return '';
+  if (!set || !finish) return '';
 
-  const optionImageSlug = getSetOptionImageSlug(set, optionSlug);
   const finishSlug = slugForSetImagePart(finish);
+  if (!finishSlug) return '';
 
-  if (!optionImageSlug || !finishSlug) return '';
-  return `assets/img/sets/${set.slug}-${optionImageSlug}-${finishSlug}.jpg`;
+  if (getAvailableSetOptions(set).length) {
+    const optionImageSlug = getSetOptionImageSlug(set, optionSlug);
+    if (!optionImageSlug) return '';
+    return rootRelativeUrl(`assets/img/sets/${set.slug}-${optionImageSlug}-${finishSlug}.jpg`);
+  }
+
+  return rootRelativeUrl(`assets/img/sets/${set.slug}-${finishSlug}-side.jpg`);
 }
 
 function renderSetDetailGallery(set) {
@@ -1678,7 +1683,7 @@ function showSetGallerySelection(root, set, optionSlug, finish) {
 
   root.querySelectorAll('[data-set-gallery]').forEach(gallery => {
     const matchingThumb = Array.from(gallery.querySelectorAll('[data-set-gallery-thumb]'))
-      .find(button => button.dataset.setGalleryThumb === targetSrc);
+      .find(button => rootRelativeUrl(button.dataset.setGalleryThumb) === targetSrc);
 
     if (matchingThumb) {
       selectSetGalleryThumb(gallery, matchingThumb);
