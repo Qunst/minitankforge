@@ -1096,7 +1096,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-medium',
     image: 'assets/img/tanks/m10-achilles-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    etsyUrl: 'https://www.etsy.com/listing/4511701205/m10-achilles-british-tank-destroyer',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,

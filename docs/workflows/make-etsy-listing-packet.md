@@ -9,6 +9,7 @@ Use this workflow when preparing a new Etsy listing packet for a MiniTankForge t
 - Give the exact photo multi-open string.
 - Keep tags Etsy-safe: each tag must be 20 characters or fewer.
 - Tell the user exactly which existing tags to replace with which new tags.
+- Output the final 13 tags as one copy-paste block, separated by comma and space.
 - Use `Resin` as the Etsy material if Etsy does not allow `ABS-like resin`.
 - Use only one Etsy scale attribute, usually `1:160`.
 - If unsure about tank classification, official name, historical wording, or tags, stop and ask instead of guessing.
@@ -106,7 +107,7 @@ For each listing packet, output:
 3. Photo multi-open string
 4. Full description
 5. Tags to replace
-6. Final 13 tags
+6. Final 13 tags as one comma-separated copy-paste block
 7. Materials
 8. Scale field recommendation
 9. Variation setup reminder
@@ -125,6 +126,7 @@ Use our MiniTankForge listing rules:
 - provide exact photo multi-open string
 - keep tags 20 characters or fewer
 - say exactly which tags to replace
+- output final 13 tags as one comma-separated copy-paste block
 - use standard scale / finish and pack size variations
 - use standard pricing
 - use Resin as the Etsy material
