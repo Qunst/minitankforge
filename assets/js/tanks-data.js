@@ -1087,6 +1087,32 @@ window.TANKS = [
     compatibility: 'Compact hex-based tabletop play',
   },
   {
+    slug: 'm10-achilles',
+    name: 'M10 Achilles (17-pounder SP Achilles)',
+    nation: 'UK',
+    era: 'WW2',
+    type: 'Tank destroyer',
+    featured: false,
+    disabled: false,
+    placeholderStyle: 'light-medium',
+    image: 'assets/img/tanks/m10-achilles-base-coat-side-detail.jpg',
+    etsyUrl: 'https://www.etsy.com/shop/Quali3DPrints?section_id=58368275',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
+    fact: 'The Achilles kept the M10 tank destroyer layout but replaced the gun with the British 17-pounder for stronger anti-armor performance.',
+    description: 'The M10 Achilles gives British and Commonwealth forces a dedicated tank destroyer with the familiar open-topped M10 profile and a much sharper long-gun look. It is useful for late-war Allied anti-armor groups, Normandy scenarios, and collections that sit alongside Shermans and Fireflies.',
+    compatibility: 'Compact hex-based tabletop play',
+  },
+  {
     slug: 'm3-half-track',
     name: 'M3 Half-track (M3 Half-track)',
     nation: 'USA',
