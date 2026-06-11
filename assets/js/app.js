@@ -504,6 +504,7 @@ const tankDetailPhotoKeys = {
   'is-1': 'is1',
   'is-2': 'is-2',
   'is-3': 'is3',
+  'is-7': 'is-7',
   'isu-122': 'isu122',
   'isu-152': 'isu152',
   'jagdpanther': 'jagdpanther',
@@ -514,6 +515,8 @@ const tankDetailPhotoKeys = {
   'luchs': 'luchs',
   'm10-wolverine': 'm10-wolverine',
   'm10-achilles': 'm10-achilles',
+  'm13-40': 'm13-40',
+  'm14-41': 'm14-41',
   'm18-hellcat': 'm18-hellcat',
   'm3-half-track': 'm3-half-truck',
   'm3-lee': 'm3-lee',
@@ -654,6 +657,7 @@ function bindTankDetailGallery(root = document) {
 
 function buildTankCard(tank) {
   const detailUrl = getTankDetailUrl(tank);
+  const statusBadge = tank.historicalStatus ? `<span class="badge">${tank.historicalStatus}</span>` : '';
 
   return `
     <article class="card product-card">
@@ -666,6 +670,7 @@ function buildTankCard(tank) {
           <span class="badge">${tank.nation}</span>
           <span class="badge">${tank.type}</span>
           <span class="badge">${tank.era}</span>
+          ${statusBadge}
         </div>
         <div class="tank-card-price">${getTankPriceRange(tank)}</div>
         <p class="muted fun-fact">${tank.fact}</p>
@@ -803,11 +808,13 @@ function renderBrowseGrid() {
   const nation = document.querySelector('[data-filter-nation]')?.value || 'All';
   const type = document.querySelector('[data-filter-type]')?.value || 'All';
   const era = document.querySelector('[data-filter-era]')?.value || 'All';
+  const status = document.querySelector('[data-filter-status]')?.value || 'All';
 
   const filtered = getVisibleTanks().filter(t => {
     return (nation === 'All' || t.nation === nation)
       && (type === 'All' || t.type === type)
-      && (era === 'All' || t.era === era);
+      && (era === 'All' || t.era === era)
+      && (status === 'All' || (t.historicalStatus || 'Service vehicle') === status);
   });
 
   target.innerHTML = filtered.map(buildTankCard).join('');
@@ -846,6 +853,7 @@ const setContentTankAliases = {
   'is 1': 'is-1',
   'is 2': 'is-2',
   'is 3': 'is-3',
+  'is 7': 'is-7',
   'isu 122': 'isu-122',
   'isu 152': 'isu-152',
   'jagdpanther': 'jagdpanther',
@@ -858,6 +866,10 @@ const setContentTankAliases = {
   'm10 wolverine': 'm10-wolverine',
   'm10 achilles': 'm10-achilles',
   'achilles': 'm10-achilles',
+  'm13 40': 'm13-40',
+  'm13/40': 'm13-40',
+  'm14 41': 'm14-41',
+  'm14/41': 'm14-41',
   'm18 hellcat': 'm18-hellcat',
   'hellcat': 'm18-hellcat',
   'm3 half track': 'm3-half-track',
@@ -968,6 +980,7 @@ function getGuideLinksForTank(tank) {
   if (/sherman/i.test(tank.name)) add('Sherman tank miniatures', 'sherman-tank-miniatures.html', 'Compare Sherman-focused tanks and game packs.');
   if (/tank destroyer|assault gun/i.test(tank.type)) add('WW2 tank destroyer miniatures', 'ww2-tank-destroyer-miniatures.html', 'Compare anti-armor and assault-gun vehicles.');
   if (/heavy tank|super heavy tank/i.test(tank.type)) add('WW2 heavy tank miniatures', 'ww2-heavy-tank-miniatures.html', 'Compare heavy and super-heavy vehicle choices.');
+  if (tank.historicalStatus) add('Prototype and what-if tanks', 'prototype-tank-miniatures.html', 'Compare prototype, unfinished, and paper-project vehicles.');
   add('Tabletop tank miniatures', 'tabletop-tank-miniatures.html', 'Browse scale, set, and vehicle paths for tabletop play.');
 
   return links.slice(0, 4);
@@ -1056,18 +1069,21 @@ function populateFilters() {
   const nations = ['All', ...new Set(visibleTanks.map(t => t.nation))];
   const types = ['All', ...new Set(visibleTanks.map(t => t.type))];
   const eras = ['All', ...new Set(visibleTanks.map(t => t.era))];
+  const statuses = ['All', ...new Set(visibleTanks.map(t => t.historicalStatus || 'Service vehicle'))];
 
   const sets = [
     ['[data-filter-nation]', nations],
     ['[data-filter-type]', types],
     ['[data-filter-era]', eras],
+    ['[data-filter-status]', statuses],
   ];
 
   sets.forEach(([selector, values]) => {
     const select = document.querySelector(selector);
     if (!select) return;
     const current = select.value || 'All';
-    select.innerHTML = values.map(v => `<option value="${v}">${selector.includes('nation') ? 'Nation' : selector.includes('type') ? 'Type' : 'Era'}: ${v}</option>`).join('');
+    const label = selector.includes('nation') ? 'Nation' : selector.includes('type') ? 'Type' : selector.includes('status') ? 'Status' : 'Era';
+    select.innerHTML = values.map(v => `<option value="${v}">${label}: ${v}</option>`).join('');
     select.value = values.includes(current) ? current : 'All';
     select.addEventListener('change', renderBrowseGrid);
   });
@@ -1319,6 +1335,7 @@ function renderTankDetail() {
           <li><strong>Material</strong><br>3D printed miniature model</li>
           <li><strong>Nation / era</strong><br>${tank.nation} / ${tank.era}</li>
           <li><strong>Type</strong><br>${tank.type}</li>
+          ${tank.historicalStatus ? `<li><strong>Historical status</strong><br>${tank.historicalStatus}</li>` : ''}
           <li><strong>Compatibility</strong><br>${tank.compatibility || 'Compact hex-based tabletop play'}</li>
         </ul>
       </div>

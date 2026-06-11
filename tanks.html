@@ -18,9 +18,9 @@
   <meta name="twitter:title" content="Browse 3D Printed Tank Miniatures by Nation | MiniTankForge" />
   <meta name="twitter:description" content="Browse 3D printed tank miniatures by nation, type, and era. Compare scale and finish options, then request direct or continue to Etsy." />
   <meta name="twitter:image" content="https://minitankforge.com/assets/img/hero.jpg" />
-  <link href="assets/css/styles.css?v=18" rel="stylesheet" />
-  <script defer src="assets/js/tanks-data.js?v=19"></script>
-  <script defer src="assets/js/app.js?v=36"></script>
+  <link href="assets/css/styles.css?v=19" rel="stylesheet" />
+  <script defer src="assets/js/tanks-data.js?v=22"></script>
+  <script defer src="assets/js/app.js?v=38"></script>
 </head>
 
 <body>
@@ -75,6 +75,12 @@
               <option value="All">Era: All</option>
             </select>
           </div>
+          <div class="filter-field">
+            <label class="filter-label" for="tank-filter-status">Status</label>
+            <select data-filter-status id="tank-filter-status">
+              <option value="All">Status: All</option>
+            </select>
+          </div>
         </div>
       </section>
     </div>
@@ -116,6 +122,10 @@
         <a class="guide-link guide-link-subtle" href="ww2-heavy-tank-miniatures.html">
           <span>Heavy tanks</span>
           <small>Tigers, IS tanks, Pershing, KV-2, and super-heavy options.</small>
+        </a>
+        <a class="guide-link guide-link-subtle" href="prototype-tank-miniatures.html">
+          <span>Prototype and what-if tanks</span>
+          <small>E-series, Maus, IS-7, A-32, and other unusual vehicle paths.</small>
         </a>
         <a class="guide-link guide-link-subtle" href="tabletop-tank-miniatures.html">
           <span>Tabletop tank miniatures</span>

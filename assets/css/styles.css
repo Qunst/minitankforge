@@ -448,8 +448,8 @@ footer .nav {
 
 .browse-filters {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
   padding: 0;
   background: transparent;
   border: 0;
@@ -466,7 +466,8 @@ footer .nav {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 12px 14px 14px;
+  min-width: 0;
+  padding: 10px 12px 12px;
   border-radius: 16px;
   border: 1px solid rgba(191, 173, 149, .72);
   background:
@@ -508,7 +509,8 @@ textarea {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  padding: 14px 50px 14px 16px;
+  min-width: 0;
+  padding: 13px 42px 13px 14px;
   border-radius: 14px;
   border: 1px solid #bca88a;
   background:

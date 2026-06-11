@@ -216,7 +216,7 @@ function pageShell({ title, description, canonical, image, imageAlt, body, scrip
   <meta name="twitter:title" content="${escapeHtml(title)}" />
   <meta name="twitter:description" content="${escapeHtml(description)}" />
   <meta name="twitter:image" content="${absoluteUrl(image)}" />
-  <link href="/assets/css/styles.css?v=18" rel="stylesheet" />
+  <link href="/assets/css/styles.css?v=19" rel="stylesheet" />
   ${jsonLd.join('\n  ')}
   ${scripts.join('\n  ')}
 </head>
@@ -468,6 +468,7 @@ function getGuideLinksForTank(tank) {
   if (/sherman/i.test(tank.name)) add('Sherman tank miniatures', 'sherman-tank-miniatures.html', 'Compare Sherman-focused tanks and game packs.');
   if (/tank destroyer|assault gun/i.test(tank.type)) add('WW2 tank destroyer miniatures', 'ww2-tank-destroyer-miniatures.html', 'Compare anti-armor and assault-gun vehicles.');
   if (/heavy tank|super heavy tank/i.test(tank.type)) add('WW2 heavy tank miniatures', 'ww2-heavy-tank-miniatures.html', 'Compare heavy and super-heavy vehicle choices.');
+  if (tank.historicalStatus) add('Prototype and what-if tanks', 'prototype-tank-miniatures.html', 'Compare prototype, unfinished, and paper-project vehicles.');
   add('Tabletop tank miniatures', 'tabletop-tank-miniatures.html', 'Browse scale, set, and vehicle paths for tabletop play.');
 
   return links.slice(0, 4);
@@ -638,6 +639,7 @@ function writeTankPage(tank, data) {
           <li><strong>Price range</strong><br>${escapeHtml(priceSummary(prices))}</li>
           <li><strong>Nation / era</strong><br>${escapeHtml(tank.nation)} / ${escapeHtml(tank.era)}</li>
           <li><strong>Type</strong><br>${escapeHtml(tank.type)}</li>
+          ${tank.historicalStatus ? `<li><strong>Historical status</strong><br>${escapeHtml(tank.historicalStatus)}</li>` : ''}
         </ul>
         <div class="page-actions">
           <a class="btn btn-etsy" href="${escapeHtml(tank.etsyUrl)}" target="_blank" rel="noopener">Open on Etsy</a>
@@ -665,8 +667,8 @@ ${internalLinksHtml}
     imageAlt: tankImageAlt(tank),
     body,
     scripts: [
-      '<script defer src="/assets/js/tanks-data.js?v=19"></script>',
-      '<script defer src="/assets/js/app.js?v=36"></script>',
+      '<script defer src="/assets/js/tanks-data.js?v=22"></script>',
+      '<script defer src="/assets/js/app.js?v=38"></script>',
     ],
     jsonLd: [
       jsonLdScript('tank-product-jsonld', product),
@@ -782,9 +784,9 @@ ${contentsHtml}
     imageAlt: setImageAlt(set),
     body,
     scripts: [
-      '<script defer src="/assets/js/tanks-data.js?v=19"></script>',
+      '<script defer src="/assets/js/tanks-data.js?v=22"></script>',
       '<script defer src="/assets/js/sets-data.js?v=18"></script>',
-      '<script defer src="/assets/js/app.js?v=36"></script>',
+      '<script defer src="/assets/js/app.js?v=38"></script>',
     ],
     jsonLd: [
       jsonLdScript('set-product-jsonld', product),
