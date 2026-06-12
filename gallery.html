@@ -18,7 +18,7 @@
     <meta name="twitter:title" content="Miniature Tank Gallery: Photos &amp; Painted Examples" />
     <meta name="twitter:description" content="View MiniTankForge miniature tank photos, close-up model details, base coat examples, unpainted prints, and 3D printed vehicle galleries." />
     <meta name="twitter:image" content="https://minitankforge.com/assets/img/hero.jpg" />
-<link href="assets/css/styles.css?v=20" rel="stylesheet" />
+<link href="assets/css/styles.css?v=21" rel="stylesheet" />
 </head>
 
 <body>
@@ -250,6 +250,77 @@
             </div>
         </div>
     </footer>
+
+    <div class="gallery-lightbox" role="dialog" aria-modal="true" aria-label="Expanded gallery image" hidden>
+        <div class="gallery-lightbox-panel">
+            <button class="gallery-lightbox-close" type="button" aria-label="Close expanded image">&times;</button>
+            <div class="gallery-lightbox-image-wrap">
+                <img class="gallery-lightbox-image" src="" alt="">
+            </div>
+            <p class="gallery-lightbox-caption"></p>
+        </div>
+    </div>
+
+    <script>
+        (() => {
+            const lightbox = document.querySelector('.gallery-lightbox');
+            const image = document.querySelector('.gallery-lightbox-image');
+            const caption = document.querySelector('.gallery-lightbox-caption');
+            const closeButton = document.querySelector('.gallery-lightbox-close');
+            const galleryImages = document.querySelectorAll('.gallery-media img');
+
+            if (!lightbox || !image || !caption || !closeButton || !galleryImages.length) return;
+
+            const closeLightbox = () => {
+                lightbox.classList.remove('is-open');
+                lightbox.hidden = true;
+                document.body.classList.remove('gallery-lightbox-open');
+                image.src = '';
+                image.alt = '';
+                caption.textContent = '';
+            };
+
+            const openLightbox = (thumbnail) => {
+                const card = thumbnail.closest('.info-card');
+                const title = card?.querySelector('h3')?.textContent?.trim() || thumbnail.alt;
+                const detail = card?.querySelector('.muted')?.textContent?.trim();
+
+                image.src = thumbnail.currentSrc || thumbnail.src;
+                image.alt = thumbnail.alt || title;
+                caption.textContent = detail ? `${title}. ${detail}` : title;
+                lightbox.hidden = false;
+                lightbox.classList.add('is-open');
+                document.body.classList.add('gallery-lightbox-open');
+                closeButton.focus();
+            };
+
+            galleryImages.forEach((thumbnail) => {
+                const media = thumbnail.closest('.gallery-media');
+                media.setAttribute('tabindex', '0');
+                media.setAttribute('role', 'button');
+                media.setAttribute('aria-label', `Open larger image: ${thumbnail.alt}`);
+
+                media.addEventListener('click', () => openLightbox(thumbnail));
+                media.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        openLightbox(thumbnail);
+                    }
+                });
+            });
+
+            closeButton.addEventListener('click', closeLightbox);
+            lightbox.addEventListener('click', (event) => {
+                if (event.target === lightbox) closeLightbox();
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && lightbox.classList.contains('is-open')) {
+                    closeLightbox();
+                }
+            });
+        })();
+    </script>
 </body>
 
 </html>

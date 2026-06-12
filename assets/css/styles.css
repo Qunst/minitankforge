@@ -1591,6 +1591,8 @@ textarea {
   background: #eee7dc;
   border: 1px solid rgba(101, 82, 58, .16);
   border-radius: 10px;
+  cursor: zoom-in;
+  position: relative;
 }
 
 #tank-photos .gallery-media {
@@ -1609,6 +1611,15 @@ textarea {
 #customer-photos .gallery-media img {
   height: 100%;
   object-fit: cover;
+  transition: transform .24s ease, filter .24s ease;
+}
+
+#tank-photos .gallery-media:hover img,
+#set-photos .gallery-media:hover img,
+#dioramas .gallery-media:hover img,
+#customer-photos .gallery-media:hover img {
+  filter: saturate(1.04) contrast(1.02);
+  transform: scale(1.035);
 }
 
 #dioramas img[src$="customer1.jpg"] {
@@ -1622,6 +1633,108 @@ textarea {
   margin-top: auto;
   font-size: .92rem;
   line-height: 1.45;
+}
+
+.gallery-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(24, 20, 16, .84);
+}
+
+.gallery-lightbox.is-open {
+  display: flex;
+}
+
+.gallery-lightbox-panel {
+  position: relative;
+  width: min(1120px, 96vw);
+  max-height: 92vh;
+  display: grid;
+  gap: 12px;
+}
+
+.gallery-lightbox-image-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  border-radius: 12px;
+  background: #17130f;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .36);
+  overflow: hidden;
+}
+
+.gallery-lightbox-image {
+  display: block;
+  max-width: 100%;
+  max-height: calc(92vh - 92px);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.gallery-lightbox-caption {
+  margin: 0;
+  padding: 0 48px 0 2px;
+  color: #f6efe5;
+  font-size: .98rem;
+  line-height: 1.45;
+}
+
+.gallery-lightbox-close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, .42);
+  border-radius: 999px;
+  background: #f7f1e8;
+  color: #241d16;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .28);
+}
+
+.gallery-lightbox-close:hover,
+.gallery-lightbox-close:focus-visible {
+  background: #fffaf2;
+}
+
+body.gallery-lightbox-open {
+  overflow: hidden;
+}
+
+@media (max-width: 700px) {
+  .gallery-lightbox {
+    padding: 12px;
+  }
+
+  .gallery-lightbox-panel {
+    width: 100%;
+  }
+
+  .gallery-lightbox-image {
+    max-height: calc(92vh - 108px);
+  }
+
+  .gallery-lightbox-caption {
+    padding-right: 0;
+    font-size: .92rem;
+  }
+
+  .gallery-lightbox-close {
+    top: 8px;
+    right: 8px;
+  }
 }
 
 .finish-hero-media {
