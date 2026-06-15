@@ -1469,7 +1469,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-large',
     image: 'assets/img/tanks/t-35-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4522267127/t-35-soviet-heavy-tank-miniature-3d',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
@@ -1495,7 +1495,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-small',
     image: 'assets/img/tanks/zis-42-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4522271637/zis-42-soviet-half-track-truck-miniature',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
@@ -1521,7 +1521,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-small',
     image: 'assets/img/tanks/t-38-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4522272251/t-38-soviet-amphibious-scout-tank',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
@@ -1547,7 +1547,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-small',
     image: 'assets/img/tanks/gaz-aa-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4522272963/gaz-aa-soviet-truck-miniature-3d-printed',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
