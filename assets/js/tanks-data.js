@@ -1573,7 +1573,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-small',
     image: 'assets/img/tanks/t-26-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4522322291/t-26-soviet-light-tank-miniature-3d',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
@@ -1599,7 +1599,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-small',
     image: 'assets/img/tanks/ba-64-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4522323323/ba-64-soviet-armored-car-miniature-3d',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
@@ -1625,7 +1625,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-small',
     image: 'assets/img/tanks/stz-5-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4522324195/stz-5-soviet-artillery-tractor-miniature',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
@@ -1651,7 +1651,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-small',
     image: 'assets/img/tanks/t-26-twin-turret-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4522331960/t-26-twin-turret-soviet-light-tank',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
@@ -1677,7 +1677,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-small',
     image: 'assets/img/tanks/ba-6-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4522334396/ba-6-soviet-armored-car-miniature-3d',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
@@ -1703,7 +1703,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-large',
     image: 'assets/img/tanks/b-4-howitzer-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4522335304/b-4-soviet-203-mm-howitzer-miniature-3d',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
