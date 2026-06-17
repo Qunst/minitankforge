@@ -216,7 +216,7 @@ function pageShell({ title, description, canonical, image, imageAlt, body, scrip
   <meta name="twitter:title" content="${escapeHtml(title)}" />
   <meta name="twitter:description" content="${escapeHtml(description)}" />
   <meta name="twitter:image" content="${absoluteUrl(image)}" />
-  <link href="/assets/css/styles.css?v=19" rel="stylesheet" />
+  <link href="/assets/css/styles.css?v=20" rel="stylesheet" />
   ${jsonLd.join('\n  ')}
   ${scripts.join('\n  ')}
 </head>
@@ -668,7 +668,7 @@ ${internalLinksHtml}
     body,
     scripts: [
       '<script defer src="/assets/js/tanks-data.js?v=23"></script>',
-      '<script defer src="/assets/js/app.js?v=39"></script>',
+      '<script defer src="/assets/js/app.js?v=40"></script>',
     ],
     jsonLd: [
       jsonLdScript('tank-product-jsonld', product),
@@ -786,7 +786,7 @@ ${contentsHtml}
     scripts: [
       '<script defer src="/assets/js/tanks-data.js?v=23"></script>',
       '<script defer src="/assets/js/sets-data.js?v=18"></script>',
-      '<script defer src="/assets/js/app.js?v=39"></script>',
+      '<script defer src="/assets/js/app.js?v=40"></script>',
     ],
     jsonLd: [
       jsonLdScript('set-product-jsonld', product),

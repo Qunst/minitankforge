@@ -811,6 +811,52 @@ function renderFeaturedTanks() {
   target.innerHTML = featured.map(buildTankCard).join('');
 }
 
+function sortBrowseTanks(tanks, sortMode = 'featured') {
+  const indexed = tanks.map((tank, index) => ({ tank, index }));
+  const byName = (a, b) => getDisplayName(a.tank.name).localeCompare(getDisplayName(b.tank.name));
+
+  indexed.sort((a, b) => {
+    if (sortMode === 'name') return byName(a, b);
+    if (sortMode === 'nation') {
+      return a.tank.nation.localeCompare(b.tank.nation)
+        || byName(a, b);
+    }
+    if (sortMode === 'type') {
+      return a.tank.type.localeCompare(b.tank.type)
+        || byName(a, b);
+    }
+
+    const featuredDiff = Number(Boolean(b.tank.featured)) - Number(Boolean(a.tank.featured));
+    if (featuredDiff) return featuredDiff;
+    return (a.tank.featuredOrder || 999) - (b.tank.featuredOrder || 999)
+      || a.index - b.index;
+  });
+
+  return indexed.map(item => item.tank);
+}
+
+function updateTankBrowseSummary(filteredCount, totalCount) {
+  const countTarget = document.querySelector('[data-tank-result-count]');
+  const noteTarget = document.querySelector('[data-tank-result-note]');
+  const tankLabel = filteredCount === 1 ? 'tank' : 'tanks';
+
+  if (countTarget) {
+    countTarget.textContent = filteredCount === totalCount
+      ? `Showing ${filteredCount} ${tankLabel}`
+      : `Showing ${filteredCount} of ${totalCount} tanks`;
+  }
+
+  if (noteTarget) {
+    if (filteredCount === 0) {
+      noteTarget.textContent = 'Try changing the filters or sort order.';
+    } else {
+      noteTarget.textContent = filteredCount === totalCount
+        ? 'All catalog vehicles are visible.'
+        : 'Filtered by current selections.';
+    }
+  }
+}
+
 function renderBrowseGrid() {
   const target = document.querySelector('[data-tank-grid]');
   if (!target) return;
@@ -819,15 +865,28 @@ function renderBrowseGrid() {
   const type = document.querySelector('[data-filter-type]')?.value || 'All';
   const era = document.querySelector('[data-filter-era]')?.value || 'All';
   const status = document.querySelector('[data-filter-status]')?.value || 'All';
+  const sortMode = document.querySelector('[data-tank-sort]')?.value || 'featured';
+  const visibleTanks = getVisibleTanks();
 
-  const filtered = getVisibleTanks().filter(t => {
+  const filtered = visibleTanks.filter(t => {
     return (nation === 'All' || t.nation === nation)
       && (type === 'All' || t.type === type)
       && (era === 'All' || t.era === era)
       && (status === 'All' || (t.historicalStatus || 'Service vehicle') === status);
   });
+  const sorted = sortBrowseTanks(filtered, sortMode);
 
-  target.innerHTML = filtered.map(buildTankCard).join('');
+  updateTankBrowseSummary(filtered.length, visibleTanks.length);
+  target.innerHTML = sorted.length
+    ? sorted.map(buildTankCard).join('')
+    : '<div class="browse-empty-state card">No tanks match the current filters.</div>';
+}
+
+function bindTankBrowseControls() {
+  const sortSelect = document.querySelector('[data-tank-sort]');
+  if (!sortSelect || sortSelect.dataset.bound === 'true') return;
+  sortSelect.addEventListener('change', renderBrowseGrid);
+  sortSelect.dataset.bound = 'true';
 }
 
 function parseSlugList(value) {
@@ -1412,6 +1471,7 @@ function initScaleUI() {
   enhanceBrowseFilters();
   renderSetsGrid();
   populateFilters();
+  bindTankBrowseControls();
   enhanceBrowseFilters();
   renderBrowseGrid();
   renderTankDetail();
