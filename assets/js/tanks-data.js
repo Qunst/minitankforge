@@ -442,6 +442,33 @@ window.TANKS = [
     compatibility: 'Compact hex-based tabletop play',
   },
   {
+    slug: 'jagdpanther-ii',
+    name: 'Jagdpanther II (Jagdpanther 2)',
+    nation: 'Germany',
+    era: 'WW2',
+    historicalStatus: 'What-if / paper project',
+    type: 'Tank destroyer',
+    featured: false,
+    disabled: false,
+    placeholderStyle: 'light-medium',
+    image: 'assets/img/tanks/jagdpanther-ii-base-coat-side-detail.jpg',
+    etsyUrl: '',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
+    fact: 'The Jagdpanther II is useful for late-war and alternate-history tables where German tank destroyer designs are pushed one step further.',
+    description: 'The Jagdpanther II is a German what-if tank destroyer with a long, low silhouette that fits beside Panther-family vehicles and heavier late-war concepts. It works best for alternate-history scenarios, experimental German forces, and collections that already include Jagdpanther, E-series, or other paper-project armor.',
+    compatibility: 'Compact hex-based tabletop play',
+  },
+  {
     slug: 'jagdpz-iv',
     name: 'Jagdpz IV (Jagdpanzer IV)',
     nation: 'Germany',
@@ -1069,6 +1096,32 @@ window.TANKS = [
     compatibility: 'Compact hex-based tabletop play',
   },
   {
+    slug: 'kv-1',
+    name: 'KV-1 (Kliment Voroshilov-1)',
+    nation: 'USSR',
+    era: 'WW2',
+    type: 'Heavy tank',
+    featured: false,
+    disabled: false,
+    placeholderStyle: 'dark-medium',
+    image: 'assets/img/tanks/kv-1-base-coat-side-detail.jpg',
+    etsyUrl: '',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
+    fact: 'Early in the war, the KV-1 was heavily armored enough to cause serious problems for many German anti-tank guns.',
+    description: 'The KV-1 is a Soviet heavy tank that sits naturally beside early-war T-34s and later KV-family vehicles. It is useful when you want a tough, compact heavy tank for breakthrough scenarios, defensive stands, and Soviet forces that need more armor than a medium tank can provide.',
+    compatibility: 'Compact hex-based tabletop play',
+  },
+  {
     slug: 'kv-2',
     name: 'KV-2 (Kliment Voroshilov-2)',
     nation: 'USSR',
@@ -1092,6 +1145,58 @@ window.TANKS = [
     },
     fact: 'Its towering turret and heavy howitzer made the KV-2 look almost unreal even among other heavy tanks.',
     description: 'The KV-2 is a Soviet heavy tank with an unmistakable tall turret, ideal for players who want a model that stands out immediately. It suits early-war scenarios, fortress-busting themes, and collections built around unusual armored silhouettes.',
+    compatibility: 'Compact hex-based tabletop play',
+  },
+  {
+    slug: 'churchill-iv-fascine',
+    name: 'Churchill IV Fascine (Churchill fascine carrier)',
+    nation: 'UK',
+    era: 'WW2',
+    type: 'Engineering tank',
+    featured: false,
+    disabled: false,
+    placeholderStyle: 'dark-medium',
+    image: 'assets/img/tanks/churchill-iv-fascine-base-coat-side-detail.jpg',
+    etsyUrl: '',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
+    fact: 'Fascine-equipped Churchills carried large bundles to help cross ditches, obstacles, and rough ground during assault operations.',
+    description: 'The Churchill IV Fascine is a British engineering tank for scenarios where armor has to push through prepared defenses instead of only trading shots. It makes a strong objective or specialist support piece for Normandy-style games, assault crossings, and collections built around unusual battlefield tasks.',
+    compatibility: 'Compact hex-based tabletop play',
+  },
+  {
+    slug: 'churchill-iv',
+    name: 'Churchill IV (Infantry Tank Mk IV Churchill IV)',
+    nation: 'UK',
+    era: 'WW2',
+    type: 'Heavy tank',
+    featured: false,
+    disabled: false,
+    placeholderStyle: 'dark-medium',
+    image: 'assets/img/tanks/churchill-iv-base-coat-side-detail.jpg',
+    etsyUrl: '',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
+    fact: 'The Churchill traded speed for armor and climbing ability, becoming one of Britain\'s most recognizable infantry tanks.',
+    description: 'The Churchill IV is a British infantry tank with a long, heavy hull and a very different feel from faster cruiser tanks or Shermans. It is a good fit for assault scenarios, Commonwealth forces, and tabletop collections that need a sturdy Allied heavy tank with a distinctive profile.',
     compatibility: 'Compact hex-based tabletop play',
   },
   {

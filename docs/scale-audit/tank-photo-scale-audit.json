@@ -1,0 +1,732 @@
+[
+  {
+    "slug": "panzer-iv",
+    "name": "Panzer IV (Pz.Kpfw. IV)",
+    "nation": "Germany",
+    "type": "Medium tank",
+    "status": "",
+    "image": "assets/img/tanks/pz-iv-base-coat-side-detail.jpg",
+    "bodyLengthMm": 5920,
+    "imageExists": true
+  },
+  {
+    "slug": "sherman-m4a3",
+    "name": "Sherman M4A3 (Medium Tank M4A3 Sherman)",
+    "nation": "USA",
+    "type": "Medium tank",
+    "status": "",
+    "image": "assets/img/tanks/sherman-base-coat-side-detail.jpg",
+    "bodyLengthMm": 5840,
+    "imageExists": true
+  },
+  {
+    "slug": "t-34-85",
+    "name": "T-34/85 (T-34-85)",
+    "nation": "USSR",
+    "type": "Medium tank",
+    "status": "",
+    "image": "assets/img/tanks/t34-85-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6100,
+    "imageExists": true
+  },
+  {
+    "slug": "tiger-i",
+    "name": "Tiger I (Pz.Kpfw. VI Tiger Ausf. E)",
+    "nation": "Germany",
+    "type": "Heavy tank",
+    "status": "",
+    "image": "assets/img/tanks/tiger-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6320,
+    "imageExists": true
+  },
+  {
+    "slug": "su-85",
+    "name": "SU-85 (Samokhodnaya Ustanovka 85)",
+    "nation": "USSR",
+    "type": "Tank destroyer",
+    "status": "",
+    "image": "assets/img/tanks/su85-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6100,
+    "imageExists": true
+  },
+  {
+    "slug": "m18-hellcat",
+    "name": "M18 Hellcat (76 mm Gun Motor Carriage M18)",
+    "nation": "USA",
+    "type": "Tank destroyer",
+    "status": "",
+    "image": "assets/img/tanks/m18-hellcat-base-coat-side-detail.jpg",
+    "bodyLengthMm": 5280,
+    "imageExists": true
+  },
+  {
+    "slug": "e-100",
+    "name": "E-100 (Entwicklung 100)",
+    "nation": "Germany",
+    "type": "Super heavy tank",
+    "status": "Prototype / unfinished project",
+    "image": "assets/img/tanks/e100-base-coat-side-detail.jpg",
+    "bodyLengthMm": 8700,
+    "imageExists": true
+  },
+  {
+    "slug": "e-25",
+    "name": "E-25 (Entwicklung 25)",
+    "nation": "Germany",
+    "type": "Tank destroyer",
+    "status": "What-if / paper project",
+    "image": "assets/img/tanks/e25-base-coat-side-detail.jpg",
+    "bodyLengthMm": 5660,
+    "imageExists": true
+  },
+  {
+    "slug": "e-50",
+    "name": "E-50 (Entwicklung 50)",
+    "nation": "Germany",
+    "type": "Medium tank",
+    "status": "What-if / paper project",
+    "image": "assets/img/tanks/e50-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6870,
+    "imageExists": true
+  },
+  {
+    "slug": "e-75",
+    "name": "E-75 (Entwicklung 75)",
+    "nation": "Germany",
+    "type": "Heavy tank",
+    "status": "What-if / paper project",
+    "image": "assets/img/tanks/e75-base-coat-side-detail.jpg",
+    "bodyLengthMm": 7400,
+    "imageExists": true
+  },
+  {
+    "slug": "ferdinand",
+    "name": "Ferdinand (Sd.Kfz. 184 Ferdinand)",
+    "nation": "Germany",
+    "type": "Tank destroyer",
+    "status": "",
+    "image": "assets/img/tanks/ferdinand-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6810,
+    "imageExists": true
+  },
+  {
+    "slug": "hetzer",
+    "name": "Hetzer (Jagdpanzer 38 Hetzer)",
+    "nation": "Germany",
+    "type": "Tank destroyer",
+    "status": "",
+    "image": "assets/img/tanks/hetzer-base-coat-side-detail.jpg",
+    "bodyLengthMm": 4870,
+    "imageExists": true
+  },
+  {
+    "slug": "is-3",
+    "name": "IS-3 (Iosif Stalin-3)",
+    "nation": "USSR",
+    "type": "Heavy tank",
+    "status": "",
+    "image": "assets/img/tanks/is3-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6900,
+    "imageExists": true
+  },
+  {
+    "slug": "is-7",
+    "name": "IS-7 (Object 260)",
+    "nation": "USSR",
+    "type": "Heavy tank",
+    "status": "Prototype",
+    "image": "assets/img/tanks/is-7-base-coat-side-detail.jpg",
+    "bodyLengthMm": 7380,
+    "imageExists": true
+  },
+  {
+    "slug": "isu-152",
+    "name": "ISU-152 (ISU-152)",
+    "nation": "USSR",
+    "type": "Assault gun",
+    "status": "",
+    "image": "assets/img/tanks/isu152-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6770,
+    "imageExists": true
+  },
+  {
+    "slug": "jagdpanther",
+    "name": "Jagdpanther (Sd.Kfz. 173 Jagdpanther)",
+    "nation": "Germany",
+    "type": "Tank destroyer",
+    "status": "",
+    "image": "assets/img/tanks/jagdpanther-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6870,
+    "imageExists": true
+  },
+  {
+    "slug": "jagdpanther-ii",
+    "name": "Jagdpanther II (Jagdpanther 2)",
+    "nation": "Germany",
+    "type": "Tank destroyer",
+    "status": "What-if / paper project",
+    "image": "assets/img/tanks/jagdpanther-ii-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6870,
+    "imageExists": true
+  },
+  {
+    "slug": "jagdpz-iv",
+    "name": "Jagdpz IV (Jagdpanzer IV)",
+    "nation": "Germany",
+    "type": "Tank destroyer",
+    "status": "",
+    "image": "assets/img/tanks/jgdpz-iv-base-coat-side-detail.jpg",
+    "bodyLengthMm": 5900,
+    "imageExists": true
+  },
+  {
+    "slug": "jagdtiger",
+    "name": "Jagdtiger (Sd.Kfz. 186 Jagdtiger)",
+    "nation": "Germany",
+    "type": "Tank destroyer",
+    "status": "",
+    "image": "assets/img/tanks/jagdtiger-base-coat-side-detail.jpg",
+    "bodyLengthMm": 7450,
+    "imageExists": true
+  },
+  {
+    "slug": "luchs",
+    "name": "Luchs (Pz.Kpfw. II Ausf. L Luchs)",
+    "nation": "Germany",
+    "type": "Light tank",
+    "status": "",
+    "image": "assets/img/tanks/luchs-base-coat-side-detail.jpg",
+    "bodyLengthMm": 4630,
+    "imageExists": true
+  },
+  {
+    "slug": "m3-lee",
+    "name": "M3 Lee (Medium Tank M3 Lee)",
+    "nation": "USA",
+    "type": "Medium tank",
+    "status": "",
+    "image": "assets/img/tanks/m3-lee-base-coat-side-detail.jpg",
+    "bodyLengthMm": 5640,
+    "imageExists": true
+  },
+  {
+    "slug": "m5a1-stuart",
+    "name": "M5A1 Stuart (Light Tank M5A1 Stuart)",
+    "nation": "USA",
+    "type": "Light tank",
+    "status": "",
+    "image": "assets/img/tanks/m5a1-stuart-base-coat-side-detail.jpg",
+    "bodyLengthMm": 4840,
+    "imageExists": true
+  },
+  {
+    "slug": "maus",
+    "name": "Maus (Panzer VIII Maus)",
+    "nation": "Germany",
+    "type": "Super heavy tank",
+    "status": "Prototype",
+    "image": "assets/img/tanks/maus-base-coat-side-detail.jpg",
+    "bodyLengthMm": 10200,
+    "imageExists": true
+  },
+  {
+    "slug": "nashorn",
+    "name": "Nashorn (Sd.Kfz. 164 Nashorn)",
+    "nation": "Germany",
+    "type": "Tank destroyer",
+    "status": "",
+    "image": "assets/img/tanks/nashorn-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6200,
+    "imageExists": true
+  },
+  {
+    "slug": "panther",
+    "name": "Panther (Pz.Kpfw. V Panther)",
+    "nation": "Germany",
+    "type": "Medium tank",
+    "status": "",
+    "image": "assets/img/tanks/panther-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6870,
+    "imageExists": true
+  },
+  {
+    "slug": "panzer-iii",
+    "name": "Panzer III (Pz.Kpfw. III)",
+    "nation": "Germany",
+    "type": "Medium tank",
+    "status": "",
+    "image": "assets/img/tanks/pz-iii-base-coat-side-detail.jpg",
+    "bodyLengthMm": 5380,
+    "imageExists": true
+  },
+  {
+    "slug": "panzer-vii-loewe",
+    "name": "Panzer VII Loewe (Panzerkampfwagen VII Loewe)",
+    "nation": "Germany",
+    "type": "Super heavy tank",
+    "status": "What-if / paper project",
+    "image": "assets/img/tanks/loewe-base-coat-side-detail.jpg",
+    "bodyLengthMm": 7700,
+    "imageExists": true
+  },
+  {
+    "slug": "panzer-35t",
+    "name": "Panzer 35(t) (Lehký tank vz. 35)",
+    "nation": "Germany",
+    "type": "Light tank",
+    "status": "",
+    "image": "assets/img/tanks/pz35t-base-coat-side-detail.jpg",
+    "bodyLengthMm": 4900,
+    "imageExists": true
+  },
+  {
+    "slug": "panzer-38t",
+    "name": "Panzer 38(t) (Lehký tank vz. 38)",
+    "nation": "Germany",
+    "type": "Light tank",
+    "status": "",
+    "image": "assets/img/tanks/pz38t-base-coat-side-detail.jpg",
+    "bodyLengthMm": 4610,
+    "imageExists": true
+  },
+  {
+    "slug": "pershing",
+    "name": "Pershing (M26 Pershing)",
+    "nation": "USA",
+    "type": "Heavy tank",
+    "status": "",
+    "image": "assets/img/tanks/pershing-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6330,
+    "imageExists": true
+  },
+  {
+    "slug": "sherman-firefly",
+    "name": "Sherman Firefly (Sherman VC Firefly)",
+    "nation": "UK",
+    "type": "Medium tank",
+    "status": "",
+    "image": "assets/img/tanks/sherman-firefly-base-coat-side-detail.jpg",
+    "bodyLengthMm": 5840,
+    "imageExists": true
+  },
+  {
+    "slug": "stug-iv",
+    "name": "StuG IV (Sturmgeschütz IV)",
+    "nation": "Germany",
+    "type": "Assault gun",
+    "status": "",
+    "image": "assets/img/tanks/stug-base-coat-side-detail.jpg",
+    "bodyLengthMm": 5900,
+    "imageExists": true
+  },
+  {
+    "slug": "sd-kfz-234",
+    "name": "Sd.Kfz. 234 (Schwerer Panzerspaehwagen Sd.Kfz. 234)",
+    "nation": "Germany",
+    "type": "Armored car",
+    "status": "",
+    "image": "assets/img/tanks/sdkfz-234-base-coat-side-detail.jpg",
+    "bodyLengthMm": 5860,
+    "imageExists": true
+  },
+  {
+    "slug": "t-28",
+    "name": "T-28 (T-28 Medium Tank)",
+    "nation": "USSR",
+    "type": "Medium tank",
+    "status": "",
+    "image": "assets/img/tanks/t28-base-coat-side-detail.jpg",
+    "bodyLengthMm": 7440,
+    "imageExists": true
+  },
+  {
+    "slug": "t-34",
+    "name": "T-34 (T-34 Model 1942)",
+    "nation": "USSR",
+    "type": "Medium tank",
+    "status": "",
+    "image": "assets/img/tanks/t34-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6100,
+    "imageExists": true
+  },
+  {
+    "slug": "tiger-ii",
+    "name": "Tiger II (Pz.Kpfw. VI Tiger Ausf. B)",
+    "nation": "Germany",
+    "type": "Heavy tank",
+    "status": "",
+    "image": "assets/img/tanks/tiger-ii-base-coat-side-detail.jpg",
+    "bodyLengthMm": 7380,
+    "imageExists": true
+  },
+  {
+    "slug": "hummel",
+    "name": "Hummel (Sd.Kfz. 165 Hummel)",
+    "nation": "Germany",
+    "type": "Self-propelled artillery",
+    "status": "",
+    "image": "assets/img/tanks/hummel-base-coat-side-detail.jpg",
+    "bodyLengthMm": 7170,
+    "imageExists": true
+  },
+  {
+    "slug": "is-1",
+    "name": "IS-1 (Iosif Stalin-1)",
+    "nation": "USSR",
+    "type": "Heavy tank",
+    "status": "",
+    "image": "assets/img/tanks/is1-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6770,
+    "imageExists": true
+  },
+  {
+    "slug": "is-2",
+    "name": "IS-2 (Iosif Stalin-2)",
+    "nation": "USSR",
+    "type": "Heavy tank",
+    "status": "",
+    "image": "assets/img/tanks/is-2-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6770,
+    "imageExists": true
+  },
+  {
+    "slug": "isu-122",
+    "name": "ISU-122 (ISU-122)",
+    "nation": "USSR",
+    "type": "Tank destroyer",
+    "status": "",
+    "image": "assets/img/tanks/isu122-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6770,
+    "imageExists": true
+  },
+  {
+    "slug": "jagdpanzer-e100",
+    "name": "Jagdpanzer E 100 (Jagdpanzer E 100)",
+    "nation": "Germany",
+    "type": "Tank destroyer",
+    "status": "What-if / paper project",
+    "image": "assets/img/tanks/jagdpanzer-e100-base-coat-side-detail.jpg",
+    "bodyLengthMm": 8700,
+    "imageExists": true
+  },
+  {
+    "slug": "kv-1",
+    "name": "KV-1 (Kliment Voroshilov-1)",
+    "nation": "USSR",
+    "type": "Heavy tank",
+    "status": "",
+    "image": "assets/img/tanks/kv-1-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6750,
+    "imageExists": true
+  },
+  {
+    "slug": "kv-2",
+    "name": "KV-2 (Kliment Voroshilov-2)",
+    "nation": "USSR",
+    "type": "Heavy tank",
+    "status": "",
+    "image": "assets/img/tanks/kv2-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6790,
+    "imageExists": true
+  },
+  {
+    "slug": "churchill-iv-fascine",
+    "name": "Churchill IV Fascine (Churchill fascine carrier)",
+    "nation": "UK",
+    "type": "Engineering tank",
+    "status": "",
+    "image": "assets/img/tanks/churchill-iv-fascine-base-coat-side-detail.jpg",
+    "bodyLengthMm": 7440,
+    "imageExists": true
+  },
+  {
+    "slug": "churchill-iv",
+    "name": "Churchill IV (Infantry Tank Mk IV Churchill IV)",
+    "nation": "UK",
+    "type": "Heavy tank",
+    "status": "",
+    "image": "assets/img/tanks/churchill-iv-base-coat-side-detail.jpg",
+    "bodyLengthMm": 7440,
+    "imageExists": true
+  },
+  {
+    "slug": "m10-wolverine",
+    "name": "M10 Wolverine (3-inch Gun Motor Carriage M10)",
+    "nation": "USA",
+    "type": "Tank destroyer",
+    "status": "",
+    "image": "assets/img/tanks/m10-wolverine-base-coat-side-detail.jpg",
+    "bodyLengthMm": 5970,
+    "imageExists": true
+  },
+  {
+    "slug": "m10-achilles",
+    "name": "M10 Achilles (17-pounder SP Achilles)",
+    "nation": "UK",
+    "type": "Tank destroyer",
+    "status": "",
+    "image": "assets/img/tanks/m10-achilles-base-coat-side-detail.jpg",
+    "bodyLengthMm": 5970,
+    "imageExists": true
+  },
+  {
+    "slug": "m13-40",
+    "name": "M13/40 (Carro Armato M13/40)",
+    "nation": "Italy",
+    "type": "Medium tank",
+    "status": "",
+    "image": "assets/img/tanks/m13-40-base-coat-side-detail.jpg",
+    "bodyLengthMm": 4920,
+    "imageExists": true
+  },
+  {
+    "slug": "m14-41",
+    "name": "M14/41 (Carro Armato M14/41)",
+    "nation": "Italy",
+    "type": "Medium tank",
+    "status": "",
+    "image": "assets/img/tanks/m14-41-base-coat-side-detail.jpg",
+    "bodyLengthMm": 4920,
+    "imageExists": true
+  },
+  {
+    "slug": "m3-half-track",
+    "name": "M3 Half-track (M3 Half-track)",
+    "nation": "USA",
+    "type": "Half-track",
+    "status": "",
+    "image": "assets/img/tanks/m3-half-truck-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6180,
+    "imageExists": true
+  },
+  {
+    "slug": "opel-blitz",
+    "name": "Opel Blitz Truck (Opel Blitz 3-ton Truck)",
+    "nation": "Germany",
+    "type": "Truck",
+    "status": "",
+    "image": "assets/img/tanks/opel-blitz-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6100,
+    "imageExists": true
+  },
+  {
+    "slug": "m60a1",
+    "name": "M60A1 (M60A1 Patton)",
+    "nation": "USA",
+    "type": "Main battle tank",
+    "status": "",
+    "image": "assets/img/tanks/m60a1-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6950,
+    "imageExists": true
+  },
+  {
+    "slug": "m7-priest",
+    "name": "M7 Priest (105 mm Howitzer Motor Carriage M7)",
+    "nation": "USA",
+    "type": "Self-propelled artillery",
+    "status": "",
+    "image": "assets/img/tanks/m7-priest-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6020,
+    "imageExists": true
+  },
+  {
+    "slug": "m8-greyhound",
+    "name": "M8 Greyhound (Light Armored Car M8)",
+    "nation": "USA",
+    "type": "Armored car",
+    "status": "",
+    "image": "assets/img/tanks/m8-greyhound-base-coat-side-detail.jpg",
+    "bodyLengthMm": 5000,
+    "imageExists": true
+  },
+  {
+    "slug": "su-76",
+    "name": "SU-76 (Samokhodnaya Ustanovka 76)",
+    "nation": "USSR",
+    "type": "Self-propelled gun",
+    "status": "",
+    "image": "assets/img/tanks/su76-base-coat-side-detail.jpg",
+    "bodyLengthMm": 5000,
+    "imageExists": true
+  },
+  {
+    "slug": "su-100",
+    "name": "SU-100 (Samokhodnaya Ustanovka 100)",
+    "nation": "USSR",
+    "type": "Tank destroyer",
+    "status": "",
+    "image": "assets/img/tanks/su100-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6100,
+    "imageExists": true
+  },
+  {
+    "slug": "su-122",
+    "name": "SU-122 (Samokhodnaya Ustanovka 122)",
+    "nation": "USSR",
+    "type": "Self-propelled gun",
+    "status": "",
+    "image": "assets/img/tanks/su122-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6100,
+    "imageExists": true
+  },
+  {
+    "slug": "t-34-minesweeper",
+    "name": "T-34 Minesweeper (T-34 Mine Roller)",
+    "nation": "USSR",
+    "type": "Engineering tank",
+    "status": "",
+    "image": "assets/img/tanks/t34-minesweeper-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6100,
+    "imageExists": true
+  },
+  {
+    "slug": "a-32",
+    "name": "A-32 (A-32 Prototype)",
+    "nation": "USSR",
+    "type": "Medium tank",
+    "status": "Prototype",
+    "image": "assets/img/tanks/a32-base-coat-side-detail.jpg",
+    "bodyLengthMm": 5920,
+    "imageExists": true
+  },
+  {
+    "slug": "t-35",
+    "name": "T-35 (T-35 Heavy Tank)",
+    "nation": "USSR",
+    "type": "Heavy tank",
+    "status": "",
+    "image": "assets/img/tanks/t-35-base-coat-side-detail.jpg",
+    "bodyLengthMm": 9720,
+    "imageExists": true
+  },
+  {
+    "slug": "zis-42",
+    "name": "ZiS-42 (ZiS-42 Half-track Truck)",
+    "nation": "USSR",
+    "type": "Half-track",
+    "status": "",
+    "image": "assets/img/tanks/zis-42-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6100,
+    "imageExists": true
+  },
+  {
+    "slug": "t-38",
+    "name": "T-38 (T-38 Amphibious Scout Tank)",
+    "nation": "USSR",
+    "type": "Light tank",
+    "status": "",
+    "image": "assets/img/tanks/t-38-base-coat-side-detail.jpg",
+    "bodyLengthMm": 3780,
+    "imageExists": true
+  },
+  {
+    "slug": "gaz-aa",
+    "name": "GAZ-AA Truck (GAZ-AA)",
+    "nation": "USSR",
+    "type": "Truck",
+    "status": "",
+    "image": "assets/img/tanks/gaz-aa-base-coat-side-detail.jpg",
+    "bodyLengthMm": 5340,
+    "imageExists": true
+  },
+  {
+    "slug": "t-26",
+    "name": "T-26 (T-26 Light Tank)",
+    "nation": "USSR",
+    "type": "Light tank",
+    "status": "",
+    "image": "assets/img/tanks/t-26-base-coat-side-detail.jpg",
+    "bodyLengthMm": 4650,
+    "imageExists": true
+  },
+  {
+    "slug": "ba-64",
+    "name": "BA-64 (BA-64 Armored Car)",
+    "nation": "USSR",
+    "type": "Armored car",
+    "status": "",
+    "image": "assets/img/tanks/ba-64-base-coat-side-detail.jpg",
+    "bodyLengthMm": 3660,
+    "imageExists": true
+  },
+  {
+    "slug": "stz-5",
+    "name": "STZ-5 (STZ-5 Artillery Tractor)",
+    "nation": "USSR",
+    "type": "Artillery tractor",
+    "status": "",
+    "image": "assets/img/tanks/stz-5-base-coat-side-detail.jpg",
+    "bodyLengthMm": 4150,
+    "imageExists": true
+  },
+  {
+    "slug": "t-26-twin-turret",
+    "name": "T-26 Twin-Turret (T-26 Model 1931)",
+    "nation": "USSR",
+    "type": "Light tank",
+    "status": "",
+    "image": "assets/img/tanks/t-26-twin-turret-base-coat-side-detail.jpg",
+    "bodyLengthMm": 4650,
+    "imageExists": true
+  },
+  {
+    "slug": "ba-6",
+    "name": "BA-6 (BA-6 Armored Car)",
+    "nation": "USSR",
+    "type": "Armored car",
+    "status": "",
+    "image": "assets/img/tanks/ba-6-base-coat-side-detail.jpg",
+    "bodyLengthMm": 4900,
+    "imageExists": true
+  },
+  {
+    "slug": "b-4-howitzer",
+    "name": "B-4 Howitzer (203 mm Howitzer M1931 B-4)",
+    "nation": "USSR",
+    "type": "Artillery",
+    "status": "",
+    "image": "assets/img/tanks/b-4-howitzer-base-coat-side-detail.jpg",
+    "bodyLengthMm": 9360,
+    "imageExists": true
+  },
+  {
+    "slug": "t-70",
+    "name": "T-70 (T-70 Light Tank)",
+    "nation": "USSR",
+    "type": "Light tank",
+    "status": "",
+    "image": "assets/img/tanks/t70-base-coat-side-detail.jpg",
+    "bodyLengthMm": 4290,
+    "imageExists": true
+  },
+  {
+    "slug": "wespe",
+    "name": "Wespe (Sd.Kfz. 124 Wespe)",
+    "nation": "Germany",
+    "type": "Self-propelled artillery",
+    "status": "",
+    "image": "assets/img/tanks/wespe-base-coat-side-detail.jpg",
+    "bodyLengthMm": 4790,
+    "imageExists": true
+  },
+  {
+    "slug": "type-95-ha-go",
+    "name": "Type 95 Ha-Go (Type 95 Light Tank Ha-Go)",
+    "nation": "Japan",
+    "type": "Light tank",
+    "status": "",
+    "image": "assets/img/tanks/type95-base-coat-side-detail.jpg",
+    "bodyLengthMm": 4380,
+    "imageExists": true
+  },
+  {
+    "slug": "type-97-chi-ha",
+    "name": "Type 97 Chi-Ha (Type 97 Medium Tank Chi-Ha)",
+    "nation": "Japan",
+    "type": "Medium tank",
+    "status": "",
+    "image": "assets/img/tanks/type97-base-coat-side-detail.jpg",
+    "bodyLengthMm": 5520,
+    "imageExists": true
+  }
+]

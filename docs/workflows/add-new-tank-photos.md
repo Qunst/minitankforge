@@ -21,8 +21,11 @@ Use this workflow when adding a new batch of tank photos to MiniTankForge.
 - Do not crop each tank to fill the frame.
 - Preserve believable visual scale across the site.
 - Use existing tank photos as scale references, not only automatic crop detection.
+- Check real vehicle dimensions before choosing crop scale.
+- Prefer body/hull length for scale comparison, not gun-forward overall length. Online dimensions may include or exclude barrels, and barrel-included dimensions can make long-gun tanks look incorrectly small.
 - Keep tanks centered with enough padding so hulls and barrels are not cut off.
 - The same tank must keep the same apparent scale between base coat and unpainted photos.
+- Treat scale and framing as separate checks: a crop can be the correct size but still be bad if the vehicle is too high/low, clipped, or awkwardly crowded.
 
 ## Scale References
 
@@ -30,6 +33,24 @@ Use this workflow when adding a new batch of tank photos to MiniTankForge.
 - Medium tanks: compare with Panther / T-34 / Sherman.
 - Super-heavy tanks: compare with Jagdpanzer E 100 / Maus-class expectations.
 - Small tanks: keep visibly smaller than medium tanks.
+- Same-family vehicles must be checked together when possible:
+  - KV-1 and KV-2 should read as similar hull scale; KV-2 is taller, not much longer.
+  - IS, ISU, and SU vehicles should stay coherent with their shared chassis families.
+  - Sherman, Firefly, M10, and Achilles should not drift wildly from each other.
+  - Panzer IV, StuG IV, and Jagdpanzer IV should remain visually related.
+  - Churchill variants should read as long heavy infantry tanks, noticeably longer than Shermans.
+
+## Required Size Check
+
+Before making crop proposals:
+
+1. Look up or estimate each new vehicle's real body/hull length.
+2. Note whether the common published length includes the gun/barrel. If uncertain, do not use barrel-inclusive length as the only scale target.
+3. Pick at least two existing site references:
+   - one close in real body/hull length;
+   - one smaller or larger nearby vehicle to bracket the expected size.
+4. Use the existing final card images as visual references, and original source photos where available.
+5. If a new vehicle is fictional, prototype, or paper-project, use the closest chassis or intended family as the scale reference and note that assumption.
 
 ## Preview First
 
@@ -37,11 +58,17 @@ Before writing final images:
 
 1. Read the source folder and identify each tank group from the manually named first file.
 2. Match each new tank to a reference already on the site.
-3. Create temporary proposed crops only.
-4. Make a preview sheet comparing each new tank side-by-side with its reference.
-5. Make a second preview sheet showing all 6 crops for every new tank.
-6. Check relative tank size first, then centering and clipping.
-7. Stop and show the previews for approval.
+3. Do the required size check above.
+4. Create temporary proposed crops only.
+5. Make a scale comparison preview sheet comparing each new tank side-by-side with close references.
+6. Make a second preview sheet showing all 6 crops for every new tank.
+7. Check relative tank size first.
+8. Then check framing/cropping separately:
+   - no hull, barrel, fascine, gun shield, tracks, or wheels cut off;
+   - enough headroom above tall turrets, guns, fascines, or artillery parts;
+   - model should not sit jammed against the top/bottom edge;
+   - base coat and unpainted versions should have matching apparent scale and placement.
+9. Stop and show the previews for approval.
 
 Do not apply final images until the preview is approved.
 
@@ -64,6 +91,7 @@ After final images are applied:
 
 - Add or update the tank in `assets/js/tanks-data.js` if needed.
 - Add or update the detail gallery mapping in `assets/js/app.js` if needed.
+- Re-check the browse/card side image against nearby vehicles after final writes.
 - Run syntax and image existence checks.
 
 ## Cleanup

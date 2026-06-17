@@ -205,11 +205,19 @@ Tank crop rule:
 - Do not crop every tank to fill the frame.
 - The goal is consistent visual model scale across the site.
 - Match new tanks to a reference tank before final output.
+- Check real vehicle body/hull dimensions before choosing crop scale.
+- Do not blindly use online "length" if it includes the gun/barrel. Barrel-inclusive dimensions can make long-gun vehicles look too small.
+- Treat scale and framing as separate approval checks. A crop can be the right size but still bad if the vehicle is clipped, too high/low in frame, or too crowded.
 - Examples:
   - Heavy tanks compare to Tiger II / Tiger.
   - Medium tanks compare to Panther / T-34 / Sherman.
   - Super-heavy tanks compare to Jagdpanzer E 100 / Maus-class expectations.
   - Small Japanese tanks should remain visibly smaller.
+- Same-family sanity checks matter:
+  - KV-1 and KV-2 should have similar hull scale; KV-2 is much taller but not much longer.
+  - Sherman / Firefly / M10 / Achilles should remain visually coherent.
+  - Panzer IV / StuG IV / Jagdpanzer IV should remain visually coherent.
+  - Churchill variants should read as long heavy infantry tanks, not Sherman-sized.
 - If unsure about expected real/model size, stop and ask.
 - Create a preview sheet before writing final cropped images when adding new tank batches.
 
@@ -415,7 +423,8 @@ Recommended first response/action pattern:
 For image-heavy tasks:
 - Generate preview sheets before finalizing when there is any uncertainty.
 - Show previews with `view_image`.
-- Do not write final output until the relative size/crop is checked.
+- Do not write final output until both relative size and framing/crop are checked.
+- For tank photos, compare body/hull scale against real dimensions and nearby site references; then separately check for clipping, headroom, and awkward top/bottom placement.
 
 For Etsy listing tasks:
 - Use `docs/workflows/make-etsy-listing-packet.md`.
@@ -441,6 +450,7 @@ For Etsy link updates:
 - `assets/img/unused/**` is intentionally ignored by git. Do not expect those originals to deploy.
 - Some old workflows produced temporary preview images. Clean previews up unless the owner wants to keep them.
 - The owner cares strongly about correct tank scale in photos. Do not crop tanks to identical visual size.
+- The owner also cares strongly about framing. Do not accept a crop just because scale is correct; check that barrels, fascines, tracks, wheels, artillery parts, and tall turrets are not cut off or jammed against the edge.
 - Etsy tag limit is 20 characters per tag. Check tags before giving them.
 - Etsy material should be `Resin`, not `ABS-like resin`.
 - Etsy scale attribute can only be one value, even if variations include multiple scales.
@@ -467,4 +477,3 @@ Set/game direct URLs currently exist for:
 - Lone Sherman Pacific Pack
 
 When the owner provides a new Etsy URL, update the matching `etsyUrl` only.
-

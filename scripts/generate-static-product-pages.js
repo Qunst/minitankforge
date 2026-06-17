@@ -667,8 +667,8 @@ ${internalLinksHtml}
     imageAlt: tankImageAlt(tank),
     body,
     scripts: [
-      '<script defer src="/assets/js/tanks-data.js?v=23"></script>',
-      '<script defer src="/assets/js/app.js?v=40"></script>',
+      '<script defer src="/assets/js/tanks-data.js?v=24"></script>',
+      '<script defer src="/assets/js/app.js?v=41"></script>',
     ],
     jsonLd: [
       jsonLdScript('tank-product-jsonld', product),
@@ -784,9 +784,9 @@ ${contentsHtml}
     imageAlt: setImageAlt(set),
     body,
     scripts: [
-      '<script defer src="/assets/js/tanks-data.js?v=23"></script>',
+      '<script defer src="/assets/js/tanks-data.js?v=24"></script>',
       '<script defer src="/assets/js/sets-data.js?v=18"></script>',
-      '<script defer src="/assets/js/app.js?v=40"></script>',
+      '<script defer src="/assets/js/app.js?v=41"></script>',
     ],
     jsonLd: [
       jsonLdScript('set-product-jsonld', product),
