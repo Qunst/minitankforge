@@ -452,7 +452,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'light-medium',
     image: 'assets/img/tanks/jagdpanther-ii-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4524627915/jagdpanther-ii-german-tank-destroyer',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
@@ -1105,7 +1105,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-medium',
     image: 'assets/img/tanks/kv-1-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4524627029/kv-1-soviet-heavy-tank-miniature-3d',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
@@ -1183,7 +1183,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-medium',
     image: 'assets/img/tanks/churchill-iv-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4524635312/churchill-iv-british-heavy-tank',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
