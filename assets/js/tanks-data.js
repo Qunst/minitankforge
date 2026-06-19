@@ -1154,7 +1154,7 @@ window.TANKS = [
     era: 'WW2',
     type: 'Engineering tank',
     featured: false,
-    disabled: false,
+    disabled: true,
     placeholderStyle: 'dark-medium',
     image: 'assets/img/tanks/churchill-iv-fascine-base-coat-side-detail.jpg',
     etsyUrl: '',
