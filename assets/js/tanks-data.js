@@ -835,16 +835,16 @@ window.TANKS = [
     compatibility: 'Compact hex-based tabletop play',
   },
   {
-    slug: 'stug-iv',
-    name: 'StuG IV (Sturmgeschütz IV)',
+    slug: 'stug-iii',
+    name: 'StuG III (Sturmgeschütz III)',
     nation: 'Germany',
     era: 'WW2',
     type: 'Assault gun',
     featured: false,
     disabled: false,
     placeholderStyle: 'dark-medium',
-    image: 'assets/img/tanks/stug-base-coat-side-detail.jpg',
-    etsyUrl: 'https://www.etsy.com/listing/4497710655/stug-iv-german-assault-gun-miniature-3d',
+    image: 'assets/img/tanks/stug-iii-base-coat-side-detail.jpg',
+    etsyUrl: 'https://www.etsy.com/listing/4497710655',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
@@ -856,8 +856,8 @@ window.TANKS = [
       'Base coat': 1.0,
       'Unpainted': 0.0
     },
-    fact: 'The StuG IV used the Panzer IV chassis to keep assault-gun production going when StuG III manufacturing was disrupted.',
-    description: 'The StuG IV is a German assault gun that fits well into late-war support roles and mixed defensive formations. Its Panzer IV-based hull makes it a good companion to Panzer IV and Jagdpanzer IV models while still adding a different battlefield purpose.',
+    fact: 'The StuG III was built on the Panzer III chassis and became Germany\'s most widely produced fully tracked armored fighting vehicle of the war.',
+    description: 'The StuG III is a German assault gun that fits well into late-war support roles, defensive formations, and compact tabletop armor groups. Its low casemate shape and Panzer III-based chassis make it a useful companion to Panzer III, Panzer IV, and German tank destroyer models while still adding a different battlefield purpose.',
     compatibility: 'Compact hex-based tabletop play',
   },
   {

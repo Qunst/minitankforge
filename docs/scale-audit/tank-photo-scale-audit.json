@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "slug": "panzer-iv",
     "name": "Panzer IV (Pz.Kpfw. IV)",
@@ -310,12 +310,12 @@
     "imageExists": true
   },
   {
-    "slug": "stug-iv",
+    "slug": "stug-iii",
     "name": "StuG IV (Sturmgeschütz IV)",
     "nation": "Germany",
     "type": "Assault gun",
     "status": "",
-    "image": "assets/img/tanks/stug-base-coat-side-detail.jpg",
+    "image": "assets/img/tanks/stug-iii-base-coat-side-detail.jpg",
     "bodyLengthMm": 5900,
     "imageExists": true
   },

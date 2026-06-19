@@ -46,7 +46,7 @@ const bodyLengths = {
   'panzer-38t': 4610,
   pershing: 6330,
   'sherman-firefly': 5840,
-  'stug-iv': 5900,
+  'stug-iii': 5900,
   'sd-kfz-234': 5860,
   't-28': 7440,
   't-34': 6100,

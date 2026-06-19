@@ -37,7 +37,7 @@ Use this workflow when adding a new batch of tank photos to MiniTankForge.
   - KV-1 and KV-2 should read as similar hull scale; KV-2 is taller, not much longer.
   - IS, ISU, and SU vehicles should stay coherent with their shared chassis families.
   - Sherman, Firefly, M10, and Achilles should not drift wildly from each other.
-  - Panzer IV, StuG IV, and Jagdpanzer IV should remain visually related.
+  - Panzer III and StuG III should remain visually related; Panzer IV and Jagdpanzer IV should remain visually related.
   - Churchill variants should read as long heavy infantry tanks, noticeably longer than Shermans.
 
 ## Required Size Check

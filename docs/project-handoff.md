@@ -216,7 +216,7 @@ Tank crop rule:
 - Same-family sanity checks matter:
   - KV-1 and KV-2 should have similar hull scale; KV-2 is much taller but not much longer.
   - Sherman / Firefly / M10 / Achilles should remain visually coherent.
-  - Panzer IV / StuG IV / Jagdpanzer IV should remain visually coherent.
+  - Panzer III / StuG III should remain visually coherent; Panzer IV / Jagdpanzer IV should remain visually coherent.
   - Churchill variants should read as long heavy infantry tanks, not Sherman-sized.
 - If unsure about expected real/model size, stop and ask.
 - Create a preview sheet before writing final cropped images when adding new tank batches.

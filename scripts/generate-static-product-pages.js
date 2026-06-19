@@ -379,7 +379,7 @@ const setContentTankAliases = {
   'sd kfz 234': 'sd-kfz-234',
   'sherman firefly': 'sherman-firefly',
   'sherman': 'sherman-m4a3',
-  'stug iv': 'stug-iv',
+  'stug iii': 'stug-iii',
   'su 76': 'su-76',
   'su 85': 'su-85',
   'su 100': 'su-100',

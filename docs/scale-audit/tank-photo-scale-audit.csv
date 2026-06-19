@@ -1,4 +1,4 @@
-slug,name,nation,type,status,bodyLengthMm,image,imageExists
+﻿slug,name,nation,type,status,bodyLengthMm,image,imageExists
 panzer-iv,"Panzer IV (Pz.Kpfw. IV)",Germany,"Medium tank","",5920,assets/img/tanks/pz-iv-base-coat-side-detail.jpg,true
 sherman-m4a3,"Sherman M4A3 (Medium Tank M4A3 Sherman)",USA,"Medium tank","",5840,assets/img/tanks/sherman-base-coat-side-detail.jpg,true
 t-34-85,"T-34/85 (T-34-85)",USSR,"Medium tank","",6100,assets/img/tanks/t34-85-base-coat-side-detail.jpg,true
@@ -30,7 +30,7 @@ panzer-35t,"Panzer 35(t) (Lehký tank vz. 35)",Germany,"Light tank","",4900,asse
 panzer-38t,"Panzer 38(t) (Lehký tank vz. 38)",Germany,"Light tank","",4610,assets/img/tanks/pz38t-base-coat-side-detail.jpg,true
 pershing,"Pershing (M26 Pershing)",USA,"Heavy tank","",6330,assets/img/tanks/pershing-base-coat-side-detail.jpg,true
 sherman-firefly,"Sherman Firefly (Sherman VC Firefly)",UK,"Medium tank","",5840,assets/img/tanks/sherman-firefly-base-coat-side-detail.jpg,true
-stug-iv,"StuG IV (Sturmgeschütz IV)",Germany,"Assault gun","",5900,assets/img/tanks/stug-base-coat-side-detail.jpg,true
+stug-iii,"StuG III (Sturmgeschütz III)",Germany,"Assault gun","",5900,assets/img/tanks/stug-iii-base-coat-side-detail.jpg,true
 sd-kfz-234,"Sd.Kfz. 234 (Schwerer Panzerspaehwagen Sd.Kfz. 234)",Germany,"Armored car","",5860,assets/img/tanks/sdkfz-234-base-coat-side-detail.jpg,true
 t-28,"T-28 (T-28 Medium Tank)",USSR,"Medium tank","",7440,assets/img/tanks/t28-base-coat-side-detail.jpg,true
 t-34,"T-34 (T-34 Model 1942)",USSR,"Medium tank","",6100,assets/img/tanks/t34-base-coat-side-detail.jpg,true

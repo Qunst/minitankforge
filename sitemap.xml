@@ -213,10 +213,6 @@
     <lastmod>2026-05-06</lastmod>
   </url>
   <url>
-    <loc>https://minitankforge.com/tanks/stug-iv/</loc>
-    <lastmod>2026-05-06</lastmod>
-  </url>
-  <url>
     <loc>https://minitankforge.com/tanks/t-28/</loc>
     <lastmod>2026-05-06</lastmod>
   </url>
@@ -431,5 +427,9 @@
   <url>
     <loc>https://minitankforge.com/tanks/churchill-iv/</loc>
     <lastmod>2026-06-17</lastmod>
+  </url>
+  <url>
+    <loc>https://minitankforge.com/tanks/stug-iii/</loc>
+    <lastmod>2026-06-19</lastmod>
   </url>
 </urlset>
