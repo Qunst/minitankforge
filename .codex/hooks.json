@@ -1,0 +1,18 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node scripts/start-local-server.mjs",
+            "commandWindows": ".codex\\hooks\\start-local-server.cmd",
+            "timeout": 10,
+            "statusMessage": "Starting MiniTankForge local server"
+          }
+        ]
+      }
+    ]
+  }
+}

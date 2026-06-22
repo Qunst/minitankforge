@@ -5,4 +5,5 @@
 .env*
 !.env.example
 .python-packages/
+.codex/logs/
 assets/img/unused/**

@@ -382,6 +382,45 @@ section {
   gap: 8px
 }
 
+.tank-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 10px 0 12px;
+}
+
+.tank-tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 6px 10px;
+  border: 1px solid rgba(109, 76, 47, .26);
+  border-radius: 6px;
+  background: rgba(239, 231, 218, .68);
+  color: #4e3b2b;
+  font-size: .78rem;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.tank-tag-list-card {
+  margin: 8px 0 10px;
+}
+
+.tank-tag-list-detail {
+  max-width: 760px;
+  margin-top: 14px;
+  margin-bottom: 18px;
+}
+
+.tank-tag-list-detail .tank-tag {
+  min-height: 32px;
+  padding: 8px 12px;
+  background: rgba(255, 251, 240, .86);
+  border-color: rgba(109, 76, 47, .34);
+}
+
 .kicker {
   font-size: .82rem;
   font-weight: 800;

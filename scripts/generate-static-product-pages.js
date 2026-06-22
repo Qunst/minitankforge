@@ -302,6 +302,56 @@ function getTankMetaDescription(tank, availableScales) {
   return `Browse the ${getDisplayName(tank.name)} 3D printed ${tank.era} ${getTankSnippetType(tank).toLowerCase()} in ${availableScales.join(', ')}. Choose finish, request direct, or use Etsy.`;
 }
 
+const tankHighlightTagOverrides = {
+  'e-100': ['What-if', 'Game-famous', 'WoT'],
+  'e-25': ['What-if', 'Game-famous', 'WoT'],
+  'jagdpanther': ['Iconic', 'WoT'],
+  'kv-2': ['Meme tank', 'Game-famous', 'WoT'],
+  'maus': ['Iconic', 'Game-famous', 'WoT'],
+  'panther': ['Iconic', 'Late war', 'WoT'],
+  'sherman-m4a3': ['Iconic', 'Beginner pick', 'WoT'],
+  'stug-iii': ['Beginner pick', 'Late war', 'WoT'],
+  't-34': ['Iconic', 'Beginner pick', 'WoT'],
+  't-34-85': ['Iconic', 'Late war', 'WoT'],
+  'tiger-i': ['Iconic', 'Game-famous', 'WoT'],
+  'tiger-ii': ['Iconic', 'Late war', 'WoT'],
+};
+
+function getTankHighlightTags(tank) {
+  const tags = [];
+  const addTag = tag => {
+    const label = String(tag || '').trim();
+    if (label && !tags.includes(label)) tags.push(label);
+  };
+
+  (Array.isArray(tank?.siteTags) ? tank.siteTags : tankHighlightTagOverrides[tank?.slug] || []).forEach(addTag);
+
+  const status = String(tank?.historicalStatus || '').toLowerCase();
+  if (status.includes('what-if')) addTag('What-if');
+  if (status.includes('prototype') || status.includes('paper') || status.includes('unfinished')) addTag('Prototype');
+
+  return tags;
+}
+
+function getTankDetailTags(tank) {
+  return [
+    tank.nation,
+    tank.era,
+    tank.type,
+    ...getTankHighlightTags(tank),
+  ].filter(Boolean);
+}
+
+function renderTankSiteTags(tank, { limit = Infinity, modifier = '' } = {}) {
+  const tags = getTankDetailTags(tank).slice(0, limit);
+  if (!tags.length) return '';
+
+  return `
+      <div class="tank-tag-list ${modifier}" aria-label="Browse tags">
+        ${tags.map(tag => `<span class="tank-tag">${escapeHtml(tag)}</span>`).join('')}
+      </div>`;
+}
+
 function renderSetStaticContents(set) {
   const options = Array.isArray(set.options) ? set.options : [];
 
@@ -622,6 +672,7 @@ function writeTankPage(tank, data) {
       <div class="eyebrow">Single tank page</div>
       <h1 class="page-title">${escapeHtml(tank.name)}</h1>
       <p class="lead">Review scale, finish, and details before sending a direct request or continuing to Etsy.</p>
+      ${renderTankSiteTags(tank, { modifier: 'tank-tag-list-detail' })}
       <a class="detail-back-link" href="/tanks.html">Back to all tanks</a>
     </section>
     <section class="split">

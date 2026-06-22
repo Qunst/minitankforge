@@ -377,6 +377,66 @@ function escapeHtml(value) {
     .replaceAll("'", '&#39;');
 }
 
+const tankHighlightTagOverrides = {
+  'e-100': ['What-if', 'Game-famous', 'WoT'],
+  'e-25': ['What-if', 'Game-famous', 'WoT'],
+  'jagdpanther': ['Iconic', 'WoT'],
+  'kv-2': ['Meme tank', 'Game-famous', 'WoT'],
+  'maus': ['Iconic', 'Game-famous', 'WoT'],
+  'panther': ['Iconic', 'Late war', 'WoT'],
+  'sherman-m4a3': ['Iconic', 'Beginner pick', 'WoT'],
+  'stug-iii': ['Beginner pick', 'Late war', 'WoT'],
+  't-34': ['Iconic', 'Beginner pick', 'WoT'],
+  't-34-85': ['Iconic', 'Late war', 'WoT'],
+  'tiger-i': ['Iconic', 'Game-famous', 'WoT'],
+  'tiger-ii': ['Iconic', 'Late war', 'WoT'],
+};
+
+function getTankHighlightTags(tank) {
+  const tags = [];
+  const addTag = tag => {
+    const label = String(tag || '').trim();
+    if (label && !tags.includes(label)) tags.push(label);
+  };
+
+  (Array.isArray(tank?.siteTags) ? tank.siteTags : tankHighlightTagOverrides[tank?.slug] || []).forEach(addTag);
+
+  const status = String(tank?.historicalStatus || '').toLowerCase();
+  if (status.includes('what-if')) addTag('What-if');
+  if (status.includes('prototype') || status.includes('paper') || status.includes('unfinished')) addTag('Prototype');
+
+  return tags;
+}
+
+function getTankCardTags(tank) {
+  return [
+    tank.nation,
+    tank.type,
+    ...getTankHighlightTags(tank),
+  ].filter(Boolean);
+}
+
+function getTankDetailTags(tank) {
+  return [
+    tank.nation,
+    tank.era,
+    tank.type,
+    ...getTankHighlightTags(tank),
+  ].filter(Boolean);
+}
+
+function renderTankSiteTags(tank, { limit = Infinity, modifier = '', context = 'detail' } = {}) {
+  const sourceTags = context === 'card' ? getTankCardTags(tank) : getTankDetailTags(tank);
+  const tags = sourceTags.slice(0, limit);
+  if (!tags.length) return '';
+
+  return `
+    <div class="tank-tag-list ${modifier}" aria-label="Browse tags">
+      ${tags.map(tag => `<span class="tank-tag">${escapeHtml(tag)}</span>`).join('')}
+    </div>
+  `;
+}
+
 function normalizeTankLookup(value) {
   return String(value || '')
     .toLowerCase()
@@ -671,7 +731,6 @@ function bindTankDetailGallery(root = document) {
 
 function buildTankCard(tank) {
   const detailUrl = getTankDetailUrl(tank);
-  const statusBadge = tank.historicalStatus ? `<span class="badge">${tank.historicalStatus}</span>` : '';
 
   return `
     <article class="card product-card">
@@ -680,12 +739,7 @@ function buildTankCard(tank) {
       </a>
       <div>
         <h3>${tank.name}</h3>
-        <div class="product-meta">
-          <span class="badge">${tank.nation}</span>
-          <span class="badge">${tank.type}</span>
-          <span class="badge">${tank.era}</span>
-          ${statusBadge}
-        </div>
+        ${renderTankSiteTags(tank, { limit: 4, modifier: 'tank-tag-list-card', context: 'card' })}
         <div class="tank-card-price">${getTankPriceRange(tank)}</div>
         <p class="muted fun-fact">${tank.fact}</p>
       </div>
@@ -1386,6 +1440,7 @@ function renderTankDetail() {
       <div class="eyebrow">Single tank page</div>
       <h1 class="page-title">${tank.name}</h1>
       <p class="lead">Review scale, finish, and details before sending a direct request or continuing to Etsy.</p>
+      ${renderTankSiteTags(tank, { modifier: 'tank-tag-list-detail', context: 'detail' })}
       <a class="detail-back-link" href="/tanks.html">Back to all tanks</a>
     </section>
     <section class="split">
