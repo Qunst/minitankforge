@@ -1,6 +1,6 @@
 # MiniTankForge Project Handoff
 
-Last updated: 2026-05-06
+Last updated: 2026-06-23
 
 This document is for future Codex sessions. Read this first before making changes.
 
@@ -56,6 +56,24 @@ Important assets:
 - `docs/workflows/add-new-tank-photos.md` - saved workflow for adding tank photos
 - `docs/workflows/make-etsy-listing-packet.md` - saved workflow for Etsy listing packets
 
+Static generated pages:
+- Individual tank pages live under `tanks/[slug]/index.html`.
+- Individual set pages live under `sets/[slug]/index.html`.
+- `scripts/generate-static-product-pages.js` regenerates those static pages from `assets/js/tanks-data.js`, `assets/js/sets-data.js`, and shared generator logic.
+- After changing tank/set data, product-page rendering, detail-page tag logic, internal links, or generated-page metadata, run:
+```powershell
+& "$env:USERPROFILE\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe" scripts\generate-static-product-pages.js
+```
+- If Node is available on PATH, `node scripts\generate-static-product-pages.js` is also fine, but do not assume PATH is configured on this Windows machine.
+
+Local development server:
+- The local static server is `scripts/local-static-server.mjs`.
+- It serves the repo root at `http://127.0.0.1:8000/`.
+- Start/check helper: `scripts/start-local-server.mjs`.
+- VS Code auto-start support exists in `.vscode/tasks.json` and `.vscode/start-local-server.cmd` using `runOn: folderOpen`.
+- Codex hook support exists in `.codex/hooks.json` and `.codex/hooks/start-local-server.cmd`; hooks may require trust/approval in Codex settings.
+- Server logs go under `.codex/logs/`, which is ignored by git.
+
 Cloudflare deployment:
 - `wrangler.jsonc` deploys static assets from the repo root.
 - The project has used Cloudflare Workers/Pages static assets.
@@ -102,6 +120,32 @@ Important UI notes:
 - Mobile footer navigation should remain visible; this was previously a bug.
 - Browse Tanks and Browse Sets use a textured top area above the cards.
 - Tank cards and set cards are the main content; avoid excessive empty vertical space above them.
+- Tank cards use one visible chip/tag row only. Do not show a second row of separate metadata badges beneath it.
+
+### Tank Site Tags
+
+The site uses visible tank tags as browsing/sales cues, not Etsy keyword tags.
+
+Current best-case structure:
+- Tank cards show one compact row: `nation`, `type`, then 1-2 high-value highlight tags.
+- Tank detail pages show a fuller row: `nation`, `era`, `type`, then highlight tags.
+- Do not duplicate concepts in different words. Avoid `US armor` next to `USA`, `German armor` next to `Germany`, or `Heavy tank` appearing twice.
+- `WoT` is allowed as a quiet background signal, but it should be near the end of the detail-page tag list, not the primary card focus.
+- Highlight tags should be genuinely useful for browsing or buyer interest, such as:
+  - `Iconic`
+  - `Beginner pick`
+  - `Game-famous`
+  - `Meme tank`
+  - `Late war`
+  - `What-if`
+  - `Prototype`
+
+Implementation:
+- Shared browser-side tag logic is in `assets/js/app.js`.
+- Static detail-page tag logic is mirrored in `scripts/generate-static-product-pages.js`.
+- If changing tag behavior, update both files and regenerate static product pages.
+- Card tags are rendered by `buildTankCard()` in `assets/js/app.js`.
+- Detail tags are rendered by the dynamic tank detail renderer in `assets/js/app.js` and by `writeTankPage()` in `scripts/generate-static-product-pages.js`.
 
 ## Data Model Notes
 
@@ -392,7 +436,7 @@ If changing routes:
 
 ## Development Commands
 
-There is no complex build step documented. This is static HTML/CSS/JS.
+This is static HTML/CSS/JS, but generated product pages should be refreshed after catalog/rendering changes.
 
 Useful checks:
 ```powershell
@@ -401,6 +445,23 @@ git diff -- assets/js/tanks-data.js
 git diff -- assets/js/sets-data.js
 Select-String -Path assets/js/sets-data.js -Pattern "slug: 'example-slug'" -Context 0,40
 Select-String -Path assets/js/tanks-data.js -Pattern "slug: 'example-slug'" -Context 0,40
+```
+
+Regenerate product pages:
+```powershell
+& "$env:USERPROFILE\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe" scripts\generate-static-product-pages.js
+```
+
+Start/check local server:
+```powershell
+& "$env:USERPROFILE\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe" scripts\start-local-server.mjs
+```
+
+Open locally:
+```text
+http://127.0.0.1:8000/
+http://127.0.0.1:8000/tanks.html
+http://127.0.0.1:8000/tanks/stug-iii/
 ```
 
 Pillow check:
@@ -444,6 +505,7 @@ For Etsy link updates:
 - Edit only `etsyUrl` in `assets/js/tanks-data.js` or `assets/js/sets-data.js`.
 - Use slug-specific context to avoid placing a URL on the wrong item.
 - Verify the diff carefully before final response.
+- Regenerate static product pages after updating direct Etsy URLs so generated detail pages and JSON-LD use the current listing link.
 
 ## Known Gotchas
 
@@ -457,6 +519,9 @@ For Etsy link updates:
 - Do not call game pack finishes `Raw Print` or `Base color`; use `Unpainted` and `Base coat`.
 - Direct Etsy variant URL automation was considered too much manual work because listing variation IDs are unique per listing.
 - The site should say "choose the same options on Etsy" rather than trying to deep-link every variant.
+- The vehicle formerly labeled `stug-iv` was corrected to `stug-iii`. Do not reintroduce StuG IV naming unless there is a separate actual StuG IV model/photo set.
+- StuG III image filenames use `stug-iii-...`.
+- Because product pages are generated, a data/render change can touch many `tanks/*/index.html` files. That is expected after running `scripts/generate-static-product-pages.js`.
 
 ## Current External Etsy Listing Coverage
 
