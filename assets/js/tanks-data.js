@@ -40,8 +40,8 @@ window.TANKS = [
       'Base coat': 1.0,
       'Unpainted': 0.0
     },
-    fact: 'One of the longest-serving German tanks, continuously upgraded throughout the war.',
-    description: 'The Panzer IV works well as a flexible German medium tank for WW2 tabletop forces, especially when you want a familiar vehicle that fits early, mid, and late-war lineups. The model is useful as a core armor choice, support vehicle, or opponent for Allied and Soviet tanks across several scales.',
+    fact: 'The Panzer IV evolved from infantry-support tank into Germany\'s main medium tank workhorse across the war.',
+    description: 'The Panzer IV is a core German WW2 medium tank miniature for early, mid, and late-war tabletop forces. It works as a flexible line tank, support vehicle, or opponent for Shermans, T-34s, Churchills, and Soviet heavy armor, making it one of the easiest German vehicles to reuse across scenarios.',
     compatibility: 'Compact hex-based tabletop play',
   },
   {
@@ -94,8 +94,8 @@ window.TANKS = [
       'Base coat': 1.0,
       'Unpainted': 0.0
     },
-    fact: 'Its sloped armor and mobility made it one of the most effective Soviet tank designs of WWII.',
-    description: 'The T-34/85 gives Soviet forces a stronger late-war medium tank with a familiar silhouette and more presence than the earlier T-34. It is a natural pick for players building Eastern Front scenarios, balanced armor groups, or compact Soviet spearheads.',
+    fact: 'The T-34/85 added a larger turret and 85 mm gun, giving the classic Soviet medium tank a stronger late-war presence.',
+    description: 'The T-34/85 is a late-war Soviet medium tank miniature with the familiar T-34 hull and a stronger 85 mm gun turret. It is one of the best choices for Eastern Front tabletop forces, Soviet spearheads, Berlin-era scenarios, and collections that need a recognizable Red Army workhorse.',
     compatibility: 'Compact hex-based tabletop play',
   },
   {
@@ -120,7 +120,7 @@ window.TANKS = [
       'Base coat': 1.0,
       'Unpainted': 0.0
     },
-    fact: 'Its reputation became so outsized that crews often reported Tigers even when facing other tanks.',
+    fact: 'The Tiger I became one of WW2\'s most feared heavy tanks, with a reputation far larger than its production numbers.',
     description: 'The Tiger I is a centerpiece German heavy tank for WW2 miniature collections, with enough visual weight to stand out even in small scales. It works especially well as a scenario objective, elite armor threat, or dramatic opponent for Sherman, T-34, and tank destroyer forces.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -146,7 +146,7 @@ window.TANKS = [
       'Base coat': 1.0,
       'Unpainted': 0.0
     },
-    fact: 'Built on the T-34 chassis, it traded a turret for a more powerful gun and lower silhouette.',
+    fact: 'The SU-85 put a stronger anti-tank gun on the T-34 chassis, trading the turret for a lower tank-destroyer profile.',
     description: 'The SU-85 is a clean, purposeful Soviet tank destroyer that brings a low profile and focused anti-armor role to the tabletop. It fits naturally beside T-34 formations when you want a force that feels practical, mobile, and purpose-built.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -199,8 +199,8 @@ window.TANKS = [
       'Base coat': 1.0,
       'Unpainted': 0.0
     },
-    fact: 'Designed as an enormous late-war super heavy tank, it remained one of the most famous unfinished paper panzers.',
-    description: 'The E-100 is a what-if German super heavy tank for late-war and alternate-history games where imposing armor is the point of the scenario. On the table it brings scale drama, making it useful as a boss vehicle, objective piece, or rare experimental threat.',
+    fact: 'The E-100 is one of Germany\'s most famous unfinished super-heavy tank projects, ideal for what-if late-war tables.',
+    description: 'The E-100 is a German super-heavy what-if tank miniature for late-war and alternate-history tabletop forces. Its enormous hull gives it immediate presence beside Panthers, Tigers, Maus-class vehicles, and other E-series designs, making it a strong centerpiece for experimental armor scenarios.',
     compatibility: 'Compact hex-based tabletop play',
   },
   {
@@ -253,7 +253,7 @@ window.TANKS = [
       'Base coat': 1.0,
       'Unpainted': 0.0
     },
-    fact: 'Planned as a simplified standard medium tank, the E-50 was meant to replace several German armored types with one design.',
+    fact: 'The E-50 was planned as a standardized German medium tank concept, making it a strong E-series what-if model.',
     description: 'The E-50 is a late-war German what-if medium tank that works well for players building E-series or alternate-history formations. It has enough Panther-like presence to feel plausible on the table while still offering something different from the standard German lineup.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -358,7 +358,7 @@ window.TANKS = [
       'Base coat': 1.0,
       'Unpainted': 0.0
     },
-    fact: 'Its distinctive pike nose and low turret gave the IS-3 one of the most recognizable silhouettes of any heavy tank.',
+    fact: 'The IS-3\'s pike nose and low rounded turret make it one of the most recognizable Soviet heavy tank silhouettes.',
     description: 'The IS-3 brings a distinctive late-war Soviet heavy tank shape to the table, especially with its pike nose and low rounded turret. It is a strong visual choice for end-of-war displays, post-war scenarios, or collections that need a heavier Soviet centerpiece.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -437,7 +437,7 @@ window.TANKS = [
       'Base coat': 1.0,
       'Unpainted': 0.0
     },
-    fact: 'Built on the Panther chassis, the Jagdpanther paired strong mobility and armor with one of Germany\'s best anti-tank guns.',
+    fact: 'The Jagdpanther combined Panther mobility with a powerful anti-tank gun in one of Germany\'s sleekest tank destroyers.',
     description: 'The Jagdpanther is a sleek German tank destroyer that combines Panther proportions with a dedicated casemate layout. It is a useful model for players who want a serious anti-tank threat that still looks mobile and refined beside heavier vehicles.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -464,8 +464,8 @@ window.TANKS = [
       'Base coat': 1.0,
       'Unpainted': 0.0
     },
-    fact: 'The Jagdpanther II is useful for late-war and alternate-history tables where German tank destroyer designs are pushed one step further.',
-    description: 'The Jagdpanther II is a German what-if tank destroyer with a long, low silhouette that fits beside Panther-family vehicles and heavier late-war concepts. It works best for alternate-history scenarios, experimental German forces, and collections that already include Jagdpanther, E-series, or other paper-project armor.',
+    fact: 'A proposed Panther II-based tank destroyer, the Jagdpanther II is best treated as a late-war paper project for alternate-history tables.',
+    description: 'The Jagdpanther II is a German what-if tank destroyer miniature for late-war and alternate-history forces. Its long casemate profile fits naturally beside Panther-family vehicles, Jagdpanther, E-series armor, and other paper-project German tank destroyers when you want a plausible but unusual anti-armor centerpiece.',
     compatibility: 'Compact hex-based tabletop play',
   },
   {
@@ -516,7 +516,7 @@ window.TANKS = [
       'Base coat': 1.0,
       'Unpainted': 0.0
     },
-    fact: 'Mounting an enormous anti-tank gun on a massive chassis, the Jagdtiger was powerful but extremely demanding to use in practice.',
+    fact: 'The Jagdtiger mounted extreme firepower on a massive chassis, making it one of Germany\'s most imposing tank destroyers.',
     description: 'The Jagdtiger is one of the most imposing German tank destroyers, making it a natural centerpiece for late-war defensive or what-if scenarios. Its size and long gun give it immediate table presence, especially when placed beside medium tanks and lighter vehicles.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -568,7 +568,7 @@ window.TANKS = [
       'Base coat': 1.0,
       'Unpainted': 0.0
     },
-    fact: 'Its unusual multi-level gun layout gave the M3 Lee one of the most distinctive profiles of any Allied tank.',
+    fact: 'The M3 Lee\'s tall hull and side-mounted main gun give it one of the strangest, most distinctive Allied tank profiles.',
     description: 'The M3 Lee adds an unusual Allied medium tank profile with its side-mounted main gun and tall superstructure. It is a strong pick for early-war, North Africa, lend-lease, or transitional force collections where visual variety is part of the appeal.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -594,7 +594,7 @@ window.TANKS = [
       'Base coat': 1.0,
       'Unpainted': 0.0
     },
-    fact: 'Quick, reliable, and compact, the Stuart was valued for reconnaissance, screening, and fast support roles.',
+    fact: 'The M5A1 Stuart was a quick, compact American light tank used for scouting, screening, and fast support roles.',
     description: 'The M5A1 Stuart is a small Allied light tank that works well for scouting, flank security, and support roles in compact tabletop games. Its size makes it a good contrast piece next to Shermans, Pershings, and heavier enemy armor.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -647,7 +647,7 @@ window.TANKS = [
       'Base coat': 1.0,
       'Unpainted': 0.0
     },
-    fact: 'Lightly protected but strongly armed, the Nashorn relied on long-range firepower rather than armor to survive.',
+    fact: 'The Nashorn paired thin armor with long-range firepower, giving German forces a tall but dangerous tank destroyer.',
     description: 'The Nashorn is a lightly protected German tank destroyer built around long-range firepower, making it useful for open-table ambushes and rear-line support. Its tall fighting compartment and exposed gun profile make it visually different from low casemate vehicles like the Hetzer.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -699,7 +699,7 @@ window.TANKS = [
       'Base coat': 1.0,
       'Unpainted': 0.0
     },
-    fact: 'Originally intended as Germany\'s main battle tank, the Panzer III gradually shifted into other roles as the war progressed.',
+    fact: 'The Panzer III was Germany\'s early-war medium tank backbone before later designs pushed it into support roles.',
     description: 'The Panzer III is a practical German medium tank for early and mid-war scenarios, especially before heavier vehicles dominate the table. It gives German forces a historically grounded core vehicle for campaigns, platoons, and mixed armor groups.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -752,7 +752,7 @@ window.TANKS = [
       'Base coat': 1.0,
       'Unpainted': 0.0
     },
-    fact: 'Originally a Czechoslovak design, the Panzer 35(t) gave Germany useful early-war light armor after annexation.',
+    fact: 'The Panzer 35(t) was a Czech-built light tank pressed into German service for early-war campaigns.',
     description: 'The Panzer 35(t) is a small early-war German light tank that helps fill out invasion-era and early campaign forces. Its compact profile makes it useful for showing how different early-war armor looked compared with later German vehicles.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -804,7 +804,7 @@ window.TANKS = [
       'Base coat': 1.0,
       'Unpainted': 0.0
     },
-    fact: 'Arriving late in the war, the Pershing was one of the first American tanks designed to face heavier German armor on more equal terms.',
+    fact: 'The M26 Pershing gave late-war US forces a heavier tank built to face German armor on more equal terms.',
     description: 'The M26 Pershing gives late-war USA forces a heavier tank option with a different presence from the Sherman family. It is a good choice for end-of-war scenarios, stronger Allied armor groups, and collections that reach into the transition toward post-war tank design.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -830,7 +830,7 @@ window.TANKS = [
       'Base coat': 1.0,
       'Unpainted': 0.0
     },
-    fact: 'By mounting the 17-pounder gun, the Firefly turned the Sherman into one of the most effective Allied tank killers in Northwest Europe.',
+    fact: 'The Sherman Firefly added the British 17-pounder gun, turning a familiar Sherman hull into a serious tank killer.',
     description: 'The Sherman Firefly is an Allied medium tank with a long-gun profile that immediately separates it from standard Shermans. It is useful for British and Commonwealth forces, tank-hunter roles, and scenarios where Allied armor needs a stronger answer to German heavies.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -1091,8 +1091,8 @@ window.TANKS = [
       'Base coat': 1.0,
       'Unpainted': 0.0
     },
-    fact: 'A paper-design tank destroyer concept based on the E 100 heavy chassis, useful for late-war and what-if scenarios.',
-    description: 'The Jagdpanzer E 100 is a huge German what-if tank destroyer for alternate-history and experimental late-war games. It works as a dramatic objective or table centerpiece, especially beside Maus, E-100, and other super-heavy concepts.',
+    fact: 'The Jagdpanzer E 100 was a paper-project casemate tank destroyer built around the idea of mounting extreme firepower on the E-100 chassis.',
+    description: 'The Jagdpanzer E 100 is a huge German what-if tank destroyer miniature for late-war, alternate-history, and super-heavy armor collections. Its oversized casemate and long-gun profile make it a dramatic scenario objective, table centerpiece, or final-stage experimental vehicle beside the Maus and E-100.',
     compatibility: 'Compact hex-based tabletop play',
   },
   {
@@ -1143,7 +1143,7 @@ window.TANKS = [
       'Base coat': 1.0,
       'Unpainted': 0.0
     },
-    fact: 'Its towering turret and heavy howitzer made the KV-2 look almost unreal even among other heavy tanks.',
+    fact: 'The KV-2\'s towering turret and heavy howitzer make it one of the most instantly recognizable Soviet heavy tanks.',
     description: 'The KV-2 is a Soviet heavy tank with an unmistakable tall turret, ideal for players who want a model that stands out immediately. It suits early-war scenarios, fortress-busting themes, and collections built around unusual armored silhouettes.',
     compatibility: 'Compact hex-based tabletop play',
   },
@@ -1560,8 +1560,8 @@ window.TANKS = [
       'Base coat': 1.0,
       'Unpainted': 0.0
     },
-    fact: 'The A-32 was an important Soviet prototype that helped lead toward the famous T-34 design.',
-    description: 'The A-32 is a Soviet prototype model for collectors who enjoy development vehicles and the path toward the T-34. It works well in what-if scenarios, prototype displays, and comparison lineups beside early T-34 designs.',
+    fact: 'The A-32 prototype tested the sloped armor and mobility ideas that led directly toward the famous T-34.',
+    description: 'The A-32 is a Soviet prototype tank miniature for collectors who like development vehicles, what-if forces, and T-34 family lineups. It works well beside early T-34s, T-26s, and T-28s when you want to show the evolution from interwar Soviet armor to the famous wartime medium tank.',
     compatibility: 'Compact hex-based tabletop play',
   },
   {
@@ -1664,8 +1664,8 @@ window.TANKS = [
       'Base coat': 1.0,
       'Unpainted': 0.0
     },
-    fact: 'The GAZ-AA was one of the Soviet Union\'s most common military and civilian trucks.',
-    description: 'The GAZ-AA is a practical Soviet truck for supply columns, objectives, rear-area scenes, and convoy scenarios. It helps Soviet tabletop forces look like a working army rather than only a row of tanks.',
+    fact: 'The GAZ-AA was the Soviet version of the Ford AA truck and became one of the Red Army\'s most common wartime utility vehicles.',
+    description: 'The GAZ-AA is a Soviet truck miniature for supply columns, convoy scenarios, rear-area objectives, and artillery support groups. It gives Soviet tabletop forces the practical transport vehicles that make an army feel lived-in, especially beside tanks, guns, tractors, and half-tracks.',
     compatibility: 'Compact hex-based tabletop play',
   },
   {
@@ -1716,8 +1716,8 @@ window.TANKS = [
       'Base coat': 1.0,
       'Unpainted': 0.0
     },
-    fact: 'The BA-64 was a compact Soviet armored car used for reconnaissance, liaison, and security duties.',
-    description: 'The BA-64 gives Soviet forces a small armored car option for scouting, patrols, roadblocks, and objective markers. It is especially useful when a scenario needs light reconnaissance rather than another tank.',
+    fact: 'The BA-64 was a compact Soviet 4x4 armored car used for reconnaissance, liaison, and security work from 1942 onward.',
+    description: 'The BA-64 is a small Soviet armored car miniature for scouting, patrols, roadblocks, command duties, and objective markers. It is a useful way to add reconnaissance flavor to Soviet forces without adding another tank, especially in early-to-mid-war or rear-area scenarios.',
     compatibility: 'Compact hex-based tabletop play',
   },
   {
@@ -1846,8 +1846,8 @@ window.TANKS = [
       'Base coat': 1.0,
       'Unpainted': 0.0
     },
-    fact: 'The T-70 was a compact Soviet light tank used for reconnaissance, infantry support, and secondary armored roles.',
-    description: 'The T-70 is a compact Soviet light tank for scouting, infantry support, and smaller battlefield roles. Its size makes it useful for showing the lighter end of Soviet armor next to T-34s, SU guns, and heavy tanks.',
+    fact: 'The T-70 was the Red Army\'s main light tank after the T-60, used for scouting and infantry support before production shifted.',
+    description: 'The T-70 is a compact Soviet light tank miniature for reconnaissance, infantry support, and smaller battlefield roles. It gives Soviet collections a noticeably lighter vehicle beside T-34s, SU guns, and KV or IS heavy tanks, making mixed armor groups feel more believable.',
     compatibility: 'Compact hex-based tabletop play',
   },
   {
@@ -1873,7 +1873,7 @@ window.TANKS = [
       'Unpainted': 0.0
     },
     fact: 'The Wespe mounted a 105 mm howitzer on a light tank chassis, giving German units mobile artillery support.',
-    description: 'The Wespe gives German forces a small self-propelled artillery vehicle with a clear support role. It is useful for rear-line fire support, scenario objectives, and collections that need lighter artillery vehicles alongside tanks and tank destroyers.',
+    description: 'The Wespe is a German self-propelled artillery miniature with a small open fighting compartment and a clear rear-line support role. It pairs well with Panzer II-family vehicles, German tank destroyers, trucks, and objective-based scenarios where artillery support matters as much as front-line armor.',
     compatibility: 'Compact hex-based tabletop play',
   },
   {
@@ -1898,7 +1898,7 @@ window.TANKS = [
       'Base coat': 1.0,
       'Unpainted': 0.0
     },
-    fact: 'Light, mobile, and widely used, the Ha-Go became one of Imperial Japan\'s best-known armored vehicles.',
+    fact: 'The Type 95 Ha-Go was Japan\'s best-known light tank, with a compact profile that stands apart from European armor.',
     description: 'The Type 95 Ha-Go is a small Japanese light tank that suits Pacific, early-war, and island campaign scenarios. Its compact size and distinctive profile help Japanese armored forces feel different from German, Soviet, and American lineups.',
     compatibility: 'Compact hex-based tabletop play',
   },
