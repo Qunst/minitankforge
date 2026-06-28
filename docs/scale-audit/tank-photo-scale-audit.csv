@@ -1,4 +1,4 @@
-﻿slug,name,nation,type,status,bodyLengthMm,image,imageExists
+slug,name,nation,type,status,bodyLengthMm,image,imageExists
 panzer-iv,"Panzer IV (Pz.Kpfw. IV)",Germany,"Medium tank","",5920,assets/img/tanks/pz-iv-base-coat-side-detail.jpg,true
 sherman-m4a3,"Sherman M4A3 (Medium Tank M4A3 Sherman)",USA,"Medium tank","",5840,assets/img/tanks/sherman-base-coat-side-detail.jpg,true
 t-34-85,"T-34/85 (T-34-85)",USSR,"Medium tank","",6100,assets/img/tanks/t34-85-base-coat-side-detail.jpg,true
@@ -72,3 +72,15 @@ t-70,"T-70 (T-70 Light Tank)",USSR,"Light tank","",4290,assets/img/tanks/t70-bas
 wespe,"Wespe (Sd.Kfz. 124 Wespe)",Germany,"Self-propelled artillery","",4790,assets/img/tanks/wespe-base-coat-side-detail.jpg,true
 type-95-ha-go,"Type 95 Ha-Go (Type 95 Light Tank Ha-Go)",Japan,"Light tank","",4380,assets/img/tanks/type95-base-coat-side-detail.jpg,true
 type-97-chi-ha,"Type 97 Chi-Ha (Type 97 Medium Tank Chi-Ha)",Japan,"Medium tank","",5520,assets/img/tanks/type97-base-coat-side-detail.jpg,true
+cromwell,"Cromwell IV (Cruiser Tank Mk VIII Cromwell IV)",UK,"Medium tank","",6350,assets/img/tanks/cromwell-base-coat-side-detail.jpg,true
+valentine,"Valentine (Infantry Tank Mk III Valentine)",UK,"Infantry tank","",5410,assets/img/tanks/valentine-base-coat-side-detail.jpg,true
+matilda-ii,"Matilda II (Infantry Tank Mk II Matilda II)",UK,"Infantry tank","",5720,assets/img/tanks/matilda-ii-base-coat-side-detail.jpg,true
+bishop,"Bishop (Carrier Valentine 25-pdr Gun Mk I)",UK,"Self-propelled artillery","",5490,assets/img/tanks/bishop-base-coat-side-detail.jpg,true
+centaur,"Centaur IV (Cruiser Tank Mk VIII Centaur IV)",UK,"Medium tank","",6350,assets/img/tanks/centaur-base-coat-side-detail.jpg,true
+archer,"Archer (Self-Propelled 17-pdr, Valentine, Mk I)",UK,"Tank destroyer","",6540,assets/img/tanks/archer-base-coat-side-detail.jpg,true
+m24-chaffee,"M24 Chaffee (Light Tank M24)",USA,"Light tank","",5030,assets/img/tanks/m24-chaffee-base-coat-side-detail.jpg,true
+fcm-f1,"FCM F1 (Char de Forteresse FCM F1)",France,"Super heavy tank","What-if / paper project",10530,assets/img/tanks/fcm-f1-base-coat-side-detail.jpg,true
+kv-1s,"KV-1S (Kliment Voroshilov-1S)",USSR,"Heavy tank","",6750,assets/img/tanks/kv-1s-base-coat-side-detail.jpg,true
+tortoise,"A39 Tortoise (Tank, Heavy Assault, Tortoise)",UK,"Super heavy tank","Prototype",7240,assets/img/tanks/tortoise-base-coat-side-detail.jpg,true
+t28-t95-transport,"T28/T95 Transport Configuration (Super Heavy Tank T28)",USA,"Super heavy tank","Prototype",7490,assets/img/tanks/t28-t95-transport-base-coat-side-detail.jpg,true
+t28-t95-combat,"T28/T95 Combat Configuration (Super Heavy Tank T28)",USA,"Super heavy tank","Prototype",7490,assets/img/tanks/t28-t95-combat-base-coat-side-detail.jpg,true

@@ -1,4 +1,4 @@
-﻿[
+[
   {
     "slug": "panzer-iv",
     "name": "Panzer IV (Pz.Kpfw. IV)",
@@ -311,7 +311,7 @@
   },
   {
     "slug": "stug-iii",
-    "name": "StuG IV (Sturmgeschütz IV)",
+    "name": "StuG III (Sturmgeschütz III)",
     "nation": "Germany",
     "type": "Assault gun",
     "status": "",
@@ -727,6 +727,126 @@
     "status": "",
     "image": "assets/img/tanks/type97-base-coat-side-detail.jpg",
     "bodyLengthMm": 5520,
+    "imageExists": true
+  },
+  {
+    "slug": "cromwell",
+    "name": "Cromwell IV (Cruiser Tank Mk VIII Cromwell IV)",
+    "nation": "UK",
+    "type": "Medium tank",
+    "status": "",
+    "image": "assets/img/tanks/cromwell-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6350,
+    "imageExists": true
+  },
+  {
+    "slug": "valentine",
+    "name": "Valentine (Infantry Tank Mk III Valentine)",
+    "nation": "UK",
+    "type": "Infantry tank",
+    "status": "",
+    "image": "assets/img/tanks/valentine-base-coat-side-detail.jpg",
+    "bodyLengthMm": 5410,
+    "imageExists": true
+  },
+  {
+    "slug": "matilda-ii",
+    "name": "Matilda II (Infantry Tank Mk II Matilda II)",
+    "nation": "UK",
+    "type": "Infantry tank",
+    "status": "",
+    "image": "assets/img/tanks/matilda-ii-base-coat-side-detail.jpg",
+    "bodyLengthMm": 5720,
+    "imageExists": true
+  },
+  {
+    "slug": "bishop",
+    "name": "Bishop (Carrier Valentine 25-pdr Gun Mk I)",
+    "nation": "UK",
+    "type": "Self-propelled artillery",
+    "status": "",
+    "image": "assets/img/tanks/bishop-base-coat-side-detail.jpg",
+    "bodyLengthMm": 5490,
+    "imageExists": true
+  },
+  {
+    "slug": "centaur",
+    "name": "Centaur IV (Cruiser Tank Mk VIII Centaur IV)",
+    "nation": "UK",
+    "type": "Medium tank",
+    "status": "",
+    "image": "assets/img/tanks/centaur-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6350,
+    "imageExists": true
+  },
+  {
+    "slug": "archer",
+    "name": "Archer (Self-Propelled 17-pdr, Valentine, Mk I)",
+    "nation": "UK",
+    "type": "Tank destroyer",
+    "status": "",
+    "image": "assets/img/tanks/archer-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6540,
+    "imageExists": true
+  },
+  {
+    "slug": "m24-chaffee",
+    "name": "M24 Chaffee (Light Tank M24)",
+    "nation": "USA",
+    "type": "Light tank",
+    "status": "",
+    "image": "assets/img/tanks/m24-chaffee-base-coat-side-detail.jpg",
+    "bodyLengthMm": 5030,
+    "imageExists": true
+  },
+  {
+    "slug": "fcm-f1",
+    "name": "FCM F1 (Char de Forteresse FCM F1)",
+    "nation": "France",
+    "type": "Super heavy tank",
+    "status": "What-if / paper project",
+    "image": "assets/img/tanks/fcm-f1-base-coat-side-detail.jpg",
+    "bodyLengthMm": 10530,
+    "imageExists": true
+  },
+  {
+    "slug": "kv-1s",
+    "name": "KV-1S (Kliment Voroshilov-1S)",
+    "nation": "USSR",
+    "type": "Heavy tank",
+    "status": "",
+    "image": "assets/img/tanks/kv-1s-base-coat-side-detail.jpg",
+    "bodyLengthMm": 6750,
+    "imageExists": true
+  },
+  {
+    "slug": "tortoise",
+    "name": "A39 Tortoise (Tank, Heavy Assault, Tortoise)",
+    "nation": "UK",
+    "type": "Super heavy tank",
+    "status": "Prototype",
+    "image": "assets/img/tanks/tortoise-base-coat-side-detail.jpg",
+    "bodyLengthMm": 7240,
+    "imageExists": true
+  },
+  {
+    "slug": "t28-t95-transport",
+    "name": "T28/T95 Transport Configuration (Super Heavy Tank T28)",
+    "nation": "USA",
+    "type": "Super heavy tank",
+    "status": "Prototype",
+    "image": "assets/img/tanks/t28-t95-transport-base-coat-side-detail.jpg",
+    "bodyLengthMm": 7490,
+    "imageExists": true
+  },
+  {
+    "slug": "t28-t95-combat",
+    "name": "T28/T95 Combat Configuration (Super Heavy Tank T28)",
+    "nation": "USA",
+    "type": "Super heavy tank",
+    "status": "Prototype",
+    "image": "assets/img/tanks/t28-t95-combat-base-coat-side-detail.jpg",
+    "bodyLengthMm": 7490,
     "imageExists": true
   }
 ]

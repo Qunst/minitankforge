@@ -559,6 +559,18 @@ const tankDetailPhotoKeys = {
   'ba-64': 'ba-64',
   'churchill-iv': 'churchill-iv',
   'churchill-iv-fascine': 'churchill-iv-fascine',
+  'cromwell': 'cromwell',
+  'valentine': 'valentine',
+  'matilda-ii': 'matilda-ii',
+  'bishop': 'bishop',
+  'centaur': 'centaur',
+  'archer': 'archer',
+  'm24-chaffee': 'm24-chaffee',
+  'fcm-f1': 'fcm-f1',
+  'kv-1s': 'kv-1s',
+  'tortoise': 'tortoise',
+  't28-t95-transport': 't28-t95-transport',
+  't28-t95-combat': 't28-t95-combat',
   'e-100': 'e100',
   'e-25': 'e25',
   'e-50': 'e50',
@@ -1439,7 +1451,9 @@ function renderTankDetail() {
     <section class="hero-small">
       <div class="eyebrow">Single tank page</div>
       <h1 class="page-title">${tank.name}</h1>
-      <p class="lead">Review scale, finish, and details before sending a direct request or continuing to Etsy.</p>
+      <p class="lead">${tank.etsyUrl
+        ? 'Review scale, finish, and details before sending a direct request or continuing to Etsy.'
+        : 'Review scale, finish, and details before sending a direct request.'}</p>
       ${renderTankSiteTags(tank, { modifier: 'tank-tag-list-detail', context: 'detail' })}
       <a class="detail-back-link" href="/tanks.html">Back to all tanks</a>
     </section>
@@ -1466,7 +1480,9 @@ function renderTankDetail() {
   <div class="price-note">Price updates with selected scale, finish, and pack size.</div>
         </div>
         <div class="page-actions">
-          <a class="btn btn-etsy" href="${tank.etsyUrl}" target="_blank" rel="noopener">Open ${getDisplayName(tank.name)} on Etsy</a>
+          ${tank.etsyUrl
+            ? `<a class="btn btn-etsy" href="${tank.etsyUrl}" target="_blank" rel="noopener">Open ${getDisplayName(tank.name)} on Etsy</a>`
+            : '<a class="btn btn-primary" href="/tank-requests.html">Ask about this tank</a>'}
         </div>
         <p class="helper"><strong data-selection-summary></strong></p>
       </div>

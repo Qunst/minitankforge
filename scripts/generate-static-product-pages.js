@@ -671,7 +671,9 @@ function writeTankPage(tank, data) {
     <section class="hero-small">
       <div class="eyebrow">Single tank page</div>
       <h1 class="page-title">${escapeHtml(tank.name)}</h1>
-      <p class="lead">Review scale, finish, and details before sending a direct request or continuing to Etsy.</p>
+      <p class="lead">${tank.etsyUrl
+        ? 'Review scale, finish, and details before sending a direct request or continuing to Etsy.'
+        : 'Review scale, finish, and details before sending a direct request.'}</p>
       ${renderTankSiteTags(tank, { modifier: 'tank-tag-list-detail' })}
       <a class="detail-back-link" href="/tanks.html">Back to all tanks</a>
     </section>
@@ -693,7 +695,9 @@ function writeTankPage(tank, data) {
           ${tank.historicalStatus ? `<li><strong>Historical status</strong><br>${escapeHtml(tank.historicalStatus)}</li>` : ''}
         </ul>
         <div class="page-actions">
-          <a class="btn btn-etsy" href="${escapeHtml(tank.etsyUrl)}" target="_blank" rel="noopener">Open on Etsy</a>
+          ${tank.etsyUrl
+            ? `<a class="btn btn-etsy" href="${escapeHtml(tank.etsyUrl)}" target="_blank" rel="noopener">Open on Etsy</a>`
+            : '<a class="btn btn-primary" href="/tank-requests.html">Ask about this tank</a>'}
         </div>
       </div>
     </section>
@@ -718,8 +722,8 @@ ${internalLinksHtml}
     imageAlt: tankImageAlt(tank),
     body,
     scripts: [
-      '<script defer src="/assets/js/tanks-data.js?v=25"></script>',
-      '<script defer src="/assets/js/app.js?v=41"></script>',
+      '<script defer src="/assets/js/tanks-data.js?v=26"></script>',
+      '<script defer src="/assets/js/app.js?v=42"></script>',
     ],
     jsonLd: [
       jsonLdScript('tank-product-jsonld', product),
@@ -835,9 +839,9 @@ ${contentsHtml}
     imageAlt: setImageAlt(set),
     body,
     scripts: [
-      '<script defer src="/assets/js/tanks-data.js?v=25"></script>',
+      '<script defer src="/assets/js/tanks-data.js?v=26"></script>',
       '<script defer src="/assets/js/sets-data.js?v=18"></script>',
-      '<script defer src="/assets/js/app.js?v=41"></script>',
+      '<script defer src="/assets/js/app.js?v=42"></script>',
     ],
     jsonLd: [
       jsonLdScript('set-product-jsonld', product),
