@@ -14,6 +14,7 @@ Use this workflow when adding a new batch of tank photos to MiniTankForge.
   4. base coat side
   5. base coat quarter
   6. base coat front
+- Do not trust the group order blindly when writing final filenames. Visually confirm which three are base coat and which three are unpainted before naming or moving files.
 
 ## Critical Cropping Rules
 
