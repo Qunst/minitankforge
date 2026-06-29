@@ -311,6 +311,7 @@ Use when creating an Etsy listing packet for a tank. It is tank-oriented, but th
 Important owner correction:
 - Do not skip description or other packet sections.
 - Listing packets should be easy to copy/paste.
+- Always paste complete Etsy listing packets directly into the chat response. A saved file is optional and must not be the only delivery.
 
 ## Etsy Listing Conventions
 
@@ -501,8 +502,8 @@ For Etsy listing tasks:
 - Use `docs/workflows/make-etsy-listing-packet.md`.
 - Always include:
   - Recommended listing to copy
-  - Title
   - Photo multi-open string
+  - Title
   - Full description
   - Tags to replace
   - Final 13 tags

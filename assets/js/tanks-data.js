@@ -2255,7 +2255,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-large',
     image: 'assets/img/tanks/t29-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4529943011/t29-american-heavy-tank-prototype',
     scalePrices: {
       '1:160': 0.0,
       '1:180': 0.0,
@@ -2283,7 +2283,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-large',
     image: 'assets/img/tanks/t30-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4529943697/t30-american-heavy-tank-prototype',
     scalePrices: {
       '1:160': 0.0,
       '1:180': 0.0,
@@ -2311,7 +2311,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-large',
     image: 'assets/img/tanks/t34-heavy-tank-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4529945643/t34-heavy-tank-american-prototype',
     scalePrices: {
       '1:160': 0.0,
       '1:180': 0.0,
@@ -2339,7 +2339,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-large',
     image: 'assets/img/tanks/kv-5-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4529960209/kv-5-soviet-heavy-tank-project-miniature',
     scalePrices: {
       '1:160': 0.0,
       '1:180': 0.0,
@@ -2366,7 +2366,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-medium',
     image: 'assets/img/tanks/kv-85-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4529975454/kv-85-soviet-heavy-tank-miniature-3d',
     scalePrices: {
       '1:160': 0.0,
       '1:180': 0.0,
@@ -2393,7 +2393,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-large',
     image: 'assets/img/tanks/sturmtiger-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4529976328/sturmtiger-german-assault-gun-miniature',
     scalePrices: {
       '1:160': 0.0,
       '1:180': 0.0,

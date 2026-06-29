@@ -4,6 +4,8 @@ Use this workflow when preparing a new Etsy listing packet for a MiniTankForge t
 
 ## Core Rules
 
+- Always paste the complete listing packet directly into the chat response.
+- A saved packet file may be provided as an optional backup, but it must never replace the full packet in chat.
 - Copy from the closest existing Etsy listing, not a random listing.
 - Give the full description, not only changed parts.
 - Give the exact photo multi-open string.
@@ -33,6 +35,8 @@ Use this exact format so it can be pasted into the file-open dialog:
 ```text
 "[slug]-unpainted-side-detail.jpg" "[slug]-base-coat-front-detail.jpg" "[slug]-base-coat-quarter-detail.jpg" "[slug]-base-coat-side-detail.jpg" "[slug]-unpainted-front-detail.jpg" "[slug]-unpainted-quarter-detail.jpg"
 ```
+
+Before delivering the string, count its characters. Some Windows file-open dialogs truncate the file-name field at about 260 characters. If the complete string is longer than 259 characters, provide two shorter upload batches instead. The owner should upload the first batch, reopen the photo picker, and upload the second batch.
 
 ## Standard Variations
 
@@ -100,11 +104,11 @@ https://minitankforge.com
 
 ## Output Format
 
-For each listing packet, output:
+For each listing packet, paste all of the following directly into the chat response:
 
 1. Recommended listing to copy from
-2. Title
-3. Photo multi-open string
+2. Photo multi-open string
+3. Title
 4. Full description
 5. Tags to replace
 6. Final 13 tags as one comma-separated copy-paste block

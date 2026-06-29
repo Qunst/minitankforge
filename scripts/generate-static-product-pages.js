@@ -731,7 +731,7 @@ ${internalLinksHtml}
     imageAlt: tankImageAlt(tank),
     body,
     scripts: [
-      '<script defer src="/assets/js/tanks-data.js?v=27"></script>',
+      '<script defer src="/assets/js/tanks-data.js?v=29"></script>',
       '<script defer src="/assets/js/app.js?v=45"></script>',
     ],
     jsonLd: [
@@ -848,7 +848,7 @@ ${contentsHtml}
     imageAlt: setImageAlt(set),
     body,
     scripts: [
-      '<script defer src="/assets/js/tanks-data.js?v=27"></script>',
+      '<script defer src="/assets/js/tanks-data.js?v=29"></script>',
       '<script defer src="/assets/js/sets-data.js?v=18"></script>',
       '<script defer src="/assets/js/app.js?v=45"></script>',
     ],
