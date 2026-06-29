@@ -2174,7 +2174,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-large',
     image: 'assets/img/tanks/tortoise-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4529788377/a39-tortoise-british-super-heavy-tank',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
@@ -2201,7 +2201,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-large',
     image: 'assets/img/tanks/t28-t95-transport-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4529803542/t28-t95-transport-configuration-american',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
@@ -2228,7 +2228,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-large',
     image: 'assets/img/tanks/t28-t95-combat-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4529802832/t28-t95-combat-configuration-american',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
