@@ -392,6 +392,98 @@ const tankHighlightTagOverrides = {
   'tiger-ii': ['Iconic', 'Late war', 'WoT'],
 };
 
+const tankEnthusiastPopularityOrder = [
+  'sherman-m4a3',
+  'tiger-i',
+  't-34',
+  'panther',
+  'panzer-iv',
+  'tiger-ii',
+  't-34-85',
+  'maus',
+  'kv-2',
+  'sherman-firefly',
+  'churchill-iv',
+  'stug-iii',
+  'pershing',
+  'panzer-iii',
+  'is-2',
+  'kv-1',
+  'jagdpanther',
+  'm60a1',
+  'm18-hellcat',
+  'm10-wolverine',
+  'hetzer',
+  'jagdtiger',
+  'ferdinand',
+  'm3-lee',
+  'm5a1-stuart',
+  'm24-chaffee',
+  'cromwell',
+  'matilda-ii',
+  'valentine',
+  'is-3',
+  'is-7',
+  'isu-152',
+  'su-100',
+  'su-85',
+  'jagdpz-iv',
+  't28-t95-combat',
+  'tortoise',
+  'e-100',
+  'e-25',
+  'e-50',
+  'e-75',
+  'jagdpanzer-e100',
+  'panzer-vii-loewe',
+  'jagdpanther-ii',
+  't-35',
+  't28-t95-transport',
+  'type-97-chi-ha',
+  'type-95-ha-go',
+  'm8-greyhound',
+  'sd-kfz-234',
+  'm7-priest',
+  'm3-half-track',
+  'luchs',
+  'panzer-38t',
+  'panzer-35t',
+  't-34-minesweeper',
+  'su-76',
+  'nashorn',
+  'hummel',
+  'wespe',
+  'archer',
+  'm10-achilles',
+  'churchill-iv-fascine',
+  'm13-40',
+  'm14-41',
+  'su-122',
+  'isu-122',
+  'kv-1s',
+  't-70',
+  't-26',
+  't-28',
+  't-26-twin-turret',
+  'fcm-f1',
+  'centaur',
+  'bishop',
+  'ba-64',
+  'ba-6',
+  'gaz-aa',
+  'opel-blitz',
+  'zis-42',
+  'stz-5',
+  'b-4-howitzer',
+  't-38',
+  'a-32',
+  'is-1',
+];
+
+const tankEnthusiastPopularityScores = Object.fromEntries(
+  tankEnthusiastPopularityOrder.map((slug, index) => [slug, tankEnthusiastPopularityOrder.length - index])
+);
+
 function getTankHighlightTags(tank) {
   const tags = [];
   const addTag = tag => {
@@ -406,6 +498,42 @@ function getTankHighlightTags(tank) {
   if (status.includes('prototype') || status.includes('paper') || status.includes('unfinished')) addTag('Prototype');
 
   return tags;
+}
+
+function getEstimatedTankPopularity(tank) {
+  const tags = getTankHighlightTags(tank);
+  const status = String(tank?.historicalStatus || '').toLowerCase();
+  const type = String(tank?.type || '').toLowerCase();
+  let score = 34;
+
+  if (tags.includes('Iconic')) score += 16;
+  if (tags.includes('Beginner pick')) score += 10;
+  if (tags.includes('Game-famous')) score += 8;
+  if (tags.includes('Meme tank')) score += 8;
+  if (tags.includes('Late war')) score += 5;
+  if (tags.includes('What-if')) score += 4;
+  if (tags.includes('Prototype')) score += 2;
+  if (type.includes('medium')) score += 7;
+  if (type.includes('heavy')) score += 6;
+  if (type.includes('tank destroyer')) score += 5;
+  if (type.includes('super heavy')) score += 4;
+  if (type.includes('armored car') || type.includes('truck') || type.includes('tractor')) score -= 8;
+  if (type.includes('artillery') || type.includes('howitzer')) score -= 6;
+  if (status.includes('what-if') || status.includes('paper')) score -= 5;
+  if (status.includes('prototype') || status.includes('unfinished')) score -= 3;
+  if (tank?.etsyUrl) score += 2;
+
+  return score;
+}
+
+function getTankBrowsePriority(tank) {
+  const manualPriority = Number(tank?.browsePriority);
+  if (Number.isFinite(manualPriority)) return manualPriority;
+
+  const researchedScore = tankEnthusiastPopularityScores[tank?.slug];
+  if (Number.isFinite(researchedScore)) return researchedScore;
+
+  return getEstimatedTankPopularity(tank);
 }
 
 function getTankCardTags(tank) {
@@ -896,9 +1024,14 @@ function sortBrowseTanks(tanks, sortMode = 'featured') {
         || byName(a, b);
     }
 
+    const popularityDiff = getTankBrowsePriority(b.tank) - getTankBrowsePriority(a.tank);
+    if (popularityDiff) return popularityDiff;
+
     const featuredDiff = Number(Boolean(b.tank.featured)) - Number(Boolean(a.tank.featured));
     if (featuredDiff) return featuredDiff;
+
     return (a.tank.featuredOrder || 999) - (b.tank.featuredOrder || 999)
+      || byName(a, b)
       || a.index - b.index;
   });
 

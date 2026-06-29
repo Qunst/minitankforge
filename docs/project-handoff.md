@@ -55,6 +55,7 @@ Important assets:
 - `assets/img/textures/` - texture assets, including hero/button textures
 - `docs/workflows/add-new-tank-photos.md` - saved workflow for adding tank photos
 - `docs/workflows/make-etsy-listing-packet.md` - saved workflow for Etsy listing packets
+- `docs/tank-popularity-sorting.md` - research notes and maintenance guidance for the default tank browse order
 
 Static generated pages:
 - Individual tank pages live under `tanks/[slug]/index.html`.
@@ -146,6 +147,15 @@ Implementation:
 - If changing tag behavior, update both files and regenerate static product pages.
 - Card tags are rendered by `buildTankCard()` in `assets/js/app.js`.
 - Detail tags are rendered by the dynamic tank detail renderer in `assets/js/app.js` and by `writeTankPage()` in `scripts/generate-static-product-pages.js`.
+
+### Tank Browse Sorting
+
+The default `Featured first` sort on `tanks.html` uses researched tank-enthusiast popularity scores, not only the boolean `featured` flag.
+
+- The full popularity order list and fallback scorer live in `assets/js/app.js`.
+- Research and maintenance notes are in `docs/tank-popularity-sorting.md`.
+- New tanks are automatically placed by fallback scoring, but use `browsePriority` in `assets/js/tanks-data.js` when a new vehicle has an obvious popularity position.
+- The `featured` flag still controls the homepage featured strip.
 
 ## Data Model Notes
 
