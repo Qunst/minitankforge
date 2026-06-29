@@ -1157,7 +1157,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-medium',
     image: 'assets/img/tanks/churchill-iv-fascine-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4529763359/churchill-iv-fascine-british-engineering',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
@@ -1938,7 +1938,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-medium',
     image: 'assets/img/tanks/cromwell-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4529764049/cromwell-iv-british-medium-tank',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
@@ -1964,7 +1964,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-small',
     image: 'assets/img/tanks/valentine-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4529764595/valentine-british-infantry-tank',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
@@ -1990,7 +1990,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-medium',
     image: 'assets/img/tanks/matilda-ii-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4529765021/matilda-ii-british-infantry-tank',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
