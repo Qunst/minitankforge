@@ -2016,7 +2016,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-medium',
     image: 'assets/img/tanks/bishop-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4529782589/bishop-british-self-propelled-artillery',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
@@ -2042,7 +2042,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-medium',
     image: 'assets/img/tanks/centaur-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4529796828/centaur-iv-british-close-support-tank',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
@@ -2068,7 +2068,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-medium',
     image: 'assets/img/tanks/archer-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4529797256/archer-british-tank-destroyer-miniature',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
@@ -2094,7 +2094,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-small',
     image: 'assets/img/tanks/m24-chaffee-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4529797690/m24-chaffee-american-light-tank',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
