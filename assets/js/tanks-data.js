@@ -2121,7 +2121,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-large',
     image: 'assets/img/tanks/fcm-f1-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4529800082/fcm-f1-french-super-heavy-tank-miniature',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
@@ -2147,7 +2147,7 @@ window.TANKS = [
     disabled: false,
     placeholderStyle: 'dark-large',
     image: 'assets/img/tanks/kv-1s-base-coat-side-detail.jpg',
-    etsyUrl: '',
+    etsyUrl: 'https://www.etsy.com/listing/4529800586/kv-1s-soviet-heavy-tank-miniature-3d',
     scalePrices: {
       '1:160': 3.5,
       '1:180': 3.5,
