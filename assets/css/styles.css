@@ -1009,11 +1009,13 @@ textarea {
 
   .browse-results-toolbar {
     align-items: stretch;
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
 
+  .browse-search-control,
   .browse-sort-control {
     flex-basis: auto;
+    max-width: none;
     width: 100%;
   }
 
@@ -1115,9 +1117,9 @@ textarea {
 }
 
 .browse-results-toolbar {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(210px, .85fr) minmax(300px, 1.6fr) minmax(220px, .8fr);
   align-items: center;
-  justify-content: space-between;
   gap: 18px;
   margin: 0 0 18px;
   padding: 14px 16px;
@@ -1151,8 +1153,92 @@ textarea {
   flex: 0 0 240px;
 }
 
+.browse-search-control {
+  width: 100%;
+  max-width: 500px;
+  justify-self: center;
+}
+
+.browse-search-control .filter-label,
 .browse-sort-control .filter-label {
   margin-bottom: 6px;
+}
+
+.browse-search-field {
+  position: relative;
+}
+
+.browse-search-field input {
+  width: 100%;
+  min-height: 46px;
+  border: 1px solid #bda985;
+  border-radius: 12px;
+  padding: 0 46px 0 44px;
+  color: #1f1b16;
+  font: 700 .96rem/1.2 "Segoe UI", system-ui, sans-serif;
+  background: linear-gradient(180deg, #fbf8f2 0%, #eee4d4 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .65);
+}
+
+.browse-search-field input::placeholder {
+  color: #74695d;
+  opacity: 1;
+}
+
+.browse-search-field input::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+.browse-search-field input:focus {
+  outline: 2px solid rgba(112, 83, 49, .35);
+  outline-offset: 2px;
+}
+
+.browse-search-icon {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 16px;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #765b38;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translateY(-58%);
+}
+
+.browse-search-icon::after {
+  position: absolute;
+  right: -6px;
+  bottom: -4px;
+  width: 7px;
+  height: 2px;
+  border-radius: 2px;
+  background: #765b38;
+  content: "";
+  transform: rotate(45deg);
+  transform-origin: left center;
+}
+
+.browse-search-clear {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 8px;
+  color: #594a39;
+  font: 700 1.35rem/1 "Segoe UI", system-ui, sans-serif;
+  background: transparent;
+  cursor: pointer;
+}
+
+.browse-search-clear:hover,
+.browse-search-clear:focus-visible {
+  color: #241e17;
+  background: rgba(112, 83, 49, .12);
+  outline: none;
 }
 
 .browse-sort-control select {
@@ -1174,6 +1260,19 @@ textarea {
 .browse-sort-control select:focus {
   outline: 2px solid rgba(112, 83, 49, .35);
   outline-offset: 2px;
+}
+
+@media (max-width: 980px) {
+  .browse-results-toolbar {
+    align-items: stretch;
+    grid-template-columns: 1fr;
+  }
+
+  .browse-search-control,
+  .browse-sort-control {
+    max-width: none;
+    width: 100%;
+  }
 }
 
 .browse-empty-state {

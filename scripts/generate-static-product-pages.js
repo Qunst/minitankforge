@@ -216,7 +216,7 @@ function pageShell({ title, description, canonical, image, imageAlt, body, scrip
   <meta name="twitter:title" content="${escapeHtml(title)}" />
   <meta name="twitter:description" content="${escapeHtml(description)}" />
   <meta name="twitter:image" content="${absoluteUrl(image)}" />
-  <link href="/assets/css/styles.css?v=20" rel="stylesheet" />
+  <link href="/assets/css/styles.css?v=21" rel="stylesheet" />
   ${jsonLd.join('\n  ')}
   ${scripts.join('\n  ')}
 </head>
@@ -731,8 +731,8 @@ ${internalLinksHtml}
     imageAlt: tankImageAlt(tank),
     body,
     scripts: [
-      '<script defer src="/assets/js/tanks-data.js?v=29"></script>',
-      '<script defer src="/assets/js/app.js?v=45"></script>',
+      '<script defer src="/assets/js/tanks-data.js?v=30"></script>',
+      '<script defer src="/assets/js/app.js?v=47"></script>',
     ],
     jsonLd: [
       jsonLdScript('tank-product-jsonld', product),
@@ -848,9 +848,9 @@ ${contentsHtml}
     imageAlt: setImageAlt(set),
     body,
     scripts: [
-      '<script defer src="/assets/js/tanks-data.js?v=29"></script>',
+      '<script defer src="/assets/js/tanks-data.js?v=30"></script>',
       '<script defer src="/assets/js/sets-data.js?v=18"></script>',
-      '<script defer src="/assets/js/app.js?v=45"></script>',
+      '<script defer src="/assets/js/app.js?v=47"></script>',
     ],
     jsonLd: [
       jsonLdScript('set-product-jsonld', product),

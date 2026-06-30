@@ -405,6 +405,7 @@ const tankEnthusiastPopularityOrder = [
   'sherman-firefly',
   'churchill-iv',
   'stug-iii',
+  'sturmtiger',
   'pershing',
   'panzer-iii',
   'is-2',
@@ -424,13 +425,18 @@ const tankEnthusiastPopularityOrder = [
   'valentine',
   'is-3',
   'is-7',
+  't29',
+  't30',
+  't34-heavy-tank',
   'isu-152',
+  'kv-85',
   'su-100',
   'su-85',
   'jagdpz-iv',
   't28-t95-combat',
   'tortoise',
   'e-100',
+  'kv-5',
   'e-25',
   'e-50',
   'e-75',
@@ -1044,10 +1050,22 @@ function sortBrowseTanks(tanks, sortMode = 'featured') {
   return indexed.map(item => item.tank);
 }
 
-function updateTankBrowseSummary(filteredCount, totalCount) {
+function tankMatchesSearch(tank, searchValue) {
+  const query = normalizeTankLookup(searchValue);
+  if (!query) return true;
+
+  const searchable = normalizeTankLookup(`${tank.name} ${tank.slug}`);
+  const compactQuery = query.replace(/\s+/g, '');
+  const compactSearchable = searchable.replace(/\s+/g, '');
+
+  return searchable.includes(query) || compactSearchable.includes(compactQuery);
+}
+
+function updateTankBrowseSummary(filteredCount, totalCount, searchValue = '') {
   const countTarget = document.querySelector('[data-tank-result-count]');
   const noteTarget = document.querySelector('[data-tank-result-note]');
   const tankLabel = filteredCount === 1 ? 'tank' : 'tanks';
+  const hasSearch = Boolean(String(searchValue || '').trim());
 
   if (countTarget) {
     countTarget.textContent = filteredCount === totalCount
@@ -1057,7 +1075,11 @@ function updateTankBrowseSummary(filteredCount, totalCount) {
 
   if (noteTarget) {
     if (filteredCount === 0) {
-      noteTarget.textContent = 'Try changing the filters or sort order.';
+      noteTarget.textContent = hasSearch
+        ? 'Try another search or change the filters.'
+        : 'Try changing the filters or sort order.';
+    } else if (hasSearch) {
+      noteTarget.textContent = `Search results for "${String(searchValue).trim()}".`;
     } else {
       noteTarget.textContent = filteredCount === totalCount
         ? 'All catalog vehicles are visible.'
@@ -1075,27 +1097,62 @@ function renderBrowseGrid() {
   const era = document.querySelector('[data-filter-era]')?.value || 'All';
   const status = document.querySelector('[data-filter-status]')?.value || 'All';
   const sortMode = document.querySelector('[data-tank-sort]')?.value || 'featured';
+  const searchValue = document.querySelector('[data-tank-search]')?.value || '';
   const visibleTanks = getVisibleTanks();
 
   const filtered = visibleTanks.filter(t => {
     return (nation === 'All' || t.nation === nation)
       && (type === 'All' || t.type === type)
       && (era === 'All' || t.era === era)
-      && (status === 'All' || (t.historicalStatus || 'Service vehicle') === status);
+      && (status === 'All' || (t.historicalStatus || 'Service vehicle') === status)
+      && tankMatchesSearch(t, searchValue);
   });
   const sorted = sortBrowseTanks(filtered, sortMode);
 
-  updateTankBrowseSummary(filtered.length, visibleTanks.length);
+  updateTankBrowseSummary(filtered.length, visibleTanks.length, searchValue);
   target.innerHTML = sorted.length
     ? sorted.map(buildTankCard).join('')
-    : '<div class="browse-empty-state card">No tanks match the current filters.</div>';
+    : `<div class="browse-empty-state card">${searchValue.trim()
+      ? 'No tanks match your search and filters.'
+      : 'No tanks match the current filters.'}</div>`;
 }
 
 function bindTankBrowseControls() {
   const sortSelect = document.querySelector('[data-tank-sort]');
-  if (!sortSelect || sortSelect.dataset.bound === 'true') return;
-  sortSelect.addEventListener('change', renderBrowseGrid);
-  sortSelect.dataset.bound = 'true';
+  const searchInput = document.querySelector('[data-tank-search]');
+  const clearButton = document.querySelector('[data-tank-search-clear]');
+
+  if (sortSelect && sortSelect.dataset.bound !== 'true') {
+    sortSelect.addEventListener('change', renderBrowseGrid);
+    sortSelect.dataset.bound = 'true';
+  }
+
+  if (searchInput && searchInput.dataset.bound !== 'true') {
+    const updateSearch = () => {
+      if (clearButton) clearButton.hidden = !searchInput.value;
+      renderBrowseGrid();
+    };
+
+    searchInput.addEventListener('input', updateSearch);
+    searchInput.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && searchInput.value) {
+        searchInput.value = '';
+        updateSearch();
+      }
+    });
+    searchInput.dataset.bound = 'true';
+  }
+
+  if (clearButton && clearButton.dataset.bound !== 'true') {
+    clearButton.addEventListener('click', () => {
+      if (!searchInput) return;
+      searchInput.value = '';
+      clearButton.hidden = true;
+      searchInput.focus();
+      renderBrowseGrid();
+    });
+    clearButton.dataset.bound = 'true';
+  }
 }
 
 function parseSlugList(value) {

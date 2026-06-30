@@ -18,9 +18,9 @@
   <meta name="twitter:title" content="Browse 3D Printed Tank Miniatures by Nation | MiniTankForge" />
   <meta name="twitter:description" content="Browse 3D printed tank miniatures by nation, type, and era. Compare scale and finish options, then request direct or continue to Etsy." />
   <meta name="twitter:image" content="https://minitankforge.com/assets/img/hero.jpg" />
-  <link href="assets/css/styles.css?v=20" rel="stylesheet" />
-  <script defer src="assets/js/tanks-data.js?v=29"></script>
-  <script defer src="assets/js/app.js?v=45"></script>
+  <link href="assets/css/styles.css?v=21" rel="stylesheet" />
+  <script defer src="assets/js/tanks-data.js?v=30"></script>
+  <script defer src="assets/js/app.js?v=47"></script>
 </head>
 
 <body>
@@ -88,11 +88,19 @@
 
   <main class="container">
     <section class="browse-preview-section">
-      <div class="browse-results-toolbar" aria-live="polite">
-        <div class="browse-results-summary">
+      <div class="browse-results-toolbar">
+        <div class="browse-results-summary" aria-live="polite">
           <div class="kicker">Catalog</div>
           <div class="browse-results-count" data-tank-result-count>Showing tanks</div>
           <p data-tank-result-note>Filtered by current selections</p>
+        </div>
+        <div class="browse-search-control">
+          <label class="filter-label" for="tank-search">Search</label>
+          <div class="browse-search-field">
+            <span class="browse-search-icon" aria-hidden="true"></span>
+            <input id="tank-search" type="search" placeholder="Search tanks..." autocomplete="off" data-tank-search>
+            <button class="browse-search-clear" type="button" aria-label="Clear tank search" title="Clear search" data-tank-search-clear hidden>&times;</button>
+          </div>
         </div>
         <div class="browse-sort-control">
           <label class="filter-label" for="tank-sort">Sort by</label>
