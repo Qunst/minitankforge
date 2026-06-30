@@ -259,8 +259,8 @@ Tank crop rule:
 - Do not crop every tank to fill the frame.
 - The goal is consistent visual model scale across the site.
 - Match new tanks to a reference tank before final output.
-- Check real vehicle body/hull dimensions before choosing crop scale.
-- Do not blindly use online "length" if it includes the gun/barrel. Barrel-inclusive dimensions can make long-gun vehicles look too small.
+- Use real vehicle width as the primary scale reference, especially with front or near-front photos.
+- Use body/hull length only as a secondary cross-check. Do not blindly use online "length" if it includes the gun/barrel; barrel-inclusive dimensions can make long-gun vehicles look too small.
 - Treat scale and framing as separate approval checks. A crop can be the right size but still bad if the vehicle is clipped, too high/low in frame, or too crowded.
 - Examples:
   - Heavy tanks compare to Tiger II / Tiger.
@@ -496,7 +496,7 @@ For image-heavy tasks:
 - Generate preview sheets before finalizing when there is any uncertainty.
 - Show previews with `view_image`.
 - Do not write final output until both relative size and framing/crop are checked.
-- For tank photos, compare body/hull scale against real dimensions and nearby site references; then separately check for clipping, headroom, and awkward top/bottom placement.
+- For tank photos, compare vehicle width against real dimensions and nearby site references first, then use body/hull length as a secondary check; separately check for clipping, headroom, and awkward top/bottom placement.
 
 For Etsy listing tasks:
 - Use `docs/workflows/make-etsy-listing-packet.md`.

@@ -23,7 +23,8 @@ Use this workflow when adding a new batch of tank photos to MiniTankForge.
 - Preserve believable visual scale across the site.
 - Use existing tank photos as scale references, not only automatic crop detection.
 - Check real vehicle dimensions before choosing crop scale.
-- Prefer body/hull length for scale comparison, not gun-forward overall length. Online dimensions may include or exclude barrels, and barrel-included dimensions can make long-gun tanks look incorrectly small.
+- Use vehicle width as the primary scale reference, especially with front or near-front photos. Width avoids the common barrel/no-barrel ambiguity in published lengths.
+- Use body/hull length only as a secondary cross-check. Never use gun-forward overall length as the sole scale target.
 - Keep tanks centered with enough padding so hulls and barrels are not cut off.
 - The same tank must keep the same apparent scale between base coat and unpainted photos.
 - Treat scale and framing as separate checks: a crop can be the correct size but still be bad if the vehicle is too high/low, clipped, or awkwardly crowded.
@@ -45,13 +46,14 @@ Use this workflow when adding a new batch of tank photos to MiniTankForge.
 
 Before making crop proposals:
 
-1. Look up or estimate each new vehicle's real body/hull length.
-2. Note whether the common published length includes the gun/barrel. If uncertain, do not use barrel-inclusive length as the only scale target.
-3. Pick at least two existing site references:
-   - one close in real body/hull length;
+1. Look up or estimate each new vehicle's real width and use it as the primary scale reference.
+2. Use front or near-front product photos to compare apparent width with the selected references.
+3. Look up body/hull length as a secondary check and note whether any published length includes the gun/barrel. Never let a barrel-inclusive length override the width check.
+4. Pick at least two existing site references:
+   - one close in real vehicle width;
    - one smaller or larger nearby vehicle to bracket the expected size.
-4. Use the existing final card images as visual references, and original source photos where available.
-5. If a new vehicle is fictional, prototype, or paper-project, use the closest chassis or intended family as the scale reference and note that assumption.
+5. Use the existing final card images as visual references, and original source photos where available.
+6. If a new vehicle is fictional, prototype, or paper-project, use the closest chassis or intended family as the scale reference and note that assumption.
 
 ## Preview First
 

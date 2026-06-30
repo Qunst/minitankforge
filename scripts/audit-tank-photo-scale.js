@@ -12,8 +12,27 @@ vm.runInContext(fs.readFileSync(path.join(root, 'assets/js/tanks-data.js'), 'utf
 
 const tanks = (sandbox.window.TANKS || []).filter(tank => tank.disabled !== true);
 
-// Approximate real vehicle body/hull lengths in millimetres.
-// This intentionally avoids gun-forward overall length so crop scale follows vehicle body size.
+// Approximate real vehicle widths in millimetres for the most important scale-reference
+// families. Width is the primary crop-scale reference because it is not affected by
+// whether a published length includes the gun barrel.
+const vehicleWidths = {
+  nashorn: 2950,
+  hummel: 2970,
+  'kv-1': 3320,
+  'kv-2': 3320,
+  'kv-5': 4000,
+  'kv-85': 3250,
+  pershing: 3510,
+  t29: 3800,
+  t30: 3800,
+  't34-heavy-tank': 3800,
+  'tiger-i': 3560,
+  'tiger-ii': 3755,
+  sturmtiger: 3570,
+};
+
+// Approximate real vehicle body/hull lengths in millimetres. These are retained as
+// a secondary cross-check only and intentionally avoid gun-forward overall length.
 const bodyLengths = {
   'panzer-iv': 5920,
   'sherman-m4a3': 5840,
@@ -115,6 +134,7 @@ const rows = tanks.map(tank => ({
   type: tank.type,
   status: tank.historicalStatus || '',
   image: tank.image,
+  vehicleWidthMm: vehicleWidths[tank.slug] || null,
   bodyLengthMm: bodyLengths[tank.slug] || null,
   imageExists: fs.existsSync(path.join(root, ...String(tank.image || '').split('/'))),
 }));
@@ -133,13 +153,14 @@ fs.writeFileSync(
 fs.writeFileSync(
   path.join(outDir, 'tank-photo-scale-audit.csv'),
   [
-    'slug,name,nation,type,status,bodyLengthMm,image,imageExists',
+    'slug,name,nation,type,status,vehicleWidthMm,bodyLengthMm,image,imageExists',
     ...rows.map(row => [
       row.slug,
       JSON.stringify(row.name),
       row.nation,
       JSON.stringify(row.type),
       JSON.stringify(row.status),
+      row.vehicleWidthMm || '',
       row.bodyLengthMm || '',
       row.image,
       row.imageExists,

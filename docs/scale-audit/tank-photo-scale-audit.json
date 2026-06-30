@@ -6,6 +6,7 @@
     "type": "Medium tank",
     "status": "",
     "image": "assets/img/tanks/pz-iv-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 5920,
     "imageExists": true
   },
@@ -16,6 +17,7 @@
     "type": "Medium tank",
     "status": "",
     "image": "assets/img/tanks/sherman-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 5840,
     "imageExists": true
   },
@@ -26,6 +28,7 @@
     "type": "Medium tank",
     "status": "",
     "image": "assets/img/tanks/t34-85-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 6100,
     "imageExists": true
   },
@@ -36,6 +39,7 @@
     "type": "Heavy tank",
     "status": "",
     "image": "assets/img/tanks/tiger-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 3560,
     "bodyLengthMm": 6320,
     "imageExists": true
   },
@@ -46,6 +50,7 @@
     "type": "Tank destroyer",
     "status": "",
     "image": "assets/img/tanks/su85-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 6100,
     "imageExists": true
   },
@@ -56,6 +61,7 @@
     "type": "Tank destroyer",
     "status": "",
     "image": "assets/img/tanks/m18-hellcat-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 5280,
     "imageExists": true
   },
@@ -66,6 +72,7 @@
     "type": "Super heavy tank",
     "status": "Prototype / unfinished project",
     "image": "assets/img/tanks/e100-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 8700,
     "imageExists": true
   },
@@ -76,6 +83,7 @@
     "type": "Tank destroyer",
     "status": "What-if / paper project",
     "image": "assets/img/tanks/e25-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 5660,
     "imageExists": true
   },
@@ -86,6 +94,7 @@
     "type": "Medium tank",
     "status": "What-if / paper project",
     "image": "assets/img/tanks/e50-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 6870,
     "imageExists": true
   },
@@ -96,6 +105,7 @@
     "type": "Heavy tank",
     "status": "What-if / paper project",
     "image": "assets/img/tanks/e75-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 7400,
     "imageExists": true
   },
@@ -106,6 +116,7 @@
     "type": "Tank destroyer",
     "status": "",
     "image": "assets/img/tanks/ferdinand-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 6810,
     "imageExists": true
   },
@@ -116,6 +127,7 @@
     "type": "Tank destroyer",
     "status": "",
     "image": "assets/img/tanks/hetzer-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 4870,
     "imageExists": true
   },
@@ -126,6 +138,7 @@
     "type": "Heavy tank",
     "status": "",
     "image": "assets/img/tanks/is3-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 6900,
     "imageExists": true
   },
@@ -136,6 +149,7 @@
     "type": "Heavy tank",
     "status": "Prototype",
     "image": "assets/img/tanks/is-7-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 7380,
     "imageExists": true
   },
@@ -146,6 +160,7 @@
     "type": "Assault gun",
     "status": "",
     "image": "assets/img/tanks/isu152-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 6770,
     "imageExists": true
   },
@@ -156,6 +171,7 @@
     "type": "Tank destroyer",
     "status": "",
     "image": "assets/img/tanks/jagdpanther-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 6870,
     "imageExists": true
   },
@@ -166,6 +182,7 @@
     "type": "Tank destroyer",
     "status": "What-if / paper project",
     "image": "assets/img/tanks/jagdpanther-ii-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 6870,
     "imageExists": true
   },
@@ -176,6 +193,7 @@
     "type": "Tank destroyer",
     "status": "",
     "image": "assets/img/tanks/jgdpz-iv-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 5900,
     "imageExists": true
   },
@@ -186,6 +204,7 @@
     "type": "Tank destroyer",
     "status": "",
     "image": "assets/img/tanks/jagdtiger-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 7450,
     "imageExists": true
   },
@@ -196,6 +215,7 @@
     "type": "Light tank",
     "status": "",
     "image": "assets/img/tanks/luchs-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 4630,
     "imageExists": true
   },
@@ -206,6 +226,7 @@
     "type": "Medium tank",
     "status": "",
     "image": "assets/img/tanks/m3-lee-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 5640,
     "imageExists": true
   },
@@ -216,6 +237,7 @@
     "type": "Light tank",
     "status": "",
     "image": "assets/img/tanks/m5a1-stuart-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 4840,
     "imageExists": true
   },
@@ -226,6 +248,7 @@
     "type": "Super heavy tank",
     "status": "Prototype",
     "image": "assets/img/tanks/maus-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 10200,
     "imageExists": true
   },
@@ -236,6 +259,7 @@
     "type": "Tank destroyer",
     "status": "",
     "image": "assets/img/tanks/nashorn-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 2950,
     "bodyLengthMm": 6200,
     "imageExists": true
   },
@@ -246,6 +270,7 @@
     "type": "Medium tank",
     "status": "",
     "image": "assets/img/tanks/panther-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 6870,
     "imageExists": true
   },
@@ -256,6 +281,7 @@
     "type": "Medium tank",
     "status": "",
     "image": "assets/img/tanks/pz-iii-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 5380,
     "imageExists": true
   },
@@ -266,6 +292,7 @@
     "type": "Super heavy tank",
     "status": "What-if / paper project",
     "image": "assets/img/tanks/loewe-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 7700,
     "imageExists": true
   },
@@ -276,6 +303,7 @@
     "type": "Light tank",
     "status": "",
     "image": "assets/img/tanks/pz35t-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 4900,
     "imageExists": true
   },
@@ -286,6 +314,7 @@
     "type": "Light tank",
     "status": "",
     "image": "assets/img/tanks/pz38t-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 4610,
     "imageExists": true
   },
@@ -296,6 +325,7 @@
     "type": "Heavy tank",
     "status": "",
     "image": "assets/img/tanks/pershing-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 3510,
     "bodyLengthMm": 6330,
     "imageExists": true
   },
@@ -306,6 +336,7 @@
     "type": "Medium tank",
     "status": "",
     "image": "assets/img/tanks/sherman-firefly-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 5840,
     "imageExists": true
   },
@@ -316,6 +347,7 @@
     "type": "Assault gun",
     "status": "",
     "image": "assets/img/tanks/stug-iii-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 5900,
     "imageExists": true
   },
@@ -326,6 +358,7 @@
     "type": "Armored car",
     "status": "",
     "image": "assets/img/tanks/sdkfz-234-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 5860,
     "imageExists": true
   },
@@ -336,6 +369,7 @@
     "type": "Medium tank",
     "status": "",
     "image": "assets/img/tanks/t28-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 7440,
     "imageExists": true
   },
@@ -346,6 +380,7 @@
     "type": "Medium tank",
     "status": "",
     "image": "assets/img/tanks/t34-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 6100,
     "imageExists": true
   },
@@ -356,6 +391,7 @@
     "type": "Heavy tank",
     "status": "",
     "image": "assets/img/tanks/tiger-ii-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 3755,
     "bodyLengthMm": 7380,
     "imageExists": true
   },
@@ -366,6 +402,7 @@
     "type": "Self-propelled artillery",
     "status": "",
     "image": "assets/img/tanks/hummel-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 2970,
     "bodyLengthMm": 7170,
     "imageExists": true
   },
@@ -376,6 +413,7 @@
     "type": "Heavy tank",
     "status": "",
     "image": "assets/img/tanks/is1-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 6770,
     "imageExists": true
   },
@@ -386,6 +424,7 @@
     "type": "Heavy tank",
     "status": "",
     "image": "assets/img/tanks/is-2-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 6770,
     "imageExists": true
   },
@@ -396,6 +435,7 @@
     "type": "Tank destroyer",
     "status": "",
     "image": "assets/img/tanks/isu122-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 6770,
     "imageExists": true
   },
@@ -406,6 +446,7 @@
     "type": "Tank destroyer",
     "status": "What-if / paper project",
     "image": "assets/img/tanks/jagdpanzer-e100-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 8700,
     "imageExists": true
   },
@@ -416,6 +457,7 @@
     "type": "Heavy tank",
     "status": "",
     "image": "assets/img/tanks/kv-1-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 3320,
     "bodyLengthMm": 6750,
     "imageExists": true
   },
@@ -426,6 +468,7 @@
     "type": "Heavy tank",
     "status": "",
     "image": "assets/img/tanks/kv2-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 3320,
     "bodyLengthMm": 6790,
     "imageExists": true
   },
@@ -436,6 +479,7 @@
     "type": "Engineering tank",
     "status": "",
     "image": "assets/img/tanks/churchill-iv-fascine-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 7440,
     "imageExists": true
   },
@@ -446,6 +490,7 @@
     "type": "Heavy tank",
     "status": "",
     "image": "assets/img/tanks/churchill-iv-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 7440,
     "imageExists": true
   },
@@ -456,6 +501,7 @@
     "type": "Tank destroyer",
     "status": "",
     "image": "assets/img/tanks/m10-wolverine-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 5970,
     "imageExists": true
   },
@@ -466,6 +512,7 @@
     "type": "Tank destroyer",
     "status": "",
     "image": "assets/img/tanks/m10-achilles-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 5970,
     "imageExists": true
   },
@@ -476,6 +523,7 @@
     "type": "Medium tank",
     "status": "",
     "image": "assets/img/tanks/m13-40-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 4920,
     "imageExists": true
   },
@@ -486,6 +534,7 @@
     "type": "Medium tank",
     "status": "",
     "image": "assets/img/tanks/m14-41-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 4920,
     "imageExists": true
   },
@@ -496,6 +545,7 @@
     "type": "Half-track",
     "status": "",
     "image": "assets/img/tanks/m3-half-truck-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 6180,
     "imageExists": true
   },
@@ -506,6 +556,7 @@
     "type": "Truck",
     "status": "",
     "image": "assets/img/tanks/opel-blitz-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 6100,
     "imageExists": true
   },
@@ -516,6 +567,7 @@
     "type": "Main battle tank",
     "status": "",
     "image": "assets/img/tanks/m60a1-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 6950,
     "imageExists": true
   },
@@ -526,6 +578,7 @@
     "type": "Self-propelled artillery",
     "status": "",
     "image": "assets/img/tanks/m7-priest-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 6020,
     "imageExists": true
   },
@@ -536,6 +589,7 @@
     "type": "Armored car",
     "status": "",
     "image": "assets/img/tanks/m8-greyhound-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 5000,
     "imageExists": true
   },
@@ -546,6 +600,7 @@
     "type": "Self-propelled gun",
     "status": "",
     "image": "assets/img/tanks/su76-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 5000,
     "imageExists": true
   },
@@ -556,6 +611,7 @@
     "type": "Tank destroyer",
     "status": "",
     "image": "assets/img/tanks/su100-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 6100,
     "imageExists": true
   },
@@ -566,6 +622,7 @@
     "type": "Self-propelled gun",
     "status": "",
     "image": "assets/img/tanks/su122-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 6100,
     "imageExists": true
   },
@@ -576,6 +633,7 @@
     "type": "Engineering tank",
     "status": "",
     "image": "assets/img/tanks/t34-minesweeper-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 6100,
     "imageExists": true
   },
@@ -586,6 +644,7 @@
     "type": "Medium tank",
     "status": "Prototype",
     "image": "assets/img/tanks/a32-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 5920,
     "imageExists": true
   },
@@ -596,6 +655,7 @@
     "type": "Heavy tank",
     "status": "",
     "image": "assets/img/tanks/t-35-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 9720,
     "imageExists": true
   },
@@ -606,6 +666,7 @@
     "type": "Half-track",
     "status": "",
     "image": "assets/img/tanks/zis-42-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 6100,
     "imageExists": true
   },
@@ -616,6 +677,7 @@
     "type": "Light tank",
     "status": "",
     "image": "assets/img/tanks/t-38-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 3780,
     "imageExists": true
   },
@@ -626,6 +688,7 @@
     "type": "Truck",
     "status": "",
     "image": "assets/img/tanks/gaz-aa-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 5340,
     "imageExists": true
   },
@@ -636,6 +699,7 @@
     "type": "Light tank",
     "status": "",
     "image": "assets/img/tanks/t-26-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 4650,
     "imageExists": true
   },
@@ -646,6 +710,7 @@
     "type": "Armored car",
     "status": "",
     "image": "assets/img/tanks/ba-64-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 3660,
     "imageExists": true
   },
@@ -656,6 +721,7 @@
     "type": "Artillery tractor",
     "status": "",
     "image": "assets/img/tanks/stz-5-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 4150,
     "imageExists": true
   },
@@ -666,6 +732,7 @@
     "type": "Light tank",
     "status": "",
     "image": "assets/img/tanks/t-26-twin-turret-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 4650,
     "imageExists": true
   },
@@ -676,6 +743,7 @@
     "type": "Armored car",
     "status": "",
     "image": "assets/img/tanks/ba-6-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 4900,
     "imageExists": true
   },
@@ -686,6 +754,7 @@
     "type": "Artillery",
     "status": "",
     "image": "assets/img/tanks/b-4-howitzer-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 9360,
     "imageExists": true
   },
@@ -696,6 +765,7 @@
     "type": "Light tank",
     "status": "",
     "image": "assets/img/tanks/t70-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 4290,
     "imageExists": true
   },
@@ -706,6 +776,7 @@
     "type": "Self-propelled artillery",
     "status": "",
     "image": "assets/img/tanks/wespe-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 4790,
     "imageExists": true
   },
@@ -716,6 +787,7 @@
     "type": "Light tank",
     "status": "",
     "image": "assets/img/tanks/type95-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 4380,
     "imageExists": true
   },
@@ -726,6 +798,7 @@
     "type": "Medium tank",
     "status": "",
     "image": "assets/img/tanks/type97-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 5520,
     "imageExists": true
   },
@@ -736,6 +809,7 @@
     "type": "Medium tank",
     "status": "",
     "image": "assets/img/tanks/cromwell-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 6350,
     "imageExists": true
   },
@@ -746,6 +820,7 @@
     "type": "Infantry tank",
     "status": "",
     "image": "assets/img/tanks/valentine-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 5410,
     "imageExists": true
   },
@@ -756,6 +831,7 @@
     "type": "Infantry tank",
     "status": "",
     "image": "assets/img/tanks/matilda-ii-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 5720,
     "imageExists": true
   },
@@ -766,6 +842,7 @@
     "type": "Self-propelled artillery",
     "status": "",
     "image": "assets/img/tanks/bishop-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 5490,
     "imageExists": true
   },
@@ -776,6 +853,7 @@
     "type": "Medium tank",
     "status": "",
     "image": "assets/img/tanks/centaur-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 6350,
     "imageExists": true
   },
@@ -786,6 +864,7 @@
     "type": "Tank destroyer",
     "status": "",
     "image": "assets/img/tanks/archer-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 6540,
     "imageExists": true
   },
@@ -796,6 +875,7 @@
     "type": "Light tank",
     "status": "",
     "image": "assets/img/tanks/m24-chaffee-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 5030,
     "imageExists": true
   },
@@ -806,6 +886,7 @@
     "type": "Super heavy tank",
     "status": "What-if / paper project",
     "image": "assets/img/tanks/fcm-f1-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 10530,
     "imageExists": true
   },
@@ -816,6 +897,7 @@
     "type": "Heavy tank",
     "status": "",
     "image": "assets/img/tanks/kv-1s-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 6750,
     "imageExists": true
   },
@@ -826,6 +908,7 @@
     "type": "Super heavy tank",
     "status": "Prototype",
     "image": "assets/img/tanks/tortoise-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 7240,
     "imageExists": true
   },
@@ -836,6 +919,7 @@
     "type": "Super heavy tank",
     "status": "Prototype",
     "image": "assets/img/tanks/t28-t95-transport-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 7490,
     "imageExists": true
   },
@@ -846,6 +930,7 @@
     "type": "Super heavy tank",
     "status": "Prototype",
     "image": "assets/img/tanks/t28-t95-combat-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
     "bodyLengthMm": 7490,
     "imageExists": true
   },
@@ -856,6 +941,7 @@
     "type": "Heavy tank",
     "status": "Prototype",
     "image": "assets/img/tanks/t29-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 3800,
     "bodyLengthMm": 7610,
     "imageExists": true
   },
@@ -866,6 +952,7 @@
     "type": "Heavy tank",
     "status": "Prototype",
     "image": "assets/img/tanks/t30-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 3800,
     "bodyLengthMm": 7610,
     "imageExists": true
   },
@@ -876,6 +963,7 @@
     "type": "Heavy tank",
     "status": "Prototype",
     "image": "assets/img/tanks/t34-heavy-tank-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 3800,
     "bodyLengthMm": 7610,
     "imageExists": true
   },
@@ -886,6 +974,7 @@
     "type": "Heavy tank",
     "status": "What-if / paper project",
     "image": "assets/img/tanks/kv-5-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 4000,
     "bodyLengthMm": 7800,
     "imageExists": true
   },
@@ -896,6 +985,7 @@
     "type": "Heavy tank",
     "status": "",
     "image": "assets/img/tanks/kv-85-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 3250,
     "bodyLengthMm": 6750,
     "imageExists": true
   },
@@ -906,6 +996,7 @@
     "type": "Assault gun",
     "status": "",
     "image": "assets/img/tanks/sturmtiger-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 3570,
     "bodyLengthMm": 6280,
     "imageExists": true
   }
