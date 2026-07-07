@@ -1,6 +1,6 @@
 # MiniTankForge Project Handoff
 
-Last updated: 2026-06-23
+Last updated: 2026-07-07
 
 This document is for future Codex sessions. Read this first before making changes.
 
@@ -53,9 +53,13 @@ Important assets:
 - `assets/img/sets/` - final set/game pack photos used by site
 - `assets/img/unused/` - archived original photos and backups, ignored by git
 - `assets/img/textures/` - texture assets, including hero/button textures
+- `assets/unused/logo-concepts/` - generated logo concept explorations kept for reference, not referenced by the site unless explicitly wired in
+- `assets/img/minitankforge-hex-logo-transparent.png` - current transparent homepage hero mark
 - `docs/workflows/add-new-tank-photos.md` - saved workflow for adding tank photos
 - `docs/workflows/make-etsy-listing-packet.md` - saved workflow for Etsy listing packets
 - `docs/tank-popularity-sorting.md` - research notes and maintenance guidance for the default tank browse order
+- `docs/marketing-plan-2026.md` - concrete 90-day marketing plan for Etsy sales and MiniTankForge traffic
+- `docs/worklog-2026-07-07.md` - dated notes for the Etsy shop positioning, logo concepts, transparent logo assets, and homepage logo update
 
 Static generated pages:
 - Individual tank pages live under `tanks/[slug]/index.html`.

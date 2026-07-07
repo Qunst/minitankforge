@@ -1376,10 +1376,10 @@ textarea {
 }
 
 .hero-tank-mark img {
-  width: 170px;
+  width: clamp(88px, 10vw, 116px);
   height: auto;
   display: block;
-  opacity: .95
+  opacity: .98
 }
 
 .hero-image {
