@@ -60,6 +60,7 @@ Important assets:
 - `docs/tank-popularity-sorting.md` - research notes and maintenance guidance for the default tank browse order
 - `docs/marketing-plan-2026.md` - concrete 90-day marketing plan for Etsy sales and MiniTankForge traffic
 - `docs/traffic-content-plan.md` - concrete traffic-content workflow for Instagram, Pinterest, Facebook groups, BoardGameGeek, and YouTube Shorts
+- `docs/social/instagram-launch-kit-2026.md` - Instagram profile setup, launch-grid captions, tracked links, and upload asset list
 - `docs/worklog-2026-07-07.md` - dated notes for the Etsy shop positioning, logo concepts, transparent logo assets, and homepage logo update
 
 Static generated pages:
@@ -85,6 +86,20 @@ Cloudflare deployment:
 - The project has used Cloudflare Workers/Pages static assets.
 - Domain is served through Cloudflare DNS.
 - Porkbun was the original registrar; Cloudflare DNS nameservers are used.
+- Cloudflare Workers static assets have a hard per-file size limit of 25 MiB. Because `wrangler.jsonc` uses the repo root as the assets directory, any deploy-visible file anywhere in the repo can break deployment.
+- Keep only deployment-ready videos outside ignored folders. Put raw, draft, or oversized video files under `assets/Videos/unused/`; `.assetsignore` excludes that folder from deployment.
+- Before deploying video changes, check for oversized deploy-visible assets:
+  ```powershell
+  Get-ChildItem -Path . -Recurse -File |
+    Where-Object {
+      $_.Length -gt 26214400 -and
+      $_.FullName -notmatch '\\assets\\Videos\\unused\\' -and
+      $_.FullName -notmatch '\\assets\\img\\unused\\' -and
+      $_.FullName -notmatch '\\.git\\'
+    } |
+    Select-Object FullName,Length
+  ```
+- If a gallery video is just over the limit, recode that specific video slightly under 25 MiB rather than swapping it for a different clip. Leave the public filename stable when possible so existing page references keep working.
 
 Contact:
 - Request form posts to Formspree: `https://formspree.io/f/mpqkrvqk`
@@ -526,6 +541,8 @@ For Etsy link updates:
 ## Known Gotchas
 
 - `assets/img/unused/**` is intentionally ignored by git. Do not expect those originals to deploy.
+- `assets/Videos/unused/**` is intentionally ignored for deployment. This is where oversized/raw video drafts belong. Do not reference files in that folder from public pages.
+- Cloudflare deploys fail if any deploy-visible asset is over 25 MiB. This already happened with MP4s under `assets/Videos`; keep public videos below the limit before pushing.
 - Some old workflows produced temporary preview images. Clean previews up unless the owner wants to keep them.
 - The owner cares strongly about correct tank scale in photos. Do not crop tanks to identical visual size.
 - The owner also cares strongly about framing. Do not accept a crop just because scale is correct; check that barrels, fascines, tracks, wheels, artillery parts, and tall turrets are not cut off or jammed against the edge.

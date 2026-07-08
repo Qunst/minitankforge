@@ -35,6 +35,8 @@ The first practical traffic-content action is to open a dedicated MiniTankForge 
 
 Use MiniTankForge as the public-facing brand. Do not use `Quali3DPrints` as the main Instagram identity. Quali3DPrints should remain the Etsy seller/trust identity, while MiniTankForge is the product brand buyers remember.
 
+For the ready-to-use setup fields, launch-grid captions, tracked links, and upload asset list, use `docs/social/instagram-launch-kit-2026.md`.
+
 ### Account Setup
 
 Handle options:

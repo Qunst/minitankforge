@@ -137,7 +137,7 @@ function initHomeHeroImage() {
     ? keys[Math.floor(Math.random() * keys.length)]
     : configured;
   const src = variants[selected] || variants.summer;
-  const versionedSrc = `${src}?v=1`;
+  const versionedSrc = `${src}?v=7`;
   const absoluteSrc = absoluteUrl(versionedSrc);
 
   image.src = rootRelativeUrl(versionedSrc);
