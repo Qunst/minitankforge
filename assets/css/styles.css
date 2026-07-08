@@ -1362,6 +1362,28 @@ textarea {
   color: #3b342d
 }
 
+.hero-header .home-logo-title {
+  font-size: 2.32rem;
+  font-weight: 900;
+  letter-spacing: .012em;
+  font-family: "Arial Black", Impact, Haettenschweiler, "Segoe UI Black", sans-serif
+}
+
+.home-logo-word {
+  display: inline-block;
+  text-shadow:
+    1px 1px 0 rgba(24, 25, 22, .55),
+    0 2px 0 rgba(20, 23, 20, .35)
+}
+
+.home-logo-word-green {
+  color: #314039
+}
+
+.home-logo-word-brass {
+  color: #b18b55
+}
+
 .hero-header .subtitle {
   font-size: 1rem;
   color: #4f4a44;
@@ -1391,7 +1413,7 @@ textarea {
   max-width: 1100px;
   display: block;
   margin: 0 auto;
-  border-radius: 3px;
+  border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, .08), 0 1px 0 rgba(255, 255, 255, .4) inset
 }
 

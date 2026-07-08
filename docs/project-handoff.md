@@ -59,6 +59,7 @@ Important assets:
 - `docs/workflows/make-etsy-listing-packet.md` - saved workflow for Etsy listing packets
 - `docs/tank-popularity-sorting.md` - research notes and maintenance guidance for the default tank browse order
 - `docs/marketing-plan-2026.md` - concrete 90-day marketing plan for Etsy sales and MiniTankForge traffic
+- `docs/traffic-content-plan.md` - concrete traffic-content workflow for Instagram, Pinterest, Facebook groups, BoardGameGeek, and YouTube Shorts
 - `docs/worklog-2026-07-07.md` - dated notes for the Etsy shop positioning, logo concepts, transparent logo assets, and homepage logo update
 
 Static generated pages:
