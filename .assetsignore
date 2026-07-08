@@ -9,3 +9,4 @@ functions
 functions/**
 *.original-safe-to-delete.*
 assets/img/unused/**
+assets/Videos/unused/**
