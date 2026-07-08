@@ -29,6 +29,77 @@ Every post must have one job and one destination.
 | Packing/trust post | Reduce shipping concern | Reviews page, FAQ, or homepage |
 | General brand post | Explain what MiniTankForge is | Homepage |
 
+## Step 1: Open The Instagram Account
+
+The first practical traffic-content action is to open a dedicated MiniTankForge Instagram account.
+
+Use MiniTankForge as the public-facing brand. Do not use `Quali3DPrints` as the main Instagram identity. Quali3DPrints should remain the Etsy seller/trust identity, while MiniTankForge is the product brand buyers remember.
+
+### Account Setup
+
+Handle options:
+
+1. `@minitankforge`
+2. `@minitankforge_tanks`
+3. `@minitankforge_miniatures`
+4. `@minitankforge_ww2`
+
+Display name:
+
+```text
+MiniTankForge | WW2 Tank Miniatures
+```
+
+Profile image:
+
+```text
+assets/img/minitankforge-hex-logo-etsy-shop-icon.jpg
+```
+
+Bio:
+
+```text
+High-detail resin WW2 tank miniatures, starter sets, and game-ready packs in 1:160-1:285. Made in Croatia. Browse below.
+```
+
+Website link:
+
+```text
+https://minitankforge.com/?utm_source=instagram&utm_medium=social&utm_campaign=profile
+```
+
+Account type:
+
+- Switch to a professional/business account.
+- Choose a relevant category such as product/service, shopping/retail, or creator/shop category depending on what Instagram offers.
+- Do not connect ads or paid promotion yet. The first job is to make the profile look real and useful.
+
+### Profile Launch Checklist
+
+Before following people, commenting widely, posting in groups, or asking anyone to visit the profile, seed the account with 9 posts.
+
+The opening grid should be:
+
+1. Scale comparison.
+2. Tiger I detail proof.
+3. Sherman M4A3 detail proof.
+4. German starter/basic set contents.
+5. US starter/basic set contents.
+6. Hellcat Tankers pack.
+7. Finish comparison.
+8. Packing/trust post.
+9. Catalog promo video.
+
+This makes the account look like an active miniature brand instead of an empty new account.
+
+### First Profile Milestone
+
+The first milestone is not "account created." The first milestone is:
+
+```text
+MiniTankForge Instagram account live, branded, linked to the site, switched to professional/business, and seeded with 9 solid posts.
+```
+
 ## Channel Map
 
 Start with five channels. Do not add more until the first 4-week cycle is complete.
@@ -37,6 +108,7 @@ Start with five channels. Do not add more until the first 4-week cycle is comple
 
 Purpose:
 - Best visual channel for close-up photos, Reels, scale comparisons, and finished models.
+- First traffic channel to open because the same assets can later be reused on Pinterest, YouTube Shorts, and Facebook posts.
 
 What to post:
 - 3 posts per week.
@@ -53,6 +125,7 @@ Link behavior:
 - Put one clear link in bio.
 - Rotate the bio link to the most recent campaign page if needed.
 - Caption CTA should say where to go, for example: "Scale guide on MiniTankForge."
+- Do not send every caption to the homepage. Match the caption to the exact guide, tank, set, or Etsy listing.
 
 ### Pinterest
 
@@ -390,8 +463,11 @@ Decision rules:
 
 Do this first:
 
-1. Create the first 10 posts from the table above.
-2. Use existing MiniTankForge photos/videos wherever possible.
-3. Start with Instagram and Pinterest because they can reuse the same assets.
-4. Add one useful community post after the scale comparison post is ready.
-5. Track links with UTM parameters from day one.
+1. Open the dedicated MiniTankForge Instagram account.
+2. Add the logo, display name, bio, and tracked profile link.
+3. Switch the account to professional/business.
+4. Seed the account with the 9-post launch grid.
+5. Create the first 10 traffic posts from the table above.
+6. Reuse the Instagram assets on Pinterest after the first grid is live.
+7. Add one useful community post after the scale comparison post is ready.
+8. Track links with UTM parameters from day one.
