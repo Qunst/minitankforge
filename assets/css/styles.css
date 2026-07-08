@@ -1372,16 +1372,16 @@ textarea {
 .home-logo-word {
   display: inline-block;
   text-shadow:
-    1px 1px 0 rgba(24, 25, 22, .55),
-    0 2px 0 rgba(20, 23, 20, .35)
+    1px 1px 0 rgba(24, 25, 22, .34),
+    0 2px 0 rgba(20, 23, 20, .16)
 }
 
 .home-logo-word-green {
-  color: #314039
+  color: #27352f
 }
 
 .home-logo-word-brass {
-  color: #b18b55
+  color: #9a7445
 }
 
 .hero-header .subtitle {
