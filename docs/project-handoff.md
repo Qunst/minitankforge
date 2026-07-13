@@ -51,9 +51,9 @@ Important assets:
 - `assets/js/sets-data.js` - set/game pack catalog data
 - `assets/img/tanks/` - final tank photos used by site
 - `assets/img/sets/` - final set/game pack photos used by site
-- `assets/img/unused/` - archived original photos and backups, ignored by git
+- `D:\Sites\minitankforge unpushed\assets\img\unused\` - local sibling archive for original photos and backups; not part of the repo
 - `assets/img/textures/` - texture assets, including hero/button textures
-- `assets/unused/logo-concepts/` - generated logo concept explorations kept for reference, not referenced by the site unless explicitly wired in
+- `D:\Sites\minitankforge unpushed\assets\unused\logo-concepts\` - archived logo concept explorations, not referenced by the site
 - `assets/img/minitankforge-hex-logo-transparent.png` - current transparent homepage hero mark
 - `docs/workflows/add-new-tank-photos.md` - saved workflow for adding tank photos
 - `docs/workflows/make-etsy-listing-packet.md` - saved workflow for Etsy listing packets
@@ -87,7 +87,7 @@ Cloudflare deployment:
 - Domain is served through Cloudflare DNS.
 - Porkbun was the original registrar; Cloudflare DNS nameservers are used.
 - Cloudflare Workers static assets have a hard per-file size limit of 25 MiB. Because `wrangler.jsonc` uses the repo root as the assets directory, any deploy-visible file anywhere in the repo can break deployment.
-- Keep only deployment-ready videos outside ignored folders. Put raw, draft, or oversized video files under `assets/Videos/unused/`; `.assetsignore` excludes that folder from deployment.
+- Keep only deployment-ready videos in the repo. Put raw, draft, or oversized video files under `D:\Sites\minitankforge unpushed\assets\Videos\unused\`.
 - Before deploying video changes, check for oversized deploy-visible assets:
   ```powershell
   Get-ChildItem -Path . -Recurse -File |
@@ -272,8 +272,8 @@ General image rules:
 - Use Pillow for deterministic crop/resize/quality work.
 - Use `view_image` or preview contact sheets before accepting uncertain visual work.
 - Do not leave temporary preview sheets in final assets.
-- Store original/backup photos under `assets/img/unused/...`.
-- `assets/img/unused/**` is ignored by git.
+- Store original/backup photos under `D:\Sites\minitankforge unpushed\assets\img\unused\...`.
+- The sibling `minitankforge unpushed` archive is outside the repo and must never be added to Git or deployment uploads.
 
 Tank crop rule:
 - Do not crop every tank to fill the frame.
@@ -540,8 +540,8 @@ For Etsy link updates:
 
 ## Known Gotchas
 
-- `assets/img/unused/**` is intentionally ignored by git. Do not expect those originals to deploy.
-- `assets/Videos/unused/**` is intentionally ignored for deployment. This is where oversized/raw video drafts belong. Do not reference files in that folder from public pages.
+- Original photos live in `D:\Sites\minitankforge unpushed\assets\img\unused\`; do not copy them back into the repo unless they are being promoted into final site assets.
+- Oversized/raw video drafts live in `D:\Sites\minitankforge unpushed\assets\Videos\unused\`. Do not reference files in that archive from public pages.
 - Cloudflare deploys fail if any deploy-visible asset is over 25 MiB. This already happened with MP4s under `assets/Videos`; keep public videos below the limit before pushing.
 - Some old workflows produced temporary preview images. Clean previews up unless the owner wants to keep them.
 - The owner cares strongly about correct tank scale in photos. Do not crop tanks to identical visual size.

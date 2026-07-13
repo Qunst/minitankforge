@@ -4,8 +4,16 @@
 !.dev.vars.example
 .env*
 !.env.example
+
+# local tooling, caches, and generated deliverables
 .python-packages/
 .codex/logs/
+.codex/chrome-profile*/
+.codex/mockups/
+.codex/config.toml
+output/
 assets/img/unused/**
+assets/Videos/unused/**
+assets/unused/**
 extra tools/
 .tmp/

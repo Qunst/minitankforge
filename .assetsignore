@@ -7,6 +7,23 @@
 wrangler.jsonc
 functions
 functions/**
+.codex
+.codex/**
+.python-packages
+.python-packages/**
+.tmp
+.tmp/**
+.vscode
+.vscode/**
+docs
+docs/**
+extra tools
+extra tools/**
+output
+output/**
+scripts
+scripts/**
 *.original-safe-to-delete.*
 assets/img/unused/**
 assets/Videos/unused/**
+assets/unused/**

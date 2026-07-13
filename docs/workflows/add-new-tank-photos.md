@@ -108,7 +108,7 @@ After the final images are approved and applied:
    - `[slug]-base-coat-side-original.jpg`
    - `[slug]-base-coat-quarter-original.jpg`
    - `[slug]-base-coat-front-original.jpg`
-2. Move renamed originals to `assets/img/unused/[source-folder-name-or-date]`.
+2. Move renamed originals to `D:\Sites\minitankforge unpushed\assets\img\unused\[source-folder-name-or-date]`.
 3. Delete temporary preview/proposal files.
 4. Delete the now-empty source folder.
 5. Summarize exactly what changed.
@@ -125,5 +125,5 @@ Do not overwrite final images until I approve the preview.
 Preserve believable tank scale across the site.
 Use existing tank images as scale references.
 Show a scale comparison preview and an all-six-crops preview before applying final images.
-After approval, apply final crops, update data/mappings if needed, run checks, then clean up source photos into assets/img/unused.
+After approval, apply final crops, update data/mappings if needed, run checks, then archive source photos under D:\Sites\minitankforge unpushed\assets\img\unused.
 ```
