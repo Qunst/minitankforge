@@ -78,8 +78,7 @@ Local development server:
 - It serves the repo root at `http://127.0.0.1:8000/`.
 - Start/check helper: `scripts/start-local-server.mjs`.
 - VS Code auto-start support exists in `.vscode/tasks.json` and `.vscode/start-local-server.cmd` using `runOn: folderOpen`.
-- Codex hook support exists in `.codex/hooks.json` and `.codex/hooks/start-local-server.cmd`; hooks may require trust/approval in Codex settings.
-- Server logs go under `.codex/logs/`, which is ignored by git.
+- `.codex/` is local Codex state and must not be committed. If Codex hooks are needed, recreate them locally; do not track browser profiles, logs, caches, or hook experiments in Git.
 
 Cloudflare deployment:
 - `wrangler.jsonc` deploys static assets from the repo root.

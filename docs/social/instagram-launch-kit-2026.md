@@ -25,6 +25,8 @@ Profile image:
 output/social/instagram-launch/profile-image-minitankforge.jpg
 ```
 
+Note: `output/social/**` is a local-only generated folder. It is ignored by git and may be absent after repo cleanup. Regenerate or recreate these assets locally when another upload batch is needed; do not commit Instagram export files to the repo.
+
 Bio:
 
 ```text
@@ -50,6 +52,8 @@ Ready-to-upload launch assets:
 ```text
 output/social/instagram-launch/
 ```
+
+This folder is intentionally local-only. Paste post packets in the chat when creating listings/social posts, but keep generated upload exports out of Git.
 
 Files:
 
