@@ -2409,5 +2409,141 @@ window.TANKS = [
     fact: 'The Sturmtiger mounted a huge rocket mortar on a Tiger I chassis for short-range attacks against fortified positions.',
     description: 'The Sturmtiger is a heavy German assault vehicle for urban fighting, bunker-busting themes, and late-war specialist collections. Its massive superstructure and mortar make it one of the easiest models on the table to spot from across the room.',
     compatibility: 'Compact hex-based tabletop play',
+  },
+  {
+    slug: 'fv4005-stage-ii',
+    name: 'FV4005 Stage II (Centurion 183 mm Tank Destroyer)',
+    nation: 'UK',
+    era: 'Cold War',
+    historicalStatus: 'Prototype',
+    type: 'Tank destroyer',
+    featured: false,
+    disabled: false,
+    placeholderStyle: 'dark-large',
+    image: 'assets/img/tanks/fv4005-stage-ii-base-coat-side-detail.jpg',
+    etsyUrl: 'https://www.etsy.com/listing/4536344374/fv4005-stage-ii-british-tank-destroyer',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
+    siteTags: ['Prototype', 'Game-famous', 'WoT'],
+    fact: 'The FV4005 Stage II tested an enormous 183 mm gun on a Centurion-based chassis, creating one of Britain\'s most recognizable prototype tank destroyers.',
+    description: 'The FV4005 Stage II is a British prototype tank destroyer miniature with an oversized turret and dramatic long-gun silhouette. It is a strong choice for experimental Cold War collections, game-inspired lineups, and tables that need a distinctive vehicle beside Centurions, Tortoises, and other unusual British armor.',
+    compatibility: 'Compact hex-based tabletop play',
+  },
+  {
+    slug: 'su-85b',
+    name: 'SU-85B (Samokhodnaya Ustanovka 85B)',
+    nation: 'USSR',
+    era: 'WW2',
+    historicalStatus: 'Prototype',
+    type: 'Tank destroyer',
+    featured: false,
+    disabled: false,
+    placeholderStyle: 'light-small',
+    image: 'assets/img/tanks/su-85b-base-coat-side-detail.jpg',
+    etsyUrl: 'https://www.etsy.com/listing/4536344940/su-85b-soviet-tank-destroyer-prototype',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
+    fact: 'The SU-85B was an experimental late-war Soviet attempt to put an 85 mm anti-tank gun onto the light SU-76 family chassis.',
+    description: 'The SU-85B is a compact Soviet prototype tank destroyer for late-war and alternate-history forces. It gives Soviet collections a small open-topped anti-armor vehicle that sits naturally between the SU-76 and larger T-34-based SU-85 or SU-100 vehicles.',
+    compatibility: 'Compact hex-based tabletop play',
+  },
+  {
+    slug: 'somua-s40',
+    name: 'Somua S40 (Char S40)',
+    nation: 'France',
+    era: 'WW2',
+    historicalStatus: 'Prototype / unfinished project',
+    type: 'Medium tank',
+    featured: false,
+    disabled: false,
+    placeholderStyle: 'dark-medium',
+    image: 'assets/img/tanks/somua-s40-base-coat-side-detail.jpg',
+    etsyUrl: 'https://www.etsy.com/listing/4536330573/somua-s40-french-tank-prototype',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
+    fact: 'The Somua S40 was planned as an improved development of the S35, but France fell before it could become a normal production tank.',
+    description: 'The Somua S40 is a French early-war prototype medium tank for 1940 what-if forces, campaign extensions, and players who want French armor beyond the familiar S35. Its rounded hull and compact turret keep the Somua family look while adding a rarer development-branch vehicle.',
+    compatibility: 'Compact hex-based tabletop play',
+  },
+  {
+    slug: 'char-b1-bis',
+    name: 'Char B1 bis (Battle Tank B1 bis)',
+    nation: 'France',
+    era: 'WW2',
+    type: 'Heavy tank',
+    featured: false,
+    disabled: false,
+    placeholderStyle: 'light-medium',
+    image: 'assets/img/tanks/char-b1-bis-base-coat-side-detail.jpg',
+    etsyUrl: 'https://www.etsy.com/listing/4536331141/char-b1-bis-french-heavy-tank-miniature',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
+    siteTags: ['Early war', 'Iconic'],
+    fact: 'The Char B1 bis combined heavy armor with both a hull gun and a turret gun, making it one of France\'s most distinctive 1940 tanks.',
+    description: 'The Char B1 bis is a French heavy tank miniature for 1940 campaigns, breakthrough scenarios, and early-war armor collections. Its tall hull, side armor, and mixed gun layout make it instantly different from German, British, or Soviet tanks of the same period.',
+    compatibility: 'Compact hex-based tabletop play',
+  },
+  {
+    slug: 'somua-s35',
+    name: 'Somua S35 (Automitrailleuse de Combat S35)',
+    nation: 'France',
+    era: 'WW2',
+    type: 'Medium tank',
+    featured: false,
+    disabled: false,
+    placeholderStyle: 'dark-small',
+    image: 'assets/img/tanks/somua-s35-base-coat-side-detail.jpg',
+    etsyUrl: 'https://www.etsy.com/listing/4536331587/somua-s35-french-tank-miniature-3d',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
+    siteTags: ['Early war', 'Iconic'],
+    fact: 'The Somua S35 was one of France\'s best pre-war cavalry tanks, with good armor and mobility for the 1940 campaign.',
+    description: 'The Somua S35 is a French medium tank miniature for early-war tabletop battles, 1940 campaign forces, and collections that need a strong French cavalry-tank silhouette. It pairs naturally with the Char B1 bis, Hotchkiss-style light tanks, and German early-war opponents.',
+    compatibility: 'Compact hex-based tabletop play',
   }
 ];

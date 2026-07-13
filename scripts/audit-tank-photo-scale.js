@@ -18,6 +18,8 @@ const tanks = (sandbox.window.TANKS || []).filter(tank => tank.disabled !== true
 const vehicleWidths = {
   nashorn: 2950,
   hummel: 2970,
+  'fcm-f1': 3100,
+  'fv4005-stage-ii': 3390,
   'kv-1': 3320,
   'kv-2': 3320,
   'kv-5': 4000,
@@ -29,6 +31,10 @@ const vehicleWidths = {
   'tiger-i': 3560,
   'tiger-ii': 3755,
   sturmtiger: 3570,
+  'su-85b': 2730,
+  'somua-s35': 2120,
+  'somua-s40': 2120,
+  'char-b1-bis': 2500,
 };
 
 // Approximate real vehicle body/hull lengths in millimetres. These are retained as
@@ -89,6 +95,7 @@ const bodyLengths = {
   archer: 6540,
   'm24-chaffee': 5030,
   'fcm-f1': 10530,
+  'fv4005-stage-ii': 7560,
   'kv-1s': 6750,
   tortoise: 7240,
   't28-t95-transport': 7490,
@@ -106,6 +113,7 @@ const bodyLengths = {
   'm7-priest': 6020,
   'm8-greyhound': 5000,
   'su-76': 5000,
+  'su-85b': 5000,
   'su-100': 6100,
   'su-122': 6100,
   sturmtiger: 6280,
@@ -122,6 +130,9 @@ const bodyLengths = {
   'ba-6': 4900,
   'b-4-howitzer': 9360,
   't-70': 4290,
+  'somua-s35': 5380,
+  'somua-s40': 5380,
+  'char-b1-bis': 6370,
   wespe: 4790,
   'type-95-ha-go': 4380,
   'type-97-chi-ha': 5520,

@@ -7,3 +7,5 @@
 .python-packages/
 .codex/logs/
 assets/img/unused/**
+extra tools/
+.tmp/

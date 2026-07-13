@@ -79,7 +79,7 @@ bishop,"Bishop (Carrier Valentine 25-pdr Gun Mk I)",UK,"Self-propelled artillery
 centaur,"Centaur IV (Cruiser Tank Mk VIII Centaur IV)",UK,"Medium tank","",,6350,assets/img/tanks/centaur-base-coat-side-detail.jpg,true
 archer,"Archer (Self-Propelled 17-pdr, Valentine, Mk I)",UK,"Tank destroyer","",,6540,assets/img/tanks/archer-base-coat-side-detail.jpg,true
 m24-chaffee,"M24 Chaffee (Light Tank M24)",USA,"Light tank","",,5030,assets/img/tanks/m24-chaffee-base-coat-side-detail.jpg,true
-fcm-f1,"FCM F1 (Char de Forteresse FCM F1)",France,"Super heavy tank","What-if / paper project",,10530,assets/img/tanks/fcm-f1-base-coat-side-detail.jpg,true
+fcm-f1,"FCM F1 (Char de Forteresse FCM F1)",France,"Super heavy tank","What-if / paper project",3100,10530,assets/img/tanks/fcm-f1-base-coat-side-detail.jpg,true
 kv-1s,"KV-1S (Kliment Voroshilov-1S)",USSR,"Heavy tank","",,6750,assets/img/tanks/kv-1s-base-coat-side-detail.jpg,true
 tortoise,"A39 Tortoise (Tank, Heavy Assault, Tortoise)",UK,"Super heavy tank","Prototype",,7240,assets/img/tanks/tortoise-base-coat-side-detail.jpg,true
 t28-t95-transport,"T28/T95 Transport Configuration (Super Heavy Tank T28)",USA,"Super heavy tank","Prototype",,7490,assets/img/tanks/t28-t95-transport-base-coat-side-detail.jpg,true
@@ -90,3 +90,8 @@ t34-heavy-tank,"T34 Heavy Tank (Heavy Tank T34)",USA,"Heavy tank","Prototype",38
 kv-5,"KV-5 (KV-5 Heavy Tank Project)",USSR,"Heavy tank","What-if / paper project",4000,7800,assets/img/tanks/kv-5-base-coat-side-detail.jpg,true
 kv-85,"KV-85 (Kliment Voroshilov-85)",USSR,"Heavy tank","",3250,6750,assets/img/tanks/kv-85-base-coat-side-detail.jpg,true
 sturmtiger,"Sturmtiger (Sturmmorser Tiger)",Germany,"Assault gun","",3570,6280,assets/img/tanks/sturmtiger-base-coat-side-detail.jpg,true
+fv4005-stage-ii,"FV4005 Stage II (Centurion 183 mm Tank Destroyer)",UK,"Tank destroyer","Prototype",3390,7560,assets/img/tanks/fv4005-stage-ii-base-coat-side-detail.jpg,true
+su-85b,"SU-85B (Samokhodnaya Ustanovka 85B)",USSR,"Tank destroyer","Prototype",2730,5000,assets/img/tanks/su-85b-base-coat-side-detail.jpg,true
+somua-s40,"Somua S40 (Char S40)",France,"Medium tank","Prototype / unfinished project",2120,5380,assets/img/tanks/somua-s40-base-coat-side-detail.jpg,true
+char-b1-bis,"Char B1 bis (Battle Tank B1 bis)",France,"Heavy tank","",2500,6370,assets/img/tanks/char-b1-bis-base-coat-side-detail.jpg,true
+somua-s35,"Somua S35 (Automitrailleuse de Combat S35)",France,"Medium tank","",2120,5380,assets/img/tanks/somua-s35-base-coat-side-detail.jpg,true

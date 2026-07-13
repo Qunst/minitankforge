@@ -886,7 +886,7 @@
     "type": "Super heavy tank",
     "status": "What-if / paper project",
     "image": "assets/img/tanks/fcm-f1-base-coat-side-detail.jpg",
-    "vehicleWidthMm": null,
+    "vehicleWidthMm": 3100,
     "bodyLengthMm": 10530,
     "imageExists": true
   },
@@ -998,6 +998,61 @@
     "image": "assets/img/tanks/sturmtiger-base-coat-side-detail.jpg",
     "vehicleWidthMm": 3570,
     "bodyLengthMm": 6280,
+    "imageExists": true
+  },
+  {
+    "slug": "fv4005-stage-ii",
+    "name": "FV4005 Stage II (Centurion 183 mm Tank Destroyer)",
+    "nation": "UK",
+    "type": "Tank destroyer",
+    "status": "Prototype",
+    "image": "assets/img/tanks/fv4005-stage-ii-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 3390,
+    "bodyLengthMm": 7560,
+    "imageExists": true
+  },
+  {
+    "slug": "su-85b",
+    "name": "SU-85B (Samokhodnaya Ustanovka 85B)",
+    "nation": "USSR",
+    "type": "Tank destroyer",
+    "status": "Prototype",
+    "image": "assets/img/tanks/su-85b-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 2730,
+    "bodyLengthMm": 5000,
+    "imageExists": true
+  },
+  {
+    "slug": "somua-s40",
+    "name": "Somua S40 (Char S40)",
+    "nation": "France",
+    "type": "Medium tank",
+    "status": "Prototype / unfinished project",
+    "image": "assets/img/tanks/somua-s40-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 2120,
+    "bodyLengthMm": 5380,
+    "imageExists": true
+  },
+  {
+    "slug": "char-b1-bis",
+    "name": "Char B1 bis (Battle Tank B1 bis)",
+    "nation": "France",
+    "type": "Heavy tank",
+    "status": "",
+    "image": "assets/img/tanks/char-b1-bis-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 2500,
+    "bodyLengthMm": 6370,
+    "imageExists": true
+  },
+  {
+    "slug": "somua-s35",
+    "name": "Somua S35 (Automitrailleuse de Combat S35)",
+    "nation": "France",
+    "type": "Medium tank",
+    "status": "",
+    "image": "assets/img/tanks/somua-s35-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 2120,
+    "bodyLengthMm": 5380,
     "imageExists": true
   }
 ]
