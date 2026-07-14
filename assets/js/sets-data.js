@@ -782,6 +782,13 @@ window.SETS = [
     description: 'This pack is an unofficial 3D printed accessory set for players who want physical pieces for Mike Lambo\'s Hellcat Tankers rather than relying only on printed counters. The pack centers on the M18 Hellcat and the German vehicles used around the scenario mix, with Basic, Full, and Extra Hellcat options depending on how much table presence you want.',
     gameTitle: 'Hellcat Tankers',
     gameUrl: 'https://www.lulu.com/shop/mike-lambo/hellcat-tankers/paperback/product-nv9ygvw.html',
+    videos: [
+      {
+        youtubeId: 'fPNNeSwEu5w',
+        title: 'Mini Tanks for Hellcat Tankers',
+        note: 'Mike Lambo shows the pack contents, model detail, base visibility, and how the pieces sit on the Hellcat Tankers map.'
+      }
+    ],
     overviewKicker: 'Game upgrade',
     overviewHeading: 'Physical pieces for Hellcat Tankers',
     bestFor: 'Upgrading Hellcat Tankers with fixed-scale 1:285 physical pieces.',
@@ -884,11 +891,23 @@ window.SETS = [
       }
     ],
     placeholderStyle: 'dark-medium',
-    etsyUrl: 'https://www.etsy.com/listing/1703513728/detailed-mini-ww2-tanks-1250-scale-lone',
+    etsyUrl: 'https://www.etsy.com/listing/1355718683/detailed-mini-ww2-tanks-1250-scale-lone',
     note: 'Game-ready 1:250 pack built around a lone Sherman scenario.',
     description: 'This pack is an unofficial 3D printed accessory set for players who want physical pieces for Mike Lambo\'s Lone Sherman rather than relying only on printed counters. The pack is built around the Sherman, German armor, infantry, and truck pieces used for the European game setting, with versions for the full pack, tanks only, support pieces, or an extra Sherman.',
     gameTitle: 'Lone Sherman',
     gameUrl: 'https://www.lulu.com/shop/mike-lambo/lone-sherman/paperback/product-e7rj6d9.html',
+    videos: [
+      {
+        youtubeId: '8Bs7_AGLYaU',
+        title: 'Lone Sherman with Mini Tanks — Mission 9 playthrough',
+        note: 'An extended Mission 9 playthrough showing the miniature tanks in use throughout the game.'
+      },
+      {
+        youtubeId: 'c82884c8DCU',
+        title: 'Mini Tanks for Lone Sherman and Lone Sherman: The Pacific',
+        note: 'A short comparison of the original and Pacific packs, including their contents and model detail.'
+      }
+    ],
     overviewKicker: 'Game upgrade',
     overviewHeading: 'Physical pieces for Lone Sherman',
     bestFor: 'Upgrading Lone Sherman with fixed-scale 1:250 tabletop pieces.',
@@ -1000,11 +1019,18 @@ window.SETS = [
       }
     ],
     placeholderStyle: 'dark-medium',
-    etsyUrl: 'https://www.etsy.com/listing/1355718683/detailed-mini-ww2-tanks-1250-scale-lone',
+    etsyUrl: 'https://www.etsy.com/listing/1703513728/detailed-mini-ww2-tanks-1250-scale-lone',
     note: 'Game-ready 1:250 Pacific pack built around a lone Sherman facing Japanese armor and support units.',
     description: 'This pack is an unofficial 3D printed accessory set for players who want physical pieces for Mike Lambo\'s Lone Sherman: The Pacific. It keeps the Sherman at the center and adds Japanese Type 95 Ha-Go, Type 97 Chi-Ha, infantry, artillery, and anti-tank gun options for the Pacific setting. The pack versions let you choose the full mix, tanks only, support pieces, or an extra Sherman.',
     gameTitle: 'Lone Sherman: The Pacific',
     gameUrl: 'https://www.lulu.com/shop/mike-lambo/lone-sherman-the-pacific/paperback/product-kvjkyyk.html',
+    videos: [
+      {
+        youtubeId: 'c82884c8DCU',
+        title: 'Mini Tanks for Lone Sherman and Lone Sherman: The Pacific',
+        note: 'Mike Lambo compares the original and Pacific packs and shows the Pacific pieces directly on the game map.'
+      }
+    ],
     overviewKicker: 'Game upgrade',
     overviewHeading: 'Physical pieces for Lone Sherman: The Pacific',
     bestFor: 'Upgrading Lone Sherman: The Pacific with fixed-scale 1:250 physical pieces.',

@@ -216,7 +216,7 @@ function pageShell({ title, description, canonical, image, imageAlt, body, scrip
   <meta name="twitter:title" content="${escapeHtml(title)}" />
   <meta name="twitter:description" content="${escapeHtml(description)}" />
   <meta name="twitter:image" content="${absoluteUrl(image)}" />
-  <link href="/assets/css/styles.css?v=21" rel="stylesheet" />
+  <link href="/assets/css/styles.css?v=22" rel="stylesheet" />
   ${jsonLd.join('\n  ')}
   ${scripts.join('\n  ')}
 </head>
@@ -661,6 +661,36 @@ function renderSetStaticGuideLinks(set) {
     </section>`;
 }
 
+function renderSetStaticVideos(set) {
+  const videos = Array.isArray(set.videos) ? set.videos.filter(video => video?.youtubeId) : [];
+  if (!videos.length) return '';
+
+  return `
+    <section class="set-video-section">
+      <div class="section-head">
+        <div>
+          <h2>See the miniatures in play</h2>
+          <p>Mike Lambo demonstrates these unofficial accessories on the game map. MiniTankForge supplied the featured samples; the videos state that Mike receives no benefit from purchases.</p>
+        </div>
+      </div>
+      <div class="set-video-grid">
+        ${videos.map(video => {
+          const videoId = encodeURIComponent(video.youtubeId);
+          return `
+        <article class="card info-card set-video-card">
+          <div class="kicker">Creator demonstration</div>
+          <h3>${escapeHtml(video.title || 'Miniatures in play')}</h3>
+          <div class="set-video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/${videoId}" title="${escapeHtml(video.title || 'Miniatures in play')}" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          ${video.note ? `<p class="muted">${escapeHtml(video.note)}</p>` : ''}
+          <a class="btn" href="https://www.youtube.com/watch?v=${videoId}" target="_blank" rel="noopener">Watch on YouTube</a>
+        </article>`;
+        }).join('')}
+      </div>
+    </section>`;
+}
+
 function writeTankPage(tank, data) {
   const publicUrl = `${siteUrl}/tanks/${tank.slug}/`;
   const availableScales = tank.availableScales || data.scales;
@@ -785,8 +815,9 @@ ${set.description ? `      <div class="card info-card">
 ` : ''}    </section>
 ` : '';
   const includedVehicleLinksHtml = renderSetStaticIncludedVehicleLinks(set, data.tanks);
+  const videosHtml = renderSetStaticVideos(set);
   const guideLinksHtml = renderSetStaticGuideLinks(set);
-  const extraSetSections = [setNotesHtml, includedVehicleLinksHtml, guideLinksHtml]
+  const extraSetSections = [setNotesHtml, videosHtml, includedVehicleLinksHtml, guideLinksHtml]
     .filter(Boolean)
     .map(section => section.trimEnd())
     .join('\n');
@@ -858,8 +889,8 @@ ${contentsHtml}
     body,
     scripts: [
       '<script defer src="/assets/js/tanks-data.js?v=30"></script>',
-      '<script defer src="/assets/js/sets-data.js?v=18"></script>',
-      '<script defer src="/assets/js/app.js?v=47"></script>',
+      '<script defer src="/assets/js/sets-data.js?v=19"></script>',
+      '<script defer src="/assets/js/app.js?v=48"></script>',
     ],
     jsonLd: [
       jsonLdScript('set-product-jsonld', product),
@@ -917,13 +948,15 @@ function updateSitemap(tanks, sets) {
 
 function main() {
   const data = readData();
-  const tanks = data.tanks.filter(isVisible);
-  const sets = data.sets.filter(isVisible);
+  const requestedSlugs = new Set(process.argv.slice(2));
+  const isRequested = item => requestedSlugs.size === 0 || requestedSlugs.has(item.slug);
+  const tanks = data.tanks.filter(isVisible).filter(isRequested);
+  const sets = data.sets.filter(isVisible).filter(isRequested);
 
   tanks.forEach(tank => writeTankPage(tank, data));
   sets.forEach(set => writeSetPage(set, data));
 
-  updateSitemap(tanks, sets);
+  if (requestedSlugs.size === 0) updateSitemap(tanks, sets);
 
   console.log(`Generated ${tanks.length} tank pages and ${sets.length} set pages.`);
 }
