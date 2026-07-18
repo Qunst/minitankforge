@@ -59,8 +59,9 @@ Important assets:
 - `docs/workflows/make-etsy-listing-packet.md` - saved workflow for Etsy listing packets
 - `docs/tank-popularity-sorting.md` - research notes and maintenance guidance for the default tank browse order
 - `docs/marketing-plan-2026.md` - concrete 90-day marketing plan for Etsy sales and MiniTankForge traffic
-- `docs/traffic-content-plan.md` - concrete traffic-content workflow for Instagram, Pinterest, Facebook groups, BoardGameGeek, and YouTube Shorts
-- `docs/social/instagram-launch-kit-2026.md` - Instagram profile setup, launch-grid captions, tracked links, and upload asset list
+- `D:\Sites\minitankforge unpushed\social\planning\traffic-content-plan.md` - concrete traffic-content workflow for Instagram, Pinterest, Facebook groups, BoardGameGeek, and YouTube Shorts
+- `D:\Sites\minitankforge unpushed\social\` - required workspace for all social-media assets, captions, drafts, outreach notes, and production scripts; do not add these to the main repository
+- `D:\Sites\minitankforge unpushed\social\instagram\docs\instagram-launch-kit-2026.md` - Instagram profile setup, launch-grid captions, tracked links, and upload asset list
 - `docs/worklog-2026-07-07.md` - dated notes for the Etsy shop positioning, logo concepts, transparent logo assets, and homepage logo update
 
 Static generated pages:

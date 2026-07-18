@@ -700,7 +700,7 @@ The content goal is not entertainment. The content goal is to remove buying unce
 - Will it work for my board/game/scenario?
 - Can I trust shipping from Croatia?
 
-For the concrete channel map, first 10 posts, caption templates, tracking links, and weekly workflow, use `docs/traffic-content-plan.md`.
+For the concrete channel map, first 10 posts, caption templates, tracking links, and weekly workflow, use `D:\Sites\minitankforge unpushed\social\planning\traffic-content-plan.md`.
 
 ### Weekly Content Output
 
