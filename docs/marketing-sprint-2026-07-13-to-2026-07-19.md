@@ -2,6 +2,8 @@
 
 Period: 13-19 July 2026
 
+Closeout updated: 2026-08-04
+
 Primary objective: prepare three strong offers for promotion, make new traffic measurable, and begin reaching qualified hobby audiences.
 
 Working principle: do not promote the whole catalog at once. Lead with three offers that are easy to understand and demonstrate.
@@ -109,7 +111,7 @@ Owner actions:
 
 Codex actions:
 
-- [x] Research 30 relevant creators covering solo wargames, WW2 games, micro armor, board-game upgrades, and miniature painting. See `D:\Sites\minitankforge unpushed\social\outreach\creator-outreach-list-2026-07.md`.
+- [x] Research 30 relevant creators covering solo wargames, WW2 games, micro armor, board-game upgrades, and miniature painting. See `<unpushed-root>/social/outreach/creator-outreach-list-2026-07.md`.
 - [x] Rank them by audience fit, activity, likely reach, location, and contactability.
 - [ ] Prepare a concise personalized outreach template.
 - [ ] Prepare a one-page MiniTankForge creator brief with product facts, photos, links, and disclosure expectations.
@@ -165,3 +167,32 @@ End-of-day result: the first measurable awareness campaign is live.
 - Pinterest impressions, saves, and outbound clicks.
 - Creator contacts, replies, acceptances, published coverage, and attributed orders.
 - Customer photos or repost permissions received.
+
+## Post-Vacation Closeout
+
+The original seven-day sprint was only partly executed, but it led to a working
+Instagram production system and several finished posts.
+
+Completed after the sprint period:
+
+- [x] MiniTankForge Instagram account created and used for live posts.
+- [x] Reusable social workspace established under `<unpushed-root>/social/`.
+- [x] Maus-versus-Stuart 1:200 comparison carousel prepared.
+- [x] Four-tank identification carousel prepared and published.
+- [x] A39 Tortoise Instagram Reel, cover, caption, and alt text completed.
+- [x] Separate native Reddit Tortoise edit, thumbnail, and post copy completed.
+- [x] BlueStacks shared-folder transfer workflow completed for Windows uploads.
+- [x] Social renderers changed to portable relative paths.
+- [x] Initial relevant Instagram follow list researched.
+
+Still outstanding:
+
+- [ ] Record the Tortoise Reel's 72-hour Insights.
+- [ ] Confirm whether its initially missing caption was added after publication.
+- [ ] Publish the Reddit cut if still appropriate under current subreddit rules.
+- [ ] Complete the Etsy and website measurement baseline from the original sprint.
+- [ ] Create the Pinterest business profile and begin the Pinterest cycle.
+- [ ] Prepare the creator brief and send the first targeted outreach messages.
+- [ ] Test print the British 6-pounder and PIAT team for *Lone Panther*.
+
+Detailed handoff: `docs/worklog-2026-08-04-vacation-social.md`.

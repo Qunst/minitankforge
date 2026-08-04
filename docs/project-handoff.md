@@ -1,6 +1,6 @@
 # MiniTankForge Project Handoff
 
-Last updated: 2026-07-07
+Last updated: 2026-08-04
 
 This document is for future Codex sessions. Read this first before making changes.
 
@@ -24,6 +24,27 @@ Tone:
 - Practical, clear, warm, and hobby-friendly.
 - Avoid corporate filler.
 - Avoid making the site feel like a checkout/cart system.
+
+## Current Work State
+
+The July/August 2026 vacation period was used primarily for Instagram and
+short-form video work. The account is active, several posts were prepared or
+published, and a reusable Tortoise campaign was completed. The detailed record
+is in `docs/worklog-2026-08-04-vacation-social.md`.
+
+Important current actions:
+
+- Copy the complete local `minitankforge unpushed` folder to the regular
+  computer. Git intentionally does not contain the social media, raw video, or
+  production-tool files.
+- Review the Tortoise Reel's 72-hour Instagram Insights and record non-follower
+  reach, shares, watch time, profile visits, and follows.
+- The Reddit Tortoise cut is ready, but publication has not been confirmed.
+- Test print the completed British 6-pounder and two-figure PIAT team models for
+  Mike Lambo's *Lone Panther*. That project was paused until the vacation ended.
+- Continue follower growth through two strong Reels and one carousel per week,
+  selective account engagement, and one relevant Collab attempt every two
+  weeks. Do not use mass-following or follow/unfollow tactics.
 
 ## Current Tech Shape
 
@@ -59,10 +80,12 @@ Important assets:
 - `docs/workflows/make-etsy-listing-packet.md` - saved workflow for Etsy listing packets
 - `docs/tank-popularity-sorting.md` - research notes and maintenance guidance for the default tank browse order
 - `docs/marketing-plan-2026.md` - concrete 90-day marketing plan for Etsy sales and MiniTankForge traffic
-- `D:\Sites\minitankforge unpushed\social\planning\traffic-content-plan.md` - concrete traffic-content workflow for Instagram, Pinterest, Facebook groups, BoardGameGeek, and YouTube Shorts
-- `D:\Sites\minitankforge unpushed\social\` - required workspace for all social-media assets, captions, drafts, outreach notes, and production scripts; do not add these to the main repository
-- `D:\Sites\minitankforge unpushed\social\instagram\docs\instagram-launch-kit-2026.md` - Instagram profile setup, launch-grid captions, tracked links, and upload asset list
+- `<unpushed-root>/social/` - required portable workspace for all social-media assets, captions, drafts, outreach notes, and production scripts; `<unpushed-root>` means the local unpushed folder on the current computer, and these files must not be added to the main repository
+- `<unpushed-root>/social/planning/traffic-content-plan.md` - concrete traffic-content workflow for Instagram, Pinterest, Facebook groups, BoardGameGeek, and YouTube Shorts
+- `<unpushed-root>/social/instagram/docs/instagram-launch-kit-2026.md` - Instagram profile setup, launch-grid captions, tracked links, and upload asset list
+- `<unpushed-root>/social/HANDOFF-2026-08-04.md` - detailed portable social workspace status, final Tortoise edit decisions, posting status, transfer checklist, and next actions
 - `docs/worklog-2026-07-07.md` - dated notes for the Etsy shop positioning, logo concepts, transparent logo assets, and homepage logo update
+- `docs/worklog-2026-08-04-vacation-social.md` - dated summary of the vacation social campaign, Lone Panther model status, follower-growth plan, and regular-computer handoff
 
 Static generated pages:
 - Individual tank pages live under `tanks/[slug]/index.html`.

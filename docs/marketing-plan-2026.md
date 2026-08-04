@@ -700,15 +700,38 @@ The content goal is not entertainment. The content goal is to remove buying unce
 - Will it work for my board/game/scenario?
 - Can I trust shipping from Croatia?
 
-For the concrete channel map, first 10 posts, caption templates, tracking links, and weekly workflow, use `D:\Sites\minitankforge unpushed\social\planning\traffic-content-plan.md`.
+For the concrete channel map, first 10 posts, caption templates, tracking links, and weekly workflow, use `<unpushed-root>/social/planning/traffic-content-plan.md`.
+
+### Current Instagram Phase: August 2026
+
+The account has moved beyond launch-grid preparation. Vacation content produced
+the Maus-versus-Stuart carousel, a four-tank identification carousel, and the
+A39 Tortoise field-trials Reel. See
+`docs/worklog-2026-08-04-vacation-social.md` for exact assets and status.
+
+The current growth objective is qualified non-follower reach followed by profile
+conversion. Use this operating pattern:
+
+- Two strong Reels and one carousel per week when the material supports it.
+- One relevant Collab attempt every two weeks with a historical-wargaming,
+  miniature-painting, solo-gaming, or tank-history account.
+- Trial Reels for unusual concepts that should be tested with non-followers.
+- A specific follow or sharing reason in each growth post, not a generic request.
+- Ten to fifteen minutes of genuine community participation on most days.
+- Review non-follower reach, shares, watch time, profile visits, and follows after
+  72 hours. Repeat concepts that generate shares and follows.
+
+Do not buy followers, automate comments, mass-follow accounts, or use a
+follow/unfollow routine. Following similar pages is useful for research and
+relationships only when the account is genuinely relevant.
 
 ### Weekly Content Output
 
 Every week publish:
 
-- 2 short videos.
-- 3 photo posts.
-- 1 community post.
+- 2 short videos or Reels.
+- 1 carousel or strong photo post.
+- 1 community post or Story interaction.
 - 1 Pinterest pin per key product or guide.
 - 1 site or Etsy improvement.
 
