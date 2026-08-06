@@ -1142,6 +1142,7 @@ window.SETS = [
       }
     ],
     placeholderStyle: 'dark-medium',
+    etsyUrl: 'https://www.etsy.com/listing/4551069218/1250-lone-panther-by-mike-lambo-mini-set',
     note: 'Game-ready 1:250 pack built around the Panther and British armored opposition in Lone Panther.',
     metaDescription: 'Browse the Lone Panther unofficial 1:250 miniature accessory pack for Mike Lambo\'s solitaire wargame, with four pack options in base coat or unpainted.',
     description: 'This pack is an unofficial 3D printed accessory set for players who want physical pieces for Mike Lambo\'s Lone Panther. It combines the Panther with Shermans, Cromwells, Sherman Fireflies, British anti-tank guns, and PIAT teams, with versions for the full pack, tanks only, infantry and guns, or an extra Panther.',
