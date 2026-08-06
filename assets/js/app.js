@@ -1966,6 +1966,10 @@ function getSetSelectionImageSrc(set, optionSlug, finish) {
   if (!finishSlug) return '';
 
   if (getAvailableSetOptions(set).length) {
+    const option = getSetOptionBySlug(set, optionSlug);
+    const configuredImage = option?.images?.[finish];
+    if (configuredImage) return rootRelativeUrl(configuredImage);
+
     const optionImageSlug = getSetOptionImageSlug(set, optionSlug);
     if (!optionImageSlug) return '';
     return rootRelativeUrl(`assets/img/sets/${set.slug}-${optionImageSlug}-${finishSlug}.jpg`);
@@ -2029,12 +2033,14 @@ function getSetMetaTitle(set) {
 function getSetMetaDescription(set) {
   if (set.metaDescription) return set.metaDescription;
 
+  const buyingOptions = set.etsyUrl ? 'Etsy and direct request options' : 'direct request options';
+
   if (set.filterGroup === 'Game') {
     const scale = getAvailableSetScales(set)[0] || 'fixed scale';
-    return `Browse the ${set.name} unofficial ${scale} accessory pack for Mike Lambo game play. Review contents, finishes, Etsy, and direct request options.`;
+    return `Browse the ${set.name} unofficial ${scale} accessory pack for Mike Lambo game play. Review contents, finishes, and ${buyingOptions}.`;
   }
 
-  return `Browse the ${set.name} 3D printed ${set.era} tank miniature set with listed contents, scale choices, finishes, Etsy, and direct request options.`;
+  return `Browse the ${set.name} 3D printed ${set.era} tank miniature set with listed contents, scale choices, finishes, and ${buyingOptions}.`;
 }
 
 function renderSetGuideLinks(set) {
@@ -2235,6 +2241,7 @@ function renderSetDetail() {
   const availableFinishes = getAvailableSetFinishes(set);
   const usesSetOptions = availableOptions.length > 0;
   const inDevelopment = isSetInDevelopment(set);
+  const hasEtsyListing = Boolean(set.etsyUrl);
 
   if (!availableScales.includes(selectedScale)) {
     selectedScale = availableScales[0] || DEFAULT_SCALE;
@@ -2337,7 +2344,9 @@ function renderSetDetail() {
       <div class="page-actions">
         ${inDevelopment
           ? '<a class="btn btn-primary" href="/tank-requests.html">Ask about this set</a>'
-          : `<a class="btn btn-etsy" data-set-etsy-base="${set.etsyUrl}" href="${set.etsyUrl}" target="_blank" rel="noopener">Buy ${getDisplayName(set.name)} on Etsy</a>`
+          : hasEtsyListing
+            ? `<a class="btn btn-etsy" data-set-etsy-base="${set.etsyUrl}" href="${set.etsyUrl}" target="_blank" rel="noopener">Buy ${getDisplayName(set.name)} on Etsy</a>`
+            : '<a class="btn btn-primary" href="/tank-requests.html">Request this set</a>'
         }
       </div>
 
@@ -2352,7 +2361,10 @@ function renderSetDetail() {
           : `<strong data-current-scale>${selectedScale}</strong>,`
         }
         <strong data-current-finish>${selectedFinish}</strong>.
-        Use these options in your direct request, or choose the same options on Etsy.
+        ${hasEtsyListing
+          ? 'Use these options in your direct request, or choose the same options on Etsy.'
+          : 'Use these options in your direct request.'
+        }
       </p>`}
     </div>
   </section>
@@ -2378,7 +2390,7 @@ function renderSetDetail() {
         <strong>Included in this set:</strong><br><br>
         <div data-set-contents>${renderSetContents(currentContents, selectedScale)}</div>
       </div>
-      <p class="muted">This page shows exact set contents before you send a request or continue to Etsy.</p>
+      <p class="muted">This page shows exact set contents before you ${hasEtsyListing ? 'send a request or continue to Etsy' : 'send a direct request'}.</p>
       <div class="notice">Set pages always list exact included quantity and composition.</div>
     </div>
   </section>

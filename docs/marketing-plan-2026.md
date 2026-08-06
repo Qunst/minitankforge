@@ -14,7 +14,7 @@ The working rule is simple: Etsy is the checkout engine, MiniTankForge.com is th
 Known strengths:
 
 - Etsy shop: Quali3DPrints, Samobor, Croatia.
-- Etsy proof: Star Seller, 649 sales, 150 reviews, 4.9 rating, 4 years on Etsy.
+- Etsy proof: Star Seller, 700+ sales, 190+ reviews, 4.9 rating, 4 years on Etsy.
 - Strong current tank signals: Lone Sherman Pack, Hellcat Tankers Pack, German/US/USSR WW2 tank listings.
 - Site proof: individual tank pages, set pages, scale comparison, finish guide, gallery, reviews, FAQ, request page, schema markup, direct Etsy links.
 - Catalog depth: dozens of single tanks, multiple scale options, base coat and unpainted finish options, starter sets, game-ready packs, nation guides, scale guides.

@@ -32,11 +32,11 @@ short-form video work. The account is active, several posts were prepared or
 published, and a reusable Tortoise campaign was completed. The detailed record
 is in `docs/worklog-2026-08-04-vacation-social.md`.
 
-Important current actions:
+Important current status and actions:
 
-- Copy the complete local `minitankforge unpushed` folder to the regular
-  computer. Git intentionally does not contain the social media, raw video, or
-  production-tool files.
+- The latest complete `minitankforge unpushed` folder was copied to the regular
+  computer on 2026-08-04. Git intentionally does not contain the social media,
+  raw video, or production-tool files.
 - Review the Tortoise Reel's 72-hour Instagram Insights and record non-follower
   reach, shares, watch time, profile visits, and follows.
 - The Reddit Tortoise cut is ready, but publication has not been confirmed.

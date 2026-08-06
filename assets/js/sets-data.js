@@ -1098,6 +1098,125 @@ window.SETS = [
     ]
   },
   {
+    slug: 'lone-panther-pack',
+    name: 'Lone Panther Pack',
+    category: 'Game ready',
+    filterGroup: 'Game',
+    nation: 'Germany',
+    era: 'WW2',
+    featured: false,
+    disabled: false,
+    image: 'assets/img/sets/lone-panther-pack.jpg',
+    galleryImages: [
+      {
+        src: 'assets/img/sets/lone-panther-pack-full-pack-base-coat.jpg',
+        label: 'Full Pack base coat'
+      },
+      {
+        src: 'assets/img/sets/lone-panther-pack-tanks-only-base-coat.jpg',
+        label: 'Tanks Only base coat'
+      },
+      {
+        src: 'assets/img/sets/lone-panther-pack-infantry-and-guns-base-coat.jpg',
+        label: 'Infantry and Guns base coat'
+      },
+      {
+        src: 'assets/img/tanks/panther-base-coat-side-detail.jpg',
+        label: 'Extra Panther base coat'
+      },
+      {
+        src: 'assets/img/sets/lone-panther-pack-full-pack-unpainted.jpg',
+        label: 'Full Pack unpainted'
+      },
+      {
+        src: 'assets/img/sets/lone-panther-pack-tanks-only-unpainted.jpg',
+        label: 'Tanks Only unpainted'
+      },
+      {
+        src: 'assets/img/sets/lone-panther-pack-infantry-and-guns-unpainted.jpg',
+        label: 'Infantry and Guns unpainted'
+      },
+      {
+        src: 'assets/img/tanks/panther-unpainted-side-detail.jpg',
+        label: 'Extra Panther unpainted'
+      }
+    ],
+    placeholderStyle: 'dark-medium',
+    note: 'Game-ready 1:250 pack built around the Panther and British armored opposition in Lone Panther.',
+    metaDescription: 'Browse the Lone Panther unofficial 1:250 miniature accessory pack for Mike Lambo\'s solitaire wargame, with four pack options in base coat or unpainted.',
+    description: 'This pack is an unofficial 3D printed accessory set for players who want physical pieces for Mike Lambo\'s Lone Panther. It combines the Panther with Shermans, Cromwells, Sherman Fireflies, British anti-tank guns, and PIAT teams, with versions for the full pack, tanks only, infantry and guns, or an extra Panther.',
+    gameTitle: 'Lone Panther',
+    overviewKicker: 'Game upgrade',
+    overviewHeading: 'Physical pieces for Lone Panther',
+    bestFor: 'Upgrading Lone Panther with fixed-scale 1:250 physical pieces.',
+    scaleNote: 'Fixed at 1:250 to match the Lone Sherman pack format while keeping the Panther, British tanks, guns, and PIAT teams practical on the game map.',
+    scaleHeading: 'Fixed 1:250 game scale',
+    guideLinksHeading: 'Related Game Guides',
+    guideLinksIntro: 'Useful pages for Lone Panther pieces, German armor, 1:250 scale, and Mike Lambo game accessories.',
+    guideLinks: [
+      {
+        label: 'Miniatures for Mike Lambo solo wargames',
+        href: 'mike-lambo-game-miniatures.html',
+        note: 'Compare Lone Panther with the other Mike Lambo accessory packs.'
+      },
+      {
+        label: 'German WW2 tank miniatures',
+        href: 'german-ww2-tank-miniatures.html',
+        note: 'Browse the Panther and related German armor.'
+      },
+      {
+        label: '1:250 WW2 tank miniatures',
+        href: '1-250-ww2-tank-miniatures.html',
+        note: 'See the fixed scale used by this pack.'
+      }
+    ],
+    compatibility: 'Unofficial 1:250 accessory pack compatible with Mike Lambo\'s Lone Panther game play',
+    optionLabel: 'Pack contents',
+    availableScales: ['1:250'],
+    options: [
+      {
+        slug: 'full-pack',
+        label: 'Full Pack',
+        prices: {
+          Unpainted: 36.00,
+          'Base coat': 46.00
+        },
+        contents: ['1x Panther', '4x Sherman', '4x Cromwell', '3x Sherman Firefly', '3x British anti-tank gun', '6x PIAT team']
+      },
+      {
+        slug: 'tanks-only',
+        label: 'Tanks Only',
+        prices: {
+          Unpainted: 26.00,
+          'Base coat': 36.00
+        },
+        contents: ['1x Panther', '4x Sherman', '4x Cromwell', '3x Sherman Firefly']
+      },
+      {
+        slug: 'infantry-and-guns',
+        label: 'Infantry and Guns',
+        prices: {
+          Unpainted: 18.00,
+          'Base coat': 25.00
+        },
+        contents: ['3x British anti-tank gun', '6x PIAT team']
+      },
+      {
+        slug: 'extra-panther',
+        label: 'Extra Panther',
+        prices: {
+          Unpainted: 3.00,
+          'Base coat': 4.00
+        },
+        images: {
+          Unpainted: 'assets/img/tanks/panther-unpainted-side-detail.jpg',
+          'Base coat': 'assets/img/tanks/panther-base-coat-side-detail.jpg'
+        },
+        contents: ['1x Panther']
+      }
+    ]
+  },
+  {
     slug: 'german-experimental',
     name: 'German Experimental Set',
     category: 'Experimental set',

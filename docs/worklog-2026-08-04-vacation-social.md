@@ -19,6 +19,9 @@ Copy the complete `minitankforge unpushed` folder to the regular computer. It is
 not a Git repository and is intentionally not pushed to GitHub. Copying only the
 website repository will not transfer the finished social videos or source clips.
 
+Transfer status: the latest complete unpushed folder was copied to the regular
+computer on 2026-08-04 and its documented campaign paths were verified.
+
 The portable workspace uses relative paths. Its main instructions are:
 
 ```text
@@ -176,10 +179,10 @@ OnTableTop, Reaction Games Models, TankHistoria, and relevant miniature painters
 
 ## Resume Checklist
 
-1. Pull the latest `main` branch of the website repository.
-2. Copy the complete `minitankforge unpushed` folder to the regular computer.
-3. Read `<unpushed-root>/social/HANDOFF-2026-08-04.md`.
-4. Verify that the finished Tortoise Reel and Reddit cut play correctly.
+1. [x] Pull the latest `main` branch of the website repository.
+2. [x] Copy the complete `minitankforge unpushed` folder to the regular computer.
+3. [x] Read `<unpushed-root>/social/HANDOFF-2026-08-04.md`.
+4. [x] Verify the technical integrity of the finished Tortoise Reel and Reddit cut.
 5. Check the live Tortoise post for caption, cover, and 72-hour Insights.
 6. Test print the 6-pounder and PIAT team.
 7. Publish the native Reddit cut if still desired and current subreddit rules

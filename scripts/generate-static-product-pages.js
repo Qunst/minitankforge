@@ -630,12 +630,14 @@ function setMetaTitle(set) {
 function setMetaDescription(set) {
   if (set.metaDescription) return set.metaDescription;
 
+  const buyingOptions = set.etsyUrl ? 'Etsy and direct request options' : 'direct request options';
+
   if (set.filterGroup === 'Game') {
     const scale = (Array.isArray(set.availableScales) && set.availableScales[0]) || 'fixed scale';
-    return `Browse the ${set.name} unofficial ${scale} accessory pack for Mike Lambo game play. Review contents, finishes, Etsy, and direct request options.`;
+    return `Browse the ${set.name} unofficial ${scale} accessory pack for Mike Lambo game play. Review contents, finishes, and ${buyingOptions}.`;
   }
 
-  return `Browse the ${set.name} 3D printed ${set.era} tank miniature set with listed contents, scale choices, finishes, Etsy, and direct request options.`;
+  return `Browse the ${set.name} 3D printed ${set.era} tank miniature set with listed contents, scale choices, finishes, and ${buyingOptions}.`;
 }
 
 function renderSetStaticGuideLinks(set) {
@@ -795,6 +797,7 @@ function writeSetPage(set, data) {
   const title = setMetaTitle(set);
   const metaDescription = setMetaDescription(set);
   const inDevelopment = isSetInDevelopment(set);
+  const hasEtsyListing = Boolean(set.etsyUrl);
   const offer = inDevelopment ? null : aggregateOffer(prices, set.etsyUrl || publicUrl);
   const priceLabel = getSetStaticPriceLabel(set, prices);
   const bestForHtml = set.bestFor
@@ -862,7 +865,9 @@ ${bestForHtml}        </ul>
         <div class="page-actions">
           ${inDevelopment
             ? '<a class="btn btn-primary" href="/tank-requests.html">Ask about this set</a>'
-            : `<a class="btn btn-etsy" href="${escapeHtml(set.etsyUrl)}" target="_blank" rel="noopener">Open on Etsy</a>`
+            : hasEtsyListing
+              ? `<a class="btn btn-etsy" href="${escapeHtml(set.etsyUrl)}" target="_blank" rel="noopener">Open on Etsy</a>`
+              : '<a class="btn btn-primary" href="/tank-requests.html">Request this set</a>'
           }
         </div>
         ${inDevelopment ? '<p class="helper">This preview is here so players can see the planned contents while the pack is still being worked on.</p>' : ''}
@@ -875,7 +880,7 @@ ${contentsHtml}
       </div>
       <div>
         <h2>Buying note</h2>
-        <p class="muted">${inDevelopment ? 'This set is still in construction and is not listed for normal checkout yet. You can contact MiniTankForge if you want to ask about progress or suggest adjustments.' : 'This site is for browsing. You can contact MiniTankForge with your request or continue to Etsy for marketplace checkout.'}</p>
+        <p class="muted">${inDevelopment ? 'This set is still in construction and is not listed for normal checkout yet. You can contact MiniTankForge if you want to ask about progress or suggest adjustments.' : hasEtsyListing ? 'This site is for browsing. You can contact MiniTankForge with your request or continue to Etsy for marketplace checkout.' : 'This set is currently available by direct request. Choose the pack contents and finish above, then send those selections to MiniTankForge.'}</p>
       </div>
     </section>${extraSetSections ? `\n${extraSetSections}` : ''}
   </main>`;
@@ -889,8 +894,8 @@ ${contentsHtml}
     body,
     scripts: [
       '<script defer src="/assets/js/tanks-data.js?v=30"></script>',
-      '<script defer src="/assets/js/sets-data.js?v=19"></script>',
-      '<script defer src="/assets/js/app.js?v=48"></script>',
+      '<script defer src="/assets/js/sets-data.js?v=20"></script>',
+      '<script defer src="/assets/js/app.js?v=49"></script>',
     ],
     jsonLd: [
       jsonLdScript('set-product-jsonld', product),
