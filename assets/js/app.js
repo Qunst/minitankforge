@@ -1898,7 +1898,8 @@ function initScaleComparison() {
   `).join('');
 
   function updateImage(scale) {
-    img.src = rootRelativeUrl(`assets/img/scales/${scale.replace(':', '-')}.jpg`);
+    img.src = rootRelativeUrl(`assets/img/scales/normalized/${scale.replace(':', '-')}.jpg`);
+    img.alt = `${scale} miniature tank scale comparison with ruler`;
   }
 
   updateImage(selectedScale);
