@@ -772,8 +772,8 @@ ${internalLinksHtml}
     imageAlt: tankImageAlt(tank),
     body,
     scripts: [
-      '<script defer src="/assets/js/tanks-data.js?v=30"></script>',
-      '<script defer src="/assets/js/app.js?v=47"></script>',
+      '<script defer src="/assets/js/tanks-data.js?v=31"></script>',
+      '<script defer src="/assets/js/app.js?v=50"></script>',
     ],
     jsonLd: [
       jsonLdScript('tank-product-jsonld', product),

@@ -2545,5 +2545,135 @@ window.TANKS = [
     fact: 'The Somua S35 was one of France\'s best pre-war cavalry tanks, with good armor and mobility for the 1940 campaign.',
     description: 'The Somua S35 is a French medium tank miniature for early-war tabletop battles, 1940 campaign forces, and collections that need a strong French cavalry-tank silhouette. It pairs naturally with the Char B1 bis, Hotchkiss-style light tanks, and German early-war opponents.',
     compatibility: 'Compact hex-based tabletop play',
+  },
+  {
+    slug: 'panzer-i',
+    name: 'Panzer I Ausf. A (Pz.Kpfw. I Ausf. A)',
+    nation: 'Germany',
+    era: 'WW2',
+    type: 'Light tank',
+    featured: false,
+    disabled: false,
+    placeholderStyle: 'light-small',
+    image: 'assets/img/tanks/panzer-i-base-coat-side-detail.jpg',
+    scalePrices: {
+      '1:160': 0.0,
+      '1:180': 0.0,
+      '1:200': 0.0,
+      '1:250': 0.0,
+      '1:285': 0.0
+    },
+    finishSurcharges: {
+      'Base coat': 0.0,
+      'Unpainted': 0.0
+    },
+    siteTags: ['Early war', 'Iconic'],
+    fact: 'The Panzer I was intended mainly for training and developing Germany\'s armored force, but the small Ausf. A also served in the early campaigns of WW2.',
+    description: 'The Panzer I Ausf. A is a compact early-war German light tank miniature for interwar collections, Poland and France scenarios, and small reconnaissance or training formations. Its tiny two-man silhouette looks especially effective beside Panzer II, Panzer 35(t), and Panzer 38(t) models.',
+    compatibility: 'Compact hex-based tabletop play',
+  },
+  {
+    slug: 'panzer-ii',
+    name: 'Panzer II (Pz.Kpfw. II)',
+    nation: 'Germany',
+    era: 'WW2',
+    type: 'Light tank',
+    featured: false,
+    disabled: false,
+    placeholderStyle: 'dark-small',
+    image: 'assets/img/tanks/panzer-ii-base-coat-side-detail.jpg',
+    scalePrices: {
+      '1:160': 0.0,
+      '1:180': 0.0,
+      '1:200': 0.0,
+      '1:250': 0.0,
+      '1:285': 0.0
+    },
+    finishSurcharges: {
+      'Base coat': 0.0,
+      'Unpainted': 0.0
+    },
+    siteTags: ['Early war', 'Iconic'],
+    fact: 'Although conceived as a temporary design, the Panzer II became an important German light tank in the opening campaigns of WW2 and later continued in reconnaissance roles.',
+    description: 'The Panzer II is an early-war German light tank miniature for Poland, France, North Africa, and reconnaissance-themed tabletop forces. It fills the useful size and capability gap between the tiny Panzer I and larger Panzer III or Panzer IV vehicles.',
+    compatibility: 'Compact hex-based tabletop play',
+  },
+  {
+    slug: 'marder-iii',
+    name: 'Marder III Ausf. H (Sd.Kfz. 138)',
+    nation: 'Germany',
+    era: 'WW2',
+    type: 'Tank destroyer',
+    featured: false,
+    disabled: false,
+    placeholderStyle: 'light-medium',
+    image: 'assets/img/tanks/marder-iii-base-coat-side-detail.jpg',
+    scalePrices: {
+      '1:160': 0.0,
+      '1:180': 0.0,
+      '1:200': 0.0,
+      '1:250': 0.0,
+      '1:285': 0.0
+    },
+    finishSurcharges: {
+      'Base coat': 0.0,
+      'Unpainted': 0.0
+    },
+    fact: 'The Marder III Ausf. H mounted the 7.5 cm PaK 40 anti-tank gun on the Panzer 38(t) chassis in an open-topped fighting compartment.',
+    description: 'The Marder III Ausf. H is a German tank destroyer miniature with a tall open fighting compartment and long anti-tank gun. It fits naturally into mid-war Eastern Front, North African, and mobile anti-armor formations beside Panzer 38(t), Panzer III, and Panzer IV vehicles.',
+    compatibility: 'Compact hex-based tabletop play',
+  },
+  {
+    slug: 'stug-iv',
+    name: 'StuG IV (Sturmgeschütz IV)',
+    nation: 'Germany',
+    era: 'WW2',
+    type: 'Assault gun',
+    featured: false,
+    disabled: false,
+    placeholderStyle: 'dark-medium',
+    image: 'assets/img/tanks/stug-iv-base-coat-side-detail.jpg',
+    scalePrices: {
+      '1:160': 0.0,
+      '1:180': 0.0,
+      '1:200': 0.0,
+      '1:250': 0.0,
+      '1:285': 0.0
+    },
+    finishSurcharges: {
+      'Base coat': 0.0,
+      'Unpainted': 0.0
+    },
+    siteTags: ['Late war', 'Game-famous', 'WoT'],
+    fact: 'The StuG IV combined a StuG-style fighting compartment with the Panzer IV chassis, creating a low late-war assault gun and tank hunter.',
+    description: 'The StuG IV is a low-profile German assault gun miniature for late-war defensive lines, ambushes, and armored support. Its Panzer IV chassis keeps it visually coherent beside Panzer IV and Jagdpanzer IV models while giving the force a distinct turretless silhouette.',
+    compatibility: 'Compact hex-based tabletop play',
+  },
+  {
+    slug: 'sherman-jumbo',
+    name: 'Sherman Jumbo (Assault Tank M4A3E2)',
+    nation: 'USA',
+    era: 'WW2',
+    type: 'Assault tank',
+    featured: false,
+    disabled: false,
+    browsePriority: 81.5,
+    placeholderStyle: 'dark-large',
+    image: 'assets/img/tanks/sherman-jumbo-base-coat-side-detail.jpg',
+    scalePrices: {
+      '1:160': 0.0,
+      '1:180': 0.0,
+      '1:200': 0.0,
+      '1:250': 0.0,
+      '1:285': 0.0
+    },
+    finishSurcharges: {
+      'Base coat': 0.0,
+      'Unpainted': 0.0
+    },
+    siteTags: ['Iconic', 'Late war', 'Game-famous', 'WoT'],
+    fact: 'The M4A3E2 assault tank added much heavier armor to the Sherman design; only 254 factory-built Jumbos were produced for late-war breakthrough fighting.',
+    description: 'The Sherman Jumbo is a heavily armored American assault tank miniature for late-war advances, urban fighting, and Battle of the Bulge forces. It keeps the familiar M4A3 family shape while adding a much heavier turret and hull presence beside standard Shermans, tank destroyers, and Pershings.',
+    compatibility: 'Compact hex-based tabletop play',
   }
 ];
