@@ -9,8 +9,12 @@ const logDir = path.join(root, '.codex', 'logs');
 const errorLog = path.join(logDir, 'local-server.err.log');
 
 function logError(error) {
-  mkdirSync(logDir, { recursive: true });
-  appendFileSync(errorLog, `${new Date().toISOString()} ${error?.stack || error}\n`);
+  try {
+    mkdirSync(logDir, { recursive: true });
+    appendFileSync(errorLog, `${new Date().toISOString()} ${error?.stack || error}\n`);
+  } catch {
+    console.error(error);
+  }
 }
 
 const types = new Map([
@@ -53,7 +57,21 @@ async function resolveFile(urlPath) {
 
   try {
     const stat = await fs.stat(requested);
-    if (stat.isDirectory()) return path.join(requested, 'index.html');
+    if (stat.isDirectory()) {
+      const index = path.join(requested, 'index.html');
+      try {
+        await fs.access(index);
+        return index;
+      } catch {
+        const siblingHtml = `${requested}.html`;
+        try {
+          await fs.access(siblingHtml);
+          return siblingHtml;
+        } catch {
+          return null;
+        }
+      }
+    }
     return requested;
   } catch {
     if (!path.extname(requested)) {
@@ -83,7 +101,12 @@ const server = http.createServer(async (req, res) => {
 
   const type = types.get(path.extname(file).toLowerCase()) || 'application/octet-stream';
   res.writeHead(200, { 'content-type': type, 'cache-control': 'no-store' });
-  createReadStream(file).pipe(res);
+  const stream = createReadStream(file);
+  stream.on('error', error => {
+    logError(error);
+    res.destroy(error);
+  });
+  stream.pipe(res);
 });
 
 server.listen(port, '127.0.0.1', () => {

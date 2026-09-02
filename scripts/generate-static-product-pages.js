@@ -5,6 +5,116 @@ const vm = require('vm');
 const root = path.resolve(__dirname, '..');
 const siteUrl = 'https://minitankforge.com';
 const today = new Date().toISOString().slice(0, 10);
+const tankBrowsePopularityOrder = [
+  'sherman-m4a3',
+  'tiger-i',
+  't-34',
+  'panther',
+  'panzer-iv',
+  'tiger-ii',
+  't-34-85',
+  'maus',
+  'kv-2',
+  'sherman-firefly',
+  'churchill-iv',
+  'stug-iii',
+  'sturmtiger',
+  'pershing',
+  'panzer-iii',
+  'is-2',
+  'kv-1',
+  'jagdpanther',
+  'm60a1',
+  'm18-hellcat',
+  'm10-wolverine',
+  'hetzer',
+  'jagdtiger',
+  'ferdinand',
+  'm3-lee',
+  'm5a1-stuart',
+  'm24-chaffee',
+  'cromwell',
+  'matilda-ii',
+  'valentine',
+  'char-b1-bis',
+  'somua-s35',
+  'somua-s40',
+  'is-3',
+  'is-7',
+  't29',
+  't30',
+  't34-heavy-tank',
+  'isu-152',
+  'kv-85',
+  'su-100',
+  'su-85',
+  'jagdpz-iv',
+  't28-t95-combat',
+  'tortoise',
+  'fv4005-stage-ii',
+  'e-100',
+  'kv-5',
+  'e-25',
+  'e-50',
+  'e-75',
+  'jagdpanzer-e100',
+  'panzer-vii-loewe',
+  'jagdpanther-ii',
+  't-35',
+  't28-t95-transport',
+  'type-97-chi-ha',
+  'type-95-ha-go',
+  'm8-greyhound',
+  'sd-kfz-234',
+  'm7-priest',
+  'm3-half-track',
+  'luchs',
+  'panzer-38t',
+  'panzer-35t',
+  't-34-minesweeper',
+  'su-76',
+  'su-85b',
+  'nashorn',
+  'hummel',
+  'wespe',
+  'archer',
+  'm10-achilles',
+  'churchill-iv-fascine',
+  'm13-40',
+  'm14-41',
+  'su-122',
+  'isu-122',
+  'kv-1s',
+  't-70',
+  't-26',
+  't-28',
+  't-26-twin-turret',
+  'fcm-f1',
+  'centaur',
+  'bishop',
+  'ba-64',
+  'ba-6',
+  'gaz-aa',
+  'opel-blitz',
+  'zis-42',
+  'stz-5',
+  'b-4-howitzer',
+  't-38',
+  'a-32',
+  'is-1',
+];
+const tankBrowsePopularityScores = new Map(
+  tankBrowsePopularityOrder.map((slug, index) => [slug, tankBrowsePopularityOrder.length - index])
+);
+const setBrowseRank = new Map([
+  ['german-basic', 10],
+  ['ussr-basic', 11],
+  ['us-basic', 12],
+  ['german-tanks', 20],
+  ['ussr-tanks', 21],
+  ['german-tank-destroyers', 30],
+  ['ussr-tank-destroyers', 31],
+]);
 
 function readData() {
   const sandbox = { window: {} };
@@ -53,13 +163,13 @@ function pageHref(value) {
   const raw = String(value || '');
   if (!raw) return '/';
   if (/^[a-z][a-z0-9+.-]*:/i.test(raw) || raw.startsWith('#')) return raw;
-  if (raw === 'index.html') return '/index.html';
 
   const match = raw.match(/^([^?#]*)(.*)$/);
   const pathPart = (match?.[1] || raw).replace(/^\.?\//, '');
   const suffix = match?.[2] || '';
+  const cleanPath = pathPart.replace(/\.html$/i, '');
 
-  return `/${pathPart}${suffix}`;
+  return cleanPath.toLowerCase() === 'index' ? `/${suffix}` : `/${cleanPath}${suffix}`;
 }
 
 function imageObject(src, caption) {
@@ -94,6 +204,28 @@ function setImageAlt(set, detail = 'base coat set overview') {
 
 function formatPrice(value) {
   return `EUR ${Number(value).toFixed(2)}`;
+}
+
+function formatCatalogPrice(value) {
+  return `€${Number(value).toFixed(2)}`;
+}
+
+function catalogPriceSummary(prices) {
+  const valid = prices.map(Number).filter(value => Number.isFinite(value) && value > 0);
+  if (!valid.length) return '';
+
+  const min = Math.min(...valid);
+  const max = Math.max(...valid);
+  return min === max ? formatCatalogPrice(min) : `${formatCatalogPrice(min)} – ${formatCatalogPrice(max)}`;
+}
+
+function tankCatalogPriceSummary(prices) {
+  const valid = prices.map(Number).filter(Number.isFinite);
+  if (!valid.length) return '';
+
+  const min = Math.min(...valid);
+  const max = Math.max(...valid);
+  return min === max ? formatCatalogPrice(min) : `${formatCatalogPrice(min)} – ${formatCatalogPrice(max)}`;
 }
 
 function priceSummary(prices) {
@@ -163,13 +295,13 @@ function headerHtml() {
   return `
   <header class="topbar">
     <div class="container topbar-inner">
-      <a class="brand" href="/index.html">MINITANKFORGE</a>
+      <a class="brand" href="/">MINITANKFORGE</a>
       <div class="nav-stack">
         <nav class="nav nav-row">
-          <a href="/tanks.html">Browse Tanks</a><a href="/sets.html">Browse Sets</a><a href="/gallery.html">Gallery</a><a href="/finish-guide.html">Finish Guide</a><a href="/tank-requests.html">Requests</a>
+          <a href="/tanks">Browse Tanks</a><a href="/sets">Browse Sets</a><a href="/gallery">Gallery</a><a href="/finish-guide">Finish Guide</a><a href="/tank-requests">Requests</a>
         </nav>
         <nav class="nav nav-row">
-          <a href="/how-this-works.html">How Buying Works</a><a href="/scale-comparison.html">Scale Comparison</a><a href="/reviews.html">Reviews</a><a href="/faq.html">FAQ</a><a href="/about.html">About</a>
+          <a href="/how-this-works">How Buying Works</a><a href="/scale-comparison">Scale Comparison</a><a href="/reviews">Reviews</a><a href="/faq">FAQ</a><a href="/about">About</a>
         </nav>
       </div>
       <a class="btn btn-etsy" href="https://www.etsy.com/shop/Quali3DPrints?section_id=58368275" rel="noopener" target="_blank">Visit Etsy Shop</a>
@@ -186,7 +318,7 @@ function footerHtml(copy) {
         <p>${escapeHtml(copy)}</p>
       </div>
       <div class="nav" style="display:flex">
-        <a href="/tanks.html">Browse Tanks</a><a href="/sets.html">Browse Sets</a><a href="/how-this-works.html">How Buying Works</a><a href="/gallery.html">Gallery</a><a href="/finish-guide.html">Finish Guide</a><a href="/scale-comparison.html">Scale Comparison</a><a href="/tank-requests.html">Requests</a><a href="/faq.html">FAQ</a><a href="/about.html">About</a>
+        <a href="/tanks">Browse Tanks</a><a href="/sets">Browse Sets</a><a href="/how-this-works">How Buying Works</a><a href="/gallery">Gallery</a><a href="/finish-guide">Finish Guide</a><a href="/scale-comparison">Scale Comparison</a><a href="/tank-requests">Requests</a><a href="/faq">FAQ</a><a href="/about">About</a>
       </div>
     </div>
   </footer>`;
@@ -245,6 +377,44 @@ function buildBreadcrumbJsonLd(items) {
 function writeFile(file, content) {
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, content.replace(/[ \t]+$/gm, ''), 'utf8');
+}
+
+function collectHtmlFiles(directory, files = []) {
+  const skippedDirectories = new Set(['.git', '.agents', '.codex', '.tmp', 'node_modules', 'output', 'tmp']);
+
+  for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+    if (entry.isDirectory()) {
+      if (!skippedDirectories.has(entry.name)) {
+        collectHtmlFiles(path.join(directory, entry.name), files);
+      }
+    } else if (entry.isFile() && entry.name.toLowerCase().endsWith('.html')) {
+      files.push(path.join(directory, entry.name));
+    }
+  }
+
+  return files;
+}
+
+function normalizeInternalHtmlLinks() {
+  const localHtmlHref = /href=(["'])(\/?)([a-z0-9][a-z0-9._-]*)\.html((?:[?#][^"']*)?)\1/gi;
+  let changedFiles = 0;
+  let changedLinks = 0;
+
+  for (const file of collectHtmlFiles(root)) {
+    const original = fs.readFileSync(file, 'utf8');
+    const updated = original.replace(localHtmlHref, (match, quote, leadingSlash, pageName, suffix = '') => {
+      changedLinks += 1;
+      const cleanPath = pageName.toLowerCase() === 'index' ? '/' : `/${pageName}`;
+      return `href=${quote}${cleanPath}${suffix}${quote}`;
+    });
+
+    if (updated !== original) {
+      fs.writeFileSync(file, updated, 'utf8');
+      changedFiles += 1;
+    }
+  }
+
+  return { files: changedFiles, links: changedLinks };
 }
 
 function isVisible(item) {
@@ -530,14 +700,14 @@ function getGuideLinksForTank(tank) {
     if (!links.some(link => link.href === href)) links.push({ label, href, note });
   };
 
-  if (tank.nation === 'Germany') add('German WW2 tank miniatures', 'german-ww2-tank-miniatures.html', 'Browse nearby German armor and set paths.');
-  if (tank.nation === 'USSR') add('Soviet WW2 tank miniatures', 'soviet-ww2-tank-miniatures.html', 'Browse nearby Soviet armor and set paths.');
-  if (tank.nation === 'USA') add('American WW2 tank miniatures', 'american-ww2-tank-miniatures.html', 'Browse US armor, Shermans, Hellcats, and game packs.');
-  if (/sherman/i.test(tank.name)) add('Sherman tank miniatures', 'sherman-tank-miniatures.html', 'Compare Sherman-focused tanks and game packs.');
-  if (/tank destroyer|assault gun/i.test(tank.type)) add('WW2 tank destroyer miniatures', 'ww2-tank-destroyer-miniatures.html', 'Compare anti-armor and assault-gun vehicles.');
-  if (/heavy tank|super heavy tank/i.test(tank.type)) add('WW2 heavy tank miniatures', 'ww2-heavy-tank-miniatures.html', 'Compare heavy and super-heavy vehicle choices.');
-  if (tank.historicalStatus) add('Prototype and what-if tanks', 'prototype-tank-miniatures.html', 'Compare prototype, unfinished, and paper-project vehicles.');
-  add('Tabletop tank miniatures', 'tabletop-tank-miniatures.html', 'Browse scale, set, and vehicle paths for tabletop play.');
+  if (tank.nation === 'Germany') add('German WW2 tank miniatures', '/german-ww2-tank-miniatures', 'Browse nearby German armor and set paths.');
+  if (tank.nation === 'USSR') add('Soviet WW2 tank miniatures', '/soviet-ww2-tank-miniatures', 'Browse nearby Soviet armor and set paths.');
+  if (tank.nation === 'USA') add('American WW2 tank miniatures', '/american-ww2-tank-miniatures', 'Browse US armor, Shermans, Hellcats, and game packs.');
+  if (/sherman/i.test(tank.name)) add('Sherman tank miniatures', '/sherman-tank-miniatures', 'Compare Sherman-focused tanks and game packs.');
+  if (/tank destroyer|assault gun/i.test(tank.type)) add('WW2 tank destroyer miniatures', '/ww2-tank-destroyer-miniatures', 'Compare anti-armor and assault-gun vehicles.');
+  if (/heavy tank|super heavy tank/i.test(tank.type)) add('WW2 heavy tank miniatures', '/ww2-heavy-tank-miniatures', 'Compare heavy and super-heavy vehicle choices.');
+  if (tank.historicalStatus) add('Prototype and what-if tanks', '/prototype-tank-miniatures', 'Compare prototype, unfinished, and paper-project vehicles.');
+  add('Tabletop tank miniatures', '/tabletop-tank-miniatures', 'Browse scale, set, and vehicle paths for tabletop play.');
 
   return links.slice(0, 4);
 }
@@ -640,6 +810,173 @@ function setMetaDescription(set) {
   return `Browse the ${set.name} 3D printed ${set.era} tank miniature set with listed contents, scale choices, finishes, and ${buyingOptions}.`;
 }
 
+function renderTankCatalogTags(tank) {
+  const tags = [tank.nation, tank.type, ...getTankHighlightTags(tank)].filter(Boolean).slice(0, 4);
+  if (!tags.length) return '';
+
+  return `<div class="tank-tag-list tank-tag-list-card" aria-label="Browse tags">${tags.map(tag => `<span class="tank-tag">${escapeHtml(tag)}</span>`).join('')}</div>`;
+}
+
+function renderTankCatalogCard(tank, data) {
+  const detailUrl = `/tanks/${encodeURIComponent(tank.slug)}/`;
+  const image = tank.image
+    ? `<div class="product-image "><img src="${escapeHtml(rootRelativeUrl(tank.image))}" width="1600" height="900" alt="${escapeHtml(tankImageAlt(tank, 'product card photo'))}" loading="lazy" decoding="async"></div>`
+    : `<div class="product-image tank-placeholder"><div class="tank tank-lg"></div></div>`;
+
+  return `    <article class="card product-card">
+      <a href="${detailUrl}" data-scale-link="${detailUrl}" class="product-image-link">
+        ${image}
+      </a>
+      <div>
+        <h3>${escapeHtml(tank.name)}</h3>
+        ${renderTankCatalogTags(tank)}
+        <div class="tank-card-price">${escapeHtml(tankCatalogPriceSummary(tankPrices(tank, data.scales, data.finishes)))}</div>
+        <p class="muted fun-fact">${escapeHtml(tank.fact)}</p>
+      </div>
+      <a class="btn btn-primary" data-scale-link="${detailUrl}" href="${detailUrl}">View Tank</a>
+    </article>`;
+}
+
+function getEstimatedTankPopularity(tank) {
+  const tags = getTankHighlightTags(tank);
+  const status = String(tank?.historicalStatus || '').toLowerCase();
+  const type = String(tank?.type || '').toLowerCase();
+  let score = 34;
+
+  if (tags.includes('Iconic')) score += 16;
+  if (tags.includes('Beginner pick')) score += 10;
+  if (tags.includes('Game-famous')) score += 8;
+  if (tags.includes('Meme tank')) score += 8;
+  if (tags.includes('Late war')) score += 5;
+  if (tags.includes('What-if')) score += 4;
+  if (tags.includes('Prototype')) score += 2;
+  if (type.includes('medium')) score += 7;
+  if (type.includes('heavy')) score += 6;
+  if (type.includes('tank destroyer')) score += 5;
+  if (type.includes('super heavy')) score += 4;
+  if (type.includes('armored car') || type.includes('truck') || type.includes('tractor')) score -= 8;
+  if (type.includes('artillery') || type.includes('howitzer')) score -= 6;
+  if (status.includes('what-if') || status.includes('paper')) score -= 5;
+  if (status.includes('prototype') || status.includes('unfinished')) score -= 3;
+  if (tank?.etsyUrl) score += 2;
+
+  return score;
+}
+
+function getTankBrowsePriority(tank) {
+  const manualPriority = Number(tank?.browsePriority);
+  if (Number.isFinite(manualPriority)) return manualPriority;
+
+  const researchedScore = tankBrowsePopularityScores.get(tank?.slug);
+  if (Number.isFinite(researchedScore)) return researchedScore;
+
+  return getEstimatedTankPopularity(tank);
+}
+
+function renderSetCatalogCard(set, data) {
+  const detailUrl = `/sets/${encodeURIComponent(set.slug)}/`;
+  const image = rootRelativeUrl(set.image || 'assets/img/sets/genset.jpg');
+  const priceLabel = isSetInDevelopment(set)
+    ? set.priceLabel || 'Price will be confirmed when ready'
+    : catalogPriceSummary(setPrices(set, data.setFinishes));
+
+  return `    <article class="card product-card">
+      <a href="${detailUrl}" class="product-image-link">
+        <div class="product-image "><img src="${escapeHtml(image)}" width="1200" height="900" alt="${escapeHtml(setImageAlt(set, 'product card photo'))}" loading="lazy" decoding="async"></div>
+      </a>
+      <div>
+        <h3>${escapeHtml(set.name)}</h3>
+        <div class="product-meta">
+          <span class="badge">${escapeHtml(set.category)}</span>
+          <span class="badge">${escapeHtml(set.nation)}</span>
+          <span class="badge">${escapeHtml(set.era)}</span>
+        </div>
+        <div class="tank-card-price">${escapeHtml(priceLabel)}</div>
+        <p class="muted fun-fact">${escapeHtml(set.note)}</p>
+      </div>
+      <a class="btn btn-primary" href="${detailUrl}">View Set</a>
+    </article>`;
+}
+
+function sortTankCatalog(tanks) {
+  return tanks
+    .map((tank, index) => ({ tank, index }))
+    .sort((a, b) => {
+      const popularityDiff = getTankBrowsePriority(b.tank) - getTankBrowsePriority(a.tank);
+      if (popularityDiff) return popularityDiff;
+
+      const featuredDiff = Number(Boolean(b.tank.featured)) - Number(Boolean(a.tank.featured));
+      if (featuredDiff) return featuredDiff;
+
+      return (a.tank.featuredOrder || 999) - (b.tank.featuredOrder || 999)
+        || getDisplayName(a.tank.name).localeCompare(getDisplayName(b.tank.name))
+        || a.index - b.index;
+    })
+    .map(item => item.tank);
+}
+
+function sortSetCatalog(sets) {
+  return sets
+    .map((set, index) => ({ set, index }))
+    .sort((a, b) => {
+      const aRank = setBrowseRank.get(a.set.slug) ?? (a.set.filterGroup === 'Game' ? 90 : 60);
+      const bRank = setBrowseRank.get(b.set.slug) ?? (b.set.filterGroup === 'Game' ? 90 : 60);
+      return aRank - bRank || a.index - b.index;
+    })
+    .map(item => item.set);
+}
+
+function replaceGeneratedCatalog(html, marker, selector, cards) {
+  const start = `<!-- ${marker}:START -->`;
+  const end = `<!-- ${marker}:END -->`;
+  const generated = `${start}\n${cards}\n      ${end}`;
+  const existingPattern = new RegExp(`<!-- ${marker}:START -->[\\s\\S]*?<!-- ${marker}:END -->`);
+
+  if (existingPattern.test(html)) return html.replace(existingPattern, generated);
+
+  const emptyGrid = `<div class="grid-3" ${selector}></div>`;
+  if (!html.includes(emptyGrid)) {
+    throw new Error(`Could not find catalog grid: ${selector}`);
+  }
+
+  return html.replace(emptyGrid, `<div class="grid-3" ${selector}>\n      ${generated}\n      </div>`);
+}
+
+function writeCatalogPages(data) {
+  const tanks = sortTankCatalog(data.tanks.filter(isVisible));
+  const sets = sortSetCatalog(data.sets.filter(isVisible));
+  const tanksPath = path.join(root, 'tanks.html');
+  const setsPath = path.join(root, 'sets.html');
+  let tanksHtml = fs.readFileSync(tanksPath, 'utf8');
+  let setsHtml = fs.readFileSync(setsPath, 'utf8');
+
+  tanksHtml = replaceGeneratedCatalog(
+    tanksHtml,
+    'STATIC-TANK-CARDS',
+    'data-tank-grid',
+    tanks.map(tank => renderTankCatalogCard(tank, data)).join('\n')
+  );
+  tanksHtml = tanksHtml.replace(
+    /(<div class="browse-results-count" data-tank-result-count>)[^<]*(<\/div>)/,
+    `$1Showing ${tanks.length} tanks$2`
+  );
+  tanksHtml = tanksHtml.replace(
+    /(<p data-tank-result-note>)[^<]*(<\/p>)/,
+    '$1All catalog vehicles are visible.$2'
+  );
+  setsHtml = replaceGeneratedCatalog(
+    setsHtml,
+    'STATIC-SET-CARDS',
+    'data-sets-grid',
+    sets.map(set => renderSetCatalogCard(set, data)).join('\n')
+  );
+
+  writeFile(tanksPath, tanksHtml);
+  writeFile(setsPath, setsHtml);
+
+  return { tanks: tanks.length, sets: sets.length };
+}
+
 function renderSetStaticGuideLinks(set) {
   const links = Array.isArray(set.guideLinks) ? set.guideLinks : [];
   if (!links.length) return '';
@@ -725,7 +1062,7 @@ function writeTankPage(tank, data) {
         ? 'Review scale, finish, and details before sending a direct request or continuing to Etsy.'
         : 'Review scale, finish, and details before sending a direct request.'}</p>
       ${renderTankSiteTags(tank, { modifier: 'tank-tag-list-detail' })}
-      <a class="detail-back-link" href="/tanks.html">Back to all tanks</a>
+      <a class="detail-back-link" href="/tanks">Back to all tanks</a>
     </section>
     <section class="split">
       <div class="tank-media-stack">
@@ -747,7 +1084,7 @@ function writeTankPage(tank, data) {
         <div class="page-actions">
           ${tank.etsyUrl
             ? `<a class="btn btn-etsy" href="${escapeHtml(tank.etsyUrl)}" target="_blank" rel="noopener">Open on Etsy</a>`
-            : '<a class="btn btn-primary" href="/tank-requests.html">Ask about this tank</a>'}
+            : '<a class="btn btn-primary" href="/tank-requests">Ask about this tank</a>'}
         </div>
       </div>
     </section>
@@ -845,7 +1182,7 @@ ${set.description ? `      <div class="card info-card">
       <h1 class="page-title">${escapeHtml(set.name)}</h1>
       <p class="lead">${escapeHtml(set.note)}</p>
       ${inDevelopment ? `<div class="notice is-pending">${escapeHtml(getSetAvailabilityNote(set))}</div>` : ''}
-      <a class="detail-back-link" href="/sets.html">Back to all sets</a>
+      <a class="detail-back-link" href="/sets">Back to all sets</a>
     </section>
     <section class="split set-detail-top">
       <div class="set-media-stack">
@@ -864,10 +1201,10 @@ ${set.description ? `      <div class="card info-card">
 ${bestForHtml}        </ul>
         <div class="page-actions">
           ${inDevelopment
-            ? '<a class="btn btn-primary" href="/tank-requests.html">Ask about this set</a>'
+            ? '<a class="btn btn-primary" href="/tank-requests">Ask about this set</a>'
             : hasEtsyListing
               ? `<a class="btn btn-etsy" href="${escapeHtml(set.etsyUrl)}" target="_blank" rel="noopener">Open on Etsy</a>`
-              : '<a class="btn btn-primary" href="/tank-requests.html">Request this set</a>'
+              : '<a class="btn btn-primary" href="/tank-requests">Request this set</a>'
           }
         </div>
         ${inDevelopment ? '<p class="helper">This preview is here so players can see the planned contents while the pack is still being worked on.</p>' : ''}
@@ -953,7 +1290,23 @@ function updateSitemap(tanks, sets) {
 
 function main() {
   const data = readData();
-  const requestedSlugs = new Set(process.argv.slice(2));
+  const args = process.argv.slice(2);
+  const catalogsOnly = args.includes('--catalogs-only');
+  const linksOnly = args.includes('--links-only');
+  const requestedSlugs = new Set(args.filter(arg => !['--catalogs-only', '--links-only'].includes(arg)));
+
+  if (linksOnly) {
+    const normalized = normalizeInternalHtmlLinks();
+    console.log(`Normalized ${normalized.links} internal links across ${normalized.files} HTML files.`);
+    return;
+  }
+
+  if (catalogsOnly) {
+    const generated = writeCatalogPages(data);
+    console.log(`Generated catalog markup for ${generated.tanks} tanks and ${generated.sets} sets.`);
+    return;
+  }
+
   const isRequested = item => requestedSlugs.size === 0 || requestedSlugs.has(item.slug);
   const tanks = data.tanks.filter(isVisible).filter(isRequested);
   const sets = data.sets.filter(isVisible).filter(isRequested);
@@ -961,7 +1314,11 @@ function main() {
   tanks.forEach(tank => writeTankPage(tank, data));
   sets.forEach(set => writeSetPage(set, data));
 
-  if (requestedSlugs.size === 0) updateSitemap(tanks, sets);
+  if (requestedSlugs.size === 0) {
+    writeCatalogPages(data);
+    normalizeInternalHtmlLinks();
+    updateSitemap(tanks, sets);
+  }
 
   console.log(`Generated ${tanks.length} tank pages and ${sets.length} set pages.`);
 }

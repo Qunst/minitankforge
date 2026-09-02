@@ -29,13 +29,13 @@ function pageHref(value) {
   const raw = String(value || '');
   if (!raw) return '/';
   if (/^[a-z][a-z0-9+.-]*:/i.test(raw) || raw.startsWith('#')) return raw;
-  if (raw === 'index.html') return '/index.html';
 
   const match = raw.match(/^([^?#]*)(.*)$/);
   const pathPart = (match?.[1] || raw).replace(/^\.?\//, '');
   const suffix = match?.[2] || '';
+  const cleanPath = pathPart.replace(/\.html$/i, '');
 
-  return `/${pathPart}${suffix}`;
+  return cleanPath.toLowerCase() === 'index' ? `/${suffix}` : `/${cleanPath}${suffix}`;
 }
 
 function getScalePrice(scale, tank = null) {
@@ -231,7 +231,7 @@ function withQueryParams(url, params = {}) {
 
 function getTankDetailUrl(tankOrSlug, params = {}) {
   const slug = typeof tankOrSlug === 'string' ? tankOrSlug : tankOrSlug?.slug;
-  if (!slug) return '/tanks.html';
+  if (!slug) return '/tanks';
 
   const baseUrl = `/tanks/${encodeURIComponent(slug)}/`;
 
@@ -240,7 +240,7 @@ function getTankDetailUrl(tankOrSlug, params = {}) {
 
 function getSetDetailUrl(setOrSlug, params = {}) {
   const slug = typeof setOrSlug === 'string' ? setOrSlug : setOrSlug?.slug;
-  if (!slug) return '/sets.html';
+  if (!slug) return '/sets';
 
   const baseUrl = `/sets/${encodeURIComponent(slug)}/`;
 
@@ -1363,14 +1363,14 @@ function getGuideLinksForTank(tank) {
     if (!links.some(link => link.href === href)) links.push({ label, href, note });
   };
 
-  if (tank.nation === 'Germany') add('German WW2 tank miniatures', 'german-ww2-tank-miniatures.html', 'Browse nearby German armor and set paths.');
-  if (tank.nation === 'USSR') add('Soviet WW2 tank miniatures', 'soviet-ww2-tank-miniatures.html', 'Browse nearby Soviet armor and set paths.');
-  if (tank.nation === 'USA') add('American WW2 tank miniatures', 'american-ww2-tank-miniatures.html', 'Browse US armor, Shermans, Hellcats, and game packs.');
-  if (/sherman/i.test(tank.name)) add('Sherman tank miniatures', 'sherman-tank-miniatures.html', 'Compare Sherman-focused tanks and game packs.');
-  if (/tank destroyer|assault gun/i.test(tank.type)) add('WW2 tank destroyer miniatures', 'ww2-tank-destroyer-miniatures.html', 'Compare anti-armor and assault-gun vehicles.');
-  if (/heavy tank|super heavy tank/i.test(tank.type)) add('WW2 heavy tank miniatures', 'ww2-heavy-tank-miniatures.html', 'Compare heavy and super-heavy vehicle choices.');
-  if (tank.historicalStatus) add('Prototype and what-if tanks', 'prototype-tank-miniatures.html', 'Compare prototype, unfinished, and paper-project vehicles.');
-  add('Tabletop tank miniatures', 'tabletop-tank-miniatures.html', 'Browse scale, set, and vehicle paths for tabletop play.');
+  if (tank.nation === 'Germany') add('German WW2 tank miniatures', '/german-ww2-tank-miniatures', 'Browse nearby German armor and set paths.');
+  if (tank.nation === 'USSR') add('Soviet WW2 tank miniatures', '/soviet-ww2-tank-miniatures', 'Browse nearby Soviet armor and set paths.');
+  if (tank.nation === 'USA') add('American WW2 tank miniatures', '/american-ww2-tank-miniatures', 'Browse US armor, Shermans, Hellcats, and game packs.');
+  if (/sherman/i.test(tank.name)) add('Sherman tank miniatures', '/sherman-tank-miniatures', 'Compare Sherman-focused tanks and game packs.');
+  if (/tank destroyer|assault gun/i.test(tank.type)) add('WW2 tank destroyer miniatures', '/ww2-tank-destroyer-miniatures', 'Compare anti-armor and assault-gun vehicles.');
+  if (/heavy tank|super heavy tank/i.test(tank.type)) add('WW2 heavy tank miniatures', '/ww2-heavy-tank-miniatures', 'Compare heavy and super-heavy vehicle choices.');
+  if (tank.historicalStatus) add('Prototype and what-if tanks', '/prototype-tank-miniatures', 'Compare prototype, unfinished, and paper-project vehicles.');
+  add('Tabletop tank miniatures', '/tabletop-tank-miniatures', 'Browse scale, set, and vehicle paths for tabletop play.');
 
   return links.slice(0, 4);
 }
@@ -1684,7 +1684,7 @@ function renderTankDetail() {
         ? 'Review scale, finish, and details before sending a direct request or continuing to Etsy.'
         : 'Review scale, finish, and details before sending a direct request.'}</p>
       ${renderTankSiteTags(tank, { modifier: 'tank-tag-list-detail', context: 'detail' })}
-      <a class="detail-back-link" href="/tanks.html">Back to all tanks</a>
+      <a class="detail-back-link" href="/tanks">Back to all tanks</a>
     </section>
     <section class="split">
       <div class="tank-media-stack">
@@ -1711,7 +1711,7 @@ function renderTankDetail() {
         <div class="page-actions">
           ${tank.etsyUrl
             ? `<a class="btn btn-etsy" href="${tank.etsyUrl}" target="_blank" rel="noopener">Open ${getDisplayName(tank.name)} on Etsy</a>`
-            : '<a class="btn btn-primary" href="/tank-requests.html">Ask about this tank</a>'}
+            : '<a class="btn btn-primary" href="/tank-requests">Ask about this tank</a>'}
         </div>
         <p class="helper"><strong data-selection-summary></strong></p>
       </div>
@@ -1744,7 +1744,7 @@ function renderTankDetail() {
         <div class="kicker">Scale guidance</div>
         <h3>Need more size context?</h3>
         <p class="muted">Use the dedicated scale comparison page for hand, board, and side-by-side views.</p>
-        <a class="btn" href="/scale-comparison.html">See Scale Comparison</a>
+        <a class="btn" href="/scale-comparison">See Scale Comparison</a>
       </div>
     </section>
 
@@ -2317,7 +2317,7 @@ function renderSetDetail() {
     <h1 class="page-title">${set.name}</h1>
     <p class="lead">${set.note}</p>
     ${inDevelopment ? `<div class="notice is-pending">${escapeHtml(getSetAvailabilityNote(set))}</div>` : ''}
-    <a class="detail-back-link" href="/sets.html">Back to all sets</a>
+    <a class="detail-back-link" href="/sets">Back to all sets</a>
   </section>
 
   <section class="split set-detail-top">
@@ -2349,10 +2349,10 @@ function renderSetDetail() {
 
       <div class="page-actions">
         ${inDevelopment
-          ? '<a class="btn btn-primary" href="/tank-requests.html">Ask about this set</a>'
+          ? '<a class="btn btn-primary" href="/tank-requests">Ask about this set</a>'
           : hasEtsyListing
             ? `<a class="btn btn-etsy" data-set-etsy-base="${set.etsyUrl}" href="${set.etsyUrl}" target="_blank" rel="noopener">Buy ${getDisplayName(set.name)} on Etsy</a>`
-            : '<a class="btn btn-primary" href="/tank-requests.html">Request this set</a>'
+            : '<a class="btn btn-primary" href="/tank-requests">Request this set</a>'
         }
       </div>
 
@@ -2435,7 +2435,7 @@ function renderSetDetail() {
       <p class="muted">${usesSetOptions
         ? 'Game-ready packs are fixed to the scale shown on this page and use set configuration options for pack size.'
         : 'Use the scale comparison page to see how these sets change across scale options.'}</p>
-      ${usesSetOptions ? '' : `<a class="btn" href="/scale-comparison.html">See Scale Comparison</a>`}
+      ${usesSetOptions ? '' : `<a class="btn" href="/scale-comparison">See Scale Comparison</a>`}
     </div>
   </section>
 
