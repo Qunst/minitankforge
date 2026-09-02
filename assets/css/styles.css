@@ -898,6 +898,20 @@ textarea {
   background: #f2eadf
 }
 
+.table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  border-radius: 16px
+}
+
+.tank-dimensions-table {
+  min-width: 520px
+}
+
+.tank-dimensions-section .helper {
+  margin-top: 12px
+}
+
 .hero-small {
   padding: 30px 0 8px
 }
@@ -1446,6 +1460,14 @@ textarea {
   font-weight: 900;
   letter-spacing: .012em;
   font-family: "Arial Black", Impact, Haettenschweiler, "Segoe UI Black", sans-serif
+}
+
+.home-hero-title {
+  margin: 8px 0 14px;
+  color: #4f4a44;
+  font-size: clamp(1.15rem, 2.3vw, 1.55rem);
+  line-height: 1.25;
+  font-weight: 700
 }
 
 .home-logo-word {

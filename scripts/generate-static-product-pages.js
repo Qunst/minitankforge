@@ -125,12 +125,18 @@ function readData() {
     vm.runInContext(source, sandbox, { filename: file });
   }
 
+  const dimensionsPath = path.join(root, 'assets/data/tank-dimensions.json');
+  const tankDimensions = fs.existsSync(dimensionsPath)
+    ? JSON.parse(fs.readFileSync(dimensionsPath, 'utf8'))
+    : { units: 'mm', tanks: {} };
+
   return {
     tanks: sandbox.window.TANKS || [],
     sets: sandbox.window.SETS || [],
     scales: sandbox.window.MTF_SCALES || ['1:160', '1:180', '1:200', '1:250', '1:285'],
     finishes: sandbox.window.MTF_FINISHES || ['Base coat', 'Unpainted'],
     setFinishes: sandbox.window.MTF_SET_FINISHES || ['Base coat', 'Unpainted'],
+    tankDimensions,
   };
 }
 
@@ -334,6 +340,7 @@ function pageShell({ title, description, canonical, image, imageAlt, body, scrip
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width,initial-scale=1" name="viewport" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicon-96.png" />
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(description)}" />
   <link rel="canonical" href="${canonical}" />
@@ -417,12 +424,34 @@ function normalizeInternalHtmlLinks() {
   return { files: changedFiles, links: changedLinks };
 }
 
+function ensureFaviconLinks() {
+  const favicon = '  <link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicon-96.png" />';
+  let changedFiles = 0;
+
+  for (const file of collectHtmlFiles(root)) {
+    const original = fs.readFileSync(file, 'utf8');
+    if (/rel=["'](?:shortcut )?icon["']/i.test(original)) continue;
+
+    const updated = original.replace(/(<meta\s+content=["']width=device-width,initial-scale=1["']\s+name=["']viewport["']\s*\/?>)/i, `$1\n${favicon}`);
+    if (updated !== original) {
+      fs.writeFileSync(file, updated, 'utf8');
+      changedFiles += 1;
+    }
+  }
+
+  return changedFiles;
+}
+
 function isVisible(item) {
   return item?.disabled !== true;
 }
 
 function getDisplayName(name) {
   return String(name || '').split(' (')[0].trim();
+}
+
+function getAlternateName(name) {
+  return String(name || '').match(/\s+\(([^)]+)\)\s*$/)?.[1]?.trim() || '';
 }
 
 function getTankSnippetType(tank) {
@@ -457,19 +486,91 @@ const tankSeoOverrides = {
     description: 'Browse the Panzer 35(t) 3D printed Czech-built early-war German light tank miniature for invasion-era forces and compact tabletop scenarios.',
   },
   'panzer-38t': {
-    title: 'Panzer 38(t) Hetzer-Family Light Tank Miniature | MiniTankForge',
+    title: 'Panzer 38(t) Light Tank Miniature | MiniTankForge',
     description: 'Browse the Panzer 38(t) 3D printed Czech-built German light tank miniature, useful for early-war forces and Hetzer chassis-family collections.',
+  },
+  't28-t95-transport': {
+    title: 'T28/T95 Transport Tank Miniature | MiniTankForge',
   },
 };
 
 function getTankMetaTitle(tank) {
   if (tankSeoOverrides[tank.slug]?.title) return tankSeoOverrides[tank.slug].title;
-  return `${getDisplayName(tank.name)} 3D Printed ${getTankSnippetType(tank)} | MiniTankForge`;
+  return `${getTankHeading(tank)} | MiniTankForge`;
 }
 
 function getTankMetaDescription(tank, availableScales) {
   if (tankSeoOverrides[tank.slug]?.description) return tankSeoOverrides[tank.slug].description;
   return `Browse the ${getDisplayName(tank.name)} 3D printed ${tank.era} ${getTankSnippetType(tank).toLowerCase()} in ${availableScales.join(', ')}. Choose finish, request direct, or use Etsy.`;
+}
+
+function getTankHeading(tank) {
+  const displayName = getDisplayName(tank.name);
+  const snippetType = getTankSnippetType(tank);
+
+  if (snippetType === 'Tank Miniature' && /\btank$/i.test(displayName)) {
+    return `${displayName} Miniature`;
+  }
+
+  return `${displayName} ${snippetType}`;
+}
+
+function getTankIntro(tank, availableScales) {
+  const nationality = {
+    Germany: 'German',
+    USA: 'American',
+    USSR: 'Soviet',
+    UK: 'British',
+    Italy: 'Italian',
+    Japan: 'Japanese',
+    France: 'French',
+  }[tank.nation] || tank.nation;
+
+  return `The ${getDisplayName(tank.name)} is a 3D printed ${nationality} ${tank.era} ${getTankSnippetType(tank).toLowerCase()} available in ${availableScales.join(', ')}.`;
+}
+
+function renderTankDimensions(tank, availableScales, dimensionData) {
+  const sourceDimensions = dimensionData?.tanks?.[tank.slug];
+  if (!sourceDimensions) return '';
+
+  const sourceScale = Number(sourceDimensions.sourceScale || dimensionData.sourceScale) || 250;
+  const rows = availableScales.map(scale => {
+    const denominator = Number(String(scale).split(':')[1]);
+    if (!Number.isFinite(denominator) || denominator <= 0) return '';
+    const factor = sourceScale / denominator;
+    const format = value => (Number(value) * factor).toFixed(1);
+
+    return `
+            <tr>
+              <td><strong>${escapeHtml(scale)}</strong></td>
+              <td>${format(sourceDimensions.length)} mm</td>
+              <td>${format(sourceDimensions.width)} mm</td>
+              <td>${format(sourceDimensions.height)} mm</td>
+            </tr>`;
+  }).filter(Boolean).join('');
+
+  if (!rows) return '';
+
+  return `
+    <section class="tank-dimensions-section">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Model size</div>
+          <h2>Approximate printed dimensions</h2>
+          <p>Length × width × height measurements include the barrel and other protruding parts. The 1:${sourceScale} values come from the current STL bounding box; other scales are proportional estimates.</p>
+        </div>
+      </div>
+      <div class="table-scroll" role="region" aria-label="${escapeHtml(getDisplayName(tank.name))} dimensions by scale" tabindex="0">
+        <table class="table tank-dimensions-table">
+          <thead>
+            <tr><th>Scale</th><th>Length</th><th>Width</th><th>Height</th></tr>
+          </thead>
+          <tbody>${rows}
+          </tbody>
+        </table>
+      </div>
+      <p class="helper">Finished resin prints can vary slightly because of production and measurement tolerances.</p>
+    </section>`;
 }
 
 const tankHighlightTagOverrides = {
@@ -791,10 +892,13 @@ function setMetaTitle(set) {
   if (set.metaTitle) return set.metaTitle;
 
   if (set.filterGroup === 'Game') {
-    return `${set.name.replace(/\s+Pack$/i, '')} Miniature Accessory Pack | MiniTankForge`;
+    const gameName = set.slug === 'undaunted-reinforcements-normandy-tank-pack'
+      ? 'Undaunted Reinforcements Tank'
+      : set.name.replace(/\s+Pack$/i, '');
+    return `${gameName} Miniature Pack | MiniTankForge`;
   }
 
-  return `${set.name} 3D Printed Tank Miniatures | MiniTankForge`;
+  return `${set.name.replace(/\s+Set$/i, '')} Miniature Set | MiniTankForge`;
 }
 
 function setMetaDescription(set) {
@@ -804,10 +908,18 @@ function setMetaDescription(set) {
 
   if (set.filterGroup === 'Game') {
     const scale = (Array.isArray(set.availableScales) && set.availableScales[0]) || 'fixed scale';
-    return `Browse the ${set.name} unofficial ${scale} accessory pack for Mike Lambo game play. Review contents, finishes, and ${buyingOptions}.`;
+    return `Explore the ${set.name} unofficial ${scale} game accessory pack. Review included miniatures, finishes, and ${buyingOptions}.`;
   }
 
-  return `Browse the ${set.name} 3D printed ${set.era} tank miniature set with listed contents, scale choices, finishes, and ${buyingOptions}.`;
+  return `Explore the ${set.name}, a 3D printed ${set.era} tank miniature set. Review vehicles, scales, finishes, and ${buyingOptions}.`;
+}
+
+function getSetIntro(set, availableScales) {
+  if (set.filterGroup === 'Game') {
+    return `The ${set.name} is an unofficial 3D printed ${availableScales.join(', ')} miniature accessory pack for tabletop play.`;
+  }
+
+  return `The ${set.name} is a 3D printed ${set.era} tank miniature set featuring vehicles from ${set.nation}, available in ${availableScales.join(', ')}.`;
 }
 
 function renderTankCatalogTags(tank) {
@@ -1037,8 +1149,11 @@ function writeTankPage(tank, data) {
   const metaDescription = getTankMetaDescription(tank, availableScales);
   const productDescription = tank.description || metaDescription;
   const title = getTankMetaTitle(tank);
+  const heading = getTankHeading(tank);
+  const alternateName = getAlternateName(tank.name);
   const offer = aggregateOffer(prices, tank.etsyUrl || publicUrl);
   const internalLinksHtml = renderTankStaticInternalLinks(tank, data);
+  const dimensionsHtml = renderTankDimensions(tank, availableScales, data.tankDimensions);
 
   const product = {
     '@context': 'https://schema.org',
@@ -1057,10 +1172,9 @@ function writeTankPage(tank, data) {
   <main class="container" data-tank-detail data-slug="${escapeHtml(tank.slug)}" data-detail-url="${publicUrl}">
     <section class="hero-small">
       <div class="eyebrow">Single tank page</div>
-      <h1 class="page-title">${escapeHtml(tank.name)}</h1>
-      <p class="lead">${tank.etsyUrl
-        ? 'Review scale, finish, and details before sending a direct request or continuing to Etsy.'
-        : 'Review scale, finish, and details before sending a direct request.'}</p>
+      <h1 class="page-title">${escapeHtml(heading)}</h1>
+      ${alternateName ? `<p class="muted"><strong>Also known as:</strong> ${escapeHtml(alternateName)}</p>` : ''}
+      <p class="lead">${escapeHtml(getTankIntro(tank, availableScales))}</p>
       ${renderTankSiteTags(tank, { modifier: 'tank-tag-list-detail' })}
       <a class="detail-back-link" href="/tanks">Back to all tanks</a>
     </section>
@@ -1079,6 +1193,7 @@ function writeTankPage(tank, data) {
           <li><strong>Price range</strong><br>${escapeHtml(priceSummary(prices))}</li>
           <li><strong>Nation / era</strong><br>${escapeHtml(tank.nation)} / ${escapeHtml(tank.era)}</li>
           <li><strong>Type</strong><br>${escapeHtml(tank.type)}</li>
+          ${tank.compatibility ? `<li><strong>Tabletop use</strong><br>${escapeHtml(tank.compatibility)}</li>` : ''}
           ${tank.historicalStatus ? `<li><strong>Historical status</strong><br>${escapeHtml(tank.historicalStatus)}</li>` : ''}
         </ul>
         <div class="page-actions">
@@ -1088,6 +1203,7 @@ function writeTankPage(tank, data) {
         </div>
       </div>
     </section>
+${dimensionsHtml}
     <section class="grid-2">
       <div>
         <h2>Model notes</h2>
@@ -1180,7 +1296,8 @@ ${set.description ? `      <div class="card info-card">
     <section class="hero-small">
       <div class="eyebrow">${escapeHtml(set.category)}</div>
       <h1 class="page-title">${escapeHtml(set.name)}</h1>
-      <p class="lead">${escapeHtml(set.note)}</p>
+      <p class="lead">${escapeHtml(getSetIntro(set, availableScales))}</p>
+      <p class="muted">${escapeHtml(set.note)}</p>
       ${inDevelopment ? `<div class="notice is-pending">${escapeHtml(getSetAvailabilityNote(set))}</div>` : ''}
       <a class="detail-back-link" href="/sets">Back to all sets</a>
     </section>
@@ -1198,6 +1315,7 @@ ${set.description ? `      <div class="card info-card">
           <li><strong>Finish options</strong><br>${escapeHtml(data.setFinishes.join(', '))}</li>
           <li><strong>${inDevelopment ? 'Status' : 'Price range'}</strong><br>${escapeHtml(priceLabel)}</li>
           <li><strong>Nation / era</strong><br>${escapeHtml(set.nation)} / ${escapeHtml(set.era)}</li>
+          ${set.compatibility ? `<li><strong>Compatibility</strong><br>${escapeHtml(set.compatibility)}</li>` : ''}
 ${bestForHtml}        </ul>
         <div class="page-actions">
           ${inDevelopment
@@ -1297,7 +1415,9 @@ function main() {
 
   if (linksOnly) {
     const normalized = normalizeInternalHtmlLinks();
+    const faviconFiles = ensureFaviconLinks();
     console.log(`Normalized ${normalized.links} internal links across ${normalized.files} HTML files.`);
+    console.log(`Added favicon markup to ${faviconFiles} HTML files.`);
     return;
   }
 
@@ -1317,6 +1437,7 @@ function main() {
   if (requestedSlugs.size === 0) {
     writeCatalogPages(data);
     normalizeInternalHtmlLinks();
+    ensureFaviconLinks();
     updateSitemap(tanks, sets);
   }
 
