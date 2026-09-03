@@ -1,0 +1,18 @@
+# Keep versioned code in the browser cache. Every HTML reference uses a
+# query-string version that is updated by generate-static-product-pages.js.
+/assets/css/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/js/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Product photographs may be replaced without changing their filenames, so
+# cache them for a month rather than marking them immutable.
+/assets/img/*
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+
+/assets/video/*
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+
+/assets/Videos/*
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400

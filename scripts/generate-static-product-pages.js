@@ -5,6 +5,12 @@ const vm = require('vm');
 const root = path.resolve(__dirname, '..');
 const siteUrl = 'https://minitankforge.com';
 const today = new Date().toISOString().slice(0, 10);
+const assetVersions = Object.freeze({
+  styles: 28,
+  app: 54,
+  tanks: 32,
+  sets: 22,
+});
 const tankBrowsePopularityOrder = [
   'sherman-m4a3',
   'tiger-i',
@@ -355,7 +361,7 @@ function pageShell({ title, description, canonical, image, imageAlt, body, scrip
   <meta name="twitter:title" content="${escapeHtml(title)}" />
   <meta name="twitter:description" content="${escapeHtml(description)}" />
   <meta name="twitter:image" content="${absoluteUrl(image)}" />
-  <link href="/assets/css/styles.css?v=22" rel="stylesheet" />
+  <link href="/assets/css/styles.css?v=${assetVersions.styles}" rel="stylesheet" />
   ${jsonLd.join('\n  ')}
   ${scripts.join('\n  ')}
 </head>
@@ -433,6 +439,31 @@ function ensureFaviconLinks() {
     if (/rel=["'](?:shortcut )?icon["']/i.test(original)) continue;
 
     const updated = original.replace(/(<meta\s+content=["']width=device-width,initial-scale=1["']\s+name=["']viewport["']\s*\/?>)/i, `$1\n${favicon}`);
+    if (updated !== original) {
+      fs.writeFileSync(file, updated, 'utf8');
+      changedFiles += 1;
+    }
+  }
+
+  return changedFiles;
+}
+
+function normalizeAssetVersions() {
+  const replacements = [
+    [/styles\.css\?v=\d+/g, `styles.css?v=${assetVersions.styles}`],
+    [/app\.js\?v=\d+/g, `app.js?v=${assetVersions.app}`],
+    [/tanks-data\.js\?v=\d+/g, `tanks-data.js?v=${assetVersions.tanks}`],
+    [/sets-data\.js\?v=\d+/g, `sets-data.js?v=${assetVersions.sets}`],
+  ];
+  let changedFiles = 0;
+
+  for (const file of collectHtmlFiles(root)) {
+    const original = fs.readFileSync(file, 'utf8');
+    const updated = replacements.reduce(
+      (html, [pattern, replacement]) => html.replace(pattern, replacement),
+      original
+    );
+
     if (updated !== original) {
       fs.writeFileSync(file, updated, 'utf8');
       changedFiles += 1;
@@ -529,48 +560,59 @@ function getTankIntro(tank, availableScales) {
   return `The ${getDisplayName(tank.name)} is a 3D printed ${nationality} ${tank.era} ${getTankSnippetType(tank).toLowerCase()} available in ${availableScales.join(', ')}.`;
 }
 
-function renderTankDimensions(tank, availableScales, dimensionData) {
+function getTankDimensionsByScale(tank, availableScales, dimensionData) {
   const sourceDimensions = dimensionData?.tanks?.[tank.slug];
-  if (!sourceDimensions) return '';
+  if (!sourceDimensions) return null;
 
   const sourceScale = Number(sourceDimensions.sourceScale || dimensionData.sourceScale) || 250;
-  const rows = availableScales.map(scale => {
+  const scales = availableScales.map(scale => {
     const denominator = Number(String(scale).split(':')[1]);
-    if (!Number.isFinite(denominator) || denominator <= 0) return '';
+    if (!Number.isFinite(denominator) || denominator <= 0) return null;
     const factor = sourceScale / denominator;
     const format = value => (Number(value) * factor).toFixed(1);
 
-    return `
-            <tr>
-              <td><strong>${escapeHtml(scale)}</strong></td>
-              <td>${format(sourceDimensions.length)} mm</td>
-              <td>${format(sourceDimensions.width)} mm</td>
-              <td>${format(sourceDimensions.height)} mm</td>
-            </tr>`;
-  }).filter(Boolean).join('');
+    return {
+      scale,
+      length: format(sourceDimensions.length),
+      width: format(sourceDimensions.width),
+      height: format(sourceDimensions.height),
+    };
+  }).filter(Boolean);
 
-  if (!rows) return '';
+  return scales.length ? { sourceScale, scales } : null;
+}
+
+function renderTankDimensions(tank, dimensions, selectedScale = '1:180') {
+  if (!dimensions?.scales?.length) return '';
+
+  const selected = dimensions.scales.find(item => item.scale === selectedScale) || dimensions.scales[0];
+  const rows = dimensions.scales.map(item => `
+            <tr>
+              <td><strong>${escapeHtml(item.scale)}</strong></td>
+              <td>${item.length} mm</td>
+              <td>${item.width} mm</td>
+              <td>${item.height} mm</td>
+            </tr>`).join('');
 
   return `
-    <section class="tank-dimensions-section">
-      <div class="section-head">
-        <div>
-          <div class="kicker">Model size</div>
-          <h2>Approximate printed dimensions</h2>
-          <p>Length × width × height measurements include the barrel and other protruding parts. The 1:${sourceScale} values come from the current STL bounding box; other scales are proportional estimates.</p>
-        </div>
-      </div>
-      <div class="table-scroll" role="region" aria-label="${escapeHtml(getDisplayName(tank.name))} dimensions by scale" tabindex="0">
-        <table class="table tank-dimensions-table">
-          <thead>
-            <tr><th>Scale</th><th>Length</th><th>Width</th><th>Height</th></tr>
-          </thead>
-          <tbody>${rows}
-          </tbody>
-        </table>
-      </div>
-      <p class="helper">Finished resin prints can vary slightly because of production and measurement tolerances.</p>
-    </section>`;
+        <p class="tank-dimension-inline" data-tank-dimension-display aria-live="polite">
+          <span>Approx. size at <strong data-dimension-scale>${escapeHtml(selected.scale)}</strong>:</span>
+          <strong class="tank-dimension-value" data-dimension-value>${selected.length} × ${selected.width} × ${selected.height} mm</strong>
+          <span class="tank-dimension-axis">L × W × H · includes barrel</span>
+        </p>
+        <details class="tank-dimensions-details">
+          <summary>All scale dimensions</summary>
+          <div class="table-scroll" role="region" aria-label="${escapeHtml(getDisplayName(tank.name))} dimensions by scale" tabindex="0">
+            <table class="table tank-dimensions-table">
+              <thead>
+                <tr><th>Scale</th><th>Length</th><th>Width</th><th>Height</th></tr>
+              </thead>
+              <tbody>${rows}
+              </tbody>
+            </table>
+          </div>
+          <p class="helper">Measurements use the STL bounding box; other scales are proportional estimates.</p>
+        </details>`;
 }
 
 const tankHighlightTagOverrides = {
@@ -1153,7 +1195,12 @@ function writeTankPage(tank, data) {
   const alternateName = getAlternateName(tank.name);
   const offer = aggregateOffer(prices, tank.etsyUrl || publicUrl);
   const internalLinksHtml = renderTankStaticInternalLinks(tank, data);
-  const dimensionsHtml = renderTankDimensions(tank, availableScales, data.tankDimensions);
+  const tankDimensions = getTankDimensionsByScale(tank, availableScales, data.tankDimensions);
+  const defaultScale = availableScales.includes('1:180') ? '1:180' : availableScales[0];
+  const dimensionsHtml = renderTankDimensions(tank, tankDimensions, defaultScale);
+  const dimensionsAttribute = tankDimensions
+    ? escapeHtml(JSON.stringify(Object.fromEntries(tankDimensions.scales.map(item => [item.scale, item]))))
+    : '';
 
   const product = {
     '@context': 'https://schema.org',
@@ -1164,12 +1211,13 @@ function writeTankPage(tank, data) {
     brand: { '@type': 'Brand', name: 'MiniTankForge' },
     sku: tank.slug,
     category: `${tank.nation} ${tank.era} ${tank.type}`,
+    material: 'ABS-like resin',
     url: publicUrl,
     ...(offer ? { offers: offer } : {}),
   };
 
   const body = `
-  <main class="container" data-tank-detail data-slug="${escapeHtml(tank.slug)}" data-detail-url="${publicUrl}">
+  <main class="container" data-tank-detail data-slug="${escapeHtml(tank.slug)}" data-detail-url="${publicUrl}"${dimensionsAttribute ? ` data-dimensions="${dimensionsAttribute}"` : ''}>
     <section class="hero-small">
       <div class="eyebrow">Single tank page</div>
       <h1 class="page-title">${escapeHtml(heading)}</h1>
@@ -1195,7 +1243,12 @@ function writeTankPage(tank, data) {
           <li><strong>Type</strong><br>${escapeHtml(tank.type)}</li>
           ${tank.compatibility ? `<li><strong>Tabletop use</strong><br>${escapeHtml(tank.compatibility)}</li>` : ''}
           ${tank.historicalStatus ? `<li><strong>Historical status</strong><br>${escapeHtml(tank.historicalStatus)}</li>` : ''}
+          <li><strong>Material</strong><br>Custom tougher ABS-like resin</li>
+          <li><strong>Assembly</strong><br>Fully assembled; fixed turret where present</li>
+          <li><strong>Preparation</strong><br>Supports removed, washed, and fully cured</li>
+          <li><strong>Finish</strong><br>Unpainted or a colored primer base coat</li>
         </ul>
+${dimensionsHtml}
         <div class="page-actions">
           ${tank.etsyUrl
             ? `<a class="btn btn-etsy" href="${escapeHtml(tank.etsyUrl)}" target="_blank" rel="noopener">Open on Etsy</a>`
@@ -1203,7 +1256,6 @@ function writeTankPage(tank, data) {
         </div>
       </div>
     </section>
-${dimensionsHtml}
     <section class="grid-2">
       <div>
         <h2>Model notes</h2>
@@ -1225,8 +1277,8 @@ ${internalLinksHtml}
     imageAlt: tankImageAlt(tank),
     body,
     scripts: [
-      '<script defer src="/assets/js/tanks-data.js?v=31"></script>',
-      '<script defer src="/assets/js/app.js?v=50"></script>',
+      `<script defer src="/assets/js/tanks-data.js?v=${assetVersions.tanks}"></script>`,
+      `<script defer src="/assets/js/app.js?v=${assetVersions.app}"></script>`,
     ],
     jsonLd: [
       jsonLdScript('tank-product-jsonld', product),
@@ -1261,6 +1313,8 @@ ${set.description ? `      <div class="card info-card">
         <div class="kicker">${escapeHtml(set.overviewKicker || 'Set overview')}</div>
         <h3>${escapeHtml(set.overviewHeading || 'What this set is for')}</h3>
         <p class="muted">${escapeHtml(set.description)}</p>
+        ${set.counterCoverage ? `<p class="muted"><strong>Counter coverage:</strong> ${escapeHtml(set.counterCoverage)}</p>` : ''}
+        ${set.editionCompatibility ? `<p class="muted"><strong>Edition compatibility:</strong> ${escapeHtml(set.editionCompatibility)}</p>` : ''}
         ${set.gameUrl ? `<a class="btn" href="${escapeHtml(set.gameUrl)}" target="_blank" rel="noopener">Get ${escapeHtml(set.gameTitle || 'the game')} separately</a>` : ''}
       </div>
 ` : ''}${set.scaleNote ? `      <div class="card info-card">
@@ -1287,6 +1341,7 @@ ${set.description ? `      <div class="card info-card">
     brand: { '@type': 'Brand', name: 'MiniTankForge' },
     sku: set.slug,
     category: `${set.nation} ${set.era} ${set.category}`,
+    material: 'ABS-like resin',
     url: publicUrl,
     ...(offer ? { offers: offer } : {}),
   };
@@ -1316,7 +1371,11 @@ ${set.description ? `      <div class="card info-card">
           <li><strong>${inDevelopment ? 'Status' : 'Price range'}</strong><br>${escapeHtml(priceLabel)}</li>
           <li><strong>Nation / era</strong><br>${escapeHtml(set.nation)} / ${escapeHtml(set.era)}</li>
           ${set.compatibility ? `<li><strong>Compatibility</strong><br>${escapeHtml(set.compatibility)}</li>` : ''}
-${bestForHtml}        </ul>
+${bestForHtml}          <li><strong>Material</strong><br>Custom tougher ABS-like resin</li>
+          <li><strong>Assembly</strong><br>Fully assembled; vehicle turrets are fixed</li>
+          <li><strong>Preparation</strong><br>Supports removed, washed, and fully cured</li>
+          <li><strong>Finish</strong><br>Unpainted or a colored primer base coat</li>
+        </ul>
         <div class="page-actions">
           ${inDevelopment
             ? '<a class="btn btn-primary" href="/tank-requests">Ask about this set</a>'
@@ -1348,9 +1407,9 @@ ${contentsHtml}
     imageAlt: setImageAlt(set),
     body,
     scripts: [
-      '<script defer src="/assets/js/tanks-data.js?v=30"></script>',
-      '<script defer src="/assets/js/sets-data.js?v=20"></script>',
-      '<script defer src="/assets/js/app.js?v=49"></script>',
+      `<script defer src="/assets/js/tanks-data.js?v=${assetVersions.tanks}"></script>`,
+      `<script defer src="/assets/js/sets-data.js?v=${assetVersions.sets}"></script>`,
+      `<script defer src="/assets/js/app.js?v=${assetVersions.app}"></script>`,
     ],
     jsonLd: [
       jsonLdScript('set-product-jsonld', product),
@@ -1416,13 +1475,16 @@ function main() {
   if (linksOnly) {
     const normalized = normalizeInternalHtmlLinks();
     const faviconFiles = ensureFaviconLinks();
+    const assetVersionFiles = normalizeAssetVersions();
     console.log(`Normalized ${normalized.links} internal links across ${normalized.files} HTML files.`);
     console.log(`Added favicon markup to ${faviconFiles} HTML files.`);
+    console.log(`Normalized asset versions across ${assetVersionFiles} HTML files.`);
     return;
   }
 
   if (catalogsOnly) {
     const generated = writeCatalogPages(data);
+    normalizeAssetVersions();
     console.log(`Generated catalog markup for ${generated.tanks} tanks and ${generated.sets} sets.`);
     return;
   }
@@ -1438,6 +1500,7 @@ function main() {
     writeCatalogPages(data);
     normalizeInternalHtmlLinks();
     ensureFaviconLinks();
+    normalizeAssetVersions();
     updateSitemap(tanks, sets);
   }
 

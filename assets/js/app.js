@@ -645,6 +645,65 @@ function getAvailableScales(tank) {
   return Array.isArray(tank?.availableScales) && tank.availableScales.length ? tank.availableScales : validScales;
 }
 
+function getTankPageDimensions(target) {
+  if (!target?.dataset.dimensions) return {};
+
+  try {
+    return JSON.parse(target.dataset.dimensions);
+  } catch (error) {
+    console.warn('Could not read tank dimensions.', error);
+    return {};
+  }
+}
+
+function renderTankDimensionControls(tank, dimensions, selectedScale, availableScales) {
+  const selected = dimensions[selectedScale] || dimensions[availableScales[0]];
+  if (!selected) return '';
+
+  const rows = availableScales.map(scale => dimensions[scale]).filter(Boolean).map(item => `
+            <tr>
+              <td><strong>${escapeHtml(item.scale)}</strong></td>
+              <td>${escapeHtml(item.length)} mm</td>
+              <td>${escapeHtml(item.width)} mm</td>
+              <td>${escapeHtml(item.height)} mm</td>
+            </tr>`).join('');
+
+  return `
+        <p class="tank-dimension-inline" data-tank-dimension-display aria-live="polite">
+          <span>Approx. size at <strong data-dimension-scale>${escapeHtml(selected.scale)}</strong>:</span>
+          <strong class="tank-dimension-value" data-dimension-value>${escapeHtml(selected.length)} × ${escapeHtml(selected.width)} × ${escapeHtml(selected.height)} mm</strong>
+          <span class="tank-dimension-axis">L × W × H · includes barrel</span>
+        </p>
+        <details class="tank-dimensions-details">
+          <summary>All scale dimensions</summary>
+          <div class="table-scroll" role="region" aria-label="${escapeHtml(getDisplayName(tank.name))} dimensions by scale" tabindex="0">
+            <table class="table tank-dimensions-table">
+              <thead>
+                <tr><th>Scale</th><th>Length</th><th>Width</th><th>Height</th></tr>
+              </thead>
+              <tbody>${rows}
+              </tbody>
+            </table>
+          </div>
+          <p class="helper">Measurements use the STL bounding box; other scales are proportional estimates.</p>
+        </details>`;
+}
+
+function updateTankDimensionDisplay(scale) {
+  document.querySelectorAll('[data-tank-detail][data-dimensions]').forEach(target => {
+    const dimensions = getTankPageDimensions(target);
+    const selected = dimensions[scale];
+    if (!selected) return;
+
+    target.querySelectorAll('[data-tank-dimension-display]').forEach(display => {
+      const scaleElement = display.querySelector('[data-dimension-scale]');
+      const valueElement = display.querySelector('[data-dimension-value]');
+      if (scaleElement) scaleElement.textContent = selected.scale;
+      if (valueElement) valueElement.textContent = `${selected.length} × ${selected.width} × ${selected.height} mm`;
+    });
+  });
+}
+
 function renderScaleChoices(container, selectedScale, availableScales) {
   if (!container) return;
   container.innerHTML = availableScales.map(scale => `
@@ -1639,6 +1698,7 @@ function renderTankDetail() {
   const selectedPack = getTankPackByQuantity(getSelectedTankPack());
   const availableScales = getAvailableScales(tank);
   const safeScale = availableScales.includes(selectedScale) ? selectedScale : availableScales[0];
+  const tankDimensions = getTankPageDimensions(target);
   const tankUrl = target.dataset.detailUrl || absoluteUrl(getTankDetailUrl(tank));
   const tankMetaDescription = getTankMetaDescription(tank, availableScales);
   const tankProductDescription = getTankProductDescription(tank, availableScales);
@@ -1666,6 +1726,7 @@ function renderTankDetail() {
     },
     sku: tank.slug,
     category: `${tank.nation} ${tank.era} ${tank.type}`,
+    material: 'ABS-like resin',
     url: tankUrl,
     ...(tankOffers ? { offers: tankOffers } : {}),
   });
@@ -1695,6 +1756,7 @@ function renderTankDetail() {
         <h2 style="margin-top:6px">Review configuration</h2>
         <label>Scale</label>
         <div class="option-group" data-render-scale-choices></div>
+        ${renderTankDimensionControls(tank, tankDimensions, safeScale, availableScales)}
         <label style="margin-top:16px">Finish</label>
         <div class="option-group">
           ${validFinishes.map(f => `<button class="chip ${f === selectedFinish ? 'active' : ''}" data-finish-chip="${f}" aria-pressed="${f === selectedFinish}">${f}</button>`).join('')}
@@ -1726,7 +1788,11 @@ function renderTankDetail() {
         <ul class="spec-list">
           <li><strong>Scale</strong><br><span data-current-scale></span></li>
           <li><strong>Available scales</strong><br>${availableScales.join(', ')}</li>
-          <li><strong>Material</strong><br>3D printed miniature model</li>
+          <li><strong>Material</strong><br>Custom tougher ABS-like resin</li>
+          <li><strong>Assembly</strong><br>Fully assembled; fixed turret where present</li>
+          <li><strong>Preparation</strong><br>Supports removed, washed, and fully cured</li>
+          <li><strong>Cleanup</strong><br>Generally none required</li>
+          <li><strong>Finish</strong><br>Unpainted or a colored primer base coat</li>
           <li><strong>Nation / era</strong><br>${tank.nation} / ${tank.era}</li>
           <li><strong>Type</strong><br>${tank.type}</li>
           ${tank.historicalStatus ? `<li><strong>Historical status</strong><br>${tank.historicalStatus}</li>` : ''}
@@ -1825,8 +1891,12 @@ function setSelectedScale(scale, updateUrl = true) {
   });
 
   document.querySelectorAll('[data-scale-chip]').forEach(el => {
-    el.classList.toggle('active', el.dataset.scaleChip === scale);
+    const isActive = el.dataset.scaleChip === scale;
+    el.classList.toggle('active', isActive);
+    el.setAttribute('aria-pressed', isActive ? 'true' : 'false');
   });
+
+  updateTankDimensionDisplay(scale);
 
   const finish = getSelectedFinish();
   const pack = getSelectedTankPack();
@@ -2301,6 +2371,7 @@ function renderSetDetail() {
     },
     sku: set.slug,
     category: `${set.nation} ${set.era} ${set.category}`,
+    material: 'ABS-like resin',
     url: setUrl,
     ...(setOffers ? { offers: setOffers } : {}),
   });
@@ -2387,6 +2458,10 @@ function renderSetDetail() {
         }
         <li><strong>Compatibility</strong><br>${set.compatibility}</li>
         ${set.bestFor ? `<li><strong>Best for</strong><br>${escapeHtml(set.bestFor)}</li>` : ''}
+        <li><strong>Material</strong><br>Custom tougher ABS-like resin</li>
+        <li><strong>Assembly</strong><br>Fully assembled; vehicle turrets are fixed</li>
+        <li><strong>Preparation</strong><br>Supports removed, washed, and fully cured</li>
+        <li><strong>Finish</strong><br>Unpainted or a colored primer base coat</li>
       </ul>
     </div>
 
@@ -2408,6 +2483,8 @@ function renderSetDetail() {
       <div class="kicker">${escapeHtml(set.overviewKicker || 'Set overview')}</div>
       <h3>${escapeHtml(set.overviewHeading || 'What this set is for')}</h3>
       <p class="muted">${escapeHtml(set.description)}</p>
+      ${set.counterCoverage ? `<p class="muted"><strong>Counter coverage:</strong> ${escapeHtml(set.counterCoverage)}</p>` : ''}
+      ${set.editionCompatibility ? `<p class="muted"><strong>Edition compatibility:</strong> ${escapeHtml(set.editionCompatibility)}</p>` : ''}
       ${set.gameUrl ? `<a class="btn" href="${escapeHtml(set.gameUrl)}" target="_blank" rel="noopener">Get ${escapeHtml(set.gameTitle || 'the game')} separately</a>` : ''}
     </div>
     ` : ''}

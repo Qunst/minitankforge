@@ -814,6 +814,8 @@ window.SETS = [
       }
     ],
     compatibility: 'Unofficial 1:285 accessory pack compatible with Mike Lambo\'s Hellcat Tankers game play',
+    counterCoverage: 'The Full Pack covers all model counters. State and status counters, such as loaded, crew, and turret-damage markers, are not included.',
+    editionCompatibility: 'Compatible with all currently available editions of Hellcat Tankers.',
     optionLabel: 'Set version',
     availableScales: ['1:285'],
     options: [
@@ -933,6 +935,8 @@ window.SETS = [
       }
     ],
     compatibility: 'Unofficial 1:250 accessory pack compatible with Mike Lambo\'s Lone Sherman game play',
+    counterCoverage: 'The Full Pack covers all model counters. State and status counters, such as loaded, crew, and turret-damage markers, are not included.',
+    editionCompatibility: 'Compatible with all currently available editions of Lone Sherman.',
     optionLabel: 'Pack contents',
     availableScales: ['1:250'],
     options: [
@@ -1056,6 +1060,8 @@ window.SETS = [
       }
     ],
     compatibility: 'Unofficial 1:250 accessory pack compatible with Mike Lambo\'s Lone Sherman: The Pacific game play',
+    counterCoverage: 'The Full Pack covers all model counters. State and status counters, such as loaded, crew, and turret-damage markers, are not included.',
+    editionCompatibility: 'Compatible with all currently available editions of Lone Sherman: The Pacific.',
     optionLabel: 'Pack contents',
     availableScales: ['1:250'],
     options: [
@@ -1172,6 +1178,8 @@ window.SETS = [
       }
     ],
     compatibility: 'Unofficial 1:250 accessory pack compatible with Mike Lambo\'s Lone Panther game play',
+    counterCoverage: 'The Full Pack covers all model counters. State and status counters, such as loaded, crew, and turret-damage markers, are not included.',
+    editionCompatibility: 'Compatible with all currently available editions of Lone Panther.',
     optionLabel: 'Pack contents',
     availableScales: ['1:250'],
     options: [

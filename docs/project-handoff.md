@@ -75,7 +75,8 @@ Important assets:
 - `D:\Sites\minitankforge unpushed\assets\img\unused\` - local sibling archive for original photos and backups; not part of the repo
 - `assets/img/textures/` - texture assets, including hero/button textures
 - `D:\Sites\minitankforge unpushed\assets\unused\logo-concepts\` - archived logo concept explorations, not referenced by the site
-- `assets/img/minitankforge-hex-logo-transparent.png` - current transparent homepage hero mark
+- `assets/img/minitankforge-hex-logo-transparent.png` - full-resolution transparent source logo
+- `assets/img/minitankforge-hex-logo-home.webp` - optimized 256px homepage hero mark
 - `docs/workflows/add-new-tank-photos.md` - saved workflow for adding tank photos
 - `docs/workflows/make-etsy-listing-packet.md` - saved workflow for Etsy listing packets
 - `docs/tank-popularity-sorting.md` - research notes and maintenance guidance for the default tank browse order
@@ -109,6 +110,12 @@ Cloudflare deployment:
 - The project has used Cloudflare Workers/Pages static assets.
 - Domain is served through Cloudflare DNS.
 - Porkbun was the original registrar; Cloudflare DNS nameservers are used.
+- Cloudflare Crawler Hints was enabled on 2026-09-03.
+- Cloudflare Web Analytics/RUM is enabled in the privacy-preserving mode that excludes visitor data from the EU.
+- Training-only AI crawlers remain blocked. Mixed-purpose crawlers, including crawlers that can support search, are configured to remain allowed after Cloudflare's 2026-09-15 policy change.
+- `_headers` sets one-year immutable browser caching for versioned CSS and JavaScript, and 30-day caching with stale-while-revalidate for images and video. HTML keeps Cloudflare's default revalidation behavior.
+- Asset query-string versions are centralized in `assetVersions` inside `scripts/generate-static-product-pages.js`. Bump the relevant value whenever a cached CSS or JavaScript file changes, then rerun the generator so every HTML reference stays in sync.
+- `assets/img/minitankforge-hex-logo-home.webp` is the optimized homepage logo. Keep `assets/img/minitankforge-hex-logo-transparent.png` as the full-resolution source rather than serving it on the homepage.
 - Cloudflare Workers static assets have a hard per-file size limit of 25 MiB. Because `wrangler.jsonc` uses the repo root as the assets directory, any deploy-visible file anywhere in the repo can break deployment.
 - Keep only deployment-ready videos in the repo. Put raw, draft, or oversized video files under `D:\Sites\minitankforge unpushed\assets\Videos\unused\`.
 - Before deploying video changes, check for oversized deploy-visible assets:
@@ -446,6 +453,8 @@ About page facts:
 - This started as a hobby, then became extra profit for the home.
 - Resin printing is used.
 - Resin is ABS-like, tougher and more resistant to damage than standard brittle resin.
+- Models arrive fully assembled with fixed turrets.
+- Supports are removed before shipping; prints are washed and fully cured, and generally need no further cleanup.
 - Models are made from scratch or heavily modified from simple online models.
 - Mike Lambo games inspired game sets.
 - Three YouTube endorsement links were added/discussed:
@@ -455,12 +464,20 @@ About page facts:
 
 Finish Guide facts:
 - Options are Unpainted and Base coat.
+- The Base coat is the colored primer layer; it is not a separate paint layer applied over primer.
 - Base coat defaults by nation:
   - German tanks: grey
   - US tanks: brown
   - Russian/Soviet tanks: green
   - Japanese tanks: khaki/olive-khaki direction
 - Customers can contact Davorin to request different paint/base coat options.
+
+Game-pack compatibility facts:
+- Each Mike Lambo Full Pack covers all model counters in the named game.
+- State and status counters such as loaded, crew, and turret-damage markers are not included.
+- The packs are compatible with all currently available editions of their named games.
+- Do not invent additional setup or gameplay advice; none was supplied by the owner.
+- Rare print variations do not need a general warning in customer-facing copy.
 
 FAQ/request messaging:
 - Site is browse-only.

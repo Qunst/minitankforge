@@ -905,11 +905,63 @@ textarea {
 }
 
 .tank-dimensions-table {
-  min-width: 520px
+  min-width: 480px
 }
 
-.tank-dimensions-section .helper {
-  margin-top: 12px
+.tank-dimension-inline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 3px 6px;
+  margin: 10px 0 2px;
+  color: var(--muted);
+  font-size: .86rem;
+  line-height: 1.35
+}
+
+.tank-dimension-value {
+  color: var(--ink);
+  font-size: .96rem;
+  font-weight: 750
+}
+
+.tank-dimension-axis {
+  color: var(--muted);
+  font-size: .76rem
+}
+
+.tank-dimensions-details {
+  margin: 0 0 14px
+}
+
+.tank-dimensions-details summary {
+  width: fit-content;
+  color: var(--muted);
+  font-size: .78rem;
+  font-weight: 650;
+  text-decoration: underline;
+  text-decoration-color: rgba(101, 77, 52, .35);
+  text-underline-offset: 2px;
+  cursor: pointer
+}
+
+.tank-dimensions-details .table-scroll {
+  margin-top: 10px
+}
+
+.tank-dimensions-details .table {
+  box-shadow: none;
+  font-size: .9rem
+}
+
+.tank-dimensions-details .table th,
+.tank-dimensions-details .table td {
+  padding: 9px 10px
+}
+
+.tank-dimensions-details .helper {
+  margin: 9px 0 0;
+  font-size: .78rem
 }
 
 .hero-small {
