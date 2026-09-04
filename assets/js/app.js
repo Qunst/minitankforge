@@ -3,7 +3,7 @@ const DEFAULT_SCALE = '1:180';
 const DEFAULT_FINISH = 'Base coat';
 const DEFAULT_SET_IMAGE = 'assets/img/sets/genset.jpg';
 // Homepage hero image: 'spring', 'summer', 'winter', or 'random'.
-const HOME_HERO_VARIANT = 'summer';
+const HOME_HERO_VARIANT = 'painted';
 const validScales = Array.isArray(window.MTF_SCALES) ? window.MTF_SCALES : ['1:180', '1:200', '1:250', '1:285'];
 const validFinishes = Array.isArray(window.MTF_FINISHES) ? window.MTF_FINISHES : ['Base coat', 'Unpainted'];
 const validTankPacks = [
@@ -127,17 +127,18 @@ function initHomeHeroImage() {
   if (!image) return;
 
   const variants = {
+    painted: 'assets/img/hero-painted-real-desktop.webp',
     spring: 'assets/img/hero-spring.jpg',
     summer: 'assets/img/hero-summer.jpg',
     winter: 'assets/img/hero-winter.jpg',
   };
-  const configured = String(HOME_HERO_VARIANT || 'summer').toLowerCase();
+  const configured = String(HOME_HERO_VARIANT || 'painted').toLowerCase();
   const keys = Object.keys(variants);
   const selected = configured === 'random'
     ? keys[Math.floor(Math.random() * keys.length)]
     : configured;
-  const src = variants[selected] || variants.summer;
-  const versionedSrc = `${src}?v=7`;
+  const src = variants[selected] || variants.painted;
+  const versionedSrc = `${src}?v=1`;
   const absoluteSrc = absoluteUrl(versionedSrc);
 
   image.src = rootRelativeUrl(versionedSrc);
