@@ -2557,19 +2557,20 @@ window.TANKS = [
     placeholderStyle: 'light-small',
     image: 'assets/img/tanks/panzer-i-base-coat-side-detail.jpg',
     scalePrices: {
-      '1:160': 0.0,
-      '1:180': 0.0,
-      '1:200': 0.0,
-      '1:250': 0.0,
-      '1:285': 0.0
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
     },
     finishSurcharges: {
-      'Base coat': 0.0,
+      'Base coat': 1.0,
       'Unpainted': 0.0
     },
     siteTags: ['Early war', 'Iconic'],
     fact: 'The Panzer I was intended mainly for training and developing Germany\'s armored force, but the small Ausf. A also served in the early campaigns of WW2.',
     description: 'The Panzer I Ausf. A is a compact early-war German light tank miniature for interwar collections, Poland and France scenarios, and small reconnaissance or training formations. Its tiny two-man silhouette looks especially effective beside Panzer II, Panzer 35(t), and Panzer 38(t) models.',
+    etsyUrl: 'https://www.etsy.com/listing/4584318149',
     compatibility: 'Compact hex-based tabletop play',
   },
   {
@@ -2583,19 +2584,20 @@ window.TANKS = [
     placeholderStyle: 'dark-small',
     image: 'assets/img/tanks/panzer-ii-base-coat-side-detail.jpg',
     scalePrices: {
-      '1:160': 0.0,
-      '1:180': 0.0,
-      '1:200': 0.0,
-      '1:250': 0.0,
-      '1:285': 0.0
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
     },
     finishSurcharges: {
-      'Base coat': 0.0,
+      'Base coat': 1.0,
       'Unpainted': 0.0
     },
     siteTags: ['Early war', 'Iconic'],
     fact: 'Although conceived as a temporary design, the Panzer II became an important German light tank in the opening campaigns of WW2 and later continued in reconnaissance roles.',
     description: 'The Panzer II is an early-war German light tank miniature for Poland, France, North Africa, and reconnaissance-themed tabletop forces. It fills the useful size and capability gap between the tiny Panzer I and larger Panzer III or Panzer IV vehicles.',
+    etsyUrl: 'https://www.etsy.com/listing/4584325980',
     compatibility: 'Compact hex-based tabletop play',
   },
   {
@@ -2609,18 +2611,19 @@ window.TANKS = [
     placeholderStyle: 'light-medium',
     image: 'assets/img/tanks/marder-iii-base-coat-side-detail.jpg',
     scalePrices: {
-      '1:160': 0.0,
-      '1:180': 0.0,
-      '1:200': 0.0,
-      '1:250': 0.0,
-      '1:285': 0.0
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
     },
     finishSurcharges: {
-      'Base coat': 0.0,
+      'Base coat': 1.0,
       'Unpainted': 0.0
     },
     fact: 'The Marder III Ausf. H mounted the 7.5 cm PaK 40 anti-tank gun on the Panzer 38(t) chassis in an open-topped fighting compartment.',
     description: 'The Marder III Ausf. H is a German tank destroyer miniature with a tall open fighting compartment and long anti-tank gun. It fits naturally into mid-war Eastern Front, North African, and mobile anti-armor formations beside Panzer 38(t), Panzer III, and Panzer IV vehicles.',
+    etsyUrl: 'https://www.etsy.com/listing/4584327034',
     compatibility: 'Compact hex-based tabletop play',
   },
   {
@@ -2634,19 +2637,20 @@ window.TANKS = [
     placeholderStyle: 'dark-medium',
     image: 'assets/img/tanks/stug-iv-base-coat-side-detail.jpg',
     scalePrices: {
-      '1:160': 0.0,
-      '1:180': 0.0,
-      '1:200': 0.0,
-      '1:250': 0.0,
-      '1:285': 0.0
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
     },
     finishSurcharges: {
-      'Base coat': 0.0,
+      'Base coat': 1.0,
       'Unpainted': 0.0
     },
     siteTags: ['Late war', 'Game-famous', 'WoT'],
     fact: 'The StuG IV combined a StuG-style fighting compartment with the Panzer IV chassis, creating a low late-war assault gun and tank hunter.',
     description: 'The StuG IV is a low-profile German assault gun miniature for late-war defensive lines, ambushes, and armored support. Its Panzer IV chassis keeps it visually coherent beside Panzer IV and Jagdpanzer IV models while giving the force a distinct turretless silhouette.',
+    etsyUrl: 'https://www.etsy.com/listing/4584329806',
     compatibility: 'Compact hex-based tabletop play',
   },
   {
@@ -2661,19 +2665,20 @@ window.TANKS = [
     placeholderStyle: 'dark-large',
     image: 'assets/img/tanks/sherman-jumbo-base-coat-side-detail.jpg',
     scalePrices: {
-      '1:160': 0.0,
-      '1:180': 0.0,
-      '1:200': 0.0,
-      '1:250': 0.0,
-      '1:285': 0.0
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
     },
     finishSurcharges: {
-      'Base coat': 0.0,
+      'Base coat': 1.0,
       'Unpainted': 0.0
     },
     siteTags: ['Iconic', 'Late war', 'Game-famous', 'WoT'],
     fact: 'The M4A3E2 assault tank added much heavier armor to the Sherman design; only 254 factory-built Jumbos were produced for late-war breakthrough fighting.',
     description: 'The Sherman Jumbo is a heavily armored American assault tank miniature for late-war advances, urban fighting, and Battle of the Bulge forces. It keeps the familiar M4A3 family shape while adding a much heavier turret and hull presence beside standard Shermans, tank destroyers, and Pershings.',
+    etsyUrl: 'https://www.etsy.com/listing/4584323389',
     compatibility: 'Compact hex-based tabletop play',
   }
 ];
