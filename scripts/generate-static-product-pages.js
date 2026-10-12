@@ -6,8 +6,8 @@ const root = path.resolve(__dirname, '..');
 const siteUrl = 'https://minitankforge.com';
 const today = new Date().toISOString().slice(0, 10);
 const assetVersions = Object.freeze({
-  styles: 28,
-  app: 54,
+  styles: 32,
+  app: 57,
   tanks: 34,
   sets: 22,
 });
@@ -497,8 +497,8 @@ function getTankSnippetType(tank) {
 
 const tankSeoOverrides = {
   'tiger-i': {
-    title: 'Tiger I Ausf. E Heavy Tank Miniature | MiniTankForge',
-    description: 'Browse the Tiger I Ausf. E 3D printed German heavy tank miniature for mid-war and elite armor scenarios. Choose scale, finish, direct request, or Etsy.',
+    title: 'Tiger I Tank Miniature – 3D Printed Model | MiniTankForge',
+    description: 'Tiger I Ausf. E 3D printed WW2 tank miniature model, fully assembled in five scales from 1:160 to 1:285. Choose unpainted or primer base coat.',
   },
   'tiger-ii': {
     title: 'Tiger II King Tiger Miniature | MiniTankForge',
@@ -1250,10 +1250,20 @@ function writeTankPage(tank, data) {
         </ul>
 ${dimensionsHtml}
         <div class="page-actions">
+          <div class="basket-add-picker">
+            <label for="tank-basket-quantity-${escapeHtml(tank.slug)}">Number of packs</label>
+            <span class="basket-quantity-control">
+              <button type="button" data-basket-add-quantity-step="-1" aria-label="Decrease number of packs to add">−</button>
+              <input id="tank-basket-quantity-${escapeHtml(tank.slug)}" type="number" name="basketAddQuantity" min="1" max="50" value="1" inputmode="numeric" autocomplete="off" data-basket-add-quantity aria-label="Number of packs to add">
+              <button type="button" data-basket-add-quantity-step="1" aria-label="Increase number of packs to add">+</button>
+            </span>
+          </div>
+          <button class="btn btn-primary" type="button" data-add-tank-to-basket="${escapeHtml(tank.slug)}">Add to Request Basket</button>
           ${tank.etsyUrl
             ? `<a class="btn btn-etsy" href="${escapeHtml(tank.etsyUrl)}" target="_blank" rel="noopener">Open on Etsy</a>`
             : '<a class="btn btn-primary" href="/tank-requests">Ask about this tank</a>'}
         </div>
+        <div class="notice basket-add-status" data-basket-add-status aria-live="polite" hidden></div>
       </div>
     </section>
     <section class="grid-2">
@@ -1377,6 +1387,16 @@ ${bestForHtml}          <li><strong>Material</strong><br>Custom tougher ABS-like
           <li><strong>Finish</strong><br>Unpainted or a colored primer base coat</li>
         </ul>
         <div class="page-actions">
+          ${inDevelopment ? '' : `
+          <div class="basket-add-picker">
+            <label for="set-basket-quantity-${escapeHtml(set.slug)}">Number of sets</label>
+            <span class="basket-quantity-control">
+              <button type="button" data-basket-add-quantity-step="-1" aria-label="Decrease number of sets to add">−</button>
+              <input id="set-basket-quantity-${escapeHtml(set.slug)}" type="number" name="basketAddQuantity" min="1" max="50" value="1" inputmode="numeric" autocomplete="off" data-basket-add-quantity aria-label="Number of sets to add">
+              <button type="button" data-basket-add-quantity-step="1" aria-label="Increase number of sets to add">+</button>
+            </span>
+          </div>
+          <button class="btn btn-primary" type="button" data-add-set-to-basket="${escapeHtml(set.slug)}">Add to Request Basket</button>`}
           ${inDevelopment
             ? '<a class="btn btn-primary" href="/tank-requests">Ask about this set</a>'
             : hasEtsyListing
@@ -1384,6 +1404,7 @@ ${bestForHtml}          <li><strong>Material</strong><br>Custom tougher ABS-like
               : '<a class="btn btn-primary" href="/tank-requests">Request this set</a>'
           }
         </div>
+        <div class="notice basket-add-status" data-basket-add-status aria-live="polite" hidden></div>
         ${inDevelopment ? '<p class="helper">This preview is here so players can see the planned contents while the pack is still being worked on.</p>' : ''}
       </div>
     </section>

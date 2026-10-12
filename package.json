@@ -1,0 +1,7 @@
+{
+  "name": "minitankforge-site",
+  "private": true,
+  "scripts": {
+    "test:order-confirmation": "node scripts/test-order-confirmation.mjs"
+  }
+}

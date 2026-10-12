@@ -4,6 +4,9 @@ const DEFAULT_FINISH = 'Base coat';
 const DEFAULT_SET_IMAGE = 'assets/img/sets/genset.jpg';
 // Homepage hero image: 'spring', 'summer', 'winter', or 'random'.
 const HOME_HERO_VARIANT = 'painted';
+const REQUEST_BASKET_STORAGE_KEY = 'mtf-request-basket-v1';
+const REQUEST_BASKET_MAX_LINES = 40;
+const REQUEST_BASKET_MAX_QUANTITY = 50;
 const validScales = Array.isArray(window.MTF_SCALES) ? window.MTF_SCALES : ['1:180', '1:200', '1:250', '1:285'];
 const validFinishes = Array.isArray(window.MTF_FINISHES) ? window.MTF_FINISHES : ['Base coat', 'Unpainted'];
 const validTankPacks = [
@@ -292,8 +295,8 @@ function getTankSnippetType(tank) {
 
 const tankSeoOverrides = {
   'tiger-i': {
-    title: 'Tiger I Ausf. E Heavy Tank Miniature | MiniTankForge',
-    description: 'Browse the Tiger I Ausf. E 3D printed German heavy tank miniature for mid-war and elite armor scenarios. Choose scale, finish, direct request, or Etsy.',
+    title: 'Tiger I Tank Miniature – 3D Printed Model | MiniTankForge',
+    description: 'Tiger I Ausf. E 3D printed WW2 tank miniature model, fully assembled in five scales from 1:160 to 1:285. Choose unpainted or primer base coat.',
   },
   'tiger-ii': {
     title: 'Tiger II King Tiger Miniature | MiniTankForge',
@@ -1772,10 +1775,20 @@ function renderTankDetail() {
   <div class="price-note">Price updates with selected scale, finish, and pack size.</div>
         </div>
         <div class="page-actions">
+          <div class="basket-add-picker">
+            <label for="tank-basket-quantity-${tank.slug}">Number of packs</label>
+            <span class="basket-quantity-control">
+              <button type="button" data-basket-add-quantity-step="-1" aria-label="Decrease number of packs to add">−</button>
+              <input id="tank-basket-quantity-${tank.slug}" type="number" name="basketAddQuantity" min="1" max="${REQUEST_BASKET_MAX_QUANTITY}" value="1" inputmode="numeric" autocomplete="off" data-basket-add-quantity aria-label="Number of packs to add">
+              <button type="button" data-basket-add-quantity-step="1" aria-label="Increase number of packs to add">+</button>
+            </span>
+          </div>
+          <button class="btn btn-primary" type="button" data-add-tank-to-basket="${tank.slug}">Add to Request Basket</button>
           ${tank.etsyUrl
             ? `<a class="btn btn-etsy" href="${tank.etsyUrl}" target="_blank" rel="noopener">Open ${getDisplayName(tank.name)} on Etsy</a>`
             : '<a class="btn btn-primary" href="/tank-requests">Ask about this tank</a>'}
         </div>
+        <div class="notice basket-add-status" data-basket-add-status aria-live="polite" hidden></div>
         <p class="helper"><strong data-selection-summary></strong></p>
       </div>
     </section>
@@ -1820,6 +1833,7 @@ function renderTankDetail() {
 
   renderScaleChoices(target.querySelector('[data-render-scale-choices]'), safeScale, availableScales);
   bindTankDetailGallery(target);
+  bindTankBasketButton(target, tank);
 }
 
 function bindChoiceButtons() {
@@ -1920,7 +1934,9 @@ function setSelectedFinish(finish, updateUrl = true) {
   });
 
   document.querySelectorAll('[data-finish-chip]').forEach(el => {
-    el.classList.toggle('active', el.dataset.finishChip === finish);
+    const isActive = el.dataset.finishChip === finish;
+    el.classList.toggle('active', isActive);
+    el.setAttribute('aria-pressed', isActive ? 'true' : 'false');
   });
 
   const scale = getSelectedScale();
@@ -2420,6 +2436,16 @@ function renderSetDetail() {
       </div>
 
       <div class="page-actions">
+        ${inDevelopment ? '' : `
+        <div class="basket-add-picker">
+          <label for="set-basket-quantity-${set.slug}">Number of sets</label>
+          <span class="basket-quantity-control">
+            <button type="button" data-basket-add-quantity-step="-1" aria-label="Decrease number of sets to add">−</button>
+            <input id="set-basket-quantity-${set.slug}" type="number" name="basketAddQuantity" min="1" max="${REQUEST_BASKET_MAX_QUANTITY}" value="1" inputmode="numeric" autocomplete="off" data-basket-add-quantity aria-label="Number of sets to add">
+            <button type="button" data-basket-add-quantity-step="1" aria-label="Increase number of sets to add">+</button>
+          </span>
+        </div>
+        <button class="btn btn-primary" type="button" data-add-set-to-basket="${set.slug}">Add to Request Basket</button>`}
         ${inDevelopment
           ? '<a class="btn btn-primary" href="/tank-requests">Ask about this set</a>'
           : hasEtsyListing
@@ -2427,6 +2453,7 @@ function renderSetDetail() {
             : '<a class="btn btn-primary" href="/tank-requests">Request this set</a>'
         }
       </div>
+      <div class="notice basket-add-status" data-basket-add-status aria-live="polite" hidden></div>
 
       ${inDevelopment ? `
       <p class="helper">
@@ -2532,7 +2559,7 @@ function renderSetDetail() {
 
   if (optionContainer) {
     optionContainer.innerHTML = availableOptions.map(option => `
-      <button class="chip ${option.slug === selectedOptionSlug ? 'active' : ''}" data-set-option-chip="${option.slug}">${option.label}</button>
+      <button class="chip ${option.slug === selectedOptionSlug ? 'active' : ''}" data-set-option-chip="${option.slug}" aria-pressed="${option.slug === selectedOptionSlug}">${option.label}</button>
     `).join('');
 
     optionContainer.querySelectorAll('[data-set-option-chip]').forEach(btn => {
@@ -2543,7 +2570,9 @@ function renderSetDetail() {
         container.dataset.selectedSetOption = optionSlug;
 
         optionContainer.querySelectorAll('.chip').forEach(chip => {
-          chip.classList.toggle('active', chip.dataset.setOptionChip === optionSlug);
+          const isActive = chip.dataset.setOptionChip === optionSlug;
+          chip.classList.toggle('active', isActive);
+          chip.setAttribute('aria-pressed', isActive ? 'true' : 'false');
         });
 
         document.querySelectorAll('[data-current-set-option]').forEach(el => {
@@ -2562,7 +2591,7 @@ function renderSetDetail() {
 
   if (scaleContainer) {
     scaleContainer.innerHTML = availableScales.map(scale => `
-      <button class="chip ${scale === selectedScale ? 'active' : ''}" data-set-scale-chip="${scale}">${scale}</button>
+      <button class="chip ${scale === selectedScale ? 'active' : ''}" data-set-scale-chip="${scale}" aria-pressed="${scale === selectedScale}">${scale}</button>
     `).join('');
 
     scaleContainer.querySelectorAll('[data-set-scale-chip]').forEach(btn => {
@@ -2575,14 +2604,16 @@ function renderSetDetail() {
         }
         updateSetLivePrice(set, scale, getSelectedFinish(), container.dataset.selectedSetOption || '');
         scaleContainer.querySelectorAll('.chip').forEach(chip => {
-          chip.classList.toggle('active', chip.dataset.setScaleChip === scale);
+          const isActive = chip.dataset.setScaleChip === scale;
+          chip.classList.toggle('active', isActive);
+          chip.setAttribute('aria-pressed', isActive ? 'true' : 'false');
         });
       });
     });
   }
 
   finishContainer.innerHTML = availableFinishes.map(finish => `
-    <button class="chip ${finish === selectedFinish ? 'active' : ''}" data-set-finish-chip="${finish}">${finish}</button>
+    <button class="chip ${finish === selectedFinish ? 'active' : ''}" data-set-finish-chip="${finish}" aria-pressed="${finish === selectedFinish}">${finish}</button>
   `).join('');
 
   finishContainer.querySelectorAll('[data-set-finish-chip]').forEach(btn => {
@@ -2592,10 +2623,14 @@ function renderSetDetail() {
       updateSetLivePrice(set, selectedScale, finish, container.dataset.selectedSetOption || '');
       showSetGallerySelection(container, set, container.dataset.selectedSetOption || '', finish);
       finishContainer.querySelectorAll('.chip').forEach(chip => {
-        chip.classList.toggle('active', chip.dataset.setFinishChip === finish);
+        const isActive = chip.dataset.setFinishChip === finish;
+        chip.classList.toggle('active', isActive);
+        chip.setAttribute('aria-pressed', isActive ? 'true' : 'false');
       });
     });
   });
+
+  bindSetBasketButton(container, set, () => selectedScale);
 }
 
 function updateSetLivePrice(set, scale, finish, optionSlug = '') {
@@ -2604,6 +2639,648 @@ function updateSetLivePrice(set, scale, finish, optionSlug = '') {
     : formatPrice(getSetPrice(set, scale, finish, optionSlug));
   document.querySelectorAll('[data-set-live-price]').forEach(el => {
     el.textContent = value;
+  });
+}
+
+function clampBasketQuantity(value) {
+  const quantity = Math.round(Number(value) || 1);
+  return Math.min(REQUEST_BASKET_MAX_QUANTITY, Math.max(1, quantity));
+}
+
+function normalizeRequestBasketLine(line) {
+  const type = line?.type === 'set' ? 'set' : line?.type === 'tank' ? 'tank' : '';
+  const slug = String(line?.slug || '').trim().slice(0, 120);
+  if (!type || !slug) return null;
+
+  return {
+    type,
+    slug,
+    scale: String(line?.scale || '').trim().slice(0, 20),
+    finish: String(line?.finish || '').trim().slice(0, 40),
+    packQuantity: type === 'tank' ? getTankPackByQuantity(line?.packQuantity).quantity : 1,
+    optionSlug: type === 'set' ? String(line?.optionSlug || '').trim().slice(0, 120) : '',
+    quantity: clampBasketQuantity(line?.quantity),
+  };
+}
+
+function getRequestBasketLineKey(line) {
+  if (!line) return '';
+  return [line.type, line.slug, line.scale, line.finish, line.packQuantity || 1, line.optionSlug || ''].join('|');
+}
+
+function readRequestBasket() {
+  try {
+    const stored = JSON.parse(localStorage.getItem(REQUEST_BASKET_STORAGE_KEY) || '[]');
+    if (!Array.isArray(stored)) return [];
+    return stored.map(normalizeRequestBasketLine).filter(Boolean).slice(0, REQUEST_BASKET_MAX_LINES);
+  } catch {
+    return [];
+  }
+}
+
+function writeRequestBasket(lines) {
+  const normalized = Array.isArray(lines)
+    ? lines.map(normalizeRequestBasketLine).filter(Boolean).slice(0, REQUEST_BASKET_MAX_LINES)
+    : [];
+
+  try {
+    localStorage.setItem(REQUEST_BASKET_STORAGE_KEY, JSON.stringify(normalized));
+  } catch {
+    return false;
+  }
+
+  document.dispatchEvent(new CustomEvent('mtf:basket-updated'));
+  return true;
+}
+
+function addRequestBasketLine(line) {
+  const normalized = normalizeRequestBasketLine(line);
+  if (!normalized) return { ok: false, reason: 'invalid' };
+
+  const lines = readRequestBasket();
+  const key = getRequestBasketLineKey(normalized);
+  const existing = lines.find(item => getRequestBasketLineKey(item) === key);
+
+  if (existing) {
+    existing.quantity = clampBasketQuantity(existing.quantity + normalized.quantity);
+  } else if (lines.length >= REQUEST_BASKET_MAX_LINES) {
+    return { ok: false, reason: 'full' };
+  } else {
+    lines.push(normalized);
+  }
+
+  if (!writeRequestBasket(lines)) return { ok: false, reason: 'storage' };
+  return { ok: true, quantity: existing?.quantity || normalized.quantity };
+}
+
+function getHydratedRequestBasketItem(line) {
+  const normalized = normalizeRequestBasketLine(line);
+  if (!normalized) return null;
+
+  if (normalized.type === 'tank') {
+    const tank = getTankBySlug(normalized.slug);
+    if (!tank) return null;
+
+    const availableScales = getAvailableScales(tank);
+    const scale = availableScales.includes(normalized.scale) ? normalized.scale : availableScales[0];
+    const finish = validFinishes.includes(normalized.finish) ? normalized.finish : DEFAULT_FINISH;
+    const pack = getTankPackByQuantity(normalized.packQuantity);
+    const quantity = clampBasketQuantity(normalized.quantity);
+    const unitPrice = getTankPackPrice(scale, finish, pack.quantity, tank);
+    const storedLine = { ...normalized, scale, finish, packQuantity: pack.quantity, quantity };
+
+    return {
+      ...storedLine,
+      key: getRequestBasketLineKey(storedLine),
+      name: getDisplayName(tank.name),
+      fullName: tank.name,
+      image: tank.image || '',
+      optionLabel: 'Pack size',
+      optionValue: pack.label,
+      unitPrice,
+      lineTotal: unitPrice * quantity,
+      totalModels: pack.quantity * quantity,
+      itemUrl: getTankDetailUrl(tank, {
+        scale: scaleForUrl(scale),
+        finish,
+        pack: pack.quantity,
+      }),
+    };
+  }
+
+  const set = getSetBySlug(normalized.slug);
+  if (!set || isSetInDevelopment(set)) return null;
+
+  const availableScales = getAvailableSetScales(set);
+  const scale = availableScales.includes(normalized.scale) ? normalized.scale : availableScales[0];
+  const availableFinishes = getAvailableSetFinishes(set);
+  const finish = availableFinishes.includes(normalized.finish) ? normalized.finish : availableFinishes[0];
+  const options = getAvailableSetOptions(set);
+  const selectedOption = options.length ? getSetOptionBySlug(set, normalized.optionSlug) : null;
+  const optionSlug = selectedOption?.slug || '';
+  const quantity = clampBasketQuantity(normalized.quantity);
+  const unitPrice = getSetPrice(set, scale, finish, optionSlug);
+  const storedLine = { ...normalized, scale, finish, optionSlug, quantity };
+
+  return {
+    ...storedLine,
+    key: getRequestBasketLineKey(storedLine),
+    name: getDisplayName(set.name),
+    fullName: set.name,
+    image: set.image || DEFAULT_SET_IMAGE,
+    optionLabel: selectedOption ? (set.optionLabel || 'Set option') : '',
+    optionValue: selectedOption?.label || '',
+    unitPrice,
+    lineTotal: unitPrice * quantity,
+    totalModels: 0,
+    itemUrl: getSetDetailUrl(set, {
+      scale: scaleForUrl(scale),
+      finish,
+      setOption: optionSlug,
+    }),
+  };
+}
+
+function getHydratedRequestBasket() {
+  return readRequestBasket().map(getHydratedRequestBasketItem).filter(Boolean);
+}
+
+function getRequestBasketCount() {
+  return readRequestBasket().reduce((sum, line) => sum + clampBasketQuantity(line.quantity), 0);
+}
+
+function updateRequestBasketCounts() {
+  const count = getRequestBasketCount();
+  document.querySelectorAll('[data-request-basket-count]').forEach(element => {
+    element.textContent = String(count);
+  });
+  document.querySelectorAll('[data-request-basket-sr-count]').forEach(element => {
+    element.textContent = `${count} ${count === 1 ? 'item' : 'items'}`;
+  });
+}
+
+function initRequestBasketNavigation() {
+  const topbar = document.querySelector('.topbar-inner');
+  const etsyButton = topbar?.querySelector(':scope > .btn-etsy');
+
+  if (topbar && !topbar.querySelector('[data-request-basket-link]')) {
+    const actions = document.createElement('div');
+    actions.className = 'topbar-actions';
+
+    const basketLink = document.createElement('a');
+    basketLink.className = 'btn request-basket-link';
+    basketLink.href = '/request-basket';
+    basketLink.dataset.requestBasketLink = '';
+    basketLink.innerHTML = '<span class="basket-label-long">Request Basket</span><span class="basket-label-short">Basket</span><span class="request-basket-count" data-request-basket-count aria-hidden="true">0</span><span class="visually-hidden" data-request-basket-sr-count>0 items</span>';
+
+    if (etsyButton) {
+      topbar.insertBefore(actions, etsyButton);
+      actions.append(basketLink, etsyButton);
+    } else {
+      topbar.append(actions);
+      actions.append(basketLink);
+    }
+  }
+
+  document.querySelectorAll('footer .nav').forEach(nav => {
+    if (nav.querySelector('[data-request-basket-footer-link]')) return;
+    const link = document.createElement('a');
+    link.href = '/request-basket';
+    link.textContent = 'Request Basket';
+    link.dataset.requestBasketFooterLink = '';
+    nav.append(link);
+  });
+
+  updateRequestBasketCounts();
+
+  if (document.body.dataset.basketStorageBound !== 'true') {
+    window.addEventListener('storage', event => {
+      if (event.key === REQUEST_BASKET_STORAGE_KEY) updateRequestBasketCounts();
+    });
+    document.addEventListener('mtf:basket-updated', updateRequestBasketCounts);
+    document.body.dataset.basketStorageBound = 'true';
+  }
+}
+
+function setBasketAddStatus(container, kind, message) {
+  const status = container?.querySelector('[data-basket-add-status]');
+  if (!status) return;
+  status.hidden = false;
+  status.textContent = message;
+  status.classList.toggle('is-error', kind === 'error');
+}
+
+function bindBasketAddQuantityPicker(container) {
+  const input = container?.querySelector('[data-basket-add-quantity]');
+  if (!input || input.dataset.basketQuantityBound === 'true') return input;
+
+  const setQuantity = value => {
+    input.value = String(clampBasketQuantity(value));
+  };
+
+  container.querySelectorAll('[data-basket-add-quantity-step]').forEach(button => {
+    button.addEventListener('click', () => {
+      setQuantity(Number(input.value) + Number(button.dataset.basketAddQuantityStep));
+    });
+  });
+
+  input.addEventListener('change', () => setQuantity(input.value));
+  input.dataset.basketQuantityBound = 'true';
+  return input;
+}
+
+function bindTankBasketButton(container, tank) {
+  const button = container?.querySelector(`[data-add-tank-to-basket="${tank.slug}"]`);
+  if (!button || button.dataset.basketBound === 'true') return;
+  const quantityInput = bindBasketAddQuantityPicker(container);
+
+  button.addEventListener('click', () => {
+    const availableScales = getAvailableScales(tank);
+    const selectedScale = getSelectedScale();
+    const scale = availableScales.includes(selectedScale) ? selectedScale : availableScales[0];
+    const finish = getSelectedFinish();
+    const pack = getTankPackByQuantity(getSelectedTankPack());
+    const quantity = clampBasketQuantity(quantityInput?.value);
+    if (quantityInput) quantityInput.value = String(quantity);
+    const result = addRequestBasketLine({
+      type: 'tank',
+      slug: tank.slug,
+      scale,
+      finish,
+      packQuantity: pack.quantity,
+      quantity,
+    });
+
+    if (!result.ok) {
+      const message = result.reason === 'full'
+        ? `Your basket can contain up to ${REQUEST_BASKET_MAX_LINES} different configurations.`
+        : 'This item could not be saved in your browser. Please use the Requests page instead.';
+      setBasketAddStatus(container, 'error', message);
+      return;
+    }
+
+    const quantityText = quantity === 1 ? pack.label : `${quantity} packs of ${pack.label.toLowerCase()}`;
+    setBasketAddStatus(container, 'success', `${getDisplayName(tank.name)}, ${scale}, ${finish}, ${quantityText} ${quantity === 1 ? 'was' : 'were'} added.`);
+    const originalLabel = button.textContent;
+    button.textContent = quantity === 1 ? 'Added to Basket' : `Added ${quantity} to Basket`;
+    window.setTimeout(() => { button.textContent = originalLabel; }, 1400);
+  });
+
+  button.dataset.basketBound = 'true';
+}
+
+function bindSetBasketButton(container, set, getSelectedSetScale) {
+  const button = container?.querySelector(`[data-add-set-to-basket="${set.slug}"]`);
+  if (!button || button.dataset.basketBound === 'true') return;
+  const quantityInput = bindBasketAddQuantityPicker(container);
+
+  button.addEventListener('click', () => {
+    const scale = getSelectedSetScale();
+    const finish = getSelectedFinish();
+    const optionSlug = container.dataset.selectedSetOption || '';
+    const option = optionSlug ? getSetOptionBySlug(set, optionSlug) : null;
+    const quantity = clampBasketQuantity(quantityInput?.value);
+    if (quantityInput) quantityInput.value = String(quantity);
+    const result = addRequestBasketLine({
+      type: 'set',
+      slug: set.slug,
+      scale,
+      finish,
+      optionSlug,
+      quantity,
+    });
+
+    if (!result.ok) {
+      const message = result.reason === 'full'
+        ? `Your basket can contain up to ${REQUEST_BASKET_MAX_LINES} different configurations.`
+        : 'This item could not be saved in your browser. Please use the Requests page instead.';
+      setBasketAddStatus(container, 'error', message);
+      return;
+    }
+
+    const optionText = option ? `, ${option.label}` : '';
+    setBasketAddStatus(container, 'success', `${quantity} ${quantity === 1 ? 'set was' : 'sets were'} added: ${getDisplayName(set.name)}, ${scale}, ${finish}${optionText}.`);
+    const originalLabel = button.textContent;
+    button.textContent = quantity === 1 ? 'Added to Basket' : `Added ${quantity} to Basket`;
+    window.setTimeout(() => { button.textContent = originalLabel; }, 1400);
+  });
+
+  button.dataset.basketBound = 'true';
+}
+
+function changeRequestBasketLineQuantity(key, nextQuantity) {
+  const lines = readRequestBasket();
+  const line = lines.find(item => getRequestBasketLineKey(item) === key);
+  if (!line) return;
+  line.quantity = clampBasketQuantity(nextQuantity);
+  writeRequestBasket(lines);
+}
+
+function removeRequestBasketLine(key) {
+  const lines = readRequestBasket().filter(item => getRequestBasketLineKey(item) !== key);
+  writeRequestBasket(lines);
+}
+
+function renderRequestBasketItem(item) {
+  const meta = [
+    `<span><strong>Scale:</strong> ${escapeHtml(item.scale)}</span>`,
+    `<span><strong>Finish:</strong> ${escapeHtml(item.finish)}</span>`,
+    item.type === 'set' && item.optionValue ? `<span><strong>${escapeHtml(item.optionLabel)}:</strong> ${escapeHtml(item.optionValue)}</span>` : '',
+    item.type === 'tank' ? `<span><strong>Pack:</strong> ${escapeHtml(item.optionValue)}</span>` : '',
+  ].filter(Boolean).join('');
+  const quantityLabel = item.type === 'tank' ? 'Number of packs' : 'Number of sets';
+  const totalNote = item.type === 'tank'
+    ? `${item.totalModels} ${item.totalModels === 1 ? 'tank' : 'tanks'} total`
+    : `${item.quantity} ${item.quantity === 1 ? 'set' : 'sets'}`;
+
+  return `
+    <article class="request-basket-item" data-basket-line="${escapeHtml(item.key)}">
+      <a class="basket-item-image" href="${escapeHtml(item.itemUrl)}" aria-label="Review ${escapeHtml(item.name)} options">
+        <img src="${rootRelativeUrl(item.image)}" width="320" height="180" alt="${escapeHtml(item.name)} miniature" loading="lazy" decoding="async">
+      </a>
+      <div class="basket-item-copy">
+        <div class="kicker">${item.type === 'tank' ? 'Individual tank' : 'Set'}</div>
+        <h2><a href="${escapeHtml(item.itemUrl)}">${escapeHtml(item.name)}</a></h2>
+        <div class="basket-item-meta">${meta}</div>
+        <div class="basket-item-controls">
+          <label>
+            ${quantityLabel}
+            <span class="basket-quantity-control">
+              <button type="button" data-basket-quantity-step="-1" aria-label="Decrease ${escapeHtml(item.name)} quantity">−</button>
+              <input type="number" name="basketQuantity" min="1" max="${REQUEST_BASKET_MAX_QUANTITY}" value="${item.quantity}" inputmode="numeric" autocomplete="off" data-basket-quantity aria-label="${quantityLabel} for ${escapeHtml(item.name)}">
+              <button type="button" data-basket-quantity-step="1" aria-label="Increase ${escapeHtml(item.name)} quantity">+</button>
+            </span>
+          </label>
+          <div class="basket-item-links">
+            <a href="${escapeHtml(item.itemUrl)}">Edit options</a>
+            <button type="button" data-remove-basket-line>Remove</button>
+          </div>
+        </div>
+      </div>
+      <div class="basket-line-price">
+        <span>${formatPrice(item.unitPrice)} × ${item.quantity}</span>
+        <strong>${formatPrice(item.lineTotal)}</strong>
+        <small>${totalNote}</small>
+      </div>
+    </article>`;
+}
+
+function updateRequestBasketSummary(items) {
+  const subtotal = items.reduce((sum, item) => sum + item.lineTotal, 0);
+  const quantity = items.reduce((sum, item) => sum + item.quantity, 0);
+
+  document.querySelectorAll('[data-request-basket-subtotal]').forEach(element => {
+    element.textContent = formatPrice(subtotal);
+  });
+  document.querySelectorAll('[data-request-basket-summary-count]').forEach(element => {
+    element.textContent = `${quantity} ${quantity === 1 ? 'pack or set' : 'packs or sets'}`;
+  });
+  document.querySelectorAll('[data-request-basket-submit]').forEach(button => {
+    button.disabled = items.length === 0;
+  });
+}
+
+function renderRequestBasketPage() {
+  const target = document.querySelector('[data-request-basket-items]');
+  if (!target) return [];
+
+  const items = getHydratedRequestBasket();
+  target.innerHTML = items.length
+    ? `<div class="request-basket-list">${items.map(renderRequestBasketItem).join('')}</div>
+       <div class="basket-list-actions"><button class="btn basket-clear-button" type="button" data-clear-request-basket>Clear Basket</button></div>`
+    : `<div class="card request-basket-empty">
+        <div class="kicker">Your basket is empty</div>
+        <h2>Choose the models you want</h2>
+        <p class="muted">Open a tank or set, choose its scale, finish, and pack options, then select <strong>Add to Request Basket</strong>.</p>
+        <div class="page-actions"><a class="btn btn-primary" href="/tanks">Browse Tanks</a><a class="btn" href="/sets">Browse Sets</a></div>
+      </div>`;
+
+  target.querySelectorAll('[data-basket-line]').forEach(element => {
+    const key = element.dataset.basketLine;
+    const input = element.querySelector('[data-basket-quantity]');
+
+    element.querySelectorAll('[data-basket-quantity-step]').forEach(button => {
+      button.addEventListener('click', () => {
+        changeRequestBasketLineQuantity(key, Number(input.value) + Number(button.dataset.basketQuantityStep));
+        renderRequestBasketPage();
+        syncRequestBasketMailto();
+      });
+    });
+
+    input?.addEventListener('change', () => {
+      changeRequestBasketLineQuantity(key, input.value);
+      renderRequestBasketPage();
+      syncRequestBasketMailto();
+    });
+
+    element.querySelector('[data-remove-basket-line]')?.addEventListener('click', () => {
+      removeRequestBasketLine(key);
+      renderRequestBasketPage();
+      syncRequestBasketMailto();
+    });
+  });
+
+  target.querySelector('[data-clear-request-basket]')?.addEventListener('click', () => {
+    if (!window.confirm('Clear every item from your request basket?')) return;
+    writeRequestBasket([]);
+    renderRequestBasketPage();
+    syncRequestBasketMailto();
+  });
+
+  updateRequestBasketSummary(items);
+  return items;
+}
+
+function createRequestBasketId() {
+  const date = new Date().toISOString().slice(0, 10).replaceAll('-', '');
+  let suffix = '';
+
+  try {
+    const values = new Uint32Array(1);
+    crypto.getRandomValues(values);
+    suffix = values[0].toString(36).slice(-5).toUpperCase().padStart(5, '0');
+  } catch {
+    suffix = Math.random().toString(36).slice(2, 7).toUpperCase().padEnd(5, '0');
+  }
+
+  return `MTF-${date}-${suffix}`;
+}
+
+function buildRequestBasketMessage(items, formData, requestId) {
+  const name = String(formData.get('name') || '').trim();
+  const email = String(formData.get('email') || '').trim();
+  const country = String(formData.get('country') || '').trim();
+  const postalCode = String(formData.get('postalCode') || '').trim();
+  const deadline = String(formData.get('deadline') || '').trim();
+  const notes = String(formData.get('notes') || '').trim();
+  const subtotal = items.reduce((sum, item) => sum + item.lineTotal, 0);
+  const lines = [
+    'New MiniTankForge order request',
+    `Request ID: ${requestId}`,
+    '',
+    `Customer: ${name}`,
+    `Email: ${email}`,
+    `Country: ${country}`,
+    `Postal code: ${postalCode || 'Not provided'}`,
+    `Requested deadline: ${deadline || 'Not provided'}`,
+    '',
+    'REQUESTED ITEMS',
+  ];
+
+  items.forEach((item, index) => {
+    lines.push(
+      '',
+      `${index + 1}. ${item.fullName}`,
+      `Product type: ${item.type === 'tank' ? 'Individual tank' : 'Set'}`,
+      `Scale: ${item.scale}`,
+      `Finish: ${item.finish}`,
+    );
+
+    if (item.type === 'tank') {
+      lines.push(
+        `Pack size: ${item.optionValue}`,
+        `Number of packs: ${item.quantity}`,
+        `Total models: ${item.totalModels}`,
+      );
+    } else {
+      if (item.optionValue) lines.push(`${item.optionLabel}: ${item.optionValue}`);
+      lines.push(`Number of sets: ${item.quantity}`);
+    }
+
+    lines.push(
+      `Price each: ${formatPrice(item.unitPrice)}`,
+      `Line subtotal: ${formatPrice(item.lineTotal)}`,
+      `Product page: ${absoluteUrl(item.itemUrl)}`,
+    );
+  });
+
+  lines.push(
+    '',
+    `Estimated product subtotal: ${formatPrice(subtotal)}`,
+    'Shipping: Not included; confirm by email.',
+    'Payment: PayPal invoice or bank transfer after confirmation.',
+    'This is a non-binding order request. No payment has been taken.',
+    '',
+    'CUSTOMER NOTES',
+    notes || 'No additional notes.',
+  );
+
+  return lines.join('\n');
+}
+
+function syncRequestBasketMailto() {
+  const form = document.querySelector('[data-request-basket-form]');
+  const link = document.querySelector('[data-request-basket-mailto]');
+  if (!form || !link) return;
+
+  const items = getHydratedRequestBasket();
+  const formData = new FormData(form);
+  const requestId = form.dataset.requestId || createRequestBasketId();
+  form.dataset.requestId = requestId;
+  const subject = `MiniTankForge order request ${requestId}`;
+  const message = buildRequestBasketMessage(items, formData, requestId);
+  link.href = `mailto:quali3dprint@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+}
+
+function initRequestBasketPage() {
+  const form = document.querySelector('[data-request-basket-form]');
+  if (!form) return;
+
+  renderRequestBasketPage();
+  form.dataset.requestId = createRequestBasketId();
+  form.querySelectorAll('input, textarea').forEach(field => {
+    field.addEventListener('input', syncRequestBasketMailto);
+  });
+  syncRequestBasketMailto();
+
+  form.addEventListener('submit', async event => {
+    event.preventDefault();
+
+    const items = getHydratedRequestBasket();
+    const formData = new FormData(form);
+    const name = String(formData.get('name') || '').trim();
+    const email = String(formData.get('email') || '').trim();
+    const country = String(formData.get('country') || '').trim();
+    const website = String(formData.get('website') || '').trim();
+    const statusElement = document.querySelector('[data-request-basket-status]');
+    const submitButton = form.querySelector('[data-request-basket-submit]');
+    const endpoint = form.getAttribute('action') || '';
+
+    if (website) {
+      writeRequestBasket([]);
+      form.hidden = true;
+      renderRequestBasketPage();
+      setRequestStatus(statusElement, 'success', 'Your request was sent. I will confirm the details by email.');
+      return;
+    }
+
+    if (!items.length) {
+      setRequestStatus(statusElement, 'error', 'Add at least one tank or set before sending your request.');
+      return;
+    }
+
+    if (!name || !email || !country) {
+      setRequestStatus(statusElement, 'error', 'Please provide your name, email, and country.');
+      return;
+    }
+
+    if (!endpoint) {
+      setRequestStatus(statusElement, 'error', 'The request form is not configured. Please use the email option instead.');
+      return;
+    }
+
+    const requestId = form.dataset.requestId || createRequestBasketId();
+    const subtotal = items.reduce((sum, item) => sum + item.lineTotal, 0);
+    const subject = `MiniTankForge order request ${requestId} from ${name}`;
+    const message = buildRequestBasketMessage(items, formData, requestId);
+    const payload = {
+      subject,
+      requestType: 'Request Basket',
+      requestId,
+      name,
+      email,
+      country,
+      postalCode: String(formData.get('postalCode') || '').trim(),
+      deadline: String(formData.get('deadline') || '').trim(),
+      estimatedSubtotal: formatPrice(subtotal),
+      shipping: 'Not included; confirm by email.',
+      payment: 'PayPal invoice or bank transfer after confirmation.',
+      message,
+      website,
+    };
+
+    if (submitButton) submitButton.disabled = true;
+    setRequestStatus(statusElement, 'pending', 'Sending your order request...');
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+      const responsePayload = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(responsePayload.errors?.[0]?.message || responsePayload.error || 'The request could not be sent. Please use the email option instead.');
+      }
+
+      let confirmationSent = false;
+      const confirmationController = new AbortController();
+      const confirmationTimeout = window.setTimeout(() => confirmationController.abort(), 12000);
+
+      try {
+        const confirmationResponse = await fetch('/api/order-confirmation', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+          signal: confirmationController.signal,
+        });
+        const confirmationPayload = await confirmationResponse.json().catch(() => ({}));
+        confirmationSent = confirmationResponse.ok && confirmationPayload.confirmationSent === true;
+      } catch {
+        confirmationSent = false;
+      } finally {
+        window.clearTimeout(confirmationTimeout);
+      }
+
+      writeRequestBasket([]);
+      form.reset();
+      form.hidden = true;
+      renderRequestBasketPage();
+      const successMessage = confirmationSent
+        ? `Request ${requestId} was sent. A confirmation email was sent to ${email}. I will follow up with shipping, production time, and the final total.`
+        : `Request ${requestId} was sent, but the automatic confirmation email could not be sent. Please save this request ID; I will still follow up with the full details by email.`;
+      setRequestStatus(statusElement, 'success', successMessage);
+    } catch (error) {
+      setRequestStatus(statusElement, 'error', error.message || 'The request could not be sent. Please use the email option instead.');
+      if (submitButton) submitButton.disabled = false;
+    }
   });
 }
 
@@ -2816,3 +3493,5 @@ function initFinishGuideRotation() {
 
 document.addEventListener('DOMContentLoaded', initTankRequestForm);
 document.addEventListener('DOMContentLoaded', initFinishGuideRotation);
+document.addEventListener('DOMContentLoaded', initRequestBasketNavigation);
+document.addEventListener('DOMContentLoaded', initRequestBasketPage);

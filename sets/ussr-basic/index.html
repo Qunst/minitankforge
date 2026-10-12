@@ -18,12 +18,12 @@
   <meta name="twitter:title" content="USSR Starter Miniature Set | MiniTankForge" />
   <meta name="twitter:description" content="Explore the USSR Starter Set, a 3D printed WW2 tank miniature set. Review vehicles, scales, finishes, and Etsy and direct request options." />
   <meta name="twitter:image" content="https://minitankforge.com/assets/img/sets/ussr-basic-base-coat-side.jpg" />
-  <link href="/assets/css/styles.css?v=28" rel="stylesheet" />
+  <link href="/assets/css/styles.css?v=32" rel="stylesheet" />
   <script id="set-product-jsonld" type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"USSR Starter Set","description":"This set gives you six Soviet WW2 vehicles in one group: SU-85, ISU-152, T-34, IS-3, KV-2, and T-28. It is a good pick if you want a Soviet force that mixes a familiar medium tank with heavier armor and assault-gun support. The selection feels useful for players who want more variety than a pure tank platoon.","image":{"@type":"ImageObject","url":"https://minitankforge.com/assets/img/sets/ussr-basic-base-coat-side.jpg","caption":"USSR Starter Set USSR WW2 Starter set base coat set overview 3D printed miniature set"},"brand":{"@type":"Brand","name":"MiniTankForge"},"sku":"ussr-basic","category":"USSR WW2 Starter set","material":"ABS-like resin","url":"https://minitankforge.com/sets/ussr-basic/","offers":{"@type":"AggregateOffer","priceCurrency":"EUR","lowPrice":"13.00","highPrice":"29.00","offerCount":10,"url":"https://www.etsy.com/listing/4500181548/ussr-starter-armor-set-miniatures-3d","seller":{"@type":"Organization","name":"MiniTankForge","url":"https://minitankforge.com"}}}</script>
   <script id="set-breadcrumb-jsonld" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://minitankforge.com/"},{"@type":"ListItem","position":2,"name":"Browse Sets","item":"https://minitankforge.com/sets"},{"@type":"ListItem","position":3,"name":"USSR Starter Set","item":"https://minitankforge.com/sets/ussr-basic/"}]}</script>
   <script defer src="/assets/js/tanks-data.js?v=34"></script>
   <script defer src="/assets/js/sets-data.js?v=22"></script>
-  <script defer src="/assets/js/app.js?v=54"></script>
+  <script defer src="/assets/js/app.js?v=57"></script>
 </head>
 <body>
 
@@ -73,8 +73,19 @@
           <li><strong>Finish</strong><br>Unpainted or a colored primer base coat</li>
         </ul>
         <div class="page-actions">
+
+          <div class="basket-add-picker">
+            <label for="set-basket-quantity-ussr-basic">Number of sets</label>
+            <span class="basket-quantity-control">
+              <button type="button" data-basket-add-quantity-step="-1" aria-label="Decrease number of sets to add">−</button>
+              <input id="set-basket-quantity-ussr-basic" type="number" name="basketAddQuantity" min="1" max="50" value="1" inputmode="numeric" autocomplete="off" data-basket-add-quantity aria-label="Number of sets to add">
+              <button type="button" data-basket-add-quantity-step="1" aria-label="Increase number of sets to add">+</button>
+            </span>
+          </div>
+          <button class="btn btn-primary" type="button" data-add-set-to-basket="ussr-basic">Add to Request Basket</button>
           <a class="btn btn-etsy" href="https://www.etsy.com/listing/4500181548/ussr-starter-armor-set-miniatures-3d" target="_blank" rel="noopener">Open on Etsy</a>
         </div>
+        <div class="notice basket-add-status" data-basket-add-status aria-live="polite" hidden></div>
 
       </div>
     </section>

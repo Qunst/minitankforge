@@ -18,12 +18,12 @@
   <meta name="twitter:title" content="Lone Sherman Miniature Pack | MiniTankForge" />
   <meta name="twitter:description" content="Explore the Lone Sherman Pack unofficial 1:250 game accessory pack. Review included miniatures, finishes, and Etsy and direct request options." />
   <meta name="twitter:image" content="https://minitankforge.com/assets/img/sets/lone-sherman-pack.jpg" />
-  <link href="/assets/css/styles.css?v=28" rel="stylesheet" />
+  <link href="/assets/css/styles.css?v=32" rel="stylesheet" />
   <script id="set-product-jsonld" type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Lone Sherman Pack","description":"This pack is an unofficial 3D printed accessory set for players who want physical pieces for Mike Lambo's Lone Sherman rather than relying only on printed counters. The pack is built around the Sherman, German armor, infantry, and truck pieces used for the European game setting, with versions for the full pack, tanks only, support pieces, or an extra Sherman.","image":{"@type":"ImageObject","url":"https://minitankforge.com/assets/img/sets/lone-sherman-pack.jpg","caption":"Lone Sherman Pack USA WW2 Game ready base coat set overview 3D printed miniature set"},"brand":{"@type":"Brand","name":"MiniTankForge"},"sku":"lone-sherman-pack","category":"USA WW2 Game ready","material":"ABS-like resin","url":"https://minitankforge.com/sets/lone-sherman-pack/","offers":{"@type":"AggregateOffer","priceCurrency":"EUR","lowPrice":"3.00","highPrice":"33.00","offerCount":8,"url":"https://www.etsy.com/listing/1355718683/detailed-mini-ww2-tanks-1250-scale-lone","seller":{"@type":"Organization","name":"MiniTankForge","url":"https://minitankforge.com"}}}</script>
   <script id="set-breadcrumb-jsonld" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://minitankforge.com/"},{"@type":"ListItem","position":2,"name":"Browse Sets","item":"https://minitankforge.com/sets"},{"@type":"ListItem","position":3,"name":"Lone Sherman Pack","item":"https://minitankforge.com/sets/lone-sherman-pack/"}]}</script>
   <script defer src="/assets/js/tanks-data.js?v=34"></script>
   <script defer src="/assets/js/sets-data.js?v=22"></script>
-  <script defer src="/assets/js/app.js?v=54"></script>
+  <script defer src="/assets/js/app.js?v=57"></script>
 </head>
 <body>
 
@@ -73,8 +73,19 @@
           <li><strong>Finish</strong><br>Unpainted or a colored primer base coat</li>
         </ul>
         <div class="page-actions">
+
+          <div class="basket-add-picker">
+            <label for="set-basket-quantity-lone-sherman-pack">Number of sets</label>
+            <span class="basket-quantity-control">
+              <button type="button" data-basket-add-quantity-step="-1" aria-label="Decrease number of sets to add">−</button>
+              <input id="set-basket-quantity-lone-sherman-pack" type="number" name="basketAddQuantity" min="1" max="50" value="1" inputmode="numeric" autocomplete="off" data-basket-add-quantity aria-label="Number of sets to add">
+              <button type="button" data-basket-add-quantity-step="1" aria-label="Increase number of sets to add">+</button>
+            </span>
+          </div>
+          <button class="btn btn-primary" type="button" data-add-set-to-basket="lone-sherman-pack">Add to Request Basket</button>
           <a class="btn btn-etsy" href="https://www.etsy.com/listing/1355718683/detailed-mini-ww2-tanks-1250-scale-lone" target="_blank" rel="noopener">Open on Etsy</a>
         </div>
+        <div class="notice basket-add-status" data-basket-add-status aria-live="polite" hidden></div>
 
       </div>
     </section>

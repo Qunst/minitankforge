@@ -40,6 +40,8 @@ window.SETS = [
     ],
     placeholderStyle: 'light-large',
     etsyUrl: 'https://www.etsy.com/listing/4500173554/german-starter-armor-set-miniatures-3d',
+    metaTitle: 'German WW2 Tank Miniature Starter Set | MiniTankForge',
+    metaDescription: 'German WW2 tank miniature starter set with Tiger I, Tiger II, Panther, Ferdinand, Jagdpanther, and StuG III. Five scales; unpainted or base coat.',
     note: 'A compact starting force for players who want a ready-made German set.',
     description: 'This set gives you six well-known German WW2 vehicles in one group: Tiger I, Tiger II, Panther, Ferdinand, Jagdpanther, and StuG III. It is a good pick if you want a ready-made German armor selection instead of choosing each model separately. The mix leans toward heavier vehicles and tank destroyers, so it has a strong late-war feel on the table.',
     bestFor: 'Starting a German WW2 force with recognizable vehicles and a clear heavy-armor focus.',

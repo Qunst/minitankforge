@@ -11,7 +11,11 @@
 .codex/chrome-profile*/
 .codex/mockups/
 .codex/config.toml
+.codex-remote-attachments/
+.codex_tmp/
 output/
+outputs/
+tmp/
 assets/img/unused/**
 assets/Videos/unused/**
 assets/unused/**

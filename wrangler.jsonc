@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "minitankforge",
+  "main": "worker.js",
   "compatibility_date": "2026-04-12",
   "workers_dev": false,
   "preview_urls": false,
@@ -8,7 +9,16 @@
     "enabled": true
   },
   "assets": {
-    "directory": "."
+    "directory": ".",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/api/*"
+    ]
+  },
+  "vars": {
+    "RESEND_FROM_EMAIL": "orders@mail.minitankforge.com",
+    "RESEND_FROM_NAME": "MiniTankForge",
+    "RESEND_REPLY_TO_EMAIL": "quali3dprint@gmail.com"
   },
   "compatibility_flags": [
     "nodejs_compat"

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width,initial-scale=1" name="viewport" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicon-96.png" />
+  <title>Request Basket | MiniTankForge</title>
+  <meta name="description" content="Review selected MiniTankForge tanks and sets, then send a non-binding order request for shipping and final-price confirmation." />
+  <meta name="robots" content="noindex,follow" />
+  <link rel="canonical" href="https://minitankforge.com/request-basket" />
+  <meta property="og:site_name" content="MiniTankForge" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Request Basket | MiniTankForge" />
+  <meta property="og:description" content="Review selected MiniTankForge tanks and sets, then send a non-binding order request." />
+  <meta property="og:url" content="https://minitankforge.com/request-basket" />
+  <meta property="og:image" content="https://minitankforge.com/assets/img/hero-painted-real-desktop.webp?v=1" />
+  <meta property="og:image:alt" content="Hand-painted MiniTankForge tank miniatures" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Request Basket | MiniTankForge" />
+  <meta name="twitter:description" content="Review selected MiniTankForge tanks and sets, then send a non-binding order request." />
+  <meta name="twitter:image" content="https://minitankforge.com/assets/img/hero-painted-real-desktop.webp?v=1" />
+  <link href="/assets/css/styles.css?v=32" rel="stylesheet" />
+  <script defer src="/assets/js/tanks-data.js?v=34"></script>
+  <script defer src="/assets/js/sets-data.js?v=22"></script>
+  <script defer src="/assets/js/app.js?v=57"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="/">MINITANKFORGE</a>
+      <div class="nav-stack">
+        <nav class="nav nav-row">
+          <a href="/tanks">Browse Tanks</a>
+          <a href="/sets">Browse Sets</a>
+          <a href="/gallery">Gallery</a>
+          <a href="/finish-guide">Finish Guide</a>
+          <a href="/tank-requests">Requests</a>
+        </nav>
+        <nav class="nav nav-row">
+          <a href="/how-this-works">How Buying Works</a>
+          <a href="/scale-comparison">Scale Comparison</a>
+          <a href="/reviews">Reviews</a>
+          <a href="/faq">FAQ</a>
+          <a href="/about">About</a>
+        </nav>
+      </div>
+      <a class="btn btn-etsy" href="https://www.etsy.com/shop/Quali3DPrints?section_id=58368275" rel="noopener" target="_blank">Visit Etsy Shop</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero-small">
+      <div class="eyebrow">Build a request</div>
+      <h1 class="page-title">Request Basket</h1>
+      <p class="lead">Review the exact models, scales, finishes, and pack options you want. Sending this basket does not take payment or create a confirmed order.</p>
+      <div class="callout">
+        I will confirm availability, production time, shipping, and the final total by email. After confirmation, payment can be completed by PayPal invoice or bank transfer.
+      </div>
+    </section>
+
+    <section class="request-basket-layout" aria-label="Request basket and customer details">
+      <div data-request-basket-items aria-live="polite"></div>
+
+      <aside class="card request-basket-summary">
+        <div class="kicker">Request summary</div>
+        <h2><span data-request-basket-summary-count>0 packs or sets</span></h2>
+        <div class="basket-total-row">
+          <span>Estimated product subtotal</span>
+          <strong data-request-basket-subtotal>€0.00</strong>
+        </div>
+        <p class="basket-summary-note">Prices are the product prices shown on MiniTankForge. No tax or Etsy fees are added here. Shipping is not included and will be confirmed by email.</p>
+
+        <form class="request-basket-form" action="https://formspree.io/f/mpqkrvqk" data-request-basket-form method="POST">
+          <div>
+            <label for="basket-name">Name</label>
+            <input id="basket-name" name="name" autocomplete="name" required />
+          </div>
+          <div>
+            <label for="basket-email">Email</label>
+            <input id="basket-email" name="email" autocomplete="email" type="email" required />
+          </div>
+          <div class="form-grid">
+            <div>
+              <label for="basket-country">Country</label>
+              <input id="basket-country" name="country" autocomplete="country-name" required />
+            </div>
+            <div>
+              <label for="basket-postal-code">Postal code <span class="muted">(if used)</span></label>
+              <input id="basket-postal-code" name="postalCode" autocomplete="postal-code" />
+            </div>
+          </div>
+          <div>
+            <label for="basket-deadline">Requested deadline <span class="muted">(optional)</span></label>
+            <input id="basket-deadline" name="deadline" placeholder="Example: Needed before 15 December" />
+          </div>
+          <div>
+            <label for="basket-notes">Notes <span class="muted">(optional)</span></label>
+            <textarea id="basket-notes" name="notes" placeholder="Different base coat color, delivery question, or anything else I should know."></textarea>
+          </div>
+          <div class="hp-field" aria-hidden="true">
+            <label for="basket-website">Website</label>
+            <input id="basket-website" name="website" autocomplete="off" tabindex="-1" type="text" />
+          </div>
+          <p class="privacy-note">MiniTankForge uses these details only to review, answer, and fulfil your request. Your basket remains in this browser until it is successfully sent or cleared.</p>
+          <button class="btn btn-primary" data-request-basket-submit type="submit">Send Order Request</button>
+          <a class="btn" data-request-basket-mailto href="mailto:quali3dprint@gmail.com?subject=MiniTankForge%20order%20request">Open Email Instead</a>
+        </form>
+
+        <div class="notice request-form-status" data-request-basket-status aria-live="polite" hidden></div>
+      </aside>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div class="brand">MINITANKFORGE</div>
+        <p>Build a clear multi-model request, then receive shipping and final-price confirmation by email.</p>
+      </div>
+      <div class="nav" style="display:flex">
+        <a href="/tanks">Browse Tanks</a>
+        <a href="/sets">Browse Sets</a>
+        <a href="/how-this-works">How Buying Works</a>
+        <a href="/gallery">Gallery</a>
+        <a href="/finish-guide">Finish Guide</a>
+        <a href="/scale-comparison">Scale Comparison</a>
+        <a href="/tank-requests">Requests</a>
+        <a href="/faq">FAQ</a>
+        <a href="/about">About</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

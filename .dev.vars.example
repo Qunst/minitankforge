@@ -1,0 +1,7 @@
+# Copy this file to .dev.vars for local Wrangler testing. Never commit the real key.
+RESEND_API_KEY="re_replace_with_a_sending_only_key"
+
+# These non-secret values already have production defaults in wrangler.jsonc.
+RESEND_FROM_EMAIL="orders@mail.minitankforge.com"
+RESEND_FROM_NAME="MiniTankForge"
+RESEND_REPLY_TO_EMAIL="quali3dprint@gmail.com"
