@@ -19,8 +19,10 @@
           "center": [2000, 1650],
           "measurement": {
             "kind": "quarter",
-            "lengthDxPx": 780,
-            "widthDxPx": 180
+            "backgroundCalibration": {
+              "sideReferenceSpanPx": 600,
+              "quarterSpanPx": 570
+            }
           }
         },
         {
@@ -41,8 +43,10 @@
           "center": [2000, 1650],
           "measurement": {
             "kind": "quarter",
-            "lengthDxPx": 735,
-            "widthDxPx": 165
+            "backgroundCalibration": {
+              "sideReferenceSpanPx": 600,
+              "quarterSpanPx": 612
+            }
           }
         },
         {

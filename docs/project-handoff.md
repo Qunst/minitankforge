@@ -312,7 +312,7 @@ Tank crop rule:
 - Do not crop every tank to fill the frame.
 - The scale authority is a canonical `1600×900` frame representing `16.0×9.0 m`, or `100 output px/m` horizontally.
 - Measure and normalize all six source photos independently. Never inherit one crop size across a tank group because camera distance changes between shots.
-- Side photos use real hull/body length excluding the barrel. Front photos use real vehicle width. Quarter photos use the horizontal components of both hull axes and the two-axis formula in `docs/workflows/add-new-tank-photos.md`.
+- Side photos use real hull/body length excluding the barrel. Front photos use real vehicle width. Quarter photos transfer physical scale from the same-finish side view using matching tabletop texture, as documented in `docs/workflows/add-new-tank-photos.md`; four chassis corners are only a sanity check or fallback.
 - Existing tank photos are sanity-check references only; legacy crops may be wrong and must not override the canonical calculation.
 - Do not blindly use online "length" if it includes the gun/barrel; barrel-inclusive dimensions can make long-gun vehicles look too small.
 - Treat scale and framing as separate approval checks. A crop can be the right size but still bad if the vehicle is clipped, too high/low in frame, or too crowded.
@@ -561,7 +561,7 @@ For image-heavy tasks:
 - Generate preview sheets before finalizing when there is any uncertainty.
 - Show previews with `view_image`.
 - Do not write final output until both relative size and framing/crop are checked.
-- For tank photos, compare vehicle width against real dimensions and nearby site references first, then use body/hull length as a secondary check; separately check for clipping, headroom, and awkward top/bottom placement.
+- For tank photos, follow `docs/workflows/add-new-tank-photos.md`: side views use hull length, front views use vehicle width, and quarter views use same-finish tabletop-texture calibration. Use nearby vehicles only as visual sanity checks; separately check clipping, headroom, and awkward placement.
 
 For Etsy listing tasks:
 - Use `docs/workflows/make-etsy-listing-packet.md`.

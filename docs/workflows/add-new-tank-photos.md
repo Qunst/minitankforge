@@ -10,7 +10,7 @@ Use this workflow when adding a new batch of tank photos to MiniTankForge.
 - Measure and normalize every source photograph independently, including painted and unpainted versions of the same angle.
 - Keep scale and framing as separate checks. Correct scale does not excuse clipping, poor centering, or crowded framing.
 - Existing site photos are sanity-check references, not the scale authority. Some legacy crops may be wrong.
-- The canonical frame and the vehicle's real dimensions are the scale authority.
+- The canonical frame and the vehicle's real dimensions are the scale authority. Quarter views transfer that physical scale from the same-finish side view by matching tabletop texture.
 
 ## Source Assumptions
 
@@ -48,7 +48,7 @@ Do not use barrel-inclusive overall length as hull length. If published dimensio
 
 ## Per-Photo Measurement Rules
 
-Measure the model itself. Exclude the gun barrel, shadow, loose scenery, and background marks.
+Measure the model itself for side and front views. Exclude the gun barrel, shadow, loose scenery, and background marks. Quarter views use stable background marks as a camera-distance ruler after the same-finish side view establishes physical scale.
 
 ### Side View
 
@@ -72,23 +72,26 @@ Use the outer body or track edges. Do not include shadow or outward-pointing equ
 
 ### Quarter View
 
-Do not assume the tank is at exactly 45 degrees. Measure the horizontal contribution of both perpendicular hull axes:
+Use the same-finish side photograph as the physical-scale reference. Camera distance often changes between the side and quarter shots, so match two recognizable tabletop marks that lie on the same plane near the model and are visible in both originals.
 
-- `length_dx_px`: average horizontal displacement between matching rear and front hull corners along the two sides;
-- `width_dx_px`: average horizontal displacement between matching left and right hull corners across the front and rear.
+Measure the distance between those exact two marks in each source image. These map to `sideReferenceSpanPx` and `quarterSpanPx` in the manifest:
 
-Then calculate:
+- `side_reference_span_px`: background span in the same-finish side original;
+- `quarter_span_px`: the identical background span in the quarter original.
 
 ```text
-raw_px_per_m = sqrt(
-  (length_dx_px / real_hull_length_m)^2 +
-  (width_dx_px / real_vehicle_width_m)^2
-)
+quarter_raw_px_per_m = side_raw_px_per_m
+                     × quarter_span_px
+                     / side_reference_span_px
 ```
 
-This accounts for both camera distance and the tank's rotation. Only horizontal components are used because camera elevation foreshortens tabletop depth in the vertical image direction.
+This uses the tabletop as the camera-distance ruler and avoids treating the larger visible top surface of a quarter view as extra scale. Prefer marks close to the model, far enough apart for a stable measurement, and at similar image depth. Do not compare spans from different physical parts of the tabletop.
 
-If hull corners are partly hidden, use parallel track/fender edges and average the clearest matching segments. If neither axis can be identified reliably, stop and request a better photo; do not guess a fixed crop.
+As a sanity check, identify four matching chassis corners and compare the projected length and width axes. The background calibration remains primary. A geometry estimate that differs by more than 35% blocks the crop and requires remeasurement.
+
+If reliable background matches are unavailable, the audited four-corner chassis method may be used as a fallback. Never infer quarter scale from silhouette area, PCA, bounding-box width, a presumed 45-degree angle, or the side photo's crop size alone. If neither background nor chassis landmarks are reliable, request a better photo.
+
+For a legacy `1600×900` site crop whose original is missing, label the result as source-limited. Texture matching may still determine the correction. If the model must become smaller, shrink the complete existing crop and extend only clean tabletop background at the edges; do not synthesize or redraw any part of the vehicle. Keep this as an exception, not the normal new-photo workflow.
 
 ## Independent Centre and Crop
 
@@ -102,7 +105,7 @@ For every one of the six photographs:
 
 Never silently clamp an out-of-bounds crop. Add intentional padding or request a reshoot, then show that exception in the preview.
 
-Natural perspective remains visible after normalization. A head-on quarter view may appear taller than a side view; that is not automatically a scale error. The measured real-world axes, not silhouette area, determine scale.
+Natural perspective remains visible after normalization. A head-on quarter view may occupy more image area than a side view because more top surface is visible; that is not automatically a scale error. Matching tabletop texture should remain approximately the same apparent size after normalization.
 
 ## Reusable Crop Tool
 
@@ -136,7 +139,7 @@ Before requesting approval, provide:
 1. A measurement record for all source photos containing:
    - source filename and assigned variant;
    - real hull length and vehicle width;
-   - measured source span or quarter-view axis components;
+   - measured source span or quarter-view background-calibration spans;
    - raw pixels per metre;
    - crop box and normalized pixels per metre.
 2. An all-six preview sheet for every tank.
@@ -155,7 +158,7 @@ Scale checks:
 - painted and unpainted photos of the same angle represent the same physical scale despite different camera distances;
 - side views match hull length;
 - front views match vehicle width;
-- quarter views preserve plausible perspective after the two-axis calculation;
+- quarter views have tabletop texture at approximately the same apparent scale as their same-finish side references;
 - same-chassis vehicles remain coherent;
 - small vehicles remain visibly smaller than medium and heavy vehicles.
 
@@ -227,7 +230,7 @@ Important:
 Do not overwrite final images until I approve the previews.
 Use the 16.0 m canonical frame and measure every source photo independently.
 Never reuse one crop size for all six views.
-For side views use hull length, for front views use vehicle width, and for quarter views use both horizontal hull-axis components.
+For side views use hull length, for front views use vehicle width, and for quarter views transfer the same-finish side scale by matching tabletop texture. Use four chassis corners only as a sanity check or fallback.
 Provide the crop audit, new-tank lineup, scale comparisons, and all-six previews before applying final images.
 After approval, apply final crops, update data/mappings, run checks, then archive source photos under D:\Sites\minitankforge unpushed\assets\img\unused.
 ```

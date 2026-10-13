@@ -23,6 +23,9 @@ FINAL_HEIGHT = 900
 FRAME_WIDTH_METRES = 16.0
 TARGET_PIXELS_PER_METRE = FINAL_WIDTH / FRAME_WIDTH_METRES
 DEFAULT_VERTICAL_ANCHOR = 510 / 900
+MAX_QUARTER_EDGE_SCALE_DIFFERENCE = 0.15
+MAX_QUARTER_EDGE_ANGLE_DIFFERENCE_DEGREES = 12.0
+MAX_BACKGROUND_GEOMETRY_DIFFERENCE = 0.35
 EXPECTED_VARIANTS = (
     "unpainted-side",
     "unpainted-quarter",
@@ -48,6 +51,122 @@ def finite_positive(value, label):
     return number
 
 
+def finite_number(value, label):
+    try:
+        number = float(value)
+    except (TypeError, ValueError) as error:
+        raise ManifestError(f"{label} must be a number") from error
+    if not math.isfinite(number):
+        raise ManifestError(f"{label} must be finite")
+    return number
+
+
+def measurement_point(value, label):
+    if not isinstance(value, list) or len(value) != 2:
+        raise ManifestError(f"{label} must be [x, y]")
+    return (
+        finite_number(value[0], f"{label}[0]"),
+        finite_number(value[1], f"{label}[1]"),
+    )
+
+
+def vector(start, end):
+    return end[0] - start[0], end[1] - start[1]
+
+
+def vector_length(value):
+    return math.hypot(value[0], value[1])
+
+
+def relative_difference(first, second):
+    mean = (first + second) / 2
+    return abs(first - second) / mean if mean else math.inf
+
+
+def vector_angle_degrees(first, second):
+    first_length = vector_length(first)
+    second_length = vector_length(second)
+    if not first_length or not second_length:
+        return math.inf
+    cosine = (first[0] * second[0] + first[1] * second[1]) / (first_length * second_length)
+    cosine = max(-1.0, min(1.0, cosine))
+    return math.degrees(math.acos(cosine))
+
+
+def largest_singular_value(a, b, c, d):
+    # Largest singular value of [[a, b], [c, d]] without requiring NumPy.
+    sum_squares = a * a + b * b + c * c + d * d
+    determinant = a * d - b * c
+    discriminant = max(0.0, sum_squares * sum_squares - 4 * determinant * determinant)
+    return math.sqrt((sum_squares + math.sqrt(discriminant)) / 2)
+
+
+def quarter_pixels_per_metre(measurement, hull_length_m, vehicle_width_m, label):
+    corners = measurement.get("corners")
+    if not isinstance(corners, dict):
+        raise ManifestError(f"{label}.measurement.corners must contain four audited chassis corners")
+
+    rear_near = measurement_point(corners.get("rearNear"), f"{label}.measurement.corners.rearNear")
+    front_near = measurement_point(corners.get("frontNear"), f"{label}.measurement.corners.frontNear")
+    front_far = measurement_point(corners.get("frontFar"), f"{label}.measurement.corners.frontFar")
+    rear_far = measurement_point(corners.get("rearFar"), f"{label}.measurement.corners.rearFar")
+
+    length_near = vector(rear_near, front_near)
+    length_far = vector(rear_far, front_far)
+    width_rear = vector(rear_far, rear_near)
+    width_front = vector(front_far, front_near)
+
+    length_near_scale = vector_length(length_near) / hull_length_m
+    length_far_scale = vector_length(length_far) / hull_length_m
+    width_rear_scale = vector_length(width_rear) / vehicle_width_m
+    width_front_scale = vector_length(width_front) / vehicle_width_m
+    length_scale_difference = relative_difference(length_near_scale, length_far_scale)
+    width_scale_difference = relative_difference(width_rear_scale, width_front_scale)
+    length_angle_difference = vector_angle_degrees(length_near, length_far)
+    width_angle_difference = vector_angle_degrees(width_rear, width_front)
+
+    if length_scale_difference > MAX_QUARTER_EDGE_SCALE_DIFFERENCE:
+        raise ManifestError(
+            f"{label} opposing length edges differ by {length_scale_difference:.1%}; "
+            "remeasure the chassis corners instead of accepting an uncertain crop"
+        )
+    if width_scale_difference > MAX_QUARTER_EDGE_SCALE_DIFFERENCE:
+        raise ManifestError(
+            f"{label} opposing width edges differ by {width_scale_difference:.1%}; "
+            "remeasure the chassis corners instead of accepting an uncertain crop"
+        )
+    if length_angle_difference > MAX_QUARTER_EDGE_ANGLE_DIFFERENCE_DEGREES:
+        raise ManifestError(
+            f"{label} opposing length edges differ by {length_angle_difference:.1f} degrees; "
+            "remeasure the chassis corners"
+        )
+    if width_angle_difference > MAX_QUARTER_EDGE_ANGLE_DIFFERENCE_DEGREES:
+        raise ManifestError(
+            f"{label} opposing width edges differ by {width_angle_difference:.1f} degrees; "
+            "remeasure the chassis corners"
+        )
+
+    length_vector = (
+        (length_near[0] + length_far[0]) / (2 * hull_length_m),
+        (length_near[1] + length_far[1]) / (2 * hull_length_m),
+    )
+    width_vector = (
+        (width_rear[0] + width_front[0]) / (2 * vehicle_width_m),
+        (width_rear[1] + width_front[1]) / (2 * vehicle_width_m),
+    )
+    scale = largest_singular_value(
+        length_vector[0], width_vector[0], length_vector[1], width_vector[1]
+    )
+    basis = (
+        "quarter four-corner projection "
+        f"length=({length_vector[0]:.2f},{length_vector[1]:.2f})px/m, "
+        f"width=({width_vector[0]:.2f},{width_vector[1]:.2f})px/m, "
+        f"opposing-edge differences={length_scale_difference:.1%}/{width_scale_difference:.1%}, "
+        f"angles={length_angle_difference:.1f}/{width_angle_difference:.1f}deg"
+    )
+    return scale, basis
+
+
 def resolve_path(root, value):
     path = Path(value)
     return path.resolve() if path.is_absolute() else (root / path).resolve()
@@ -61,7 +180,7 @@ def is_within(path, parent):
         return False
 
 
-def raw_pixels_per_metre(photo, hull_length_m, vehicle_width_m, label):
+def raw_pixels_per_metre(photo, hull_length_m, vehicle_width_m, label, side_reference_ppm=None):
     measurement = photo.get("measurement") or {}
     kind = measurement.get("kind")
     if kind == "side":
@@ -71,10 +190,49 @@ def raw_pixels_per_metre(photo, hull_length_m, vehicle_width_m, label):
         span = finite_positive(measurement.get("spanPx"), f"{label}.measurement.spanPx")
         return span / vehicle_width_m, f"front span {span:g}px / width {vehicle_width_m:g}m"
     if kind == "quarter":
+        background = measurement.get("backgroundCalibration")
+        if background is not None:
+            if not isinstance(background, dict):
+                raise ManifestError(f"{label}.measurement.backgroundCalibration must be an object")
+            if side_reference_ppm is None:
+                raise ManifestError(
+                    f"{label} background calibration requires the same-finish side-view measurement"
+                )
+            side_span = finite_positive(
+                background.get("sideReferenceSpanPx"),
+                f"{label}.measurement.backgroundCalibration.sideReferenceSpanPx",
+            )
+            quarter_span = finite_positive(
+                background.get("quarterSpanPx"),
+                f"{label}.measurement.backgroundCalibration.quarterSpanPx",
+            )
+            scale = side_reference_ppm * quarter_span / side_span
+            basis = (
+                "quarter background-texture calibration from same-finish side "
+                f"({side_reference_ppm:.2f}px/m × {quarter_span:g}px / {side_span:g}px)"
+            )
+            if measurement.get("corners") is not None:
+                geometry_scale, geometry_basis = quarter_pixels_per_metre(
+                    measurement, hull_length_m, vehicle_width_m, label
+                )
+                difference = relative_difference(scale, geometry_scale)
+                if difference > MAX_BACKGROUND_GEOMETRY_DIFFERENCE:
+                    raise ManifestError(
+                        f"{label} background and chassis checks differ by {difference:.1%}; "
+                        "remeasure the texture landmarks and chassis corners"
+                    )
+                basis += f"; geometry sanity difference={difference:.1%} ({geometry_basis})"
+            return scale, basis
+        if measurement.get("corners") is not None:
+            scale, basis = quarter_pixels_per_metre(measurement, hull_length_m, vehicle_width_m, label)
+            return scale, f"FALLBACK without background calibration: {basis}"
         length_dx = finite_positive(measurement.get("lengthDxPx"), f"{label}.measurement.lengthDxPx")
         width_dx = finite_positive(measurement.get("widthDxPx"), f"{label}.measurement.widthDxPx")
         scale = math.sqrt((length_dx / hull_length_m) ** 2 + (width_dx / vehicle_width_m) ** 2)
-        return scale, f"quarter dx length {length_dx:g}px, width {width_dx:g}px"
+        return scale, (
+            f"LEGACY quarter horizontal-only length {length_dx:g}px, width {width_dx:g}px; "
+            "use four audited corners for new work"
+        )
     raise ManifestError(f"{label}.measurement.kind must be side, front, or quarter")
 
 
@@ -157,6 +315,16 @@ def preflight(manifest, manifest_path, repo_root, output_dir):
         if set(variants) != set(EXPECTED_VARIANTS) or len(set(variants)) != 6:
             raise ManifestError(f"{prefix}.photos must contain every required variant exactly once")
 
+        photos_by_variant = {photo["variant"]: photo for photo in photos}
+        side_reference_scales = {}
+        for finish in ("unpainted", "base-coat"):
+            side_variant = f"{finish}-side"
+            side_photo = photos_by_variant[side_variant]
+            side_label = f"{prefix}.photos[{photos.index(side_photo)}]"
+            side_reference_scales[finish] = raw_pixels_per_metre(
+                side_photo, hull_length_m, vehicle_width_m, side_label
+            )[0]
+
         tank_prepared = []
         for photo_index, photo in enumerate(photos):
             label = f"{prefix}.photos[{photo_index}]"
@@ -177,7 +345,14 @@ def preflight(manifest, manifest_path, repo_root, output_dir):
             if not math.isfinite(vertical_anchor) or not 0.35 <= vertical_anchor <= 0.75:
                 raise ManifestError(f"{label}.verticalAnchor must be between 0.35 and 0.75")
 
-            raw_ppm, basis = raw_pixels_per_metre(photo, hull_length_m, vehicle_width_m, label)
+            finish = "base-coat" if variant.startswith("base-coat-") else "unpainted"
+            raw_ppm, basis = raw_pixels_per_metre(
+                photo,
+                hull_length_m,
+                vehicle_width_m,
+                label,
+                side_reference_ppm=side_reference_scales[finish],
+            )
             crop_width = round(raw_ppm * FRAME_WIDTH_METRES)
             crop_height = round(crop_width * FINAL_HEIGHT / FINAL_WIDTH)
             with Image.open(source) as image:
