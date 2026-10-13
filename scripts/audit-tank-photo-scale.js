@@ -16,6 +16,13 @@ const tanks = (sandbox.window.TANKS || []).filter(tank => tank.disabled !== true
 // families. Width is the primary crop-scale reference because it is not affected by
 // whether a published length includes the gun barrel.
 const vehicleWidths = {
+  comet: 3050,
+  'crusader-mk-iii': 2640,
+  'sherman-easy-eight': 3000,
+  'm36-jackson': 3050,
+  'churchill-vii': 3250,
+  'renault-r35': 1870,
+  'semovente-m42-75-18': 2280,
   nashorn: 2950,
   hummel: 2970,
   'fcm-f1': 3100,
@@ -40,6 +47,13 @@ const vehicleWidths = {
 // Approximate real vehicle body/hull lengths in millimetres. These are retained as
 // a secondary cross-check only and intentionally avoid gun-forward overall length.
 const bodyLengths = {
+  comet: 6550,
+  'crusader-mk-iii': 5970,
+  'sherman-easy-eight': 5840,
+  'm36-jackson': 5970,
+  'churchill-vii': 7440,
+  'renault-r35': 4020,
+  'semovente-m42-75-18': 5040,
   'panzer-iv': 5920,
   'sherman-m4a3': 5840,
   't-34-85': 6100,

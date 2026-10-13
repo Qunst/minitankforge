@@ -19,9 +19,9 @@
   <meta name="twitter:title" content="WW2 Tank Miniature Sets &amp; Game Packs | MiniTankForge" />
   <meta name="twitter:description" content="Browse WW2 tank miniature starter sets, nation sets, and game-ready packs with clear contents, scale notes, finish options, and Etsy links." />
   <meta name="twitter:image" content="https://minitankforge.com/assets/img/hero.jpg" />
-  <link href="assets/css/styles.css?v=32" rel="stylesheet" />
+  <link href="assets/css/styles.css?v=33" rel="stylesheet" />
   <script defer src="assets/js/sets-data.js?v=22"></script>
-  <script defer src="assets/js/app.js?v=57"></script>
+  <script defer src="assets/js/app.js?v=60"></script>
 </head>
 
 <body>
@@ -60,11 +60,18 @@
       </section>
 
       <section class="browse-preview-section browse-preview-top">
-        <div class="filter-row browse-filters browse-filters-single">
+        <div class="filter-row browse-filters browse-filters-pair">
           <div class="filter-field">
             <label class="filter-label" for="set-filter-group">Set Type</label>
             <select data-filter-set-group id="set-filter-group">
               <option value="All">Set type: All</option>
+            </select>
+          </div>
+          <div class="filter-field">
+            <label class="filter-label" for="set-sort">Sort by</label>
+            <select data-set-sort id="set-sort">
+              <option value="featured">Featured / recommended first</option>
+              <option value="latest">Latest added</option>
             </select>
           </div>
         </div>

@@ -6,9 +6,9 @@ const root = path.resolve(__dirname, '..');
 const siteUrl = 'https://minitankforge.com';
 const today = new Date().toISOString().slice(0, 10);
 const assetVersions = Object.freeze({
-  styles: 32,
-  app: 57,
-  tanks: 34,
+  styles: 33,
+  app: 60,
+  tanks: 35,
   sets: 22,
 });
 const tankBrowsePopularityOrder = [
@@ -532,7 +532,8 @@ function getTankMetaTitle(tank) {
 
 function getTankMetaDescription(tank, availableScales) {
   if (tankSeoOverrides[tank.slug]?.description) return tankSeoOverrides[tank.slug].description;
-  return `Browse the ${getDisplayName(tank.name)} 3D printed ${tank.era} ${getTankSnippetType(tank).toLowerCase()} in ${availableScales.join(', ')}. Choose finish, request direct, or use Etsy.`;
+  const buyingOptions = tank.etsyUrl ? 'request direct, or use Etsy' : 'send a direct request';
+  return `Browse the ${getDisplayName(tank.name)} 3D printed ${tank.era} ${getTankSnippetType(tank).toLowerCase()} in ${availableScales.join(', ')}. Choose finish and ${buyingOptions}.`;
 }
 
 function getTankHeading(tank) {

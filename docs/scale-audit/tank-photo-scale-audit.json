@@ -1054,5 +1054,137 @@
     "vehicleWidthMm": 2120,
     "bodyLengthMm": 5380,
     "imageExists": true
+  },
+  {
+    "slug": "panzer-i",
+    "name": "Panzer I Ausf. A (Pz.Kpfw. I Ausf. A)",
+    "nation": "Germany",
+    "type": "Light tank",
+    "status": "",
+    "image": "assets/img/tanks/panzer-i-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
+    "bodyLengthMm": null,
+    "imageExists": true
+  },
+  {
+    "slug": "panzer-ii",
+    "name": "Panzer II (Pz.Kpfw. II)",
+    "nation": "Germany",
+    "type": "Light tank",
+    "status": "",
+    "image": "assets/img/tanks/panzer-ii-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
+    "bodyLengthMm": null,
+    "imageExists": true
+  },
+  {
+    "slug": "marder-iii",
+    "name": "Marder III Ausf. H (Sd.Kfz. 138)",
+    "nation": "Germany",
+    "type": "Tank destroyer",
+    "status": "",
+    "image": "assets/img/tanks/marder-iii-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
+    "bodyLengthMm": null,
+    "imageExists": true
+  },
+  {
+    "slug": "stug-iv",
+    "name": "StuG IV (Sturmgeschütz IV)",
+    "nation": "Germany",
+    "type": "Assault gun",
+    "status": "",
+    "image": "assets/img/tanks/stug-iv-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
+    "bodyLengthMm": null,
+    "imageExists": true
+  },
+  {
+    "slug": "sherman-jumbo",
+    "name": "Sherman Jumbo (Assault Tank M4A3E2)",
+    "nation": "USA",
+    "type": "Assault tank",
+    "status": "",
+    "image": "assets/img/tanks/sherman-jumbo-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
+    "bodyLengthMm": null,
+    "imageExists": true
+  },
+  {
+    "slug": "comet",
+    "name": "Comet (Cruiser Tank Comet I A34)",
+    "nation": "UK",
+    "type": "Medium tank",
+    "status": "",
+    "image": "assets/img/tanks/comet-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 3050,
+    "bodyLengthMm": 6550,
+    "imageExists": true
+  },
+  {
+    "slug": "crusader-mk-iii",
+    "name": "Crusader Mk III (Cruiser Tank Mk VI Crusader III A15)",
+    "nation": "UK",
+    "type": "Medium tank",
+    "status": "",
+    "image": "assets/img/tanks/crusader-mk-iii-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 2640,
+    "bodyLengthMm": 5970,
+    "imageExists": true
+  },
+  {
+    "slug": "sherman-easy-eight",
+    "name": "Sherman Easy Eight (Medium Tank M4A3E8)",
+    "nation": "USA",
+    "type": "Medium tank",
+    "status": "",
+    "image": "assets/img/tanks/sherman-easy-eight-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 3000,
+    "bodyLengthMm": 5840,
+    "imageExists": true
+  },
+  {
+    "slug": "m36-jackson",
+    "name": "M36 Jackson (90 mm Gun Motor Carriage M36)",
+    "nation": "USA",
+    "type": "Tank destroyer",
+    "status": "",
+    "image": "assets/img/tanks/m36-jackson-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 3050,
+    "bodyLengthMm": 5970,
+    "imageExists": true
+  },
+  {
+    "slug": "churchill-vii",
+    "name": "Churchill VII (Infantry Tank Mk IV Churchill VII A22F)",
+    "nation": "UK",
+    "type": "Heavy tank",
+    "status": "",
+    "image": "assets/img/tanks/churchill-vii-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 3250,
+    "bodyLengthMm": 7440,
+    "imageExists": true
+  },
+  {
+    "slug": "renault-r35",
+    "name": "Renault R35 (Char leger Modele 1935 R)",
+    "nation": "France",
+    "type": "Light tank",
+    "status": "",
+    "image": "assets/img/tanks/renault-r35-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 1870,
+    "bodyLengthMm": 4020,
+    "imageExists": true
+  },
+  {
+    "slug": "semovente-m42-75-18",
+    "name": "Semovente M42 75/18 (Semovente da 75/18 M42)",
+    "nation": "Italy",
+    "type": "Self-propelled gun",
+    "status": "",
+    "image": "assets/img/tanks/semovente-m42-75-18-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 2280,
+    "bodyLengthMm": 5040,
+    "imageExists": true
   }
 ]

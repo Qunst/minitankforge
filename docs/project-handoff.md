@@ -310,10 +310,11 @@ General image rules:
 
 Tank crop rule:
 - Do not crop every tank to fill the frame.
-- The goal is consistent visual model scale across the site.
-- Match new tanks to a reference tank before final output.
-- Use real vehicle width as the primary scale reference, especially with front or near-front photos.
-- Use body/hull length only as a secondary cross-check. Do not blindly use online "length" if it includes the gun/barrel; barrel-inclusive dimensions can make long-gun vehicles look too small.
+- The scale authority is a canonical `1600×900` frame representing `16.0×9.0 m`, or `100 output px/m` horizontally.
+- Measure and normalize all six source photos independently. Never inherit one crop size across a tank group because camera distance changes between shots.
+- Side photos use real hull/body length excluding the barrel. Front photos use real vehicle width. Quarter photos use the horizontal components of both hull axes and the two-axis formula in `docs/workflows/add-new-tank-photos.md`.
+- Existing tank photos are sanity-check references only; legacy crops may be wrong and must not override the canonical calculation.
+- Do not blindly use online "length" if it includes the gun/barrel; barrel-inclusive dimensions can make long-gun vehicles look too small.
 - Treat scale and framing as separate approval checks. A crop can be the right size but still bad if the vehicle is clipped, too high/low in frame, or too crowded.
 - Examples:
   - Heavy tanks compare to Tiger II / Tiger.
@@ -326,7 +327,8 @@ Tank crop rule:
   - Panzer III / StuG III should remain visually coherent; Panzer IV / Jagdpanzer IV should remain visually coherent.
   - Churchill variants should read as long heavy infantry tanks, not Sherman-sized.
 - If unsure about expected real/model size, stop and ask.
-- Create a preview sheet before writing final cropped images when adding new tank batches.
+- Use `scripts/prepare-tank-photo-crops.py` with an audited manifest. It refuses to write proposals directly into `assets/img/tanks`.
+- Create the per-photo audit, all-six preview sheets, canonical side-view lineup, and related-family comparisons before writing final cropped images.
 
 Set/game Etsy primary image rule:
 - Etsy thumbnails do not work well with very wide 16:9 site images.

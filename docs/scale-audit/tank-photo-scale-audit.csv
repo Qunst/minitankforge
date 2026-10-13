@@ -95,3 +95,15 @@ su-85b,"SU-85B (Samokhodnaya Ustanovka 85B)",USSR,"Tank destroyer","Prototype",2
 somua-s40,"Somua S40 (Char S40)",France,"Medium tank","Prototype / unfinished project",2120,5380,assets/img/tanks/somua-s40-base-coat-side-detail.jpg,true
 char-b1-bis,"Char B1 bis (Battle Tank B1 bis)",France,"Heavy tank","",2500,6370,assets/img/tanks/char-b1-bis-base-coat-side-detail.jpg,true
 somua-s35,"Somua S35 (Automitrailleuse de Combat S35)",France,"Medium tank","",2120,5380,assets/img/tanks/somua-s35-base-coat-side-detail.jpg,true
+panzer-i,"Panzer I Ausf. A (Pz.Kpfw. I Ausf. A)",Germany,"Light tank","",,,assets/img/tanks/panzer-i-base-coat-side-detail.jpg,true
+panzer-ii,"Panzer II (Pz.Kpfw. II)",Germany,"Light tank","",,,assets/img/tanks/panzer-ii-base-coat-side-detail.jpg,true
+marder-iii,"Marder III Ausf. H (Sd.Kfz. 138)",Germany,"Tank destroyer","",,,assets/img/tanks/marder-iii-base-coat-side-detail.jpg,true
+stug-iv,"StuG IV (Sturmgeschütz IV)",Germany,"Assault gun","",,,assets/img/tanks/stug-iv-base-coat-side-detail.jpg,true
+sherman-jumbo,"Sherman Jumbo (Assault Tank M4A3E2)",USA,"Assault tank","",,,assets/img/tanks/sherman-jumbo-base-coat-side-detail.jpg,true
+comet,"Comet (Cruiser Tank Comet I A34)",UK,"Medium tank","",3050,6550,assets/img/tanks/comet-base-coat-side-detail.jpg,true
+crusader-mk-iii,"Crusader Mk III (Cruiser Tank Mk VI Crusader III A15)",UK,"Medium tank","",2640,5970,assets/img/tanks/crusader-mk-iii-base-coat-side-detail.jpg,true
+sherman-easy-eight,"Sherman Easy Eight (Medium Tank M4A3E8)",USA,"Medium tank","",3000,5840,assets/img/tanks/sherman-easy-eight-base-coat-side-detail.jpg,true
+m36-jackson,"M36 Jackson (90 mm Gun Motor Carriage M36)",USA,"Tank destroyer","",3050,5970,assets/img/tanks/m36-jackson-base-coat-side-detail.jpg,true
+churchill-vii,"Churchill VII (Infantry Tank Mk IV Churchill VII A22F)",UK,"Heavy tank","",3250,7440,assets/img/tanks/churchill-vii-base-coat-side-detail.jpg,true
+renault-r35,"Renault R35 (Char leger Modele 1935 R)",France,"Light tank","",1870,4020,assets/img/tanks/renault-r35-base-coat-side-detail.jpg,true
+semovente-m42-75-18,"Semovente M42 75/18 (Semovente da 75/18 M42)",Italy,"Self-propelled gun","",2280,5040,assets/img/tanks/semovente-m42-75-18-base-coat-side-detail.jpg,true

@@ -1,0 +1,57 @@
+{
+  "verticalAnchor": 0.5666666667,
+  "tanks": [
+    {
+      "name": "Example Tank",
+      "slug": "example-tank",
+      "hullLengthM": 6.0,
+      "vehicleWidthM": 3.0,
+      "photos": [
+        {
+          "variant": "unpainted-side",
+          "source": "assets/img/new/example-01.jpg",
+          "center": [2000, 1650],
+          "measurement": { "kind": "side", "spanPx": 1020 }
+        },
+        {
+          "variant": "unpainted-quarter",
+          "source": "assets/img/new/example-02.jpg",
+          "center": [2000, 1650],
+          "measurement": {
+            "kind": "quarter",
+            "lengthDxPx": 780,
+            "widthDxPx": 180
+          }
+        },
+        {
+          "variant": "unpainted-front",
+          "source": "assets/img/new/example-03.jpg",
+          "center": [2000, 1650],
+          "measurement": { "kind": "front", "spanPx": 510 }
+        },
+        {
+          "variant": "base-coat-side",
+          "source": "assets/img/new/example-04.jpg",
+          "center": [2000, 1650],
+          "measurement": { "kind": "side", "spanPx": 990 }
+        },
+        {
+          "variant": "base-coat-quarter",
+          "source": "assets/img/new/example-05.jpg",
+          "center": [2000, 1650],
+          "measurement": {
+            "kind": "quarter",
+            "lengthDxPx": 735,
+            "widthDxPx": 165
+          }
+        },
+        {
+          "variant": "base-coat-front",
+          "source": "assets/img/new/example-06.jpg",
+          "center": [2000, 1650],
+          "measurement": { "kind": "front", "spanPx": 495 }
+        }
+      ]
+    }
+  ]
+}

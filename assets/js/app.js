@@ -327,7 +327,8 @@ function getTankMetaTitle(tank) {
 
 function getTankMetaDescription(tank, availableScales = getAvailableScales(tank)) {
   if (tankSeoOverrides[tank.slug]?.description) return tankSeoOverrides[tank.slug].description;
-  return `Browse the ${getDisplayName(tank.name)} 3D printed ${tank.era} ${getTankSnippetType(tank).toLowerCase()} in ${availableScales.join(', ')}. Choose finish, request direct, or use Etsy.`;
+  const buyingOptions = tank.etsyUrl ? 'request direct, or use Etsy' : 'send a direct request';
+  return `Browse the ${getDisplayName(tank.name)} 3D printed ${tank.era} ${getTankSnippetType(tank).toLowerCase()} in ${availableScales.join(', ')}. Choose finish and ${buyingOptions}.`;
 }
 
 function getTankProductDescription(tank, availableScales = getAvailableScales(tank)) {
@@ -594,6 +595,13 @@ function buildTankLookupMap() {
   const lookup = new Map();
   const extraAliasesBySlug = {
     'sherman-m4a3': ['Sherman', 'M4A3 Sherman', 'Medium Tank M4A3 Sherman'],
+    'comet': ['Comet I', 'A34 Comet'],
+    'crusader-mk-iii': ['Crusader III', 'A15 Crusader'],
+    'sherman-easy-eight': ['Easy Eight', 'Easy 8', 'M4A3E8', 'M4A3 76 W HVSS'],
+    'm36-jackson': ['M36', 'M36 GMC', 'Jackson'],
+    'churchill-vii': ['Churchill Mk VII', 'A22F Churchill'],
+    'renault-r35': ['R35', 'Renault 35R'],
+    'semovente-m42-75-18': ['Semovente 75/18', 'Semovente M42'],
   };
 
   getVisibleTanks().forEach(tank => {
@@ -759,15 +767,19 @@ const tankDetailPhotoKeys = {
   'b-4-howitzer': 'b-4-howitzer',
   'ba-6': 'ba-6',
   'ba-64': 'ba-64',
+  'churchill-vii': 'churchill-vii',
   'churchill-iv': 'churchill-iv',
   'churchill-iv-fascine': 'churchill-iv-fascine',
+  'comet': 'comet',
   'cromwell': 'cromwell',
+  'crusader-mk-iii': 'crusader-mk-iii',
   'valentine': 'valentine',
   'matilda-ii': 'matilda-ii',
   'bishop': 'bishop',
   'centaur': 'centaur',
   'archer': 'archer',
   'm24-chaffee': 'm24-chaffee',
+  'm36-jackson': 'm36-jackson',
   'fcm-f1': 'fcm-f1',
   'fv4005-stage-ii': 'fv4005-stage-ii',
   'kv-1s': 'kv-1s',
@@ -823,7 +835,9 @@ const tankDetailPhotoKeys = {
   'panzer-38t': 'pz38t',
   'pershing': 'pershing',
   'sd-kfz-234': 'sdkfz-234',
+  'semovente-m42-75-18': 'semovente-m42-75-18',
   'sherman-firefly': 'sherman-firefly',
+  'sherman-easy-eight': 'sherman-easy-eight',
   'sherman-jumbo': 'sherman-jumbo',
   'sherman-m4a3': 'sherman',
   'sturmtiger': 'sturmtiger',
@@ -852,6 +866,7 @@ const tankDetailPhotoKeys = {
   'tiger-i': 'tiger',
   'tiger-ii': 'tiger-ii',
   'char-b1-bis': 'char-b1-bis',
+  'renault-r35': 'renault-r35',
   'type-95-ha-go': 'type95',
   'type-97-chi-ha': 'type97',
   'wespe': 'wespe',
@@ -1104,6 +1119,7 @@ function sortBrowseTanks(tanks, sortMode = 'featured') {
   const byName = (a, b) => getDisplayName(a.tank.name).localeCompare(getDisplayName(b.tank.name));
 
   indexed.sort((a, b) => {
+    if (sortMode === 'latest') return b.index - a.index;
     if (sortMode === 'name') return byName(a, b);
     if (sortMode === 'nation') {
       return a.tank.nation.localeCompare(b.tank.nation)
@@ -1555,11 +1571,14 @@ function closeFilterDropdowns(exceptDropdown = null) {
 
 function getFilterDisplayValue(option) {
   if (!option) return '';
+  if (option.parentElement?.matches('[data-tank-sort], [data-set-sort]')) {
+    return option.textContent.trim();
+  }
   return option.value === 'All' ? 'All' : option.value;
 }
 
 function syncEnhancedFilter(select) {
-  const field = select.closest('.filter-field');
+  const field = select.closest('.filter-field, .browse-sort-control');
   if (!field || !select.id) return;
 
   const dropdown = field.querySelector(`.filter-dropdown[data-filter-dropdown-for="${select.id}"]`);
@@ -1609,7 +1628,7 @@ function syncEnhancedFilter(select) {
 function enhanceBrowseFilter(select) {
   if (!select || !select.id) return;
 
-  const field = select.closest('.filter-field');
+  const field = select.closest('.filter-field, .browse-sort-control');
   if (!field) return;
 
   select.classList.add('filter-select-native');
@@ -1662,7 +1681,7 @@ function enhanceBrowseFilter(select) {
 }
 
 function enhanceBrowseFilters() {
-  document.querySelectorAll('.browse-filters select').forEach(enhanceBrowseFilter);
+  document.querySelectorAll('.browse-filters select, [data-tank-sort]').forEach(enhanceBrowseFilter);
 
   if (document.body.dataset.filterDropdownReady === 'true') return;
 
@@ -1887,13 +1906,19 @@ function updateLivePrice(scale, finish, quantity = getSelectedTankPack()) {
 
 function updateTankSelectionSummary(scale, finish, quantity) {
   const pack = getTankPackByQuantity(quantity);
+  const detailTarget = document.querySelector('[data-tank-detail]');
+  const detailSlug = detailTarget?.dataset.slug || new URL(window.location.href).searchParams.get('slug');
+  const detailTank = getTankBySlug(detailSlug);
+  const nextStep = detailTank?.etsyUrl
+    ? 'Choose the same options on Etsy.'
+    : 'Use these options in your direct request.';
 
   document.querySelectorAll('[data-current-pack-label]').forEach(el => {
     el.textContent = pack.label;
   });
 
   document.querySelectorAll('[data-selection-summary]').forEach(el => {
-    el.textContent = `Selected: ${scale}, ${finish}, ${pack.label}. Choose the same options on Etsy.`;
+    el.textContent = `Selected: ${scale}, ${finish}, ${pack.label}. ${nextStep}`;
   });
 }
 
@@ -2286,16 +2311,27 @@ function renderSetsGrid() {
   if (!container) return;
 
   const selectedGroup = document.querySelector('[data-filter-set-group]')?.value || 'All';
+  const sortMode = document.querySelector('[data-set-sort]')?.value || 'featured';
 
-  const filtered = getBrowseOrderedSets().filter(set => {
+  const filtered = getVisibleSets().filter(set => {
     return selectedGroup === 'All' || set.filterGroup === selectedGroup;
   });
+  const sorted = filtered
+    .map((set, index) => ({ set, index }))
+    .sort((a, b) => {
+      if (sortMode === 'latest') return b.index - a.index;
 
-  container.innerHTML = filtered.map(buildSetCard).join('');
+      return getSetBrowseRank(a.set) - getSetBrowseRank(b.set)
+        || a.index - b.index;
+    })
+    .map(item => item.set);
+
+  container.innerHTML = sorted.map(buildSetCard).join('');
 }
 
 function populateSetFilters() {
   const select = document.querySelector('[data-filter-set-group]');
+  const sortSelect = document.querySelector('[data-set-sort]');
   if (!select) return;
 
   const values = ['All', ...new Set(getBrowseOrderedSets().map(set => set.filterGroup).filter(Boolean))];
@@ -2307,6 +2343,7 @@ function populateSetFilters() {
 
   select.value = values.includes(current) ? current : 'All';
   select.addEventListener('change', renderSetsGrid);
+  sortSelect?.addEventListener('change', renderSetsGrid);
 }
 
 function renderSetDetail() {
