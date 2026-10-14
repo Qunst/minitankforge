@@ -2692,19 +2692,20 @@ window.TANKS = [
     placeholderStyle: 'light-medium',
     image: 'assets/img/tanks/comet-base-coat-side-detail.jpg',
     scalePrices: {
-      '1:160': 0.0,
-      '1:180': 0.0,
-      '1:200': 0.0,
-      '1:250': 0.0,
-      '1:285': 0.0
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
     },
     finishSurcharges: {
-      'Base coat': 0.0,
+      'Base coat': 1.0,
       'Unpainted': 0.0
     },
     siteTags: ['Late war'],
     fact: 'The Comet entered British service late in 1944, combining a low-profile cruiser-tank design with the powerful 77 mm HV gun.',
     description: 'The Comet is a late-war British cruiser tank miniature for fast armored formations, Germany 1945 scenarios, and collections bridging the Cromwell and post-war Centurion eras. Its long gun and compact, low hull give it a distinctive silhouette beside Shermans, Churchills, and Cromwells.',
+    etsyUrl: 'https://www.etsy.com/listing/4594792154',
     compatibility: 'Compact hex-based tabletop play',
   },
   {
@@ -2718,19 +2719,20 @@ window.TANKS = [
     placeholderStyle: 'dark-medium',
     image: 'assets/img/tanks/crusader-mk-iii-base-coat-side-detail.jpg',
     scalePrices: {
-      '1:160': 0.0,
-      '1:180': 0.0,
-      '1:200': 0.0,
-      '1:250': 0.0,
-      '1:285': 0.0
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
     },
     finishSurcharges: {
-      'Base coat': 0.0,
+      'Base coat': 1.0,
       'Unpainted': 0.0
     },
     siteTags: ['Desert war', 'Iconic'],
     fact: 'The Crusader III introduced the 6-pounder gun to the Crusader family and fought mainly in the final British use of the type in North Africa.',
     description: 'The Crusader Mk III is a British cruiser tank miniature for North African campaigns, desert armored forces, and early-to-mid-war collections. Its low turret, long hull, and 6-pounder gun make it a natural companion to Matildas, Valentines, and opposing Panzer III and Panzer IV vehicles.',
+    etsyUrl: 'https://www.etsy.com/listing/4594823758',
     compatibility: 'Compact hex-based tabletop play',
   },
   {
@@ -2745,19 +2747,20 @@ window.TANKS = [
     placeholderStyle: 'light-large',
     image: 'assets/img/tanks/sherman-easy-eight-base-coat-side-detail.jpg',
     scalePrices: {
-      '1:160': 0.0,
-      '1:180': 0.0,
-      '1:200': 0.0,
-      '1:250': 0.0,
-      '1:285': 0.0
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
     },
     finishSurcharges: {
-      'Base coat': 0.0,
+      'Base coat': 1.0,
       'Unpainted': 0.0
     },
     siteTags: ['Iconic', 'Late war', 'Game-famous'],
     fact: 'The Easy Eight combined the M4A3(76)W Sherman with horizontal volute spring suspension, wider tracks, and the long 76 mm gun.',
     description: 'The Sherman Easy Eight is a late-war American medium tank miniature for Germany 1945, Korean War, and veteran armored formations. Its wider HVSS running gear and long 76 mm gun distinguish it from the standard M4A3 and heavily armored Jumbo while keeping the familiar Sherman family shape.',
+    etsyUrl: 'https://www.etsy.com/listing/4594821798',
     compatibility: 'Compact hex-based tabletop play',
   },
   {
@@ -2771,19 +2774,20 @@ window.TANKS = [
     placeholderStyle: 'dark-large',
     image: 'assets/img/tanks/m36-jackson-base-coat-side-detail.jpg',
     scalePrices: {
-      '1:160': 0.0,
-      '1:180': 0.0,
-      '1:200': 0.0,
-      '1:250': 0.0,
-      '1:285': 0.0
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
     },
     finishSurcharges: {
-      'Base coat': 0.0,
+      'Base coat': 1.0,
       'Unpainted': 0.0
     },
     siteTags: ['Late war'],
     fact: 'The M36 placed a powerful 90 mm gun in a new open-topped turret on an M10A1-derived hull, giving US tank-destroyer units better performance against heavy armor.',
     description: 'The M36 Jackson is an American late-war tank destroyer miniature for armored breakthrough defense, Germany 1944-45 scenarios, and post-war forces. Its tall open turret and long 90 mm gun make it easy to distinguish from the related M10 Wolverine and Achilles.',
+    etsyUrl: 'https://www.etsy.com/listing/4594819736',
     compatibility: 'Compact hex-based tabletop play',
   },
   {
@@ -2797,19 +2801,20 @@ window.TANKS = [
     placeholderStyle: 'light-large',
     image: 'assets/img/tanks/churchill-vii-base-coat-side-detail.jpg',
     scalePrices: {
-      '1:160': 0.0,
-      '1:180': 0.0,
-      '1:200': 0.0,
-      '1:250': 0.0,
-      '1:285': 0.0
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
     },
     finishSurcharges: {
-      'Base coat': 0.0,
+      'Base coat': 1.0,
       'Unpainted': 0.0
     },
     siteTags: ['Late war'],
     fact: 'The Churchill VII introduced a redesigned, more heavily armored hull and turret with a 75 mm gun, becoming the principal late-war Churchill variant.',
     description: 'The Churchill VII is a British heavy infantry tank miniature for Normandy, north-west Europe, and close-support armored forces. It keeps the Churchill family\'s long climbing hull while adding the heavier late-war turret and armor profile seen in British assault formations.',
+    etsyUrl: 'https://www.etsy.com/listing/4594707796',
     compatibility: 'Compact hex-based tabletop play',
   },
   {
@@ -2823,19 +2828,20 @@ window.TANKS = [
     placeholderStyle: 'dark-small',
     image: 'assets/img/tanks/renault-r35-base-coat-side-detail.jpg',
     scalePrices: {
-      '1:160': 0.0,
-      '1:180': 0.0,
-      '1:200': 0.0,
-      '1:250': 0.0,
-      '1:285': 0.0
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
     },
     finishSurcharges: {
-      'Base coat': 0.0,
+      'Base coat': 1.0,
       'Unpainted': 0.0
     },
     siteTags: ['Early war'],
     fact: 'The Renault R35 was a small, well-armored infantry-support tank intended to replace the Renault FT in French service.',
     description: 'The Renault R35 is a compact French light tank miniature for the 1940 campaign, infantry-support forces, and early-war collections. Its rounded cast hull and tiny one-man turret make it visibly different from the larger Somua S35 and Char B1 bis.',
+    etsyUrl: 'https://www.etsy.com/listing/4594820446',
     compatibility: 'Compact hex-based tabletop play',
   },
   {
@@ -2849,18 +2855,19 @@ window.TANKS = [
     placeholderStyle: 'light-medium',
     image: 'assets/img/tanks/semovente-m42-75-18-base-coat-side-detail.jpg',
     scalePrices: {
-      '1:160': 0.0,
-      '1:180': 0.0,
-      '1:200': 0.0,
-      '1:250': 0.0,
-      '1:285': 0.0
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
     },
     finishSurcharges: {
-      'Base coat': 0.0,
+      'Base coat': 1.0,
       'Unpainted': 0.0
     },
     fact: 'The Semovente M42 75/18 paired the short 75 mm howitzer with the later M15/42-family chassis in a low, enclosed fighting compartment.',
     description: 'The Semovente M42 75/18 is an Italian self-propelled gun miniature for Mediterranean, Italian campaign, and late-war Axis forces. Its low casemate and compact hull provide a useful assault-gun silhouette beside M13/40 and M14/41 tanks.',
+    etsyUrl: 'https://www.etsy.com/listing/4594802289',
     compatibility: 'Compact hex-based tabletop play',
   }
 ];
