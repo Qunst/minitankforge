@@ -2869,5 +2869,31 @@ window.TANKS = [
     description: 'The Semovente M42 75/18 is an Italian self-propelled gun miniature for Mediterranean, Italian campaign, and late-war Axis forces. Its low casemate and compact hull provide a useful assault-gun silhouette beside M13/40 and M14/41 tanks.',
     etsyUrl: 'https://www.etsy.com/listing/4594802289',
     compatibility: 'Compact hex-based tabletop play',
+  },
+  {
+    slug: 'qf-6-pounder',
+    name: 'QF 6-pounder (Ordnance QF 6-pounder 7 cwt)',
+    nation: 'UK',
+    era: 'WW2',
+    type: 'Anti-tank gun',
+    featured: false,
+    disabled: false,
+    placeholderStyle: 'light-small',
+    image: 'assets/img/tanks/qf-6-pounder-base-coat-side-detail.jpg',
+    scalePrices: {
+      '1:160': 0.0,
+      '1:180': 0.0,
+      '1:200': 0.0,
+      '1:250': 0.0,
+      '1:285': 0.0
+    },
+    finishSurcharges: {
+      'Base coat': 0.0,
+      'Unpainted': 0.0
+    },
+    siteTags: ['Desert war', 'Late war'],
+    fact: 'The British 57 mm 6-pounder first saw action in North Africa in April 1942 and remained in infantry anti-tank service throughout the war.',
+    description: 'The QF 6-pounder is a British 57 mm anti-tank gun miniature on an integrated scenic base for mid-war and late-war gun positions, ambushes, defensive lines, and British or Commonwealth forces. This is the same gun model supplied in the Lone Panther Pack, now presented as a standalone piece.',
+    compatibility: 'Compact hex-based tabletop play; Lone Panther accessory',
   }
 ];

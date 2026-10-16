@@ -394,6 +394,12 @@
       "width": 14.112,
       "height": 12.631
     },
+    "qf-6-pounder": {
+      "sourceScale": 250,
+      "length": 30,
+      "width": 20,
+      "height": 7
+    },
     "sd-kfz-234": {
       "sourceScale": 250,
       "length": 26.133,

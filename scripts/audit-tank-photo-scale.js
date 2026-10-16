@@ -42,6 +42,9 @@ const vehicleWidths = {
   'somua-s35': 2120,
   'somua-s40': 2120,
   'char-b1-bis': 2500,
+  // The QF 6-pounder miniature is permanently mounted on a 30 x 20 mm scenic
+  // base. Use that complete product footprint as the photo-scale authority.
+  'qf-6-pounder': 5000,
 };
 
 // Approximate real vehicle body/hull lengths in millimetres. These are retained as
@@ -150,6 +153,7 @@ const bodyLengths = {
   wespe: 4790,
   'type-95-ha-go': 4380,
   'type-97-chi-ha': 5520,
+  'qf-6-pounder': 7500,
 };
 
 const rows = tanks.map(tank => ({

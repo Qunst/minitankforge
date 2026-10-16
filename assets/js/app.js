@@ -285,6 +285,7 @@ function getDisplayName(name) {
 
 function getTankSnippetType(tank) {
   const type = String(tank?.type || '').toLowerCase();
+  if (type.includes('anti-tank gun')) return 'Anti-Tank Gun Miniature';
   if (type.includes('tank destroyer')) return 'Tank Destroyer Miniature';
   if (type.includes('assault gun')) return 'Assault Gun Miniature';
   if (type.includes('artillery')) return 'Artillery Miniature';
@@ -834,6 +835,7 @@ const tankDetailPhotoKeys = {
   'panzer-35t': 'pz35t',
   'panzer-38t': 'pz38t',
   'pershing': 'pershing',
+  'qf-6-pounder': 'qf-6-pounder',
   'sd-kfz-234': 'sdkfz-234',
   'semovente-m42-75-18': 'semovente-m42-75-18',
   'sherman-firefly': 'sherman-firefly',

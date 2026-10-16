@@ -108,6 +108,7 @@ const tankBrowsePopularityOrder = [
   't-38',
   'a-32',
   'is-1',
+  'qf-6-pounder',
 ];
 const tankBrowsePopularityScores = new Map(
   tankBrowsePopularityOrder.map((slug, index) => [slug, tankBrowsePopularityOrder.length - index])
@@ -487,6 +488,7 @@ function getAlternateName(name) {
 
 function getTankSnippetType(tank) {
   const type = String(tank?.type || '').toLowerCase();
+  if (type.includes('anti-tank gun')) return 'Anti-Tank Gun Miniature';
   if (type.includes('tank destroyer')) return 'Tank Destroyer Miniature';
   if (type.includes('assault gun')) return 'Assault Gun Miniature';
   if (type.includes('artillery')) return 'Artillery Miniature';

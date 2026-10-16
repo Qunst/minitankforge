@@ -1186,5 +1186,16 @@
     "vehicleWidthMm": 2280,
     "bodyLengthMm": 5040,
     "imageExists": true
+  },
+  {
+    "slug": "qf-6-pounder",
+    "name": "QF 6-pounder (Ordnance QF 6-pounder 7 cwt)",
+    "nation": "UK",
+    "type": "Anti-tank gun",
+    "status": "",
+    "image": "assets/img/tanks/qf-6-pounder-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 5000,
+    "bodyLengthMm": 7500,
+    "imageExists": true
   }
 ]
