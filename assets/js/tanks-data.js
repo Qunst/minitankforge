@@ -2881,19 +2881,20 @@ window.TANKS = [
     placeholderStyle: 'light-small',
     image: 'assets/img/tanks/qf-6-pounder-base-coat-side-detail.jpg',
     scalePrices: {
-      '1:160': 0.0,
-      '1:180': 0.0,
-      '1:200': 0.0,
-      '1:250': 0.0,
-      '1:285': 0.0
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
     },
     finishSurcharges: {
-      'Base coat': 0.0,
+      'Base coat': 1.0,
       'Unpainted': 0.0
     },
     siteTags: ['Desert war', 'Late war'],
     fact: 'The British 57 mm 6-pounder first saw action in North Africa in April 1942 and remained in infantry anti-tank service throughout the war.',
     description: 'The QF 6-pounder is a British 57 mm anti-tank gun miniature on an integrated scenic base for mid-war and late-war gun positions, ambushes, defensive lines, and British or Commonwealth forces. This is the same gun model supplied in the Lone Panther Pack, now presented as a standalone piece.',
+    etsyUrl: 'https://www.etsy.com/listing/4596742372/qf-6-pounder-british-57mm-at-gun-ww2',
     compatibility: 'Compact hex-based tabletop play; Lone Panther accessory',
   }
 ];
