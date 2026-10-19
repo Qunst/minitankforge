@@ -108,3 +108,5 @@ churchill-vii,"Churchill VII (Infantry Tank Mk IV Churchill VII A22F)",UK,"Heavy
 renault-r35,"Renault R35 (Char leger Modele 1935 R)",France,"Light tank","",1870,4020,assets/img/tanks/renault-r35-base-coat-side-detail.jpg,true
 semovente-m42-75-18,"Semovente M42 75/18 (Semovente da 75/18 M42)",Italy,"Self-propelled gun","",2280,5040,assets/img/tanks/semovente-m42-75-18-base-coat-side-detail.jpg,true
 qf-6-pounder,"QF 6-pounder (Ordnance QF 6-pounder 7 cwt)",UK,"Anti-tank gun","",5000,7500,assets/img/tanks/qf-6-pounder-base-coat-side-detail.jpg,true
+type-1-47mm-at-gun,"Type 1 47 mm Anti-Tank Gun",Japan,"Anti-tank gun","",4546,6116,assets/img/tanks/type-1-47mm-at-gun-base-coat-side-detail.jpg,true
+type-45-240mm-howitzer,"Type 45 240 mm Howitzer",Japan,"Artillery","",4338,8162,assets/img/tanks/type-45-240mm-howitzer-base-coat-side-detail.jpg,true

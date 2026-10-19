@@ -2896,5 +2896,59 @@ window.TANKS = [
     description: 'The QF 6-pounder is a British 57 mm anti-tank gun miniature on an integrated scenic base for mid-war and late-war gun positions, ambushes, defensive lines, and British or Commonwealth forces. This is the same gun model supplied in the Lone Panther Pack, now presented as a standalone piece.',
     etsyUrl: 'https://www.etsy.com/listing/4596742372/qf-6-pounder-british-57mm-at-gun-ww2',
     compatibility: 'Compact hex-based tabletop play; Lone Panther accessory',
+  },
+  {
+    slug: 'type-1-47mm-at-gun',
+    name: 'Type 1 47 mm Anti-Tank Gun',
+    nation: 'Japan',
+    era: 'WW2',
+    type: 'Anti-tank gun',
+    featured: false,
+    disabled: false,
+    placeholderStyle: 'dark-small',
+    image: 'assets/img/tanks/type-1-47mm-at-gun-base-coat-side-detail.jpg',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
+    siteTags: ['Pacific war', 'Late war'],
+    fact: 'The Type 1 was a modern, mobile, high-velocity 47 mm anti-tank gun introduced in 1941, with a low silhouette and long split trails.',
+    description: 'The Type 1 47 mm is a Japanese anti-tank gun miniature on an integrated scenic base for Pacific and Asian-theatre defensive positions, ambushes, and artillery collections. This is the same gun model supplied in the Lone Sherman Pacific Pack, now presented as a standalone piece.',
+    etsyUrl: 'https://www.etsy.com/listing/4598863795/type-1-47mm-japanese-anti-tank-gun',
+    compatibility: 'Compact hex-based tabletop play; Lone Sherman Pacific accessory',
+  },
+  {
+    slug: 'type-45-240mm-howitzer',
+    name: 'Type 45 240 mm Howitzer',
+    nation: 'Japan',
+    era: 'WW2',
+    type: 'Artillery',
+    featured: false,
+    disabled: false,
+    placeholderStyle: 'light-medium',
+    image: 'assets/img/tanks/type-45-240mm-howitzer-base-coat-side-detail.jpg',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
+    siteTags: ['Siege artillery', 'Pacific war'],
+    fact: 'The Type 45 was a 240 mm siege howitzer adopted in 1912; the 1944 U.S. Army handbook records that it was broken down and transported on ten vehicles.',
+    description: 'The Type 45 240 mm is a Japanese heavy siege-howitzer miniature on an integrated scenic base for coastal defenses, fortified positions, and early-to-mid-20th-century Japanese artillery collections. This is the same artillery model supplied in the Lone Sherman Pacific Pack, now presented as a standalone piece.',
+    etsyUrl: 'https://www.etsy.com/listing/4598864973/type-45-240mm-japanese-siege-howitzer',
+    compatibility: 'Compact hex-based tabletop play; Lone Sherman Pacific accessory',
   }
 ];

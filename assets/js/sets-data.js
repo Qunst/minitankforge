@@ -1027,7 +1027,7 @@ window.SETS = [
     placeholderStyle: 'dark-medium',
     etsyUrl: 'https://www.etsy.com/listing/1703513728/detailed-mini-ww2-tanks-1250-scale-lone',
     note: 'Game-ready 1:250 Pacific pack built around a lone Sherman facing Japanese armor and support units.',
-    description: 'This pack is an unofficial 3D printed accessory set for players who want physical pieces for Mike Lambo\'s Lone Sherman: The Pacific. It keeps the Sherman at the center and adds Japanese Type 95 Ha-Go, Type 97 Chi-Ha, infantry, artillery, and anti-tank gun options for the Pacific setting. The pack versions let you choose the full mix, tanks only, support pieces, or an extra Sherman.',
+    description: 'This pack is an unofficial 3D printed accessory set for players who want physical pieces for Mike Lambo\'s Lone Sherman: The Pacific. It keeps the Sherman at the center and adds Japanese Type 95 Ha-Go and Type 97 Chi-Ha tanks, Type 45 240 mm howitzers, Type 1 47 mm anti-tank guns, and infantry for the Pacific setting. The pack versions let you choose the full mix, tanks only, support pieces, or an extra Sherman.',
     gameTitle: 'Lone Sherman: The Pacific',
     gameUrl: 'https://www.lulu.com/shop/mike-lambo/lone-sherman-the-pacific/paperback/product-kvjkyyk.html',
     videos: [
@@ -1074,7 +1074,7 @@ window.SETS = [
           Unpainted: 36.00,
           'Base coat': 46.00
         },
-        contents: ['1x Sherman', '2x Artillery', '3x Anti-tank gun', '4x Infantry', '4x Type 95 Ha-Go', '4x Type 97 Chi-Ha']
+        contents: ['1x Sherman', '2x Type 45 240 mm Howitzer', '3x Type 1 47 mm Anti-Tank Gun', '4x Infantry', '4x Type 95 Ha-Go', '4x Type 97 Chi-Ha']
       },
       {
         slug: 'tanks-only',
@@ -1092,7 +1092,7 @@ window.SETS = [
           Unpainted: 18.00,
           'Base coat': 25.00
         },
-        contents: ['2x Artillery', '3x Anti-tank gun', '4x Infantry']
+        contents: ['2x Type 45 240 mm Howitzer', '3x Type 1 47 mm Anti-Tank Gun', '4x Infantry']
       },
       {
         slug: 'extra-sherman',

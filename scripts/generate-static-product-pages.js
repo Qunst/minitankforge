@@ -7,9 +7,9 @@ const siteUrl = 'https://minitankforge.com';
 const today = new Date().toISOString().slice(0, 10);
 const assetVersions = Object.freeze({
   styles: 33,
-  app: 60,
-  tanks: 35,
-  sets: 22,
+  app: 61,
+  tanks: 37,
+  sets: 23,
 });
 const tankBrowsePopularityOrder = [
   'sherman-m4a3',
@@ -546,6 +546,10 @@ function getTankHeading(tank) {
     return `${displayName} Miniature`;
   }
 
+  if (snippetType === 'Anti-Tank Gun Miniature' && /\banti-tank gun$/i.test(displayName)) {
+    return `${displayName} Miniature`;
+  }
+
   return `${displayName} ${snippetType}`;
 }
 
@@ -777,6 +781,8 @@ const setContentTankAliases = {
   'tiger ii': 'tiger-ii',
   'type 95 ha go': 'type-95-ha-go',
   'type 97 chi ha': 'type-97-chi-ha',
+  'type 1 47 mm anti tank gun': 'type-1-47mm-at-gun',
+  'type 45 240 mm howitzer': 'type-45-240mm-howitzer',
   'wespe': 'wespe',
 };
 

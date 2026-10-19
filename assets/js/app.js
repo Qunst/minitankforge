@@ -871,6 +871,8 @@ const tankDetailPhotoKeys = {
   'renault-r35': 'renault-r35',
   'type-95-ha-go': 'type95',
   'type-97-chi-ha': 'type97',
+  'type-1-47mm-at-gun': 'type-1-47mm-at-gun',
+  'type-45-240mm-howitzer': 'type-45-240mm-howitzer',
   'wespe': 'wespe',
   'zis-42': 'zis-42',
 };
@@ -1377,6 +1379,8 @@ const setContentTankAliases = {
   'tiger ii': 'tiger-ii',
   'type 95 ha go': 'type-95-ha-go',
   'type 97 chi ha': 'type-97-chi-ha',
+  'type 1 47 mm anti tank gun': 'type-1-47mm-at-gun',
+  'type 45 240 mm howitzer': 'type-45-240mm-howitzer',
   'wespe': 'wespe',
   'zis 42': 'zis-42',
   'zis42': 'zis-42',

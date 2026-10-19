@@ -598,6 +598,18 @@
       "width": 8.24,
       "height": 9.384
     },
+    "type-1-47mm-at-gun": {
+      "sourceScale": 250,
+      "length": 24.464,
+      "width": 18.184,
+      "height": 8.106
+    },
+    "type-45-240mm-howitzer": {
+      "sourceScale": 250,
+      "length": 32.649,
+      "width": 17.35,
+      "height": 10.795
+    },
     "type-97-chi-ha": {
       "sourceScale": 250,
       "length": 22.15,

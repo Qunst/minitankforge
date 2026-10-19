@@ -14,6 +14,8 @@ Use this workflow when preparing a new Etsy listing packet for a MiniTankForge t
 - Output the final 13 tags as one copy-paste block, separated by comma and space.
 - Use `Resin` as the Etsy material if Etsy does not allow `ABS-like resin`.
 - Use only one Etsy scale attribute, usually `1:160`.
+- Etsy titles must not contain `%`, `&`, or `:` more than once. For the safest validation, use no more than one occurrence in total across those three characters and prefer using none.
+- Never put a colon-form scale list such as `1:160 1:180 1:200 1:250 1:285` in an Etsy title. Use slash-form scales such as `1/160 1/180 1/200 1/250 1/285`, or omit the scale list from the title.
 - If unsure about tank classification, official name, historical wording, or tags, stop and ask instead of guessing.
 
 ## Choosing The Listing To Copy
@@ -27,6 +29,22 @@ Examples:
 - Soviet tanks: copy from T-34 or SU-85.
 - American tanks: copy from Sherman or M18 Hellcat.
 - Same chassis or vehicle family beats generic nation matching.
+
+## Etsy Title Validation
+
+Before delivering a listing packet:
+
+1. Count every `%`, `&`, and `:` character in the proposed title.
+2. If those characters occur more than once in total, rewrite the title before delivery. Prefer zero occurrences so future Etsy validation changes cannot break it.
+3. Do not repeat colon-form scales in the title. Slash-form scales are acceptable for the title; retain the normal colon form in descriptions, variations, price tables, and Etsy's scale attribute.
+4. Keep the title readable and verify it fits Etsy's current title-length limit.
+
+Example:
+
+```text
+Wrong: Type 1 Gun, 1:160 1:180 1:200 1:250 1:285
+Right: Type 1 Gun Miniature, 1/160 1/180 1/200 1/250 1/285
+```
 
 ## Photo Multi-Open Format
 
@@ -135,5 +153,7 @@ Use our MiniTankForge listing rules:
 - use standard pricing
 - use Resin as the Etsy material
 - use only one Etsy scale attribute, usually 1:160
+- validate the title so `%`, `&`, and `:` do not occur more than once in total
+- never use a repeated colon-form scale list in the title; use slash-form scales or omit the list
 - stop and ask if unsure instead of guessing
 ```

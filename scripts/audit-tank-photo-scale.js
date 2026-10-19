@@ -45,6 +45,10 @@ const vehicleWidths = {
   // The QF 6-pounder miniature is permanently mounted on a 30 x 20 mm scenic
   // base. Use that complete product footprint as the photo-scale authority.
   'qf-6-pounder': 5000,
+  // These two guns also use permanent scenic bases. Their complete printed
+  // footprints are the photo-scale authority, matching the crop manifest.
+  'type-1-47mm-at-gun': 4546,
+  'type-45-240mm-howitzer': 4338,
 };
 
 // Approximate real vehicle body/hull lengths in millimetres. These are retained as
@@ -154,6 +158,8 @@ const bodyLengths = {
   'type-95-ha-go': 4380,
   'type-97-chi-ha': 5520,
   'qf-6-pounder': 7500,
+  'type-1-47mm-at-gun': 6116,
+  'type-45-240mm-howitzer': 8162,
 };
 
 const rows = tanks.map(tank => ({

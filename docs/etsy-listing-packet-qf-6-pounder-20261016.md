@@ -17,7 +17,7 @@ The complete string is 253 characters, so it fits within the approximate 259-cha
 ## 3. Title
 
 ```text
-QF 6-Pounder British 57mm Anti-Tank Gun Miniature, WW2 Resin Artillery Model, 1:160 1:180 1:200 1:250 1:285
+QF 6-Pounder British 57mm Anti-Tank Gun Miniature, WW2 Resin Artillery Model, 1/160 1/180 1/200 1/250 1/285
 ```
 
 ## 4. Full description

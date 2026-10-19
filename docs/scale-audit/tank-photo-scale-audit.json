@@ -1197,5 +1197,27 @@
     "vehicleWidthMm": 5000,
     "bodyLengthMm": 7500,
     "imageExists": true
+  },
+  {
+    "slug": "type-1-47mm-at-gun",
+    "name": "Type 1 47 mm Anti-Tank Gun",
+    "nation": "Japan",
+    "type": "Anti-tank gun",
+    "status": "",
+    "image": "assets/img/tanks/type-1-47mm-at-gun-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 4546,
+    "bodyLengthMm": 6116,
+    "imageExists": true
+  },
+  {
+    "slug": "type-45-240mm-howitzer",
+    "name": "Type 45 240 mm Howitzer",
+    "nation": "Japan",
+    "type": "Artillery",
+    "status": "",
+    "image": "assets/img/tanks/type-45-240mm-howitzer-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 4338,
+    "bodyLengthMm": 8162,
+    "imageExists": true
   }
 ]
