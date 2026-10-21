@@ -7,7 +7,7 @@ const siteUrl = 'https://minitankforge.com';
 const today = new Date().toISOString().slice(0, 10);
 const assetVersions = Object.freeze({
   styles: 33,
-  app: 61,
+  app: 62,
   tanks: 37,
   sets: 23,
 });

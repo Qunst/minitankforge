@@ -10,9 +10,9 @@ const REQUEST_BASKET_MAX_QUANTITY = 50;
 const validScales = Array.isArray(window.MTF_SCALES) ? window.MTF_SCALES : ['1:180', '1:200', '1:250', '1:285'];
 const validFinishes = Array.isArray(window.MTF_FINISHES) ? window.MTF_FINISHES : ['Base coat', 'Unpainted'];
 const validTankPacks = [
-  { quantity: 1, label: '1 tank', multiplier: 1 },
-  { quantity: 5, label: '5 tanks', multiplier: 0.8 },
-  { quantity: 10, label: '10 tanks', multiplier: 0.67 },
+  { quantity: 1, multiplier: 1 },
+  { quantity: 5, multiplier: 0.8 },
+  { quantity: 10, multiplier: 0.67 },
 ];
 const tankData = Array.isArray(window.TANKS) ? window.TANKS : [];
 
@@ -55,6 +55,20 @@ function getTankPrice(scale, finish, tank = null) {
 
 function getTankPackByQuantity(quantity) {
   return validTankPacks.find(pack => pack.quantity === Number(quantity)) || validTankPacks[0];
+}
+
+function isCannonProduct(tank) {
+  return ['Anti-tank gun', 'Artillery'].includes(tank?.type);
+}
+
+function getTankUnitName(tank) {
+  return isCannonProduct(tank) ? 'cannon' : 'vehicle';
+}
+
+function getTankPackLabel(quantity, tank = null) {
+  const count = Number(quantity);
+  const noun = getTankUnitName(tank);
+  return `${count} ${noun}${count === 1 ? '' : 's'}`;
 }
 
 function roundNicePackPrice(value) {
@@ -1792,7 +1806,7 @@ function renderTankDetail() {
         </div>
         <label style="margin-top:16px">Pack size</label>
         <div class="option-group">
-          ${validTankPacks.map(pack => `<button class="chip ${pack.quantity === selectedPack.quantity ? 'active' : ''}" data-pack-chip="${pack.quantity}" aria-pressed="${pack.quantity === selectedPack.quantity}">${pack.label}</button>`).join('')}
+          ${validTankPacks.map(pack => `<button class="chip ${pack.quantity === selectedPack.quantity ? 'active' : ''}" data-pack-chip="${pack.quantity}" aria-pressed="${pack.quantity === selectedPack.quantity}">${getTankPackLabel(pack.quantity, tank)}</button>`).join('')}
         </div>
         <div class="tank-price-box">
   <div class="kicker">Price</div>
@@ -1915,16 +1929,17 @@ function updateTankSelectionSummary(scale, finish, quantity) {
   const detailTarget = document.querySelector('[data-tank-detail]');
   const detailSlug = detailTarget?.dataset.slug || new URL(window.location.href).searchParams.get('slug');
   const detailTank = getTankBySlug(detailSlug);
+  const packLabel = getTankPackLabel(pack.quantity, detailTank);
   const nextStep = detailTank?.etsyUrl
     ? 'Choose the same options on Etsy.'
     : 'Use these options in your direct request.';
 
   document.querySelectorAll('[data-current-pack-label]').forEach(el => {
-    el.textContent = pack.label;
+    el.textContent = packLabel;
   });
 
   document.querySelectorAll('[data-selection-summary]').forEach(el => {
-    el.textContent = `Selected: ${scale}, ${finish}, ${pack.label}. ${nextStep}`;
+    el.textContent = `Selected: ${scale}, ${finish}, ${packLabel}. ${nextStep}`;
   });
 }
 
@@ -2779,7 +2794,8 @@ function getHydratedRequestBasketItem(line) {
       fullName: tank.name,
       image: tank.image || '',
       optionLabel: 'Pack size',
-      optionValue: pack.label,
+      optionValue: getTankPackLabel(pack.quantity, tank),
+      unitName: getTankUnitName(tank),
       unitPrice,
       lineTotal: unitPrice * quantity,
       totalModels: pack.quantity * quantity,
@@ -2942,7 +2958,8 @@ function bindTankBasketButton(container, tank) {
       return;
     }
 
-    const quantityText = quantity === 1 ? pack.label : `${quantity} packs of ${pack.label.toLowerCase()}`;
+    const packLabel = getTankPackLabel(pack.quantity, tank);
+    const quantityText = quantity === 1 ? packLabel : `${quantity} packs of ${packLabel.toLowerCase()}`;
     setBasketAddStatus(container, 'success', `${getDisplayName(tank.name)}, ${scale}, ${finish}, ${quantityText} ${quantity === 1 ? 'was' : 'were'} added.`);
     const originalLabel = button.textContent;
     button.textContent = quantity === 1 ? 'Added to Basket' : `Added ${quantity} to Basket`;
@@ -3013,7 +3030,7 @@ function renderRequestBasketItem(item) {
   ].filter(Boolean).join('');
   const quantityLabel = item.type === 'tank' ? 'Number of packs' : 'Number of sets';
   const totalNote = item.type === 'tank'
-    ? `${item.totalModels} ${item.totalModels === 1 ? 'tank' : 'tanks'} total`
+    ? `${item.totalModels} ${item.unitName}${item.totalModels === 1 ? '' : 's'} total`
     : `${item.quantity} ${item.quantity === 1 ? 'set' : 'sets'}`;
 
   return `
@@ -3022,7 +3039,7 @@ function renderRequestBasketItem(item) {
         <img src="${rootRelativeUrl(item.image)}" width="320" height="180" alt="${escapeHtml(item.name)} miniature" loading="lazy" decoding="async">
       </a>
       <div class="basket-item-copy">
-        <div class="kicker">${item.type === 'tank' ? 'Individual tank' : 'Set'}</div>
+        <div class="kicker">${item.type === 'tank' ? `Individual ${item.unitName}` : 'Set'}</div>
         <h2><a href="${escapeHtml(item.itemUrl)}">${escapeHtml(item.name)}</a></h2>
         <div class="basket-item-meta">${meta}</div>
         <div class="basket-item-controls">
@@ -3154,7 +3171,7 @@ function buildRequestBasketMessage(items, formData, requestId) {
     lines.push(
       '',
       `${index + 1}. ${item.fullName}`,
-      `Product type: ${item.type === 'tank' ? 'Individual tank' : 'Set'}`,
+      `Product type: ${item.type === 'tank' ? `Individual ${item.unitName}` : 'Set'}`,
       `Scale: ${item.scale}`,
       `Finish: ${item.finish}`,
     );
