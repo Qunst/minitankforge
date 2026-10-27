@@ -779,6 +779,7 @@ const tankMiniGalleryPlaceholders = Array.from({ length: 6 }, (_, index) => ({
 
 const tankDetailPhotoKeys = {
   'a-32': 'a32',
+  'arl-44': 'arl-44',
   'b-4-howitzer': 'b-4-howitzer',
   'ba-6': 'ba-6',
   'ba-64': 'ba-64',
@@ -840,6 +841,7 @@ const tankDetailPhotoKeys = {
   'kv-5': 'kv-5',
   'kv-85': 'kv-85',
   'opel-blitz': 'opel-blitz',
+  'o-i': 'o-i',
   'panther': 'panther',
   'panzer-i': 'panzer-i',
   'panzer-ii': 'panzer-ii',
@@ -879,8 +881,11 @@ const tankDetailPhotoKeys = {
   't-34-85': 't34-85',
   't-34-minesweeper': 't34-minesweeper',
   't-70': 't70',
+  't-44': 't-44',
   'tiger-i': 'tiger',
   'tiger-ii': 'tiger-ii',
+  'tiger-p': 'tiger-p',
+  'tog-ii': 'tog-ii',
   'char-b1-bis': 'char-b1-bis',
   'renault-r35': 'renault-r35',
   'type-95-ha-go': 'type95',

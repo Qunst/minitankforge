@@ -354,13 +354,15 @@ File:
 - `docs/workflows/make-etsy-listing-packet.md`
 
 Use when creating an Etsy listing packet for a tank. It is tank-oriented, but the same spirit applies to sets:
-- Copy the closest existing listing.
+- Recommend a listing to copy so the correct variation structure and pack-size nouns carry over. Match product type before nation or model similarity: tank-like AFVs use `tank`; armored cars, trucks, half-tracks, and tractors use `vehicle`; towed artillery uses its established artillery noun; and sets copy compatible sets. Other product classes must use a same-class template or be flagged as nonstandard.
+- Verify the actual live Etsy `Scale / finish` and `Pack size` dropdown values. Do not rely on the title or description: a description can say `vehicle` or `artillery piece` while the live options still say `tank`.
+- When no fully correct template exists, name the closest template, explain the mismatch, and include the exact replacement labels in a `Nonstandard setup` section.
 - Provide full description, not partial edits.
 - Provide exact photo multi-open string.
 - Keep tags 20 characters or fewer.
-- Tell the owner exactly which tags to replace.
-- Use `Resin` in Etsy material if `ABS-like resin` is not accepted.
-- Use only one Etsy scale attribute, usually `1:160`.
+- Provide the final 13 tags as one copy-paste block; do not include a tag-replacement map.
+- Omit separate materials and scale-attribute sections because those settings do not change in the normal flow.
+- Omit standard variations and prices; include them only when a listing needs a nonstandard exception.
 - Stop and ask if unsure.
 
 Important owner correction:
@@ -565,17 +567,14 @@ For image-heavy tasks:
 
 For Etsy listing tasks:
 - Use `docs/workflows/make-etsy-listing-packet.md`.
-- Always include:
+- Normal packets include only:
   - Recommended listing to copy
   - Photo multi-open string
   - Title
   - Full description
-  - Tags to replace
   - Final 13 tags
-  - Materials
-  - Scale field recommendation
-  - Variation setup
-  - Price table
+- Do not include tag-replacement maps, materials, scale attributes, standard variations, or standard prices.
+- Add variation or price information only for a genuine nonstandard exception.
 
 For Etsy link updates:
 - Edit only `etsyUrl` in `assets/js/tanks-data.js` or `assets/js/sets-data.js`.

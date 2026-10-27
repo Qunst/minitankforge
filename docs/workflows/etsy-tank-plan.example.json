@@ -1,0 +1,61 @@
+{
+  "_template_only": true,
+  "slug": "replace-me",
+  "template_listing_id": 4604340866,
+  "title": "REPLACE WITH FINAL ETSY TITLE",
+  "description": "Opening product paragraph.\n\nThis listing is specifically for REPLACE ME.\n\nAvailable scales:\n- 1:160\n- 1:180\n- 1:200\n- 1:250\n- 1:285\n\nAvailable finishes:\n- Unpainted: supplied in natural resin, ready for cleaning, priming, and painting\n- Base coated: supplied with a simple olive-green base coat for faster tabletop use or further detailing\n\nPack sizes:\n- 1 tank\n- 5 tanks\n- 10 tanks\n\nShort verified historical paragraph.\n\nEach miniature is 3D printed in high-detail resin. Small supports, minor layer marks, or tiny variations may remain as part of the production process. These are small-scale gaming miniatures and contain delicate details, so handle them carefully.\n\nYou can also browse more tanks, finish examples, and scale information on my MiniTankForge site:\nhttps://minitankforge.com",
+  "tags": [
+    "replace tag 01",
+    "replace tag 02",
+    "replace tag 03",
+    "replace tag 04",
+    "replace tag 05",
+    "replace tag 06",
+    "replace tag 07",
+    "replace tag 08",
+    "replace tag 09",
+    "replace tag 10",
+    "replace tag 11",
+    "replace tag 12",
+    "replace tag 13"
+  ],
+  "materials": [
+    "Resin"
+  ],
+  "quantity": 50,
+  "attributes": {
+    "material": "Resin",
+    "scale": "1:160"
+  },
+  "variation_images": {
+    "property_name": "Scale / finish",
+    "base_coated_image": "assets/img/tanks/replace-me-base-coat-quarter-detail.jpg",
+    "unpainted_image": "assets/img/tanks/replace-me-unpainted-quarter-detail.jpg"
+  },
+  "images": [
+    {
+      "path": "assets/img/tanks/replace-me-base-coat-side-detail.jpg",
+      "alt_text": "REPLACE base-coated side view"
+    },
+    {
+      "path": "assets/img/tanks/replace-me-base-coat-quarter-detail.jpg",
+      "alt_text": "REPLACE base-coated three-quarter view"
+    },
+    {
+      "path": "assets/img/tanks/replace-me-base-coat-front-detail.jpg",
+      "alt_text": "REPLACE base-coated front view"
+    },
+    {
+      "path": "assets/img/tanks/replace-me-unpainted-side-detail.jpg",
+      "alt_text": "REPLACE unpainted side view"
+    },
+    {
+      "path": "assets/img/tanks/replace-me-unpainted-quarter-detail.jpg",
+      "alt_text": "REPLACE unpainted three-quarter view"
+    },
+    {
+      "path": "assets/img/tanks/replace-me-unpainted-front-detail.jpg",
+      "alt_text": "REPLACE unpainted front view"
+    }
+  ]
+}

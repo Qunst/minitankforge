@@ -2950,5 +2950,143 @@ window.TANKS = [
     description: 'The Type 45 240 mm is a Japanese heavy siege-howitzer miniature on an integrated scenic base for coastal defenses, fortified positions, and early-to-mid-20th-century Japanese artillery collections. This is the same artillery model supplied in the Lone Sherman Pacific Pack, now presented as a standalone piece.',
     etsyUrl: 'https://www.etsy.com/listing/4598864973/type-45-240mm-japanese-siege-howitzer',
     compatibility: 'Compact hex-based tabletop play; Lone Sherman Pacific accessory',
+  },
+  {
+    slug: 'o-i',
+    name: 'O-I (Japanese Super-Heavy Tank O-I)',
+    nation: 'Japan',
+    era: 'WW2',
+    historicalStatus: 'Prototype / unfinished project',
+    type: 'Super heavy tank',
+    featured: false,
+    disabled: false,
+    placeholderStyle: 'dark-large',
+    image: 'assets/img/tanks/o-i-base-coat-side-detail.jpg',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
+    siteTags: ['Game-famous', 'WoT'],
+    fact: 'The enormous multi-turret O-I was developed as a Japanese super-heavy tank; an incomplete prototype chassis was assembled and tested before the project ended.',
+    description: 'The O-I is a Japanese super-heavy prototype tank miniature for experimental WW2 forces, alternate-history battles, and collections built around unusual armor. Its huge hull, main turret, and smaller secondary turrets make it a striking centerpiece beside the much smaller Type 95 and Type 97 tanks.',
+    etsyUrl: 'https://www.etsy.com/listing/4604336387',
+    compatibility: 'Compact hex-based tabletop play',
+  },
+  {
+    slug: 't-44',
+    name: 'T-44 (Soviet Medium Tank T-44)',
+    nation: 'USSR',
+    era: 'WW2',
+    type: 'Medium tank',
+    featured: false,
+    disabled: false,
+    placeholderStyle: 'light-medium',
+    image: 'assets/img/tanks/t-44-base-coat-side-detail.jpg',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
+    siteTags: ['Late war', 'Game-famous', 'WoT'],
+    fact: 'The T-44 entered production during the final part of WW2 but did not see wartime combat; its layout strongly influenced the later T-54 family.',
+    description: 'The T-44 is a late-war Soviet medium tank miniature for 1945 what-if scenarios, early post-war forces, and collections tracing the development from the T-34 to the T-54. Its lower hull, compact turret, and familiar Soviet profile fit naturally beside T-34/85, IS-series, and early Cold War vehicles.',
+    etsyUrl: 'https://www.etsy.com/listing/4604340866',
+    compatibility: 'Compact hex-based tabletop play',
+  },
+  {
+    slug: 'tog-ii',
+    name: 'TOG II* (Tank Heavy TOG II*)',
+    nation: 'UK',
+    era: 'WW2',
+    historicalStatus: 'Prototype',
+    type: 'Super heavy tank',
+    featured: false,
+    disabled: false,
+    placeholderStyle: 'dark-large',
+    image: 'assets/img/tanks/tog-ii-base-coat-side-detail.jpg',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
+    siteTags: ['Game-famous', 'WoT'],
+    fact: 'The TOG II* was an 80-ton British prototype designed for trench-crossing warfare by a committee of veteran First World War tank designers.',
+    description: 'The TOG II* is a very long British super-heavy prototype tank miniature for experimental WW2 forces, trench-warfare scenarios, and collectors of unusual armored projects. Its extreme hull length and conventional turret make it immediately recognizable beside Churchills, Tortoises, and standard British tanks.',
+    etsyUrl: 'https://www.etsy.com/listing/4604337269',
+    compatibility: 'Compact hex-based tabletop play',
+  },
+  {
+    slug: 'tiger-p',
+    name: 'Tiger (P) (VK 45.01 (P))',
+    nation: 'Germany',
+    era: 'WW2',
+    historicalStatus: 'Prototype',
+    type: 'Heavy tank',
+    featured: false,
+    disabled: false,
+    placeholderStyle: 'light-large',
+    image: 'assets/img/tanks/tiger-p-base-coat-side-detail.jpg',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
+    siteTags: ['Game-famous', 'WoT'],
+    fact: 'Porsche\'s Tiger prototype used a petrol-electric drive; after it lost the production contest, most completed chassis became Ferdinand tank destroyers.',
+    description: 'The Tiger (P) is a German heavy-tank prototype miniature for 1942 trials, alternate-history forces, and collections comparing competing Tiger designs. Its forward-mounted turret and distinctive Porsche chassis make it easy to distinguish from the production Tiger I while linking it visually to the Ferdinand and Elefant.',
+    etsyUrl: 'https://www.etsy.com/listing/4604336639',
+    compatibility: 'Compact hex-based tabletop play',
+  },
+  {
+    slug: 'arl-44',
+    name: 'ARL 44 (Char de Transition ARL 44)',
+    nation: 'France',
+    era: 'Cold War',
+    type: 'Heavy tank',
+    featured: false,
+    disabled: false,
+    placeholderStyle: 'dark-large',
+    image: 'assets/img/tanks/arl-44-base-coat-side-detail.jpg',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
+    siteTags: ['Game-famous', 'WoT'],
+    fact: 'France built 60 ARL 44 heavy tanks after WW2, combining an old-fashioned long hull and suspension with heavy frontal armor and a powerful 90 mm gun.',
+    description: 'The ARL 44 is an early Cold War French heavy tank miniature for post-war forces, transitional armored formations, and collections bridging WW2 and modern tank design. Its long track-covered hull, angular turret, and very long 90 mm gun create a distinctive silhouette beside Panthers, Pershings, and later French tanks.',
+    etsyUrl: 'https://www.etsy.com/listing/4604336141',
+    compatibility: 'Compact hex-based tabletop play',
   }
 ];
