@@ -1205,6 +1205,13 @@ function updateTankBrowseSummary(filteredCount, totalCount, searchValue = '') {
   }
 }
 
+function getTankBrowseStatus(tank) {
+  const status = tank.historicalStatus || 'Service vehicle';
+  return /prototype|unfinished|what-if|paper/i.test(status)
+    ? 'Prototypes & paper projects'
+    : status;
+}
+
 function renderBrowseGrid() {
   const target = document.querySelector('[data-tank-grid]');
   if (!target) return;
@@ -1221,7 +1228,7 @@ function renderBrowseGrid() {
     return (nation === 'All' || t.nation === nation)
       && (type === 'All' || t.type === type)
       && (era === 'All' || t.era === era)
-      && (status === 'All' || (t.historicalStatus || 'Service vehicle') === status)
+      && (status === 'All' || getTankBrowseStatus(t) === status)
       && tankMatchesSearch(t, searchValue);
   });
   const sorted = sortBrowseTanks(filtered, sortMode);
@@ -1562,7 +1569,7 @@ function populateFilters() {
   const nations = ['All', ...new Set(visibleTanks.map(t => t.nation))];
   const types = ['All', ...new Set(visibleTanks.map(t => t.type))];
   const eras = ['All', ...new Set(visibleTanks.map(t => t.era))];
-  const statuses = ['All', ...new Set(visibleTanks.map(t => t.historicalStatus || 'Service vehicle'))];
+  const statuses = ['All', ...new Set(visibleTanks.map(getTankBrowseStatus))];
 
   const sets = [
     ['[data-filter-nation]', nations],
