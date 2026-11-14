@@ -62,6 +62,7 @@ function isCannonProduct(tank) {
 }
 
 function getTankUnitName(tank) {
+  if (typeof tank?.packUnit === 'string' && tank.packUnit.trim()) return tank.packUnit.trim();
   return isCannonProduct(tank) ? 'cannon' : 'vehicle';
 }
 
@@ -835,12 +836,15 @@ const tankDetailPhotoKeys = {
   'm60a1': 'm60a1',
   'm7-priest': 'm7-priest',
   'm8-greyhound': 'm8-greyhound',
+  'm12-gmc': 'm12-gmc',
+  'm30-cargo-carrier': 'm30-cargo-carrier',
   'marder-iii': 'marder-iii',
   'maus': 'maus',
   'nashorn': 'nashorn',
   'kv-5': 'kv-5',
   'kv-85': 'kv-85',
   'opel-blitz': 'opel-blitz',
+  'opel-blitz-wheeled': 'opel-blitz-wheeled',
   'o-i': 'o-i',
   'panther': 'panther',
   'panzer-i': 'panzer-i',
@@ -852,6 +856,10 @@ const tankDetailPhotoKeys = {
   'panzer-38t': 'pz38t',
   'pershing': 'pershing',
   'qf-6-pounder': 'qf-6-pounder',
+  'sd-kfz-250-1-ausf-a': 'sd-kfz-250-1-ausf-a',
+  'sd-kfz-251-1-ausf-d': 'sd-kfz-251-1-ausf-d',
+  'sd-kfz-252': 'sd-kfz-252',
+  'sd-kfz-253': 'sd-kfz-253',
   'sd-kfz-234': 'sdkfz-234',
   'semovente-m42-75-18': 'semovente-m42-75-18',
   'sherman-firefly': 'sherman-firefly',
@@ -892,6 +900,7 @@ const tankDetailPhotoKeys = {
   'type-97-chi-ha': 'type97',
   'type-1-47mm-at-gun': 'type-1-47mm-at-gun',
   'type-45-240mm-howitzer': 'type-45-240mm-howitzer',
+  'universal-carrier': 'universal-carrier',
   'wespe': 'wespe',
   'zis-42': 'zis-42',
 };
@@ -1354,8 +1363,10 @@ const setContentTankAliases = {
   'm8 greyhound': 'm8-greyhound',
   'maus': 'maus',
   'nashorn': 'nashorn',
-  'opel blitz': 'opel-blitz',
-  'opel blitz truck': 'opel-blitz',
+  'maultier': 'opel-blitz',
+  'opel maultier': 'opel-blitz',
+  'opel blitz': 'opel-blitz-wheeled',
+  'opel blitz truck': 'opel-blitz-wheeled',
   'panther': 'panther',
   'panzer iii': 'panzer-iii',
   'panzer iv': 'panzer-iv',

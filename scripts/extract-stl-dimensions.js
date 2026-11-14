@@ -64,7 +64,10 @@ function readAsciiStl(buffer) {
 }
 
 function readStl(file) {
-  const buffer = fs.readFileSync(file);
+  return measureStl(fs.readFileSync(file));
+}
+
+function measureStl(buffer) {
   const parsed = buffer.length >= 84 ? readBinaryStl(buffer) : null;
   const result = parsed || readAsciiStl(buffer);
   const { bounds } = result;
@@ -112,4 +115,4 @@ function main() {
 
 if (require.main === module) main();
 
-module.exports = { readStl, round };
+module.exports = { measureStl, readStl, round };

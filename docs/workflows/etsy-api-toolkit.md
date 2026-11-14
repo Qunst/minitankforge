@@ -108,6 +108,10 @@ Every standard tank plan must define:
 - the `Scale / finish` variation property;
 - the base-coated and unpainted quarter-view images used by variation selections.
 
+Every plan may also define `pack_size_labels`. Tank-like AFVs use `1 tank`, `5 tanks`,
+and `10 tanks`; non-tank vehicles use `1 vehicle`, `5 vehicles`, and `10 vehicles`.
+The dry run verifies that the chosen template contains exactly the declared labels.
+
 Start from [`etsy-tank-plan.example.json`](etsy-tank-plan.example.json), save the filled
 copy under `.etsy-private/plans/SLUG.json`, and remove the `_template_only` marker.
 
@@ -155,17 +159,36 @@ The command:
 For a batch, dry-run every plan first. Create one listing at a time and do not continue
 past a failed verification until it is understood.
 
+### Guarded title-only update
+
+Use the title command when an existing active or draft listing only needs a corrected
+name. It saves the complete listing and inventory, produces a dry run, and verifies
+that inventory, prices, quantities, images, attributes, and variation mappings remain
+unchanged after the update:
+
+```powershell
+node scripts/etsy/etsy-api.mjs update-title LISTING_ID "Corrected title"
+node scripts/etsy/etsy-api.mjs update-title LISTING_ID "Corrected title" --apply
+```
+
 ### Manual Etsy review and publication
 
-Open the returned Etsy editor link and review the listing. The one required field that
-Open API v3 cannot set or verify is:
+Open the returned Etsy editor link and review the listing. Open API v3 cannot set or
+verify the following production fields, so complete this checklist manually on every
+new listing:
 
 ```text
 How does your shop produce this item? -> It's made from scratch
+
+What tools are used to make this item?
+[x] Handheld or hand-guided tools
+[x] Computerized tools or machines
+[ ] An AI generator
+[ ] None, I don't use tools
 ```
 
-Select it manually. Review the preview, then let the shop owner publish. Do not use
-browser automation on Etsy, and do not publish through the toolkit.
+Review the preview after setting those fields, then let the shop owner publish. Do not
+use browser automation on Etsy, and do not publish through the toolkit.
 
 ### Final sanity check
 
@@ -179,7 +202,7 @@ A passing result confirms title, description, tags, image order/alt text, materi
 structured attributes, all 30 offerings, all prices and quantities, variation photos,
 shipping, returns, processing, category, section, maker fields, and auto-renew. It
 accepts either `draft` or `active` state and reports the actual state. The manual
-`It's made from scratch` field remains outside API verification.
+production-method and tools-used fields remain outside API verification.
 
 Use `audit-listing` for a human-readable diagnostic dump and `backup` before any later
 manual repair:
@@ -198,5 +221,7 @@ Create unpublished Etsy drafts for these new tank slugs: [SLUGS].
 Use the verified T-44 standard unless a product is not a tank. Build and validate every
 private plan first, then create one draft at a time, run full read-back verification,
 and give me the editor links. Never publish. Remind me to select "It's made from
-scratch" manually on each listing, and run check-listing after I publish.
+scratch," check "Handheld or hand-guided tools" and "Computerized tools or machines,"
+leave "An AI generator" and "None, I don't use tools" unchecked, and run check-listing
+after I publish.
 ```

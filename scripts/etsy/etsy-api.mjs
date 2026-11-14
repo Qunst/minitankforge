@@ -182,12 +182,23 @@ async function api(config, path, { query, method = "GET", body, form } = {}) {
     }
     requestBody = parameters;
   }
-  const response = await fetch(url, {
-    method,
-    headers,
-    body: requestBody,
-  });
-  return readResponse(response);
+  for (let attempt = 0; attempt < 5; attempt += 1) {
+    const response = await fetch(url, {
+      method,
+      headers,
+      body: requestBody,
+    });
+    if (response.status !== 429) return readResponse(response);
+    const retryAfterSeconds = Number(response.headers.get("retry-after"));
+    const waitMs = Number.isFinite(retryAfterSeconds) && retryAfterSeconds > 0
+      ? retryAfterSeconds * 1000
+      : (attempt + 1) * 2000;
+    await response.text();
+    if (attempt === 4) throw new Error("Etsy rate limit persisted after five retries.");
+    console.log(`Etsy rate limit reached; retrying in ${Math.round(waitMs / 1000)} seconds.`);
+    await new Promise((resolveDelay) => setTimeout(resolveDelay, waitMs));
+  }
+  throw new Error("Etsy API request did not complete.");
 }
 
 async function apiMultipart(config, path, fields) {
@@ -201,15 +212,26 @@ async function apiMultipart(config, path, fields) {
       form.append(key, String(value));
     }
   }
-  const response = await fetch(`${API_BASE}${path}`, {
-    method: "POST",
-    headers: {
-      authorization: `Bearer ${await accessToken(config)}`,
-      "x-api-key": apiKey(config),
-    },
-    body: form,
-  });
-  return readResponse(response);
+  for (let attempt = 0; attempt < 5; attempt += 1) {
+    const response = await fetch(`${API_BASE}${path}`, {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${await accessToken(config)}`,
+        "x-api-key": apiKey(config),
+      },
+      body: form,
+    });
+    if (response.status !== 429) return readResponse(response);
+    const retryAfterSeconds = Number(response.headers.get("retry-after"));
+    const waitMs = Number.isFinite(retryAfterSeconds) && retryAfterSeconds > 0
+      ? retryAfterSeconds * 1000
+      : (attempt + 1) * 2000;
+    await response.text();
+    if (attempt === 4) throw new Error("Etsy image-upload rate limit persisted after five retries.");
+    console.log(`Etsy rate limit reached during image upload; retrying in ${Math.round(waitMs / 1000)} seconds.`);
+    await new Promise((resolveDelay) => setTimeout(resolveDelay, waitMs));
+  }
+  throw new Error("Etsy image upload did not complete.");
 }
 
 async function commandPing(config) {
@@ -338,10 +360,25 @@ async function commandListings(config, state = "active") {
     listing_id: item.listing_id,
     title: item.title,
     state: item.state,
+    shop_section_id: item.shop_section_id,
     quantity: item.quantity,
     price: item.price,
     url: item.url,
   })) }, null, 2));
+}
+
+async function commandSections(config) {
+  const shopId = await getShopId(config);
+  const response = await api(config, `/shops/${shopId}/sections`);
+  console.log(JSON.stringify({
+    count: response.count ?? response.results?.length ?? 0,
+    results: (response.results || []).map((section) => ({
+      shop_section_id: section.shop_section_id,
+      title: section.title,
+      rank: section.rank,
+      active_listing_count: section.active_listing_count,
+    })),
+  }, null, 2));
 }
 
 async function allShopListings(config, shopId, state) {
@@ -356,6 +393,312 @@ async function allShopListings(config, shopId, state) {
     if (!page.results?.length || offset >= Number(page.count || 0)) break;
   }
   return listings;
+}
+
+async function commandAuditProcessing(config, state = "active") {
+  const allowed = new Set(["active", "inactive", "sold_out", "draft", "expired"]);
+  if (!allowed.has(state)) throw new Error(`Invalid listing state: ${state}`);
+  const shopId = await getShopId(config);
+  const profiles = [];
+  let offset = 0;
+  while (true) {
+    const page = await api(config, `/shops/${shopId}/readiness-state-definitions`, {
+      query: { limit: 100, offset },
+    });
+    profiles.push(...(page.results || []));
+    offset += page.results?.length || 0;
+    if (!page.results?.length || offset >= Number(page.count || 0)) break;
+  }
+  const listings = await allShopListings(config, shopId, state);
+  const profileById = new Map(profiles.map((profile) => [profile.readiness_state_id, profile]));
+  const wrong = [];
+  const unknown = [];
+  const counts = new Map();
+  for (const listing of listings) {
+    const profile = profileById.get(listing.readiness_state_id);
+    if (!profile) {
+      unknown.push({
+        listing_id: listing.listing_id,
+        title: listing.title,
+        readiness_state_id: listing.readiness_state_id ?? null,
+        url: listing.url,
+      });
+      continue;
+    }
+    const label = profile.processing_days_display_label ||
+      `${profile.min_processing_days}-${profile.max_processing_days} days`;
+    const key = `${profile.readiness_state} | ${label} | ${profile.readiness_state_id}`;
+    counts.set(key, (counts.get(key) || 0) + 1);
+    if (
+      profile.readiness_state === "made_to_order" &&
+      profile.min_processing_days === 1 &&
+      profile.max_processing_days === 3
+    ) {
+      wrong.push({
+        listing_id: listing.listing_id,
+        title: listing.title,
+        state: listing.state,
+        readiness_state_id: listing.readiness_state_id,
+        processing: label,
+        url: listing.url,
+      });
+    }
+  }
+  console.log(JSON.stringify({
+    audited_state: state,
+    listings_checked: listings.length,
+    processing_profiles: profiles,
+    profile_usage: Object.fromEntries([...counts.entries()].sort()),
+    wrong_1_to_3_days_count: wrong.length,
+    wrong_1_to_3_days: wrong.sort((a, b) => a.title.localeCompare(b.title)),
+    missing_or_unavailable_profile_count: unknown.length,
+    missing_or_unavailable_profile: unknown.sort((a, b) => a.title.localeCompare(b.title)),
+  }, null, 2));
+}
+
+async function commandSetProcessingProfile(config, args) {
+  const apply = args.includes("--apply");
+  const values = args.filter((value) => value !== "--apply");
+  const [profileIdText, ...listingIds] = values;
+  if (!/^\d+$/.test(profileIdText || "") || !listingIds.length || listingIds.some((id) => !/^\d+$/.test(id))) {
+    throw new Error("Usage: set-processing-profile <profile-id> <listing-id> [...] [--apply]");
+  }
+  const profileId = Number(profileIdText);
+  const shopId = await getShopId(config);
+  const profilesResponse = await api(config, `/shops/${shopId}/readiness-state-definitions`, {
+    query: { limit: 100, offset: 0 },
+  });
+  const profiles = profilesResponse.results || [];
+  const targetProfile = profiles.find((profile) => profile.readiness_state_id === profileId);
+  if (!targetProfile) throw new Error(`Processing profile not found: ${profileId}`);
+  const targets = [];
+  for (const listingId of listingIds) {
+    const listing = await api(config, `/listings/${listingId}`);
+    if (listing.state !== "active") {
+      throw new Error(`Refusing to update listing ${listingId}: state is ${listing.state}, not active.`);
+    }
+    const inventory = await api(config, `/listings/${listingId}/inventory`);
+    const offeringProfileIds = [
+      ...new Set(
+        inventory.products.flatMap((product) =>
+          (product.offerings || []).map((offering) => offering.readiness_state_id),
+        ),
+      ),
+    ];
+    targets.push({ listing, inventory, offeringProfileIds });
+  }
+  const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+  const recordFile = join(
+    PRIVATE_DIR,
+    "dry-runs",
+    `processing-profile-${timestamp}-${apply ? "apply" : "dry-run"}.json`,
+  );
+  await writeJsonAtomic(recordFile, {
+    schema_version: 1,
+    created_at: new Date().toISOString(),
+    mode: apply ? "apply" : "dry-run",
+    target_profile: targetProfile,
+    listings: targets.map(({ listing, inventory, offeringProfileIds }) => ({
+      listing_id: listing.listing_id,
+      title: listing.title,
+      state: listing.state,
+      products: inventory.products.length,
+      previous_listing_readiness_state_id: listing.readiness_state_id,
+      previous_offering_readiness_state_ids: offeringProfileIds,
+      target_readiness_state_id: profileId,
+      url: listing.url,
+    })),
+  });
+  console.log(
+    `${apply ? "Validated processing-profile update" : "Processing-profile dry run"}: ` +
+      `${targetProfile.readiness_state}, ${targetProfile.processing_days_display_label} (${profileId})`,
+  );
+  for (const { listing, inventory, offeringProfileIds } of targets) {
+    console.log(
+      `  ${listing.listing_id}: ${listing.title} ` +
+      `(${offeringProfileIds.join(",")} -> ${profileId}; ${inventory.products.length} products)`,
+    );
+  }
+  console.log(`Plan record: ${recordFile}`);
+  if (!apply) {
+    console.log("No Etsy data was changed. Add --apply to update these processing profiles.");
+    return;
+  }
+
+  for (const { listing, inventory } of targets) {
+    const beforeFile = join(BACKUP_DIR, `${listing.listing_id}-${timestamp}-before-processing-profile.json`);
+    await writeJsonAtomic(beforeFile, {
+      schema_version: 1,
+      fetched_at: new Date().toISOString(),
+      shop_id: shopId,
+      listing,
+      inventory,
+      target_profile: targetProfile,
+    });
+    const payload = cloneInventoryPayload(inventory);
+    for (const product of payload.products) {
+      for (const offering of product.offerings) offering.readiness_state_id = profileId;
+    }
+    const currencyCode = inventory.products
+      .flatMap((product) => product.offerings || [])
+      .find((offering) => offering.price?.currency_code)?.price.currency_code;
+    if (!currencyCode) throw new Error(`Could not determine currency for listing ${listing.listing_id}.`);
+    const expectedInventory = expectedInventoryFromPayload(payload, currencyCode);
+    await api(config, `/listings/${listing.listing_id}/inventory`, {
+      method: "PUT",
+      body: payload,
+    });
+    const verifiedInventory = await api(config, `/listings/${listing.listing_id}/inventory`);
+    const verified = await api(config, `/listings/${listing.listing_id}`);
+    const afterFile = join(BACKUP_DIR, `${listing.listing_id}-${timestamp}-after-processing-profile.json`);
+    await writeJsonAtomic(afterFile, {
+      schema_version: 1,
+      fetched_at: new Date().toISOString(),
+      shop_id: shopId,
+      listing: verified,
+      inventory: verifiedInventory,
+      target_profile: targetProfile,
+    });
+    if (JSON.stringify(canonicalInventory(verifiedInventory)) !== JSON.stringify(expectedInventory)) {
+      throw new Error(
+        `Etsy accepted listing ${listing.listing_id} but inventory read-back did not match. ` +
+          `Inspect ${beforeFile} and ${afterFile}.`,
+      );
+    }
+    for (const field of ["title", "description", "state", "quantity", "taxonomy_id", "shipping_profile_id", "return_policy_id", "shop_section_id"]) {
+      if (JSON.stringify(verified[field]) !== JSON.stringify(listing[field])) {
+        throw new Error(`Unexpected ${field} change on listing ${listing.listing_id}. Inspect ${beforeFile} and ${afterFile}.`);
+      }
+    }
+    if (verified.readiness_state_id !== profileId) {
+      throw new Error(
+        `Inventory updated for ${listing.listing_id}, but listing read-back profile is ${verified.readiness_state_id}. ` +
+          `Inspect ${beforeFile} and ${afterFile}.`,
+      );
+    }
+    console.log(`Verified ${listing.listing_id}: ${targetProfile.processing_days_display_label}.`);
+  }
+  console.log(`Updated and verified ${targets.length} listing(s).`);
+}
+
+async function commandSetQuantity(config, args) {
+  const apply = args.includes("--apply");
+  const values = args.filter((value) => value !== "--apply");
+  const [quantityText, ...listingIds] = values;
+  const quantity = Number(quantityText);
+  if (
+    !Number.isInteger(quantity) || quantity < 0 ||
+    !listingIds.length || listingIds.some((id) => !/^\d+$/.test(id))
+  ) {
+    throw new Error("Usage: set-quantity <quantity> <listing-id> [...] [--apply]");
+  }
+  const shopId = await getShopId(config);
+  const targets = [];
+  for (const listingId of listingIds) {
+    const listing = await api(config, `/listings/${listingId}`);
+    if (listing.state !== "active") {
+      throw new Error(`Refusing to update listing ${listingId}: state is ${listing.state}, not active.`);
+    }
+    const inventory = await api(config, `/listings/${listingId}/inventory`);
+    const currentQuantities = [
+      ...new Set(
+        inventory.products.flatMap((product) =>
+          (product.offerings || []).map((offering) => offering.quantity),
+        ),
+      ),
+    ].sort((a, b) => a - b);
+    targets.push({ listing, inventory, currentQuantities });
+  }
+  const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+  const recordFile = join(
+    PRIVATE_DIR,
+    "dry-runs",
+    `quantity-${quantity}-${timestamp}-${apply ? "apply" : "dry-run"}.json`,
+  );
+  await writeJsonAtomic(recordFile, {
+    schema_version: 1,
+    created_at: new Date().toISOString(),
+    mode: apply ? "apply" : "dry-run",
+    target_quantity: quantity,
+    listings: targets.map(({ listing, inventory, currentQuantities }) => ({
+      listing_id: listing.listing_id,
+      title: listing.title,
+      state: listing.state,
+      shop_section_id: listing.shop_section_id,
+      products: inventory.products.length,
+      previous_listing_quantity: listing.quantity,
+      previous_offering_quantities: currentQuantities,
+      target_quantity: quantity,
+      url: listing.url,
+    })),
+  });
+  console.log(`${apply ? "Validated quantity update" : "Quantity dry run"}: ${quantity}`);
+  for (const { listing, inventory, currentQuantities } of targets) {
+    console.log(
+      `  ${listing.listing_id}: ${listing.title} ` +
+      `(${currentQuantities.join(",")} -> ${quantity}; ${inventory.products.length} products)`,
+    );
+  }
+  console.log(`Plan record: ${recordFile}`);
+  if (!apply) {
+    console.log("No Etsy data was changed. Add --apply to update these quantities.");
+    return;
+  }
+
+  for (const { listing, inventory } of targets) {
+    const beforeFile = join(BACKUP_DIR, `${listing.listing_id}-${timestamp}-before-quantity.json`);
+    await writeJsonAtomic(beforeFile, {
+      schema_version: 1,
+      fetched_at: new Date().toISOString(),
+      shop_id: shopId,
+      listing,
+      inventory,
+      target_quantity: quantity,
+    });
+    const payload = cloneInventoryPayload(inventory);
+    for (const product of payload.products) {
+      for (const offering of product.offerings) offering.quantity = quantity;
+    }
+    const currencyCode = inventory.products
+      .flatMap((product) => product.offerings || [])
+      .find((offering) => offering.price?.currency_code)?.price.currency_code;
+    if (!currencyCode) throw new Error(`Could not determine currency for listing ${listing.listing_id}.`);
+    const expectedInventory = expectedInventoryFromPayload(payload, currencyCode);
+    await api(config, `/listings/${listing.listing_id}/inventory`, {
+      method: "PUT",
+      body: payload,
+    });
+    const verifiedInventory = await api(config, `/listings/${listing.listing_id}/inventory`);
+    const verified = await api(config, `/listings/${listing.listing_id}`);
+    const afterFile = join(BACKUP_DIR, `${listing.listing_id}-${timestamp}-after-quantity.json`);
+    await writeJsonAtomic(afterFile, {
+      schema_version: 1,
+      fetched_at: new Date().toISOString(),
+      shop_id: shopId,
+      listing: verified,
+      inventory: verifiedInventory,
+      target_quantity: quantity,
+    });
+    if (JSON.stringify(canonicalInventory(verifiedInventory)) !== JSON.stringify(expectedInventory)) {
+      throw new Error(
+        `Etsy accepted listing ${listing.listing_id} but inventory read-back did not match. ` +
+          `Inspect ${beforeFile} and ${afterFile}.`,
+      );
+    }
+    for (const field of ["title", "description", "state", "taxonomy_id", "shipping_profile_id", "return_policy_id", "shop_section_id"]) {
+      if (JSON.stringify(verified[field]) !== JSON.stringify(listing[field])) {
+        throw new Error(`Unexpected ${field} change on listing ${listing.listing_id}. Inspect ${beforeFile} and ${afterFile}.`);
+      }
+    }
+    if (verified.quantity !== quantity) {
+      throw new Error(
+        `Inventory updated for ${listing.listing_id}, but listing read-back quantity is ${verified.quantity}. ` +
+          `Inspect ${beforeFile} and ${afterFile}.`,
+      );
+    }
+    console.log(`Verified ${listing.listing_id}: quantity ${quantity}.`);
+  }
+  console.log(`Updated and verified ${targets.length} listing(s).`);
 }
 
 async function commandBackup(config, listingId) {
@@ -392,6 +735,7 @@ async function commandAuditListing(config, listingId) {
     listing_id: listing.listing_id,
     state: listing.state,
     title: listing.title,
+    description: listing.description,
     quantity: listing.quantity,
     materials: listing.materials,
     images: (listing.images || []).map((image) => ({
@@ -413,6 +757,143 @@ async function commandAuditListing(config, listingId) {
       ),
     variation_images: variationImages.results || variationImages,
   }, null, 2));
+}
+
+function validateListingTitle(title) {
+  if (!title) throw new Error("Listing title must not be empty.");
+  if (title.length > 140) throw new Error(`Title is ${title.length} characters; Etsy allows 140.`);
+  const restrictedTitleChars = [...title].filter((character) => "%:&+".includes(character));
+  for (const character of new Set(restrictedTitleChars)) {
+    if (restrictedTitleChars.filter((value) => value === character).length > 1) {
+      throw new Error(`Title contains ${character} more than once.`);
+    }
+  }
+}
+
+function normalizeEtsyText(value) {
+  return String(value ?? "")
+    .replace(/&#(\d+);/g, (_match, decimal) => String.fromCodePoint(Number(decimal)))
+    .replace(/&#x([0-9a-f]+);/gi, (_match, hexadecimal) => String.fromCodePoint(Number.parseInt(hexadecimal, 16)))
+    .replaceAll("&quot;", '"')
+    .replaceAll("&apos;", "'")
+    .replaceAll("&lt;", "<")
+    .replaceAll("&gt;", ">")
+    .replaceAll("&amp;", "&");
+}
+
+async function commandUpdateTitle(config, args) {
+  const apply = args.includes("--apply");
+  const values = args.filter((value) => value !== "--apply");
+  const [listingId, newTitle] = values;
+  if (!/^\d+$/.test(listingId || "") || !newTitle) {
+    throw new Error('Usage: update-title <listing-id> "<new title>" [--apply]');
+  }
+  validateListingTitle(newTitle);
+
+  const shopId = await getShopId(config);
+  const listing = await api(config, `/listings/${listingId}`, { query: { includes: "Images" } });
+  const inventory = await api(config, `/listings/${listingId}/inventory`);
+  const propertiesResponse = await api(config, `/shops/${shopId}/listings/${listingId}/properties`);
+  const variationImagesResponse = await api(config, `/shops/${shopId}/listings/${listingId}/variation-images`);
+  const activeListings = await allShopListings(config, shopId, "active");
+  const draftListings = await allShopListings(config, shopId, "draft");
+  const duplicate = [...activeListings, ...draftListings].find(
+    (candidate) => String(candidate.listing_id) !== String(listingId) &&
+      candidate.title?.toLocaleLowerCase() === newTitle.toLocaleLowerCase(),
+  );
+  if (duplicate) {
+    throw new Error(`Another listing already uses this exact title: ${duplicate.listing_id} (${duplicate.state}).`);
+  }
+  if (listing.title === newTitle) throw new Error("The listing already has the requested title.");
+
+  const properties = propertiesResponse.results || propertiesResponse;
+  const variationImages = variationImagesResponse.results || variationImagesResponse;
+  const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+  const recordFile = join(PRIVATE_DIR, "listing-edits", `${listingId}-${timestamp}-title-${apply ? "apply" : "dry-run"}.json`);
+  await writeJsonAtomic(recordFile, {
+    schema_version: 1,
+    created_at: new Date().toISOString(),
+    mode: apply ? "apply" : "dry-run",
+    listing_id: Number(listingId),
+    state: listing.state,
+    old_title: listing.title,
+    new_title: newTitle,
+  });
+  console.log(`${apply ? "Validated title update" : "Title update dry run"}: ${listingId}`);
+  console.log(`  Before: ${listing.title}`);
+  console.log(`  After:  ${newTitle}`);
+  console.log(`Plan record: ${recordFile}`);
+  if (!apply) {
+    console.log("No Etsy data was changed. Add --apply to execute this exact title update.");
+    return;
+  }
+
+  const beforeFile = join(BACKUP_DIR, `${listingId}-${timestamp}-before-title-update.json`);
+  await writeJsonAtomic(beforeFile, {
+    schema_version: 1,
+    fetched_at: new Date().toISOString(),
+    shop_id: shopId,
+    listing,
+    inventory,
+    properties,
+    variation_images: variationImages,
+  });
+  await api(config, `/shops/${shopId}/listings/${listingId}`, {
+    method: "PATCH",
+    form: { title: newTitle },
+  });
+
+  const verifiedListing = await api(config, `/listings/${listingId}`, { query: { includes: "Images" } });
+  const verifiedInventory = await api(config, `/listings/${listingId}/inventory`);
+  const verifiedPropertiesResponse = await api(config, `/shops/${shopId}/listings/${listingId}/properties`);
+  const verifiedVariationImagesResponse = await api(config, `/shops/${shopId}/listings/${listingId}/variation-images`);
+  const verifiedProperties = verifiedPropertiesResponse.results || verifiedPropertiesResponse;
+  const verifiedVariationImages = verifiedVariationImagesResponse.results || verifiedVariationImagesResponse;
+  const errors = [];
+  if (verifiedListing.title !== newTitle) errors.push("title mismatch");
+  for (const field of [
+    "description", "state", "quantity", "taxonomy_id", "shipping_profile_id", "return_policy_id",
+    "shop_section_id", "who_made", "when_made", "materials", "tags", "readiness_state_id",
+    "should_auto_renew",
+  ]) {
+    if (JSON.stringify(verifiedListing[field]) !== JSON.stringify(listing[field])) {
+      errors.push(`unexpected ${field} change`);
+    }
+  }
+  const imageIds = (value) => [...(value.images || [])]
+    .sort((a, b) => a.rank - b.rank)
+    .map((image) => image.listing_image_id);
+  if (JSON.stringify(imageIds(verifiedListing)) !== JSON.stringify(imageIds(listing))) {
+    errors.push("unexpected image change");
+  }
+  if (JSON.stringify(canonicalInventory(verifiedInventory)) !== JSON.stringify(canonicalInventory(inventory))) {
+    errors.push("unexpected inventory change");
+  }
+  const canonicalList = (items) => [...items].sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));
+  if (JSON.stringify(canonicalList(verifiedProperties)) !== JSON.stringify(canonicalList(properties))) {
+    errors.push("unexpected structured-property change");
+  }
+  if (JSON.stringify(canonicalList(verifiedVariationImages)) !== JSON.stringify(canonicalList(variationImages))) {
+    errors.push("unexpected variation-image change");
+  }
+
+  const afterFile = join(BACKUP_DIR, `${listingId}-${timestamp}-after-title-update.json`);
+  await writeJsonAtomic(afterFile, {
+    schema_version: 1,
+    fetched_at: new Date().toISOString(),
+    shop_id: shopId,
+    listing: verifiedListing,
+    inventory: verifiedInventory,
+    properties: verifiedProperties,
+    variation_images: verifiedVariationImages,
+    errors,
+  });
+  if (errors.length) {
+    throw new Error(`Etsy accepted the title update but verification failed: ${errors.join(", ")}. Inspect ${afterFile}.`);
+  }
+  console.log("Title update succeeded; inventory, prices, quantities, images, properties, and variation mappings were unchanged.");
+  console.log(`Before backup: ${beforeFile}`);
+  console.log(`After backup: ${afterFile}`);
 }
 
 function inventoryPayload(inventory, propertyName, replacements) {
@@ -556,11 +1037,15 @@ function validateDraftPlan(plan) {
   if (!/^\d+$/.test(String(plan.template_listing_id))) {
     throw new Error("template_listing_id must be numeric.");
   }
-  if (plan.title.length > 140) throw new Error(`Title is ${plan.title.length} characters; Etsy allows 140.`);
-  const restrictedTitleChars = [...plan.title].filter((character) => "%:&+".includes(character));
-  for (const character of new Set(restrictedTitleChars)) {
-    if (restrictedTitleChars.filter((value) => value === character).length > 1) {
-      throw new Error(`Title contains ${character} more than once.`);
+  validateListingTitle(plan.title);
+  if (plan.pack_size_labels !== undefined) {
+    if (
+      !Array.isArray(plan.pack_size_labels) ||
+      plan.pack_size_labels.length !== 3 ||
+      new Set(plan.pack_size_labels).size !== 3 ||
+      plan.pack_size_labels.some((label) => typeof label !== "string" || !label.trim())
+    ) {
+      throw new Error("pack_size_labels must contain exactly three unique non-empty labels.");
     }
   }
   if (!Array.isArray(plan.tags) || plan.tags.length !== 13) {
@@ -636,8 +1121,13 @@ async function commandCreateDraft(config, args) {
       .filter((property) => property.property_name === "Pack size")
       .flatMap((property) => property.values),
   );
-  for (const expected of ["1 tank", "5 tanks", "10 tanks"]) {
+  const expectedPackLabels = plan.pack_size_labels || ["1 tank", "5 tanks", "10 tanks"];
+  for (const expected of expectedPackLabels) {
     if (!packLabels.has(expected)) throw new Error(`Template is missing pack label: ${expected}`);
+  }
+  const unexpectedPackLabels = [...packLabels].filter((label) => !expectedPackLabels.includes(label));
+  if (unexpectedPackLabels.length) {
+    throw new Error(`Template has unexpected pack labels: ${unexpectedPackLabels.join(", ")}`);
   }
 
   const inventoryPayload = cloneInventoryPayload(templateInventory);
@@ -677,6 +1167,7 @@ async function commandCreateDraft(config, args) {
     template_listing_id: Number(plan.template_listing_id),
     draft_form: form,
     inventory_summary: inventorySummary,
+    pack_size_labels: expectedPackLabels,
     image_count: plan.images.length,
     inventory_payload_sha256: createHash("sha256").update(JSON.stringify(inventoryPayload)).digest("hex"),
   };
@@ -687,6 +1178,7 @@ async function commandCreateDraft(config, args) {
   console.log(`${apply ? "Validated draft creation" : "Draft dry run"}: ${plan.title}`);
   console.log(`Template: ${templateListing.title} (${plan.template_listing_id})`);
   console.log(`Inventory: ${inventorySummary.products} products, ${inventorySummary.enabled_offerings} enabled offerings, ${inventorySummary.unique_prices} unique prices.`);
+  console.log(`Pack-size labels: ${expectedPackLabels.join(", ")}.`);
   console.log(`Images: ${plan.images.length}; tags: ${plan.tags.length}; initial price: ${minimumPrice.toFixed(2)} EUR.`);
   console.log(`Plan record: ${dryRunFile}`);
   if (!apply) {
@@ -733,7 +1225,9 @@ async function commandCreateDraft(config, args) {
   const errors = [];
   if (verifiedListing.state !== "draft") errors.push(`state is ${verifiedListing.state}, not draft`);
   if (verifiedListing.title !== plan.title) errors.push("title mismatch");
-  if (verifiedListing.description !== plan.description) errors.push("description mismatch");
+  if (normalizeEtsyText(verifiedListing.description) !== normalizeEtsyText(plan.description)) {
+    errors.push("description mismatch");
+  }
   if (JSON.stringify([...(verifiedListing.tags || [])].sort()) !== JSON.stringify([...plan.tags].sort())) errors.push("tag mismatch");
   if ((verifiedListing.images || []).length !== plan.images.length) errors.push(`image count is ${(verifiedListing.images || []).length}`);
   if (JSON.stringify(actualInventory) !== JSON.stringify(expectedInventory)) errors.push("inventory mismatch");
@@ -996,7 +1490,9 @@ async function commandCheckListing(config, args) {
 
   if (!['draft', 'active'].includes(listing.state)) errors.push(`unexpected state: ${listing.state}`);
   if (listing.title !== plan.title) errors.push("title mismatch");
-  if (listing.description !== plan.description) errors.push("description mismatch");
+  if (normalizeEtsyText(listing.description) !== normalizeEtsyText(plan.description)) {
+    errors.push("description mismatch");
+  }
   if (JSON.stringify([...(listing.tags || [])].sort()) !== JSON.stringify([...plan.tags].sort())) errors.push("tag mismatch");
   if (JSON.stringify(listing.materials || []) !== JSON.stringify(plan.materials || [])) errors.push("materials mismatch");
 
@@ -1085,10 +1581,131 @@ async function commandCheckListing(config, args) {
     quantity_per_offering: plan.quantity,
     variation_image_mappings: variationImages.length,
     errors,
-    note: "Etsy's 'How does your shop produce this item?' field is not exposed by Open API v3 and is not checked.",
+    note:
+      "Etsy's production-method and tools-used fields are not exposed by Open API v3. " +
+      "Manually select 'It's made from scratch', Handheld tools, and Computerized tools; " +
+      "leave AI generator and None unchecked.",
   };
   console.log(JSON.stringify(summary, null, 2));
   if (errors.length) throw new Error(`Listing sanity check failed with ${errors.length} issue(s).`);
+}
+
+async function commandSetVariationImages(config, args) {
+  const apply = args.includes("--apply");
+  const values = args.filter((value) => value !== "--apply");
+  const [listingId, mappingPath] = values;
+  if (!/^\d+$/.test(listingId || "") || !mappingPath) {
+    throw new Error("Usage: set-variation-images <listing-id> <mapping.json> [--apply]");
+  }
+  const mapping = await readJson(resolve(ROOT, mappingPath));
+  if (!mapping.property_name || !mapping.values || typeof mapping.values !== "object") {
+    throw new Error("Variation-image mapping requires property_name and values.");
+  }
+
+  const shopId = await getShopId(config);
+  const listing = await api(config, `/listings/${listingId}`, { query: { includes: "Images" } });
+  const inventory = await api(config, `/listings/${listingId}/inventory`);
+  const currentResponse = await api(config, `/shops/${shopId}/listings/${listingId}/variation-images`);
+  const currentVariationImages = currentResponse.results || currentResponse;
+  const imagesByRank = new Map((listing.images || []).map((image) => [image.rank, image]));
+  const propertyValues = inventory.products
+    .flatMap((product) => product.property_values)
+    .filter((property) => property.property_name === mapping.property_name)
+    .map((property) => ({
+      property_id: property.property_id,
+      value_id: property.value_ids?.[0],
+      value: property.values?.[0],
+    }))
+    .filter((value, index, all) =>
+      value.value_id && all.findIndex((candidate) => candidate.value_id === value.value_id) === index,
+    );
+  if (!propertyValues.length) throw new Error(`Variation property not found: ${mapping.property_name}`);
+  if (new Set(propertyValues.map((value) => value.property_id)).size !== 1) {
+    throw new Error("Variation values span more than one property ID.");
+  }
+  const actualValueNames = [...propertyValues.map((value) => value.value)].sort();
+  const mappedValueNames = [...Object.keys(mapping.values)].sort();
+  if (JSON.stringify(actualValueNames) !== JSON.stringify(mappedValueNames)) {
+    throw new Error(
+      `Mapping values do not exactly match Etsy. Etsy: ${actualValueNames.join(" | ")}. ` +
+      `Mapping: ${mappedValueNames.join(" | ")}.`,
+    );
+  }
+
+  const targetVariationImages = propertyValues.map((property) => {
+    const rank = Number(mapping.values[property.value]);
+    const image = imagesByRank.get(rank);
+    if (!Number.isInteger(rank) || !image) {
+      throw new Error(`Invalid image rank for ${property.value}: ${mapping.values[property.value]}`);
+    }
+    return {
+      property_id: property.property_id,
+      value_id: property.value_id,
+      image_id: image.listing_image_id,
+      value: property.value,
+      image_rank: rank,
+    };
+  });
+  const canonical = (items) => items
+    .map((item) => ({ property_id: item.property_id, value_id: item.value_id, image_id: item.image_id }))
+    .sort((a, b) => a.value_id - b.value_id);
+
+  const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+  const recordFile = join(PRIVATE_DIR, "dry-runs", `${listingId}-${timestamp}-variation-images-${apply ? "apply" : "dry-run"}.json`);
+  await writeJsonAtomic(recordFile, {
+    schema_version: 1,
+    created_at: new Date().toISOString(),
+    mode: apply ? "apply" : "dry-run",
+    listing_id: Number(listingId),
+    state: listing.state,
+    property_name: mapping.property_name,
+    previous: currentVariationImages,
+    target: targetVariationImages,
+  });
+  console.log(`${apply ? "Validated variation-image update" : "Variation-image dry run"}: ${listing.title} (${listingId})`);
+  for (const item of targetVariationImages.sort((a, b) => a.image_rank - b.image_rank)) {
+    console.log(`  ${item.value} -> image rank ${item.image_rank} (${item.image_id})`);
+  }
+  console.log(`Plan record: ${recordFile}`);
+  if (!apply) {
+    console.log("No Etsy data was changed. Add --apply to set these variation pictures.");
+    return;
+  }
+
+  const beforeFile = join(BACKUP_DIR, `${listingId}-${timestamp}-before-variation-images.json`);
+  await writeJsonAtomic(beforeFile, {
+    schema_version: 1,
+    fetched_at: new Date().toISOString(),
+    shop_id: shopId,
+    listing,
+    inventory,
+    variation_images: currentVariationImages,
+  });
+  await api(config, `/shops/${shopId}/listings/${listingId}/variation-images`, {
+    method: "POST",
+    body: {
+      variation_images: targetVariationImages.map(({ property_id, value_id, image_id }) => ({
+        property_id,
+        value_id,
+        image_id,
+      })),
+    },
+  });
+  const verifiedResponse = await api(config, `/shops/${shopId}/listings/${listingId}/variation-images`);
+  const verified = verifiedResponse.results || verifiedResponse;
+  const afterFile = join(BACKUP_DIR, `${listingId}-${timestamp}-after-variation-images.json`);
+  await writeJsonAtomic(afterFile, {
+    schema_version: 1,
+    fetched_at: new Date().toISOString(),
+    listing_id: Number(listingId),
+    variation_images: verified,
+  });
+  if (JSON.stringify(canonical(verified)) !== JSON.stringify(canonical(targetVariationImages))) {
+    throw new Error(`Etsy accepted the update but verification failed. Inspect ${beforeFile} and ${afterFile}.`);
+  }
+  console.log("Variation pictures updated successfully and all mappings matched on read-back.");
+  console.log(`Before backup: ${beforeFile}`);
+  console.log(`After backup: ${afterFile}`);
 }
 
 async function commandRenameValues(config, args) {
@@ -1196,10 +1813,16 @@ Usage:
   node scripts/etsy/etsy-api.mjs ping
   node scripts/etsy/etsy-api.mjs auth
   node scripts/etsy/etsy-api.mjs check
+  node scripts/etsy/etsy-api.mjs sections
   node scripts/etsy/etsy-api.mjs listings [active|inactive|sold_out|draft|expired]
+  node scripts/etsy/etsy-api.mjs audit-processing [active|inactive|sold_out|draft|expired]
+  node scripts/etsy/etsy-api.mjs set-processing-profile <profile-id> <listing-id> [...] [--apply]
+  node scripts/etsy/etsy-api.mjs set-quantity <quantity> <listing-id> [...] [--apply]
   node scripts/etsy/etsy-api.mjs backup <listing-id>
   node scripts/etsy/etsy-api.mjs audit-listing <listing-id>
+  node scripts/etsy/etsy-api.mjs update-title <listing-id> "<new title>" [--apply]
   node scripts/etsy/etsy-api.mjs check-listing <listing-id> <plan.json>
+  node scripts/etsy/etsy-api.mjs set-variation-images <listing-id> <mapping.json> [--apply]
   node scripts/etsy/etsy-api.mjs rename-values <listing-id> "<property>" "old=new" [...] [--apply]
   node scripts/etsy/etsy-api.mjs create-draft <plan.json> [--apply]
   node scripts/etsy/etsy-api.mjs create-complete-draft <plan.json> [--apply]
@@ -1218,10 +1841,16 @@ async function main() {
   if (command === "ping") return commandPing(config);
   if (command === "auth") return commandAuth(config);
   if (command === "check") return commandCheck(config);
+  if (command === "sections") return commandSections(config);
   if (command === "listings") return commandListings(config, args[0]);
+  if (command === "audit-processing") return commandAuditProcessing(config, args[0]);
+  if (command === "set-processing-profile") return commandSetProcessingProfile(config, args);
+  if (command === "set-quantity") return commandSetQuantity(config, args);
   if (command === "backup") return commandBackup(config, args[0]);
   if (command === "audit-listing") return commandAuditListing(config, args[0]);
+  if (command === "update-title") return commandUpdateTitle(config, args);
   if (command === "check-listing") return commandCheckListing(config, args);
+  if (command === "set-variation-images") return commandSetVariationImages(config, args);
   if (command === "rename-values") return commandRenameValues(config, args);
   if (command === "create-draft") return commandCreateDraft(config, args);
   if (command === "create-complete-draft") return commandCreateCompleteDraft(config, args);
