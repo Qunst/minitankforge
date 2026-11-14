@@ -63,7 +63,8 @@ function isCannonProduct(tank) {
 
 function getTankUnitName(tank) {
   if (typeof tank?.packUnit === 'string' && tank.packUnit.trim()) return tank.packUnit.trim();
-  return isCannonProduct(tank) ? 'cannon' : 'vehicle';
+  if (isCannonProduct(tank)) return 'cannon';
+  return /\btank(?: destroyer)?$/i.test(tank?.type || '') ? 'tank' : 'vehicle';
 }
 
 function getTankPackLabel(quantity, tank = null) {
@@ -1008,6 +1009,8 @@ function bindTankDetailGallery(root = document) {
 
 function buildTankCard(tank) {
   const detailUrl = getTankDetailUrl(tank);
+  const unitName = getTankUnitName(tank);
+  const viewLabel = `View ${unitName.charAt(0).toUpperCase()}${unitName.slice(1)}`;
 
   return `
     <article class="card product-card">
@@ -1020,7 +1023,7 @@ function buildTankCard(tank) {
         <div class="tank-card-price">${getTankPriceRange(tank)}</div>
         <p class="muted fun-fact">${tank.fact}</p>
       </div>
-      <a class="btn btn-primary" data-scale-link="${detailUrl}" href="${detailUrl}">View Tank</a>
+      <a class="btn btn-primary" data-scale-link="${detailUrl}" href="${detailUrl}">${viewLabel}</a>
     </article>
   `;
 }

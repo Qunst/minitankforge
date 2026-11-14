@@ -7,7 +7,7 @@ const siteUrl = 'https://minitankforge.com';
 const today = new Date().toISOString().slice(0, 10);
 const assetVersions = Object.freeze({
   styles: 33,
-  app: 66,
+  app: 69,
   tanks: 41,
   sets: 23,
 });
@@ -982,6 +982,12 @@ function renderTankCatalogTags(tank) {
 
 function renderTankCatalogCard(tank, data) {
   const detailUrl = `/tanks/${encodeURIComponent(tank.slug)}/`;
+  const unitName = typeof tank.packUnit === 'string' && tank.packUnit.trim()
+    ? tank.packUnit.trim()
+    : (['Anti-tank gun', 'Artillery'].includes(tank.type)
+      ? 'cannon'
+      : (/\btank(?: destroyer)?$/i.test(tank.type || '') ? 'tank' : 'vehicle'));
+  const viewLabel = `View ${unitName.charAt(0).toUpperCase()}${unitName.slice(1)}`;
   const image = tank.image
     ? `<div class="product-image "><img src="${escapeHtml(rootRelativeUrl(tank.image))}" width="1600" height="900" alt="${escapeHtml(tankImageAlt(tank, 'product card photo'))}" loading="lazy" decoding="async"></div>`
     : `<div class="product-image tank-placeholder"><div class="tank tank-lg"></div></div>`;
@@ -996,7 +1002,7 @@ function renderTankCatalogCard(tank, data) {
         <div class="tank-card-price">${escapeHtml(tankCatalogPriceSummary(tankPrices(tank, data.scales, data.finishes)))}</div>
         <p class="muted fun-fact">${escapeHtml(tank.fact)}</p>
       </div>
-      <a class="btn btn-primary" data-scale-link="${detailUrl}" href="${detailUrl}">View Tank</a>
+      <a class="btn btn-primary" data-scale-link="${detailUrl}" href="${detailUrl}">${escapeHtml(viewLabel)}</a>
     </article>`;
 }
 
