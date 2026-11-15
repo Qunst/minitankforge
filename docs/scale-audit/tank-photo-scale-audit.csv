@@ -49,7 +49,7 @@ m10-achilles,"M10 Achilles (17-pounder SP Achilles)",UK,"Tank destroyer","",,597
 m13-40,"M13/40 (Carro Armato M13/40)",Italy,"Medium tank","",,4920,assets/img/tanks/m13-40-base-coat-side-detail.jpg,true
 m14-41,"M14/41 (Carro Armato M14/41)",Italy,"Medium tank","",,4920,assets/img/tanks/m14-41-base-coat-side-detail.jpg,true
 m3-half-track,"M3 Half-track (M3 Half-track)",USA,"Half-track","",,6180,assets/img/tanks/m3-half-truck-base-coat-side-detail.jpg,true
-opel-blitz,"Opel Blitz Truck (Opel Blitz 3-ton Truck)",Germany,"Truck","",,6100,assets/img/tanks/opel-blitz-base-coat-side-detail.jpg,true
+opel-blitz,"Opel Maultier (Sd.Kfz. 3 Half-Track Truck)",Germany,"Half-track truck","",,6100,assets/img/tanks/opel-blitz-base-coat-side-detail.jpg,true
 m60a1,"M60A1 (M60A1 Patton)",USA,"Main battle tank","",,6950,assets/img/tanks/m60a1-base-coat-side-detail.jpg,true
 m7-priest,"M7 Priest (105 mm Howitzer Motor Carriage M7)",USA,"Self-propelled artillery","",,6020,assets/img/tanks/m7-priest-base-coat-side-detail.jpg,true
 m8-greyhound,"M8 Greyhound (Light Armored Car M8)",USA,"Armored car","",,5000,assets/img/tanks/m8-greyhound-base-coat-side-detail.jpg,true
@@ -110,3 +110,17 @@ semovente-m42-75-18,"Semovente M42 75/18 (Semovente da 75/18 M42)",Italy,"Self-p
 qf-6-pounder,"QF 6-pounder (Ordnance QF 6-pounder 7 cwt)",UK,"Anti-tank gun","",5000,7500,assets/img/tanks/qf-6-pounder-base-coat-side-detail.jpg,true
 type-1-47mm-at-gun,"Type 1 47 mm Anti-Tank Gun",Japan,"Anti-tank gun","",4546,6116,assets/img/tanks/type-1-47mm-at-gun-base-coat-side-detail.jpg,true
 type-45-240mm-howitzer,"Type 45 240 mm Howitzer",Japan,"Artillery","",4338,8162,assets/img/tanks/type-45-240mm-howitzer-base-coat-side-detail.jpg,true
+o-i,"O-I (Japanese Super-Heavy Tank O-I)",Japan,"Super heavy tank","Prototype / unfinished project",,,assets/img/tanks/o-i-base-coat-side-detail.jpg,true
+t-44,"T-44 (Soviet Medium Tank T-44)",USSR,"Medium tank","",,,assets/img/tanks/t-44-base-coat-side-detail.jpg,true
+tog-ii,"TOG II* (Tank Heavy TOG II*)",UK,"Super heavy tank","Prototype",,,assets/img/tanks/tog-ii-base-coat-side-detail.jpg,true
+tiger-p,"Tiger (P) (VK 45.01 (P))",Germany,"Heavy tank","Prototype",,,assets/img/tanks/tiger-p-base-coat-side-detail.jpg,true
+arl-44,"ARL 44 (Char de Transition ARL 44)",France,"Heavy tank","",,,assets/img/tanks/arl-44-base-coat-side-detail.jpg,true
+sd-kfz-251-1-ausf-d,"Sd.Kfz. 251/1 Ausf. D",Germany,"Armored personnel carrier","",,,assets/img/tanks/sd-kfz-251-1-ausf-d-base-coat-side-detail.jpg,true
+opel-blitz-wheeled,"Opel Blitz 3.6-36S (Wheeled Truck)",Germany,"Truck","",,,assets/img/tanks/opel-blitz-wheeled-base-coat-side-detail.jpg,true
+sd-kfz-252,"Sd.Kfz. 252 (Leichte Gepanzerte Munitionskraftwagen)",Germany,"Armored ammunition carrier","",,,assets/img/tanks/sd-kfz-252-base-coat-side-detail.jpg,true
+sd-kfz-253,"Sd.Kfz. 253 (Leichte Gepanzerte Beobachtungskraftwagen)",Germany,"Armored observation vehicle","",,,assets/img/tanks/sd-kfz-253-base-coat-side-detail.jpg,true
+universal-carrier,"Universal Carrier (Bren Carrier)",UK,"Tracked utility vehicle","",,,assets/img/tanks/universal-carrier-base-coat-side-detail.jpg,true
+m12-gmc,"M12 Gun Motor Carriage",USA,"Self-propelled gun","",,,assets/img/tanks/m12-gmc-base-coat-side-detail.jpg,true
+sd-kfz-250-1-ausf-a,"Sd.Kfz. 250/1 Ausf. A",Germany,"Armored personnel carrier","",,,assets/img/tanks/sd-kfz-250-1-ausf-a-base-coat-side-detail.jpg,true
+m30-cargo-carrier,"M30 Cargo Carrier (M12 Ammunition Carrier)",USA,"Ammunition carrier","",,,assets/img/tanks/m30-cargo-carrier-base-coat-side-detail.jpg,true
+sd-kfz-222,"Sd.Kfz. 222 (Leichter Panzerspaehwagen)",Germany,"Armored car","",1950,4800,assets/img/tanks/sd-kfz-222-base-coat-side-detail.jpg,true

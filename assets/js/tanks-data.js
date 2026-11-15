@@ -3304,5 +3304,32 @@ window.TANKS = [
     fact: 'The M30 carried ammunition and gun crews for the M12, using a closely related chassis with cargo stowage in place of the 155 mm gun.',
     description: 'The M30 Cargo Carrier is an American tracked ammunition-carrier miniature for M12 batteries, logistics columns, resupply objectives, and late-war support formations. Its shared chassis makes it an ideal companion to the M12 while its open cargo arrangement clearly identifies its support role.',
     compatibility: 'Compact hex-based tabletop play',
+  },
+  {
+    slug: 'sd-kfz-222',
+    name: 'Sd.Kfz. 222 (Leichter Panzerspaehwagen)',
+    nation: 'Germany',
+    era: 'WW2',
+    type: 'Armored car',
+    featured: false,
+    disabled: false,
+    placeholderStyle: 'light-small',
+    image: 'assets/img/tanks/sd-kfz-222-base-coat-side-detail.jpg',
+    etsyUrl: 'https://www.etsy.com/listing/4617782674',
+    scalePrices: {
+      '1:160': 3.5,
+      '1:180': 3.5,
+      '1:200': 3.0,
+      '1:250': 2.5,
+      '1:285': 2.5
+    },
+    finishSurcharges: {
+      'Base coat': 1.0,
+      'Unpainted': 0.0
+    },
+    siteTags: ['Reconnaissance', 'Early war'],
+    fact: 'The Sd.Kfz. 222 combined a four-wheel-drive armored chassis with an open-topped turret carrying a 20 mm autocannon and coaxial machine gun.',
+    description: 'The Sd.Kfz. 222 is a compact German armored-car miniature for reconnaissance patrols, screening forces, road columns, and early-to-mid-war scenarios. Television fans may also recognize it as Lt. Gruber’s beloved “little tank” driven by Clarence, from ’Allo ’Allo! Its angular hull, four-wheel layout, and small open turret give it a distinctive silhouette beside larger half-tracks and eight-wheeled armored cars.',
+    compatibility: 'Compact hex-based tabletop play',
   }
 ];

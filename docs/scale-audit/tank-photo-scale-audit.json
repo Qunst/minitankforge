@@ -551,9 +551,9 @@
   },
   {
     "slug": "opel-blitz",
-    "name": "Opel Blitz Truck (Opel Blitz 3-ton Truck)",
+    "name": "Opel Maultier (Sd.Kfz. 3 Half-Track Truck)",
     "nation": "Germany",
-    "type": "Truck",
+    "type": "Half-track truck",
     "status": "",
     "image": "assets/img/tanks/opel-blitz-base-coat-side-detail.jpg",
     "vehicleWidthMm": null,
@@ -1218,6 +1218,160 @@
     "image": "assets/img/tanks/type-45-240mm-howitzer-base-coat-side-detail.jpg",
     "vehicleWidthMm": 4338,
     "bodyLengthMm": 8162,
+    "imageExists": true
+  },
+  {
+    "slug": "o-i",
+    "name": "O-I (Japanese Super-Heavy Tank O-I)",
+    "nation": "Japan",
+    "type": "Super heavy tank",
+    "status": "Prototype / unfinished project",
+    "image": "assets/img/tanks/o-i-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
+    "bodyLengthMm": null,
+    "imageExists": true
+  },
+  {
+    "slug": "t-44",
+    "name": "T-44 (Soviet Medium Tank T-44)",
+    "nation": "USSR",
+    "type": "Medium tank",
+    "status": "",
+    "image": "assets/img/tanks/t-44-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
+    "bodyLengthMm": null,
+    "imageExists": true
+  },
+  {
+    "slug": "tog-ii",
+    "name": "TOG II* (Tank Heavy TOG II*)",
+    "nation": "UK",
+    "type": "Super heavy tank",
+    "status": "Prototype",
+    "image": "assets/img/tanks/tog-ii-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
+    "bodyLengthMm": null,
+    "imageExists": true
+  },
+  {
+    "slug": "tiger-p",
+    "name": "Tiger (P) (VK 45.01 (P))",
+    "nation": "Germany",
+    "type": "Heavy tank",
+    "status": "Prototype",
+    "image": "assets/img/tanks/tiger-p-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
+    "bodyLengthMm": null,
+    "imageExists": true
+  },
+  {
+    "slug": "arl-44",
+    "name": "ARL 44 (Char de Transition ARL 44)",
+    "nation": "France",
+    "type": "Heavy tank",
+    "status": "",
+    "image": "assets/img/tanks/arl-44-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
+    "bodyLengthMm": null,
+    "imageExists": true
+  },
+  {
+    "slug": "sd-kfz-251-1-ausf-d",
+    "name": "Sd.Kfz. 251/1 Ausf. D",
+    "nation": "Germany",
+    "type": "Armored personnel carrier",
+    "status": "",
+    "image": "assets/img/tanks/sd-kfz-251-1-ausf-d-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
+    "bodyLengthMm": null,
+    "imageExists": true
+  },
+  {
+    "slug": "opel-blitz-wheeled",
+    "name": "Opel Blitz 3.6-36S (Wheeled Truck)",
+    "nation": "Germany",
+    "type": "Truck",
+    "status": "",
+    "image": "assets/img/tanks/opel-blitz-wheeled-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
+    "bodyLengthMm": null,
+    "imageExists": true
+  },
+  {
+    "slug": "sd-kfz-252",
+    "name": "Sd.Kfz. 252 (Leichte Gepanzerte Munitionskraftwagen)",
+    "nation": "Germany",
+    "type": "Armored ammunition carrier",
+    "status": "",
+    "image": "assets/img/tanks/sd-kfz-252-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
+    "bodyLengthMm": null,
+    "imageExists": true
+  },
+  {
+    "slug": "sd-kfz-253",
+    "name": "Sd.Kfz. 253 (Leichte Gepanzerte Beobachtungskraftwagen)",
+    "nation": "Germany",
+    "type": "Armored observation vehicle",
+    "status": "",
+    "image": "assets/img/tanks/sd-kfz-253-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
+    "bodyLengthMm": null,
+    "imageExists": true
+  },
+  {
+    "slug": "universal-carrier",
+    "name": "Universal Carrier (Bren Carrier)",
+    "nation": "UK",
+    "type": "Tracked utility vehicle",
+    "status": "",
+    "image": "assets/img/tanks/universal-carrier-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
+    "bodyLengthMm": null,
+    "imageExists": true
+  },
+  {
+    "slug": "m12-gmc",
+    "name": "M12 Gun Motor Carriage",
+    "nation": "USA",
+    "type": "Self-propelled gun",
+    "status": "",
+    "image": "assets/img/tanks/m12-gmc-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
+    "bodyLengthMm": null,
+    "imageExists": true
+  },
+  {
+    "slug": "sd-kfz-250-1-ausf-a",
+    "name": "Sd.Kfz. 250/1 Ausf. A",
+    "nation": "Germany",
+    "type": "Armored personnel carrier",
+    "status": "",
+    "image": "assets/img/tanks/sd-kfz-250-1-ausf-a-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
+    "bodyLengthMm": null,
+    "imageExists": true
+  },
+  {
+    "slug": "m30-cargo-carrier",
+    "name": "M30 Cargo Carrier (M12 Ammunition Carrier)",
+    "nation": "USA",
+    "type": "Ammunition carrier",
+    "status": "",
+    "image": "assets/img/tanks/m30-cargo-carrier-base-coat-side-detail.jpg",
+    "vehicleWidthMm": null,
+    "bodyLengthMm": null,
+    "imageExists": true
+  },
+  {
+    "slug": "sd-kfz-222",
+    "name": "Sd.Kfz. 222 (Leichter Panzerspaehwagen)",
+    "nation": "Germany",
+    "type": "Armored car",
+    "status": "",
+    "image": "assets/img/tanks/sd-kfz-222-base-coat-side-detail.jpg",
+    "vehicleWidthMm": 1950,
+    "bodyLengthMm": 4800,
     "imageExists": true
   }
 ]

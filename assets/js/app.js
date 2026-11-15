@@ -861,6 +861,7 @@ const tankDetailPhotoKeys = {
   'sd-kfz-251-1-ausf-d': 'sd-kfz-251-1-ausf-d',
   'sd-kfz-252': 'sd-kfz-252',
   'sd-kfz-253': 'sd-kfz-253',
+  'sd-kfz-222': 'sd-kfz-222',
   'sd-kfz-234': 'sdkfz-234',
   'semovente-m42-75-18': 'semovente-m42-75-18',
   'sherman-firefly': 'sherman-firefly',

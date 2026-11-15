@@ -42,6 +42,7 @@ const vehicleWidths = {
   'somua-s35': 2120,
   'somua-s40': 2120,
   'char-b1-bis': 2500,
+  'sd-kfz-222': 1950,
   // The QF 6-pounder miniature is permanently mounted on a 30 x 20 mm scenic
   // base. Use that complete product footprint as the photo-scale authority.
   'qf-6-pounder': 5000,
@@ -93,6 +94,7 @@ const bodyLengths = {
   pershing: 6330,
   'sherman-firefly': 5840,
   'stug-iii': 5900,
+  'sd-kfz-222': 4800,
   'sd-kfz-234': 5860,
   't-28': 7440,
   't-34': 6100,
