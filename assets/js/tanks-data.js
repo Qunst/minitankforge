@@ -95,7 +95,7 @@ window.TANKS = [
       'Unpainted': 0.0
     },
     fact: 'The T-34/85 added a larger turret and 85 mm gun, giving the classic Soviet medium tank a stronger late-war presence.',
-    description: 'The T-34/85 is a late-war Soviet medium tank miniature with the familiar T-34 hull and a stronger 85 mm gun turret. It is one of the best choices for Eastern Front tabletop forces, Soviet spearheads, Berlin-era scenarios, and collections that need a recognizable Red Army workhorse.',
+    description: 'The T-34/85 is a late-war Soviet medium tank miniature with the familiar T-34 hull and a stronger 85 mm gun turret. It is one of the best choices for Eastern Front tabletop forces, Soviet spearheads, Berlin-era scenarios, and collections that need a recognizable Red Army workhorse. Film fans may also recognize the T-34/85 as the escape tank at the center of the 2018 action film T-34.',
     compatibility: 'Compact hex-based tabletop play',
   },
   {
@@ -121,7 +121,7 @@ window.TANKS = [
       'Unpainted': 0.0
     },
     fact: 'The Tiger I became one of WW2\'s most feared heavy tanks, with a reputation far larger than its production numbers.',
-    description: 'The Tiger I is a centerpiece German heavy tank for WW2 miniature collections, with enough visual weight to stand out even in small scales. It works especially well as a scenario objective, elite armor threat, or dramatic opponent for Sherman, T-34, and tank destroyer forces.',
+    description: 'The Tiger I is a centerpiece German heavy tank for WW2 miniature collections, with enough visual weight to stand out even in small scales. It works especially well as a scenario objective, elite armor threat, or dramatic opponent for Sherman, T-34, and tank destroyer forces. Film fans may also recognize the Tiger I from Fury, in which the genuine Tiger 131 appeared opposite the film\'s Sherman crew.',
     compatibility: 'Compact hex-based tabletop play',
   },
   {
@@ -569,7 +569,7 @@ window.TANKS = [
       'Unpainted': 0.0
     },
     fact: 'The M3 Lee\'s tall hull and side-mounted main gun give it one of the strangest, most distinctive Allied tank profiles.',
-    description: 'The M3 Lee adds an unusual Allied medium tank profile with its side-mounted main gun and tall superstructure. It is a strong pick for early-war, North Africa, lend-lease, or transitional force collections where visual variety is part of the appeal.',
+    description: 'The M3 Lee adds an unusual Allied medium tank profile with its side-mounted main gun and tall superstructure. It is a strong pick for early-war, North Africa, lend-lease, or transitional force collections where visual variety is part of the appeal. Film fans may also recognize the M3 Lee as Lulubelle, the tank at the center of the classic 1943 war film Sahara.',
     compatibility: 'Compact hex-based tabletop play',
   },
   {
@@ -1378,7 +1378,7 @@ window.TANKS = [
       'Unpainted': 0.0
     },
     fact: 'The M60A1 introduced a redesigned turret and became a long-serving Cold War main battle tank.',
-    description: 'The M60A1 brings the catalog into Cold War armor with a recognizable American main battle tank profile. It is useful for players who want post-war scenarios, modernizing USA forces, or a heavier vehicle that visually differs from WW2 designs.',
+    description: 'The M60A1 brings the catalog into Cold War armor with a recognizable American main battle tank profile. It is useful for players who want post-war scenarios, modernizing USA forces, or a heavier vehicle that visually differs from WW2 designs. Television fans may also recognize the M60A1 as the tank driven by Mitch during the Governor\'s assault on the prison in The Walking Dead.',
     compatibility: 'Compact hex-based tabletop play',
   },
   {
@@ -2759,7 +2759,7 @@ window.TANKS = [
     },
     siteTags: ['Iconic', 'Late war', 'Game-famous'],
     fact: 'The Easy Eight combined the M4A3(76)W Sherman with horizontal volute spring suspension, wider tracks, and the long 76 mm gun.',
-    description: 'The Sherman Easy Eight is a late-war American medium tank miniature for Germany 1945, Korean War, and veteran armored formations. Its wider HVSS running gear and long 76 mm gun distinguish it from the standard M4A3 and heavily armored Jumbo while keeping the familiar Sherman family shape.',
+    description: 'The Sherman Easy Eight is a late-war American medium tank miniature for Germany 1945, Korean War, and veteran armored formations. Its wider HVSS running gear and long 76 mm gun distinguish it from the standard M4A3 and heavily armored Jumbo while keeping the familiar Sherman family shape. Film fans may also recognize the M4A3E8 as the tank type portrayed by Fury in the 2014 film Fury.',
     etsyUrl: 'https://www.etsy.com/listing/4594821798',
     compatibility: 'Compact hex-based tabletop play',
   },

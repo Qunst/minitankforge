@@ -8,7 +8,7 @@ const today = new Date().toISOString().slice(0, 10);
 const assetVersions = Object.freeze({
   styles: 33,
   app: 70,
-  tanks: 42,
+  tanks: 43,
   sets: 23,
 });
 const tankBrowsePopularityOrder = [
