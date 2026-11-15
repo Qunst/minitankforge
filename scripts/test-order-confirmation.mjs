@@ -10,9 +10,14 @@ const validPayload = {
   requestId: 'MTF-20261011-A1B2C',
   name: 'Test Customer',
   email: 'customer@example.com',
+  addressLine1: '12 Test Street',
+  addressLine2: 'Apartment 3',
+  city: 'Zagreb',
+  region: 'City of Zagreb',
   country: 'Croatia',
+  postalCode: '10000',
   estimatedSubtotal: '€25.00',
-  message: 'New MiniTankForge order request\nRequest ID: MTF-20261011-A1B2C\n\n1. Tiger I',
+  message: 'New MiniTankForge order request\nRequest ID: MTF-20261011-A1B2C\n\nSHIPPING ADDRESS\nStreet address: 12 Test Street\nApartment / unit: Apartment 3\nCity / town: Zagreb\nState / province / region: City of Zagreb\nPostal / ZIP code: 10000\nCountry: Croatia\n\n1. Tiger I',
   website: '',
 };
 
@@ -58,6 +63,7 @@ try {
   assert.equal(sentEmail.reply_to, 'quali3dprint@gmail.com');
   assert.match(sentEmail.subject, /MTF-20261011-A1B2C/);
   assert.match(sentEmail.text, /No payment has been taken/);
+  assert.match(sentEmail.text, /12 Test Street/);
 
   const crossOriginResponse = await handleOrderConfirmation({
     request: makeRequest(validPayload, 'https://example.org'),
@@ -71,6 +77,13 @@ try {
     env,
   });
   assert.equal(invalidResponse.status, 400);
+  assert.equal(calls.length, 1);
+
+  const missingAddressResponse = await handleOrderConfirmation({
+    request: makeRequest({ ...validPayload, addressLine1: '' }),
+    env,
+  });
+  assert.equal(missingAddressResponse.status, 400);
   assert.equal(calls.length, 1);
 
   const missingSecretResponse = await handleOrderConfirmation({

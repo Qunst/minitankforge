@@ -135,12 +135,31 @@ export async function handleOrderConfirmation(context) {
 
   const name = normalizeField(body.name, 120);
   const email = normalizeField(body.email, 254).toLowerCase();
+  const addressLine1 = normalizeField(body.addressLine1, 180);
+  const addressLine2 = normalizeField(body.addressLine2, 180);
+  const city = normalizeField(body.city, 120);
+  const region = normalizeField(body.region, 120);
   const country = normalizeField(body.country, 120);
+  const postalCode = normalizeField(body.postalCode, 32);
   const requestId = normalizeField(body.requestId, 32).toUpperCase();
   const estimatedSubtotal = normalizeField(body.estimatedSubtotal, 40);
   const message = normalizeField(body.message, 12000);
 
-  if (!name || !EMAIL_PATTERN.test(email) || !country || !REQUEST_ID_PATTERN.test(requestId) || !estimatedSubtotal || !message.includes(requestId)) {
+  if (!name
+    || !EMAIL_PATTERN.test(email)
+    || !addressLine1
+    || !city
+    || !postalCode
+    || !country
+    || !REQUEST_ID_PATTERN.test(requestId)
+    || !estimatedSubtotal
+    || !message.includes(requestId)
+    || !message.includes(addressLine1)
+    || (addressLine2 && !message.includes(addressLine2))
+    || !message.includes(city)
+    || (region && !message.includes(region))
+    || !message.includes(postalCode)
+    || !message.includes(country)) {
     return json({ error: 'The confirmation details are incomplete or invalid.' }, { status: 400 });
   }
 

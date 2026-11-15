@@ -19,10 +19,10 @@
   <meta name="twitter:title" content="Request Basket | MiniTankForge" />
   <meta name="twitter:description" content="Review selected MiniTankForge tanks and sets, then send a non-binding order request." />
   <meta name="twitter:image" content="https://minitankforge.com/assets/img/hero-painted-real-desktop.webp?v=1" />
-  <link href="/assets/css/styles.css?v=33" rel="stylesheet" />
+  <link href="/assets/css/styles.css?v=35" rel="stylesheet" />
   <script defer src="/assets/js/tanks-data.js?v=43"></script>
   <script defer src="/assets/js/sets-data.js?v=23"></script>
-  <script defer src="/assets/js/app.js?v=70"></script>
+  <script defer src="/assets/js/app.js?v=71"></script>
 </head>
 <body>
   <header class="topbar">
@@ -52,9 +52,20 @@
     <section class="hero-small">
       <div class="eyebrow">Build a request</div>
       <h1 class="page-title">Request Basket</h1>
-      <p class="lead">Review the exact models, scales, finishes, and pack options you want. Sending this basket does not take payment or create a confirmed order.</p>
-      <div class="callout">
-        I will confirm availability, production time, shipping, and the final total by email. After confirmation, payment can be completed by PayPal invoice or bank transfer.
+      <p class="lead">Choose the models and options you want, then send them together as one clear order request.</p>
+      <div class="basket-purpose-grid" aria-label="How the Request Basket works">
+        <div class="basket-purpose-item">
+          <span class="basket-purpose-number" aria-hidden="true">1</span>
+          <div><strong>Send a request</strong><span>Your selected models, quantities, scales, and finishes are sent to me.</span></div>
+        </div>
+        <div class="basket-purpose-item basket-purpose-item-important">
+          <span class="basket-purpose-number" aria-hidden="true">2</span>
+          <div><strong>No payment now</strong><span>Sending the basket does not charge you or confirm an order.</span></div>
+        </div>
+        <div class="basket-purpose-item">
+          <span class="basket-purpose-number" aria-hidden="true">3</span>
+          <div><strong>Confirm, then pay</strong><span>I email shipping and the final total first. Pay later by PayPal invoice or bank transfer.</span></div>
+        </div>
       </div>
     </section>
 
@@ -71,37 +82,66 @@
         <p class="basket-summary-note">Prices are the product prices shown on MiniTankForge. No tax or Etsy fees are added here. Shipping is not included and will be confirmed by email.</p>
 
         <form class="request-basket-form" action="https://formspree.io/f/mpqkrvqk" data-request-basket-form method="POST">
-          <div>
-            <label for="basket-name">Name</label>
-            <input id="basket-name" name="name" autocomplete="name" required />
-          </div>
-          <div>
-            <label for="basket-email">Email</label>
-            <input id="basket-email" name="email" autocomplete="email" type="email" required />
-          </div>
-          <div class="form-grid">
+          <fieldset class="basket-form-section">
+            <legend>Contact details</legend>
             <div>
-              <label for="basket-country">Country</label>
-              <input id="basket-country" name="country" autocomplete="country-name" required />
+              <label for="basket-name">Full name / recipient name</label>
+              <input id="basket-name" name="name" autocomplete="name" required />
             </div>
             <div>
-              <label for="basket-postal-code">Postal code <span class="muted">(if used)</span></label>
-              <input id="basket-postal-code" name="postalCode" autocomplete="postal-code" />
+              <label for="basket-email">Email</label>
+              <input id="basket-email" name="email" autocomplete="email" type="email" required />
             </div>
-          </div>
-          <div>
-            <label for="basket-deadline">Requested deadline <span class="muted">(optional)</span></label>
-            <input id="basket-deadline" name="deadline" placeholder="Example: Needed before 15 December" />
-          </div>
-          <div>
-            <label for="basket-notes">Notes <span class="muted">(optional)</span></label>
-            <textarea id="basket-notes" name="notes" placeholder="Different base coat color, delivery question, or anything else I should know."></textarea>
-          </div>
+          </fieldset>
+
+          <fieldset class="basket-form-section">
+            <legend>Shipping address</legend>
+            <div>
+              <label for="basket-address-line-1">Street address</label>
+              <input id="basket-address-line-1" name="addressLine1" autocomplete="address-line1" required />
+            </div>
+            <div>
+              <label for="basket-address-line-2">Apartment, suite, unit, etc. <span class="muted">(optional)</span></label>
+              <input id="basket-address-line-2" name="addressLine2" autocomplete="address-line2" />
+            </div>
+            <div class="form-grid">
+              <div>
+                <label for="basket-city">City / town</label>
+                <input id="basket-city" name="city" autocomplete="address-level2" required />
+              </div>
+              <div>
+                <label for="basket-region">State / province / region <span class="muted">(optional)</span></label>
+                <input id="basket-region" name="region" autocomplete="address-level1" />
+              </div>
+            </div>
+            <div class="form-grid">
+              <div>
+                <label for="basket-postal-code">Postal / ZIP code</label>
+                <input id="basket-postal-code" name="postalCode" autocomplete="postal-code" required />
+              </div>
+              <div>
+                <label for="basket-country">Country</label>
+                <input id="basket-country" name="country" autocomplete="country-name" required />
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="basket-form-section">
+            <legend>Additional details</legend>
+            <div>
+              <label for="basket-deadline">Requested deadline <span class="muted">(optional)</span></label>
+              <input id="basket-deadline" name="deadline" placeholder="Example: Needed before 15 December" />
+            </div>
+            <div>
+              <label for="basket-notes">Notes <span class="muted">(optional)</span></label>
+              <textarea id="basket-notes" name="notes" placeholder="Different base coat color, delivery question, or anything else I should know."></textarea>
+            </div>
+          </fieldset>
           <div class="hp-field" aria-hidden="true">
             <label for="basket-website">Website</label>
             <input id="basket-website" name="website" autocomplete="off" tabindex="-1" type="text" />
           </div>
-          <p class="privacy-note">MiniTankForge uses these details only to review, answer, and fulfil your request. Your basket remains in this browser until it is successfully sent or cleared.</p>
+          <p class="privacy-note">MiniTankForge uses your contact and shipping details only to review, quote, answer, and fulfil your request. Your basket remains in this browser until it is successfully sent or cleared.</p>
           <button class="btn btn-primary" data-request-basket-submit type="submit">Send Order Request</button>
           <a class="btn" data-request-basket-mailto href="mailto:quali3dprint@gmail.com?subject=MiniTankForge%20order%20request">Open Email Instead</a>
         </form>

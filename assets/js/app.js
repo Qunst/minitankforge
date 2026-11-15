@@ -3176,6 +3176,10 @@ function createRequestBasketId() {
 function buildRequestBasketMessage(items, formData, requestId) {
   const name = String(formData.get('name') || '').trim();
   const email = String(formData.get('email') || '').trim();
+  const addressLine1 = String(formData.get('addressLine1') || '').trim();
+  const addressLine2 = String(formData.get('addressLine2') || '').trim();
+  const city = String(formData.get('city') || '').trim();
+  const region = String(formData.get('region') || '').trim();
   const country = String(formData.get('country') || '').trim();
   const postalCode = String(formData.get('postalCode') || '').trim();
   const deadline = String(formData.get('deadline') || '').trim();
@@ -3187,8 +3191,16 @@ function buildRequestBasketMessage(items, formData, requestId) {
     '',
     `Customer: ${name}`,
     `Email: ${email}`,
+    '',
+    'SHIPPING ADDRESS',
+    `Recipient: ${name}`,
+    `Street address: ${addressLine1}`,
+    `Apartment / unit: ${addressLine2 || 'Not provided'}`,
+    `City / town: ${city}`,
+    `State / province / region: ${region || 'Not provided'}`,
+    `Postal / ZIP code: ${postalCode}`,
     `Country: ${country}`,
-    `Postal code: ${postalCode || 'Not provided'}`,
+    '',
     `Requested deadline: ${deadline || 'Not provided'}`,
     '',
     'REQUESTED ITEMS',
@@ -3267,7 +3279,12 @@ function initRequestBasketPage() {
     const formData = new FormData(form);
     const name = String(formData.get('name') || '').trim();
     const email = String(formData.get('email') || '').trim();
+    const addressLine1 = String(formData.get('addressLine1') || '').trim();
+    const addressLine2 = String(formData.get('addressLine2') || '').trim();
+    const city = String(formData.get('city') || '').trim();
+    const region = String(formData.get('region') || '').trim();
     const country = String(formData.get('country') || '').trim();
+    const postalCode = String(formData.get('postalCode') || '').trim();
     const website = String(formData.get('website') || '').trim();
     const statusElement = document.querySelector('[data-request-basket-status]');
     const submitButton = form.querySelector('[data-request-basket-submit]');
@@ -3286,8 +3303,8 @@ function initRequestBasketPage() {
       return;
     }
 
-    if (!name || !email || !country) {
-      setRequestStatus(statusElement, 'error', 'Please provide your name, email, and country.');
+    if (!name || !email || !addressLine1 || !city || !postalCode || !country) {
+      setRequestStatus(statusElement, 'error', 'Please provide your name, email, and complete shipping address.');
       return;
     }
 
@@ -3306,8 +3323,12 @@ function initRequestBasketPage() {
       requestId,
       name,
       email,
+      addressLine1,
+      addressLine2,
+      city,
+      region,
       country,
-      postalCode: String(formData.get('postalCode') || '').trim(),
+      postalCode,
       deadline: String(formData.get('deadline') || '').trim(),
       estimatedSubtotal: formatPrice(subtotal),
       shipping: 'Not included; confirm by email.',

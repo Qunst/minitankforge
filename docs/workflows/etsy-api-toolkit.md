@@ -171,6 +171,19 @@ node scripts/etsy/etsy-api.mjs update-title LISTING_ID "Corrected title"
 node scripts/etsy/etsy-api.mjs update-title LISTING_ID "Corrected title" --apply
 ```
 
+### Guarded description append
+
+Use this command when an existing listing needs one additional paragraph or sentence
+without replacing its established Etsy description. It saves the complete listing and
+inventory, performs a dry run, appends the supplied text after a blank line, and verifies
+that the title, prices, quantities, images, attributes, and variation mappings remain
+unchanged:
+
+```powershell
+node scripts/etsy/etsy-api.mjs append-description LISTING_ID "Additional sentence."
+node scripts/etsy/etsy-api.mjs append-description LISTING_ID "Additional sentence." --apply
+```
+
 ### Manual Etsy review and publication
 
 Open the returned Etsy editor link and review the listing. Open API v3 cannot set or

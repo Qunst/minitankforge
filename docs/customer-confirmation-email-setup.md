@@ -1,6 +1,6 @@
 # Customer confirmation email setup
 
-The request basket continues sending the owner notification through Formspree. After Formspree accepts it, the browser calls the same-site `/api/order-confirmation` Worker route. That route sends the customer a fixed MiniTankForge confirmation through Resend. A Resend failure never retries the Formspree submission, so it cannot duplicate the owner's order notification.
+The request basket continues sending the owner notification through Formspree, including the customer's complete shipping address. After Formspree accepts it, the browser calls the same-site `/api/order-confirmation` Worker route. That route validates the required address fields and sends the customer a fixed MiniTankForge confirmation through Resend. A Resend failure never retries the Formspree submission, so it cannot duplicate the owner's order notification.
 
 ## One-time Resend setup
 

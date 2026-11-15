@@ -896,6 +896,122 @@ async function commandUpdateTitle(config, args) {
   console.log(`After backup: ${afterFile}`);
 }
 
+async function commandAppendDescription(config, args) {
+  const apply = args.includes("--apply");
+  const values = args.filter((value) => value !== "--apply");
+  const [listingId, suffix] = values;
+  if (!/^\d+$/.test(listingId || "") || !suffix?.trim()) {
+    throw new Error('Usage: append-description <listing-id> "<text to append>" [--apply]');
+  }
+
+  const shopId = await getShopId(config);
+  const listing = await api(config, `/listings/${listingId}`, { query: { includes: "Images" } });
+  const inventory = await api(config, `/listings/${listingId}/inventory`);
+  const propertiesResponse = await api(config, `/shops/${shopId}/listings/${listingId}/properties`);
+  const variationImagesResponse = await api(config, `/shops/${shopId}/listings/${listingId}/variation-images`);
+  const normalizedSuffix = normalizeEtsyText(suffix.trim());
+  if (normalizeEtsyText(listing.description).includes(normalizedSuffix)) {
+    throw new Error("The listing description already contains the requested text.");
+  }
+
+  const newDescription = `${listing.description.trimEnd()}\n\n${suffix.trim()}`;
+  const properties = propertiesResponse.results || propertiesResponse;
+  const variationImages = variationImagesResponse.results || variationImagesResponse;
+  const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+  const recordFile = join(
+    PRIVATE_DIR,
+    "listing-edits",
+    `${listingId}-${timestamp}-description-${apply ? "apply" : "dry-run"}.json`,
+  );
+  await writeJsonAtomic(recordFile, {
+    schema_version: 1,
+    created_at: new Date().toISOString(),
+    mode: apply ? "apply" : "dry-run",
+    listing_id: Number(listingId),
+    state: listing.state,
+    old_description_length: listing.description.length,
+    appended_text: suffix.trim(),
+    new_description_length: newDescription.length,
+  });
+  console.log(`${apply ? "Validated description append" : "Description append dry run"}: ${listingId}`);
+  console.log(`  Listing: ${listing.title}`);
+  console.log(`  Append:  ${suffix.trim()}`);
+  console.log(`Plan record: ${recordFile}`);
+  if (!apply) {
+    console.log("No Etsy data was changed. Add --apply to append this exact text.");
+    return;
+  }
+
+  const beforeFile = join(BACKUP_DIR, `${listingId}-${timestamp}-before-description-update.json`);
+  await writeJsonAtomic(beforeFile, {
+    schema_version: 1,
+    fetched_at: new Date().toISOString(),
+    shop_id: shopId,
+    listing,
+    inventory,
+    properties,
+    variation_images: variationImages,
+  });
+  await api(config, `/shops/${shopId}/listings/${listingId}`, {
+    method: "PATCH",
+    form: { description: newDescription },
+  });
+
+  const verifiedListing = await api(config, `/listings/${listingId}`, { query: { includes: "Images" } });
+  const verifiedInventory = await api(config, `/listings/${listingId}/inventory`);
+  const verifiedPropertiesResponse = await api(config, `/shops/${shopId}/listings/${listingId}/properties`);
+  const verifiedVariationImagesResponse = await api(config, `/shops/${shopId}/listings/${listingId}/variation-images`);
+  const verifiedProperties = verifiedPropertiesResponse.results || verifiedPropertiesResponse;
+  const verifiedVariationImages = verifiedVariationImagesResponse.results || verifiedVariationImagesResponse;
+  const errors = [];
+  if (normalizeEtsyText(verifiedListing.description) !== normalizeEtsyText(newDescription)) {
+    errors.push("description mismatch");
+  }
+  for (const field of [
+    "title", "state", "quantity", "taxonomy_id", "shipping_profile_id", "return_policy_id",
+    "shop_section_id", "who_made", "when_made", "materials", "tags", "readiness_state_id",
+    "should_auto_renew",
+  ]) {
+    if (JSON.stringify(verifiedListing[field]) !== JSON.stringify(listing[field])) {
+      errors.push(`unexpected ${field} change`);
+    }
+  }
+  const imageIds = (value) => [...(value.images || [])]
+    .sort((a, b) => a.rank - b.rank)
+    .map((image) => image.listing_image_id);
+  if (JSON.stringify(imageIds(verifiedListing)) !== JSON.stringify(imageIds(listing))) {
+    errors.push("unexpected image change");
+  }
+  if (JSON.stringify(canonicalInventory(verifiedInventory)) !== JSON.stringify(canonicalInventory(inventory))) {
+    errors.push("unexpected inventory change");
+  }
+  const canonicalList = (items) => [...items].sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));
+  if (JSON.stringify(canonicalList(verifiedProperties)) !== JSON.stringify(canonicalList(properties))) {
+    errors.push("unexpected structured-property change");
+  }
+  if (JSON.stringify(canonicalList(verifiedVariationImages)) !== JSON.stringify(canonicalList(variationImages))) {
+    errors.push("unexpected variation-image change");
+  }
+
+  const afterFile = join(BACKUP_DIR, `${listingId}-${timestamp}-after-description-update.json`);
+  await writeJsonAtomic(afterFile, {
+    schema_version: 1,
+    fetched_at: new Date().toISOString(),
+    shop_id: shopId,
+    listing: verifiedListing,
+    inventory: verifiedInventory,
+    properties: verifiedProperties,
+    variation_images: verifiedVariationImages,
+    errors,
+  });
+  if (errors.length) {
+    throw new Error(`Etsy accepted the description update but verification failed: ${errors.join(", ")}. Inspect ${afterFile}.`);
+  }
+  console.log("Description update succeeded; title, inventory, prices, quantities, images, properties, and variation mappings were unchanged.");
+  console.log(`Before backup: ${beforeFile}`);
+  console.log(`After backup: ${afterFile}`);
+}
+
 function inventoryPayload(inventory, propertyName, replacements) {
   const replacementCounts = new Map([...replacements.keys()].map((value) => [value, 0]));
   const products = inventory.products.map((product) => ({
@@ -1821,6 +1937,7 @@ Usage:
   node scripts/etsy/etsy-api.mjs backup <listing-id>
   node scripts/etsy/etsy-api.mjs audit-listing <listing-id>
   node scripts/etsy/etsy-api.mjs update-title <listing-id> "<new title>" [--apply]
+  node scripts/etsy/etsy-api.mjs append-description <listing-id> "<text to append>" [--apply]
   node scripts/etsy/etsy-api.mjs check-listing <listing-id> <plan.json>
   node scripts/etsy/etsy-api.mjs set-variation-images <listing-id> <mapping.json> [--apply]
   node scripts/etsy/etsy-api.mjs rename-values <listing-id> "<property>" "old=new" [...] [--apply]
@@ -1849,6 +1966,7 @@ async function main() {
   if (command === "backup") return commandBackup(config, args[0]);
   if (command === "audit-listing") return commandAuditListing(config, args[0]);
   if (command === "update-title") return commandUpdateTitle(config, args);
+  if (command === "append-description") return commandAppendDescription(config, args);
   if (command === "check-listing") return commandCheckListing(config, args);
   if (command === "set-variation-images") return commandSetVariationImages(config, args);
   if (command === "rename-values") return commandRenameValues(config, args);
