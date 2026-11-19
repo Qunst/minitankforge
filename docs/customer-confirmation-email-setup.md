@@ -1,6 +1,6 @@
-# Customer confirmation email setup
+# Direct requests and order email
 
-The request basket continues sending the owner notification through Formspree, including the customer's complete shipping address. After Formspree accepts it, the browser calls the same-site `/api/order-confirmation` Worker route. That route validates the required address fields and sends the customer a fixed MiniTankForge confirmation through Resend. A Resend failure never retries the Formspree submission, so it cannot duplicate the owner's order notification.
+Requests & Questions posts to `/api/requests`. The Request Basket posts to `/api/order-requests`. The Worker saves the submission and its email jobs together in the private `minitankforge-requests` D1 database before showing the visitor a request reference. Resend sends the owner email with the visitor's email as Reply-To. Basket customers also receive their own confirmation with the selected items and shipping address.
 
 ## One-time Resend setup
 
@@ -20,11 +20,11 @@ Wrangler prompts for the value privately. The non-secret sender settings are alr
 - From: `MiniTankForge <orders@mail.minitankforge.com>`
 - Reply-To: `quali3dprint@gmail.com`
 
-After the domain is verified and the secret exists, deploy normally with Wrangler. The Worker serves `/api/order-confirmation`; all regular site files continue to use Cloudflare static assets.
+Before the first deploy, run `npx wrangler d1 migrations apply REQUESTS_DB --remote`. Wrangler generates the server catalog from the existing site data and pricing rules as part of its build.
 
 ## Local validation
 
-Copy `.dev.vars.example` to `.dev.vars`, replace the placeholder with a Resend test key, and run the site through `wrangler dev`. `.dev.vars` is ignored by Git.
+Use `npx wrangler d1 migrations apply REQUESTS_DB --local` and `npx wrangler dev` to exercise the forms locally. With no Resend key configured, local requests are saved and email jobs remain pending. Use the mocked tests below to exercise email success and failure without sending real mail.
 
 The handler's unit checks do not send real email:
 
@@ -35,6 +35,26 @@ npm run test:order-confirmation
 ## Operational notes
 
 - The API key is server-side only and should remain a sending-only, domain-restricted key.
-- Resend idempotency prevents the same request ID from generating duplicate confirmation emails for 24 hours.
-- The endpoint only accepts same-origin JSON requests and validates field sizes, email format, and MiniTankForge request IDs.
-- If automated abuse reaches the endpoint despite these checks, add Cloudflare Turnstile or a rate-limit rule before increasing Resend quotas.
+- The Worker attempts email delivery after saving. A scheduled job checks every five minutes and retries pending messages at least ten minutes after the previous attempt. Jobs stop after six attempts or twenty hours. A stable Resend idempotency key deduplicates each email during that window.
+- To recover a submission, open Cloudflare → **D1** → **minitankforge-requests** → **Console** and look up its reference, or list the most recent requests. Keep customer details within your account.
+
+```sql
+SELECT request_id, kind, subject, datetime(created_at, 'unixepoch') AS received_utc
+FROM requests ORDER BY created_at DESC LIMIT 20;
+
+SELECT details FROM requests WHERE request_id = 'REPLACE-WITH-REQUEST-ID';
+
+SELECT request_id, audience, attempts, last_error
+FROM request_notifications WHERE accepted_at IS NULL
+ORDER BY next_attempt_at DESC LIMIT 20;
+```
+
+An accepted timestamp means Resend accepted the email for delivery. Check the Resend Logs for delivery or bounce status using the stored provider ID.
+
+## Workbench import
+
+The protected GET endpoint at /api/workbench/orders reads saved basket orders in database sequence. It requires the Worker secret WORKBENCH_IMPORT_TOKEN. The same private token and endpoint URL are configured in Workshop/.etsy-private/shop-workbench/site-orders.json on the shop PC. Keep this file private.
+
+Workbench checks at startup and every minute while its server runs. Orders arrive in Drafts with payment set to Waiting for payment. Structured payloads preserve the basket selections and shipping fields. Earlier records use the saved server-generated summary. A failed import retries automatically and keeps its last committed cursor.
+
+Deleting an order requires confirmation. Workbench remembers its ID locally so future imports skip it. The site database retains its saved requests after import or local deletion.

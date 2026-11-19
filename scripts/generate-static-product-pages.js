@@ -7,9 +7,9 @@ const siteUrl = 'https://minitankforge.com';
 const today = new Date().toISOString().slice(0, 10);
 const assetVersions = Object.freeze({
   styles: 33,
-  app: 70,
+  app: 72,
   tanks: 43,
-  sets: 23,
+  sets: 24,
 });
 const tankBrowsePopularityOrder = [
   'sherman-m4a3',
@@ -748,6 +748,7 @@ const setContentTankAliases = {
   'maus': 'maus',
   'nashorn': 'nashorn',
   'opel blitz': 'opel-blitz',
+  'opel maultier': 'opel-blitz',
   'opel blitz truck': 'opel-blitz',
   'panther': 'panther',
   'panzer iii': 'panzer-iii',

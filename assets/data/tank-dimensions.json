@@ -76,11 +76,29 @@
       "width": 17.794,
       "height": 17
     },
+    "churchill-vii": {
+      "sourceScale": 250,
+      "length": 29.88,
+      "width": 13.42,
+      "height": 9.975
+    },
+    "comet": {
+      "sourceScale": 250,
+      "length": 31.351,
+      "width": 12,
+      "height": 10.937
+    },
     "cromwell": {
       "sourceScale": 250,
       "length": 25.151,
       "width": 11.6,
       "height": 9.366
+    },
+    "crusader-mk-iii": {
+      "sourceScale": 250,
+      "length": 25.007,
+      "width": 11.1,
+      "height": 9.434
     },
     "e-100": {
       "sourceScale": 250,
@@ -256,6 +274,12 @@
       "width": 12.2,
       "height": 10.177
     },
+    "m12-gmc": {
+      "sourceScale": 250,
+      "length": 28.104,
+      "width": 10.67,
+      "height": 8.909
+    },
     "m13-40": {
       "sourceScale": 250,
       "length": 19.571,
@@ -291,6 +315,18 @@
       "length": 22.788,
       "width": 11,
       "height": 11.379
+    },
+    "m30-cargo-carrier": {
+      "sourceScale": 250,
+      "length": 23.816,
+      "width": 10.67,
+      "height": 10.498
+    },
+    "m36-jackson": {
+      "sourceScale": 250,
+      "length": 31.286,
+      "width": 12.19,
+      "height": 10.68
     },
     "m5a1-stuart": {
       "sourceScale": 250,
@@ -345,6 +381,12 @@
       "length": 24.080,
       "width": 9.059,
       "height": 8.85
+    },
+    "opel-blitz-wheeled": {
+      "sourceScale": 250,
+      "length": 24.53,
+      "width": 9.1,
+      "height": 8.729
     },
     "o-i": {
       "sourceScale": 250,
@@ -412,6 +454,12 @@
       "width": 20,
       "height": 7
     },
+    "renault-r35": {
+      "sourceScale": 250,
+      "length": 16.49,
+      "width": 7.5,
+      "height": 8.477
+    },
     "sd-kfz-222": {
       "sourceScale": 250,
       "length": 19.2,
@@ -423,6 +471,42 @@
       "length": 26.133,
       "width": 9,
       "height": 8.989
+    },
+    "sd-kfz-250-1-ausf-a": {
+      "sourceScale": 250,
+      "length": 18.889,
+      "width": 7.8,
+      "height": 6.527
+    },
+    "sd-kfz-251-1-ausf-d": {
+      "sourceScale": 250,
+      "length": 23.242,
+      "width": 8.4,
+      "height": 8.366
+    },
+    "sd-kfz-252": {
+      "sourceScale": 250,
+      "length": 18.631,
+      "width": 7.8,
+      "height": 6.948
+    },
+    "sd-kfz-253": {
+      "sourceScale": 250,
+      "length": 18.631,
+      "width": 7.8,
+      "height": 6.752
+    },
+    "semovente-m42-75-18": {
+      "sourceScale": 250,
+      "length": 19.919,
+      "width": 9.12,
+      "height": 7.24
+    },
+    "sherman-easy-eight": {
+      "sourceScale": 250,
+      "length": 29.624,
+      "width": 12.017,
+      "height": 12.568
     },
     "sherman-firefly": {
       "sourceScale": 250,
@@ -651,6 +735,12 @@
       "length": 22.15,
       "width": 9.36,
       "height": 10.084
+    },
+    "universal-carrier": {
+      "sourceScale": 250,
+      "length": 13.866,
+      "width": 8.23,
+      "height": 5.541
     },
     "valentine": {
       "sourceScale": 250,

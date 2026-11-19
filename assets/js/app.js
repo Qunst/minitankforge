@@ -3158,19 +3158,11 @@ function renderRequestBasketPage() {
   return items;
 }
 
-function createRequestBasketId() {
+function createRequestBasketId(prefix = 'MTF') {
   const date = new Date().toISOString().slice(0, 10).replaceAll('-', '');
-  let suffix = '';
-
-  try {
-    const values = new Uint32Array(1);
-    crypto.getRandomValues(values);
-    suffix = values[0].toString(36).slice(-5).toUpperCase().padStart(5, '0');
-  } catch {
-    suffix = Math.random().toString(36).slice(2, 7).toUpperCase().padEnd(5, '0');
-  }
-
-  return `MTF-${date}-${suffix}`;
+  const suffix = Array.from(crypto.getRandomValues(new Uint8Array(6)), byte =>
+    byte.toString(16).padStart(2, '0')).join('').toUpperCase();
+  return `${prefix}-${date}-${suffix}`;
 }
 
 function buildRequestBasketMessage(items, formData, requestId) {
@@ -3264,6 +3256,8 @@ function syncRequestBasketMailto() {
 function initRequestBasketPage() {
   const form = document.querySelector('[data-request-basket-form]');
   if (!form) return;
+  let lastAttempt;
+  let sending = false;
 
   renderRequestBasketPage();
   form.dataset.requestId = createRequestBasketId();
@@ -3274,29 +3268,19 @@ function initRequestBasketPage() {
 
   form.addEventListener('submit', async event => {
     event.preventDefault();
+    if (sending) return;
 
     const items = getHydratedRequestBasket();
     const formData = new FormData(form);
     const name = String(formData.get('name') || '').trim();
     const email = String(formData.get('email') || '').trim();
     const addressLine1 = String(formData.get('addressLine1') || '').trim();
-    const addressLine2 = String(formData.get('addressLine2') || '').trim();
     const city = String(formData.get('city') || '').trim();
-    const region = String(formData.get('region') || '').trim();
     const country = String(formData.get('country') || '').trim();
     const postalCode = String(formData.get('postalCode') || '').trim();
-    const website = String(formData.get('website') || '').trim();
     const statusElement = document.querySelector('[data-request-basket-status]');
     const submitButton = form.querySelector('[data-request-basket-submit]');
     const endpoint = form.getAttribute('action') || '';
-
-    if (website) {
-      writeRequestBasket([]);
-      form.hidden = true;
-      renderRequestBasketPage();
-      setRequestStatus(statusElement, 'success', 'Your request was sent. I will confirm the details by email.');
-      return;
-    }
 
     if (!items.length) {
       setRequestStatus(statusElement, 'error', 'Add at least one tank or set before sending your request.');
@@ -3313,30 +3297,20 @@ function initRequestBasketPage() {
       return;
     }
 
-    const requestId = form.dataset.requestId || createRequestBasketId();
-    const subtotal = items.reduce((sum, item) => sum + item.lineTotal, 0);
-    const subject = `MiniTankForge order request ${requestId} from ${name}`;
-    const message = buildRequestBasketMessage(items, formData, requestId);
     const payload = {
-      subject,
-      requestType: 'Request Basket',
-      requestId,
-      name,
-      email,
-      addressLine1,
-      addressLine2,
-      city,
-      region,
-      country,
-      postalCode,
-      deadline: String(formData.get('deadline') || '').trim(),
-      estimatedSubtotal: formatPrice(subtotal),
-      shipping: 'Not included; confirm by email.',
-      payment: 'PayPal invoice or bank transfer after confirmation.',
-      message,
-      website,
+      ...Object.fromEntries(formData),
+      items: items.map(({ key, quantity }) => ({ key, quantity })),
     };
+    const fingerprint = JSON.stringify(payload);
+    if (lastAttempt && fingerprint !== lastAttempt) {
+      form.dataset.requestId = createRequestBasketId();
+      syncRequestBasketMailto();
+    }
+    lastAttempt = fingerprint;
+    const requestId = form.dataset.requestId;
+    payload.requestId = requestId;
 
+    sending = true;
     if (submitButton) submitButton.disabled = true;
     setRequestStatus(statusElement, 'pending', 'Sending your order request...');
 
@@ -3351,43 +3325,21 @@ function initRequestBasketPage() {
       });
       const responsePayload = await response.json().catch(() => ({}));
 
-      if (!response.ok) {
-        throw new Error(responsePayload.errors?.[0]?.message || responsePayload.error || 'The request could not be sent. Please use the email option instead.');
-      }
-
-      let confirmationSent = false;
-      const confirmationController = new AbortController();
-      const confirmationTimeout = window.setTimeout(() => confirmationController.abort(), 12000);
-
-      try {
-        const confirmationResponse = await fetch('/api/order-confirmation', {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(payload),
-          signal: confirmationController.signal,
-        });
-        const confirmationPayload = await confirmationResponse.json().catch(() => ({}));
-        confirmationSent = confirmationResponse.ok && confirmationPayload.confirmationSent === true;
-      } catch {
-        confirmationSent = false;
-      } finally {
-        window.clearTimeout(confirmationTimeout);
+      if (!response.ok || responsePayload.saved !== true || responsePayload.requestId !== requestId) {
+        throw new Error(responsePayload.error || 'Saving could not be confirmed. Please try again with the same details.');
       }
 
       writeRequestBasket([]);
       form.reset();
       form.hidden = true;
       renderRequestBasketPage();
-      const successMessage = confirmationSent
-        ? `Request ${requestId} was sent. A confirmation email was sent to ${email}. I will follow up with shipping, production time, and the final total.`
-        : `Request ${requestId} was sent, but the automatic confirmation email could not be sent. Please save this request ID; I will still follow up with the full details by email.`;
+      const successMessage = `Request ${requestId} was saved. A confirmation is queued for ${email}. Keep this reference. I will follow up with shipping, production time, and the final total.`;
       setRequestStatus(statusElement, 'success', successMessage);
     } catch (error) {
       setRequestStatus(statusElement, 'error', error.message || 'The request could not be sent. Please use the email option instead.');
       if (submitButton) submitButton.disabled = false;
+    } finally {
+      sending = false;
     }
   });
 }
@@ -3435,6 +3387,10 @@ function initTankRequestForm() {
   const mailtoLink = form.querySelector('[data-request-mailto]');
   const statusElement = form.querySelector('[data-request-status]');
   const submitButton = form.querySelector('[data-request-submit]');
+  let lastAttempt;
+  let requestId;
+  let sending = false;
+  if (submitButton) submitButton.disabled = false;
 
   function syncMailtoLink() {
     if (!mailtoLink) return;
@@ -3449,24 +3405,18 @@ function initTankRequestForm() {
 
   form.addEventListener('submit', async event => {
     event.preventDefault();
+    if (sending) return;
 
     const formData = new FormData(form);
     const requestTopic = (formData.get('requestTopic') || formData.get('tankName') || '').toString().trim();
     const website = (formData.get('website') || '').toString().trim();
-
-    if (website) {
-      form.reset();
-      syncMailtoLink();
-      setRequestStatus(statusElement, 'success', 'Your request was sent. I will get back to you by email.');
-      return;
-    }
 
     const jsonPayload = {
       requestTopic,
       email: (formData.get('email') || '').toString().trim(),
       reference: (formData.get('reference') || '').toString().trim(),
       details: (formData.get('details') || '').toString().trim(),
-      _subject: (formData.get('_subject') || '').toString().trim(),
+      website,
     };
 
     if (!jsonPayload.requestTopic || !jsonPayload.email || !jsonPayload.details) {
@@ -3479,6 +3429,12 @@ function initTankRequestForm() {
       return;
     }
 
+    const fingerprint = JSON.stringify(jsonPayload);
+    if (fingerprint !== lastAttempt) requestId = createRequestBasketId('MTF-Q');
+    lastAttempt = fingerprint;
+    jsonPayload.requestId = requestId;
+
+    sending = true;
     if (submitButton) submitButton.disabled = true;
     setRequestStatus(statusElement, 'pending', 'Sending your request...');
 
@@ -3494,16 +3450,18 @@ function initTankRequestForm() {
 
       const payload = await response.json().catch(() => ({}));
 
-      if (!response.ok) {
-        throw new Error(payload.errors?.[0]?.message || payload.error || 'Request could not be sent right now. Please use the email option instead.');
+      if (!response.ok || payload.saved !== true || payload.requestId !== requestId) {
+        throw new Error(payload.error || 'Saving could not be confirmed. Please try again with the same details.');
       }
 
       form.reset();
       syncMailtoLink();
-      setRequestStatus(statusElement, 'success', 'Your request was sent. I will get back to you by email.');
+      setRequestStatus(statusElement, 'success', `Request ${requestId} was saved. I will get back to you by email.`);
+      lastAttempt = undefined;
     } catch (error) {
       setRequestStatus(statusElement, 'error', error.message || 'Request could not be sent right now. Please use the email option instead.');
     } finally {
+      sending = false;
       if (submitButton) submitButton.disabled = false;
     }
   });

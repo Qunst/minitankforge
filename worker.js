@@ -1,4 +1,6 @@
-import { handleOrderConfirmation } from './functions/api/order-confirmation.js';
+import { handleDirectRequest } from './functions/api/direct-requests.js';
+import { deliverRequestNotifications } from './functions/api/request-notifications.js';
+import { workbenchOrders } from './functions/api/workbench-orders.js';
 
 function json(data, init = {}) {
   return new Response(JSON.stringify(data), {
@@ -12,10 +14,14 @@ function json(data, init = {}) {
 }
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
+    if (url.pathname === '/api/workbench/orders') return workbenchOrders(request, env);
 
-    if (url.pathname === '/api/order-confirmation') {
+    const kind = url.pathname === '/api/requests' ? 'inquiry'
+      : url.pathname === '/api/order-requests' ? 'order'
+      : null;
+    if (kind) {
       if (request.method !== 'POST') {
         return json(
           { error: 'Method not allowed.' },
@@ -23,7 +29,7 @@ export default {
         );
       }
 
-      return handleOrderConfirmation({ request, env });
+      return handleDirectRequest(request, env, ctx, kind);
     }
 
     if (url.pathname.startsWith('/api/')) {
@@ -31,5 +37,9 @@ export default {
     }
 
     return env.ASSETS.fetch(request);
+  },
+
+  scheduled(_event, env, ctx) {
+    ctx.waitUntil(deliverRequestNotifications(env));
   },
 };

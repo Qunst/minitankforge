@@ -7,8 +7,6 @@ const root = process.cwd();
 const port = Number(process.env.MTF_LOCAL_PORT || 8000);
 const logDir = path.join(root, '.codex', 'logs');
 const errorLog = path.join(logDir, 'local-server.err.log');
-const orderConfirmationUrl = 'https://minitankforge.com/api/order-confirmation';
-const maxApiRequestBytes = 18000;
 
 function logError(error) {
   try {
@@ -38,60 +36,6 @@ const types = new Map([
 function send(res, status, body, type = 'text/plain; charset=utf-8') {
   res.writeHead(status, { 'content-type': type, 'cache-control': 'no-store' });
   res.end(body);
-}
-
-function readRequestBody(req, maxBytes) {
-  return new Promise((resolve, reject) => {
-    const chunks = [];
-    let size = 0;
-
-    req.on('data', chunk => {
-      size += chunk.length;
-      if (size > maxBytes) {
-        reject(new Error('Request body is too large'));
-        req.destroy();
-        return;
-      }
-      chunks.push(chunk);
-    });
-    req.on('end', () => resolve(Buffer.concat(chunks)));
-    req.on('error', reject);
-  });
-}
-
-async function proxyOrderConfirmation(req, res) {
-  const contentType = req.headers['content-type'] || '';
-  if (!contentType.toLowerCase().includes('application/json')) {
-    send(res, 415, JSON.stringify({ error: 'The request must use JSON.' }), 'application/json; charset=utf-8');
-    return;
-  }
-
-  let body;
-  try {
-    body = await readRequestBody(req, maxApiRequestBytes);
-  } catch (error) {
-    if (error.message === 'Request body is too large') {
-      send(res, 413, JSON.stringify({ error: error.message }), 'application/json; charset=utf-8');
-      return;
-    }
-    throw error;
-  }
-
-  const response = await fetch(orderConfirmationUrl, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      Origin: 'https://minitankforge.com',
-    },
-    body,
-  });
-  const responseBody = Buffer.from(await response.arrayBuffer());
-  res.writeHead(response.status, {
-    'content-type': response.headers.get('content-type') || 'application/json; charset=utf-8',
-    'cache-control': 'no-store',
-  });
-  res.end(responseBody);
 }
 
 function safePath(urlPath) {
@@ -150,13 +94,8 @@ const server = http.createServer(async (req, res) => {
   }
 
   const requestPath = req.url.split('?')[0];
-  if (req.method === 'POST' && requestPath === '/api/order-confirmation') {
-    try {
-      await proxyOrderConfirmation(req, res);
-    } catch (error) {
-      logError(error);
-      send(res, 502, JSON.stringify({ error: 'The live confirmation service could not be reached.' }), 'application/json; charset=utf-8');
-    }
+  if (req.method === 'POST' && requestPath.startsWith('/api/')) {
+    send(res, 503, JSON.stringify({ error: 'Use Wrangler dev to test form submissions locally.' }), 'application/json; charset=utf-8');
     return;
   }
 

@@ -133,11 +133,11 @@ Cloudflare deployment:
 - If a gallery video is just over the limit, recode that specific video slightly under 25 MiB rather than swapping it for a different clip. Leave the public filename stable when possible so existing page references keep working.
 
 Contact:
-- Request forms post owner notifications to Formspree: `https://formspree.io/f/mpqkrvqk`
-- The request basket calls `/api/order-confirmation` only after Formspree accepts the owner notification. The Worker then sends the customer confirmation through Resend using the encrypted `RESEND_API_KEY` secret.
+- Requests & Questions posts to `/api/requests` and the Request Basket posts to `/api/order-requests`.
+- The Worker saves requests and email jobs to D1. It uses Resend for owner notifications and basket customer confirmations, with scheduled retries for failed sends.
 - One-time Resend and Cloudflare setup is documented in `docs/customer-confirmation-email-setup.md`.
 - Mailto fallback sends to `quali3dprint@gmail.com`
-- Cloudflare Email Routing was also configured for `requests@minitankforge.com` forwarding, but the site form currently uses Formspree plus mailto.
+- Cloudflare Email Routing was also configured for `requests@minitankforge.com` forwarding. Both forms offer a direct email fallback.
 
 ## Collaboration Rules From The Owner
 

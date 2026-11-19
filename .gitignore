@@ -22,4 +22,5 @@ assets/unused/**
 extra tools/
 .tmp/
 .tmp-*/
+functions/.generated/
 .etsy-private/

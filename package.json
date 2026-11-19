@@ -3,6 +3,6 @@
   "private": true,
   "scripts": {
     "etsy:shipping-label": "node scripts/etsy/shipping-label.mjs",
-    "test:order-confirmation": "node scripts/test-order-confirmation.mjs"
+    "test:order-confirmation": "node scripts/build-request-catalog.cjs && node scripts/test-order-confirmation.mjs"
   }
 }

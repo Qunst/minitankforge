@@ -5,6 +5,12 @@
   "compatibility_date": "2026-04-12",
   "workers_dev": false,
   "preview_urls": false,
+  "build": {
+    "command": "node scripts/build-request-catalog.cjs"
+  },
+  "triggers": {
+    "crons": ["*/5 * * * *"]
+  },
   "observability": {
     "enabled": true
   },
@@ -20,6 +26,21 @@
     "RESEND_FROM_NAME": "MiniTankForge",
     "RESEND_REPLY_TO_EMAIL": "quali3dprint@gmail.com"
   },
+  "d1_databases": [
+    {
+      "binding": "REQUESTS_DB",
+      "database_name": "minitankforge-requests",
+      "database_id": "5099c77e-94b8-48ec-b03d-3872c9dbc714",
+      "migrations_dir": "functions/migrations/requests"
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "REQUESTS_LIMIT",
+      "namespace_id": "2026111901",
+      "simple": { "limit": 3, "period": 60 }
+    }
+  ],
   "compatibility_flags": [
     "nodejs_compat"
   ]

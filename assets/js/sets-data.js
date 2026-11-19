@@ -949,7 +949,7 @@ window.SETS = [
           Unpainted: 26.00,
           'Base coat': 33.00
         },
-        contents: ['1x Opel-blitz truck', '1x Sherman', '1x Tiger I', '4x Infantry', '4x Panzer III', '4x Panzer IV']
+        contents: ['1x Opel Maultier', '1x Sherman', '1x Tiger I', '4x Infantry', '4x Panzer III', '4x Panzer IV']
       },
       {
         slug: 'tanks-only',
@@ -967,7 +967,7 @@ window.SETS = [
           Unpainted: 11.00,
           'Base coat': 15.00
         },
-        contents: ['1x Opel-blitz truck', '4x Infantry']
+        contents: ['1x Opel Maultier', '4x Infantry']
       },
       {
         slug: 'extra-sherman',

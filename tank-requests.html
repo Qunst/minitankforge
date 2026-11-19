@@ -21,7 +21,7 @@
   <meta content="Request custom 3D printed tank miniatures, ask about unlisted vehicles, finishes, large orders, scale choices, direct payment, or Etsy options." name="twitter:description"/>
   <meta content="https://minitankforge.com/assets/img/hero.jpg" name="twitter:image"/>
   <link href="assets/css/styles.css?v=33" rel="stylesheet"/>
-  <script defer src="assets/js/app.js?v=70"></script>
+  <script defer src="assets/js/app.js?v=72"></script>
  </head>
  <body>
   <header class="topbar">
@@ -83,33 +83,32 @@
     </p>
    </section>
    <section class="card request-panel">
-    <form action="https://formspree.io/f/mpqkrvqk" data-request-form method="POST">
+    <form action="/api/requests" data-request-form method="POST">
      <div class="form-grid">
       <div>
        <label for="request-topic">
         Request topic
        </label>
-       <input id="request-topic" name="requestTopic" placeholder="Example: Churchill VII, custom German grey, 20 tank order" required/>
+       <input id="request-topic" name="requestTopic" maxlength="120" placeholder="Example: Churchill VII, custom German grey, 20 tank order" required/>
       </div>
       <div>
        <label for="email">
         Email
        </label>
-       <input id="email" name="email" placeholder="you@example.com" required type="email"/>
+       <input id="email" name="email" maxlength="254" autocomplete="email" placeholder="you@example.com" required type="email"/>
       </div>
      </div>
-     <input name="_subject" type="hidden" value="MiniTankForge request"/>
      <div style="margin-top:14px">
       <label for="reference">
        Optional reference link, listing, or image note
       </label>
-      <input id="reference" name="reference" placeholder="Link, Etsy listing, photo note, or short reference"/>
+      <input id="reference" name="reference" maxlength="500" placeholder="Link, Etsy listing, photo note, or short reference"/>
      </div>
      <div style="margin-top:14px">
       <label for="details">
        Details
       </label>
-      <textarea id="details" name="details" placeholder="Tell me what you need: new vehicle, finish/color request, scale, quantity, deadline, or general question." required></textarea>
+      <textarea id="details" name="details" maxlength="4000" placeholder="Tell me what you need: new vehicle, finish/color request, scale, quantity, deadline, or general question." required></textarea>
      </div>
      <div class="hp-field" aria-hidden="true">
       <label for="website">
@@ -118,14 +117,14 @@
       <input autocomplete="off" id="website" name="website" tabindex="-1" type="text"/>
      </div>
      <div class="page-actions">
-      <button class="btn btn-primary" data-request-submit type="submit">
+      <button class="btn btn-primary" data-request-submit type="submit" disabled>
        Send Request
       </button>
       <a class="btn" data-request-mailto href="mailto:quali3dprint@gmail.com?subject=MiniTankForge%20Request">
        Open Email Instead
       </a>
      </div>
-     <div class="notice request-form-status" data-request-status hidden>
+     <div class="notice request-form-status" data-request-status role="status" hidden>
       Your request was sent.
      </div>
     </form>
